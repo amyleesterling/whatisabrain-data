@@ -208,6 +208,12 @@
   .stage { display:block; }
   .side.hud { position:absolute; top:12px; left:12px; z-index:3; width:min(320px, calc(100% - 24px)); max-height:calc(100% - 92px); overflow:auto; padding:14px 16px; }
   .side.hud.holopanel { background:linear-gradient(158deg, rgb(15 18 24 / .80) 0%, rgb(6 10 18 / .88) 100%); }
+  /* the corner icons stay above the panels, and a panel docked at the right
+     starts below them; square corners on the panels to match the brackets */
+  .fsicon, .panels { z-index:6; }
+  .side.hud.dock-right, .nameplate.dock-right { top:52px; }
+  .side.hud.holopanel, .nameplate.holopanel { border-radius:3px; }
+  .side.hud .trail[hidden] { display:none; }
   @media (max-width:640px){ .side.hud { position:static; width:auto; max-height:none; border-radius:0; border-left:0; border-right:0; border-top:1px solid var(--line); } }
   /* ---- the loading bar: a lit tube that fills with the bytes actually
      received, a bead at its head, ticks every tenth, the file named beneath.
@@ -291,7 +297,7 @@
         <p>在左侧选择一种模式。每个神经元都是一个真实的细胞，从整脑成像数据中重建而来，
           包括它的胞体、树突，以及轴突的全部长度。</p>
       </div>
-      <div class="trail"><span data-trailcount></span><button class="btn" data-clear>清除轨迹</button></div>
+      <div class="trail" hidden><span data-trailcount></span><button class="btn" data-clear>清除轨迹</button></div>
       </aside>
       </div>
       <div class="ctl">
@@ -330,8 +336,9 @@
           <label class="tog"><input type="checkbox" data-t-microns checked> 连接组立方体</label>
           <label class="tog"><input type="checkbox" data-t-turn checked> 旋转</label>
           <label class="surf">外壳 <input type="range" data-surface min="0" max="100" value="50"></label>
-          <label class="surf">脑区 <input type="range" data-divisions min="0" max="100" value="50">
-          <span class="lab" style="min-width:0">线缆</span><label class="tog"><input type="checkbox" data-t-solid checked> 实心线缆</label> <input type="range" data-cables min="0.2" max="4" step="0.1" value="1" title="How much light each axon carries in the every-axon and region views"></label>
+          <label class="surf">脑区 <input type="range" data-divisions min="0" max="100" value="50"></label>
+          <span class="lab" style="min-width:0">线缆</span><label class="tog"><input type="checkbox" data-t-solid checked> 实心线缆</label>
+          <label class="surf">亮度 <input type="range" data-cables min="0.2" max="4" step="0.1" value="1" title="在全部轴突和脑区视图里，每条轴突带多少光"></label>
           <label class="tog"><input type="checkbox" data-t-zoom checked> 跟随神经元</label>
         </div>
         <div class="row">
@@ -445,7 +452,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "../js/mouse.js?v=57";
+  import { mountMouse } from "../js/mouse.js?v=59";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");

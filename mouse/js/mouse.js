@@ -152,14 +152,14 @@ export async function mountMouse(el) {
     const done = () => { const was = b.textContent; b.textContent = ZH ? "已复制" : "copied"; setTimeout(() => { b.textContent = was; }, 1400); };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(id).then(done, done); else done();
   });
-  function makeDockable(panel, home) {
+  function makeDockable(panel, home, locked) {
     const grip = panel.querySelector(".grip"); if (!grip) return;
     const stage = el.querySelector(".view");
     const key = "mouse.dock." + (panel.dataset.dock || "panel");
     /* a floating panel remembers where it is as a fraction of the stage,
        so a fullscreen stage puts it in the same place, not at the same
        pixel, which on a wide screen was the middle */
-    function apply(state) {
+    function applyRaw(state) {
       panel.classList.remove("dock-left", "dock-right", "dock-top", "dock-bottom", "floating");
       if (state.dock) { panel.classList.add("dock-" + state.dock); panel.style.left = panel.style.top = ""; return; }
       panel.classList.add("floating");
@@ -168,8 +168,10 @@ export async function mountMouse(el) {
       panel.style.left = Math.max(0, Math.min(sr.width - panel.offsetWidth, x)) + "px";
       panel.style.top = Math.max(0, Math.min(sr.height - panel.offsetHeight, y)) + "px";
     }
+    const apply = (state) => { applyRaw(state); el.dispatchEvent(new CustomEvent("dock")); };
     let state = null;
-    try { state = JSON.parse(localStorage.getItem(key) || "null"); } catch (e) {}
+    /* a locked panel opens at home every time; it can still be dragged */
+    if (!locked) try { state = JSON.parse(localStorage.getItem(key) || "null"); } catch (e) {}
     if (!state) state = { dock: home };
     apply(state);
     /* a panel left floating in a fullscreen stage is off the edge of the
@@ -227,7 +229,7 @@ export async function mountMouse(el) {
   if (card) new MutationObserver(() => { holoBoot(el.querySelector("[data-hud]")); holoBoot(plate); }).observe(card, { childList: true });
   if (plate) makeDockable(plate, "left");
   const hudPanel = el.querySelector("[data-hud]");
-  if (hudPanel) makeDockable(hudPanel, "right");
+  if (hudPanel) makeDockable(hudPanel, "right", true);
   syncPlate();
   const legend = el.querySelector("[data-legend]");
   const q = (s) => el.querySelector(s);
@@ -285,11 +287,26 @@ export async function mountMouse(el) {
     renderer.render(cableScene, cableCam);
     renderer.autoClear = prevAuto;
   }
+  /* the frame is centred on the part of the picture the docked card leaves
+     open: with the card at the right the projection slides left by half the
+     card's width, so a neuron brought to the centre is not under the card */
+  function syncViewOffset() {
+    const w = mount.clientWidth, h = mount.clientHeight; if (!w || !h) return;
+    const hud = el.querySelector("[data-hud]");
+    let ox = 0;
+    if (hud && hud.offsetParent && getComputedStyle(hud).position === "absolute" && !el.classList.contains("panels-off")) {
+      if (hud.classList.contains("dock-right")) ox = hud.offsetWidth / 2;
+      else if (hud.classList.contains("dock-left")) ox = -hud.offsetWidth / 2;
+    }
+    if (Math.abs(ox) < 1) camera.clearViewOffset(); else camera.setViewOffset(w, h, ox, 0, w, h);
+  }
+  el.addEventListener("dock", () => { syncViewOffset(); });
   function fitAll() {
     if (!fitRenderer(renderer, camera, mount)) return;
     const w = mount.clientWidth, h = mount.clientHeight;
     composer.setSize(w, h); bloom.setSize(w, h);
     const pr = renderer.getPixelRatio(); cableRT.setSize(Math.round(w * pr), Math.round(h * pr));
+    syncViewOffset();
   }
   fitAll();
 
@@ -323,11 +340,11 @@ export async function mountMouse(el) {
   const REGION_A = 0.06, REGION_A_LIT = 0.022, SHELL_A = 0.07, SHELL_A_LIT = 0.04;
   /* the surface slider scales every shell and division tint, 0 to 2x */
   let surfaceGain = 1, divisionGain = 1;
-  let shellSolid = null;
+  let shellSolid = null, shellWire = null;
   /* the shell: front faces only, no depth write, so the neurons inside show */
   const shellMesh = await loadGlb("meshes/root.glb", T.loadShell);
-  shellSolid = shellMaterials(shellMesh, { color: SHELL, emissive: SHELL_EM, emissiveIntensity: 0.25,
-    opacity: SHELL_A, side: "front", depthWrite: false, wire: SHELL_WIRE, wireOpacity: 0.012 }).solid;
+  { const sm = shellMaterials(shellMesh, { color: SHELL, emissive: SHELL_EM, emissiveIntensity: 0.25,
+      opacity: SHELL_A, side: "front", depthWrite: false, wire: SHELL_WIRE, wireOpacity: 0.012 }); shellSolid = sm.solid; shellWire = sm.wire; }
   shellMesh.renderOrder = 5;
   shellG.add(shellMesh);
 
@@ -342,9 +359,20 @@ export async function mountMouse(el) {
   const decodeLook = (str) => { try { return JSON.parse(decodeURIComponent(escape(atob(str.replace(/-/g, "+").replace(/_/g, "/"))))); } catch (e) { return null; } };
   async function applyLook(raw) {
     const look = decodeLook(raw); if (!look) return;
-    const HM = await import("../vendor/scifi-ui/holo-material.js");
-    const opts = Object.assign({}, HM.HOLO_DEFAULTS, HM.HOLO_ERAS[look.era] || {}, HM.HOLO_STYLES[look.style] || {}, look);
-    opts.density = 0; opts.halo = 0; opts.solid = 0; opts.touch = 0;
+    const HM = await import("../vendor/scifi-ui/holo-material.js?v=4");
+    /* only the keys the material knows, as numbers or colours; the volume,
+       halo, touch and opaque terms stay off (they need passes this page does
+       not run), and the gain has a floor so a look tuned on a black stage
+       cannot take the shell away entirely */
+    const clean = {};
+    for (const k of Object.keys(HM.HOLO_DEFAULTS)) {
+      const v = look[k]; if (v == null) continue;
+      if (typeof HM.HOLO_DEFAULTS[k] === "number") { if (Number.isFinite(+v)) clean[k] = +v; }
+      else if (typeof v === "string" && /^#[0-9a-f]{6}$/i.test(v)) clean[k] = v;
+    }
+    const opts = Object.assign({}, HM.HOLO_DEFAULTS, HM.HOLO_ERAS[look.era] || {}, HM.HOLO_STYLES[look.style] || {}, clean);
+    opts.density = 0; opts.halo = 0; opts.solid = 0; opts.touch = 0; opts.opaque = 0;
+    opts.opacity = Math.max(0.35, Math.min(3, opts.opacity || 1));
     delete opts.era; delete opts.style;
     if (holoMat) { holoMat.dispose(); }
     holoMat = HM.makeHologramMaterial(opts);
@@ -930,7 +958,7 @@ export async function mountMouse(el) {
     trails.length = 0; syncTrailCount();
   }
   function syncTrailCount() {
-    const n = q("[data-trailcount]"); if (n) n.textContent = trails.length ? T.traced(trails.length) : "";
+    const n = q("[data-trailcount]"); if (n) { n.textContent = trails.length ? T.traced(trails.length) : ""; const tr = n.closest(".trail"); if (tr) tr.hidden = !trails.length; }
   }
 
   /* ---- all axons at once -------------------------------------------------- */
@@ -1463,7 +1491,13 @@ export async function mountMouse(el) {
     for (const m of matchMeshes) { matchG.remove(m); m.geometry.dispose(); m.material.dispose(); }
     matchMeshes = [];
     const recs = candidates();
-    if (recs.length > 6000) { status.textContent = ZH ? `匹配 ${fmt(recs.length)} 个神经元，太多了：请再收窄筛选（少于 6,000 个）。` : `${fmt(recs.length)} neurons match, too many to draw at once: narrow the filters to under 6,000.`; renderMatchCard(recs, null); return; }
+    if (recs.length > 6000) {
+      const none = !filterRegion && filterSrc === "all" && filterDiv === "all";
+      status.textContent = none
+        ? (ZH ? `“符合筛选的全部”会把通过筛选的每个神经元的整条轴突一次画出，并按亚型着色。先在下面选一个胞体所在脑区、数据集或脑区分部：${fmt(recs.length)} 个是全部，太多了。` : `All that match draws every neuron that passes the filters, whole axons at once, coloured by subtype. Pick a cell body region, a dataset or a division below first: ${fmt(recs.length)} is every neuron, too many to draw.`)
+        : (ZH ? `匹配 ${fmt(recs.length)} 个神经元，太多了：请再收窄筛选（少于 6,000 个）。` : `${fmt(recs.length)} neurons match, too many to draw at once: narrow the filters to under 6,000.`);
+      renderMatchCard(recs, null); return;
+    }
     const key = colourKeyFor(recs);
     /* A population is drawn as a SAMPLE when it is large: nine hundred CA3
        cells at once were a pink haze in which no line and no colour could
@@ -1525,6 +1559,10 @@ export async function mountMouse(el) {
     if (!card) return;
     const what = [filterRegion ? filterRegion : null, filterSrc !== "all" ? (T.sources[filterSrc] || filterSrc) : null, filterDiv !== "all" ? DIV(filterDiv) : null].filter(Boolean).join(" · ") || (ZH ? "全部" : "everything");
     let html = `<h3>${fmt(recs.length)}${T.neurons}</h3><p class="side">${what}</p>`;
+    if (!key) {
+      html += `<p>${ZH ? "这个视图把通过筛选的每个神经元的整条轴突一次画出，按亚型着色，点击一类只看它。现在的数量太多，先收窄：" : "This view draws every neuron that passes the filters, whole axons at once, coloured by subtype; click a class to see it alone. Too many match right now, so narrow it first:"}</p>` +
+        `<div class="legend">${["CA3", "CA1", "VISp", "MOs", "ACA", "DG"].map((r) => `<button class="kk" data-try="${r}"><b>${r}</b><span class="kd">${(meta.regions || {})[r] || ""}</span></button>`).join("")}</div>`;
+    }
     if (key) {
       const label = (k) => {
         if (matchColour === "subtype") {
@@ -1547,11 +1585,12 @@ export async function mountMouse(el) {
       html += `<div class="klist">` + key.keys.slice(0, 40).map((k) => `<button class="kk${isolated === k ? " is-on" : ""}" data-k="${k}"${titleOf(k)}><s style="background:${key.colours[k].getStyle()}"></s>${label(k)}<span class="kn">${fmt(key.counts[k])}</span></button>`).join("") + `</div>`;
       if (key.keys.length > 40) html += `<p class="side">${ZH ? `另有 ${key.keys.length - 40} 类` : `and ${key.keys.length - 40} more`}</p>`;
     }
-    html += `<p class="badge">${sampled
+    if (key) html += `<p class="badge">${sampled
       ? (ZH ? "神经元太多，一次画不清：这里随机抽取了约 220 个，各类别按比例，点击一类可看它的全部。这是一个样本：它显示各类去往何处，不显示密度。" : "Too many to draw at once, so about 220 are drawn at random, every class in proportion; click a class to see all of it. A sample shows where each class goes and how they differ, not how dense they are.")
       : (ZH ? "这是符合筛选条件的全部神经元的轴突，一次画出。粗线版本省略了短于 0.3 mm 的末梢。" : "Every neuron that passes the filters, its whole axon at once. The coarse copy leaves out twigs under 0.3 mm.")}</p>`;
     card.innerHTML = html;
     card.querySelectorAll("[data-k]").forEach((b) => b.addEventListener("click", () => { isolated = isolated === b.dataset.k ? null : b.dataset.k; drawMatching(); writeUrl(); }));
+    card.querySelectorAll("[data-try]").forEach((b) => b.addEventListener("click", () => { const fr0 = q("[data-f-region]"); if (!fr0) return; fr0.value = b.dataset.try; fr0.dispatchEvent(new Event("input")); }));
   }
   const mc = q("[data-colour]");
   if (mc) mc.addEventListener("change", () => { matchColour = mc.value; isolated = null; if (mode === "match") drawMatching(); writeUrl(); });
@@ -1679,7 +1718,7 @@ export async function mountMouse(el) {
     if (u.get("rc") && regionSel) { regionColour = u.get("rc"); regionSel.value = regionColour; }
     const r = (u.get("r") || "").split(",").map(Number);
     if (r.length === 2 && r.every(Number.isFinite)) { pivot.rotation.x = r[0]; pivot.rotation.y = r[1]; }
-    if (u.get("z")) zoomUser = zoomUserNow = Math.min(9, Math.max(0.25, Number(u.get("z")) || 1));
+    if (u.get("z")) zoomUser = zoomUserNow = Math.min(9, Math.max(0.05, Number(u.get("z")) || 1));
     const pp = (u.get("p") || "").split(",").map(Number);
     if (pp.length === 2 && pp.every(Number.isFinite)) pivot.position.set(pp[0], pp[1], 0);
     const sl = q("[data-surface]"), sd = q("[data-divisions]");
@@ -1752,7 +1791,7 @@ export async function mountMouse(el) {
   cv.addEventListener("pointercancel", () => { dragging = false; cv.style.cursor = "grab"; });
   cv.addEventListener("wheel", (ev) => {
     ev.preventDefault();
-    zoomUser = Math.min(inside ? 9 : 2.5, Math.max(0.25, zoomUser * Math.exp(ev.deltaY * 0.0012))); writeUrl();
+    zoomUser = Math.min(inside ? 9 : 2.5, Math.max(0.05, zoomUser * Math.exp(ev.deltaY * 0.0012))); writeUrl();
   }, { passive: false });
   cv.addEventListener("dblclick", () => { zoomUser = 1; pivot.position.set(0, 0, 0); writeUrl(); });
 
@@ -1819,11 +1858,12 @@ export async function mountMouse(el) {
   const panelsBtn = q("[data-panels]");
   const syncPanels = () => { const off = el.classList.contains("panels-off"); if (panelsBtn) { panelsBtn.setAttribute("aria-pressed", String(!off)); panelsBtn.title = off ? (ZH ? "显示控件" : "Show the controls") : (ZH ? "隐藏控件" : "Hide the controls"); } };
   if (panelsBtn) panelsBtn.addEventListener("click", () => { el.classList.toggle("panels-off"); syncPanels(); syncCtlH(); fitAll(); loop.once(); });
+  if (window.ResizeObserver && hudPanel) new ResizeObserver(() => syncViewOffset()).observe(hudPanel);
   syncPanels();
   const ctlEl = el.querySelector(".ctl");
   const syncCtlH = () => { el.style.setProperty("--ctl-h", (document.fullscreenElement && ctlEl && !el.classList.contains("panels-off") ? ctlEl.offsetHeight : 0) + "px"); };
   if (ctlEl && window.ResizeObserver) new ResizeObserver(syncCtlH).observe(ctlEl);
-  document.addEventListener("fullscreenchange", () => { fitAll(); syncCtlH(); if (fsBtn) fsBtn.textContent = document.fullscreenElement ? (ZH ? "退出全屏" : "Exit fullscreen") : (ZH ? "全屏" : "Fullscreen"); });
+  document.addEventListener("fullscreenchange", () => { fitAll(); syncCtlH(); setTimeout(fitAll, 120); if (fsBtn) fsBtn.textContent = document.fullscreenElement ? (ZH ? "退出全屏" : "Exit fullscreen") : (ZH ? "全屏" : "Fullscreen"); });
   /* share: the address bar already holds the view; copy it */
   /* save an image: the frame as drawn, with a caption band naming the cell,
      its region, the source and the page, so the picture travels with its
@@ -1897,7 +1937,7 @@ export async function mountMouse(el) {
   if (pauseBtn) { pauseBtn.addEventListener("click", () => { idleTurn = !idleTurn; if (turnBox) turnBox.checked = idleTurn; syncPause(); writeUrl(); }); syncPause(); }
   onToggle("[data-t-zoom]", (on) => { zoomIn = on; retarget(); });
   const sl = q("[data-surface]");
-  if (sl) sl.addEventListener("input", () => { surfaceGain = sl.value <= 0 ? 0 : Math.pow(2, (sl.value - 50) / 50 * 1.5); writeUrl(); });
+  if (sl) sl.addEventListener("input", () => { surfaceGain = sl.value <= 0 ? 0 : Math.pow(2, (sl.value - 50) / 50 * 2.5); writeUrl(); });
   const sd = q("[data-divisions]");
   if (sd) sd.addEventListener("input", () => { divisionGain = sd.value <= 0 ? 0 : Math.pow(2, (sd.value - 50) / 50 * 1.5); writeUrl(); });
   const next = q("[data-next]"); if (next) next.addEventListener("click", () => { const r = pickRandom(); if (r) focusOn(r, true); });
@@ -1952,7 +1992,8 @@ export async function mountMouse(el) {
     const lit = !!current || !!inside || mode === "all" || mode === "match" || mode === "region";
     for (const m of regionMats) m.opacity += ((lit ? REGION_A_LIT : REGION_A) * divisionGain - m.opacity) * k;
     if (shellSolid) shellSolid.opacity += ((lit ? SHELL_A_LIT : SHELL_A) * surfaceGain - shellSolid.opacity) * k;
-    if (holoMat) { holoMat.userData.tick(holoMat, performance.now() / 1000); holoMat.uniforms.uOpacity.value = holoMat.userData.gain * surfaceGain * (lit ? 0.6 : 1); }
+    if (shellWire) shellWire.opacity = 0.012 * Math.min(surfaceGain, 4);
+    if (holoMat) { holoMat.userData.tick(holoMat, performance.now() / 1000); holoMat.uniforms.uOpacity.value = holoMat.userData.gain * surfaceGain * (lit ? 1 : 1.4); }
     bloom.strength += ((inside ? 0.1 : mode === "all" ? 0.12 : mode === "match" ? 0.05 : mode === "region" ? 0.09 : 0.3) - bloom.strength) * k;
     /* the live meshes: the clock the born times are on, and the GPU catches
        up with whatever landed since the last frame, once per frame */
@@ -1970,6 +2011,10 @@ export async function mountMouse(el) {
     const back = Math.max(1, 1.4 / camera.aspect) * zoomUserNow;
     camera.position.z = zNow * back; camera.position.y = 3.5 * (zNow / HOME_Z) * back;
     camera.lookAt(0, 0, 0);
+    /* the near plane rides with the distance: half a millimetre is fine
+       from across the brain and cuts the cells in half inside a cube */
+    const nearWant = Math.min(0.5, Math.max(0.01, camera.position.length() * 0.02));
+    if (Math.abs(nearWant - camera.near) > camera.near * 0.1) { camera.near = nearWant; camera.updateProjectionMatrix(); }
     if (current && !current.done) {
       current.t += dt;
       const grow = current.t * SPEED;

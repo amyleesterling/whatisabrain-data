@@ -207,6 +207,12 @@
   .stage { display:block; }
   .side.hud { position:absolute; top:12px; left:12px; z-index:3; width:min(320px, calc(100% - 24px)); max-height:calc(100% - 92px); overflow:auto; padding:14px 16px; }
   .side.hud.holopanel { background:linear-gradient(158deg, rgb(15 18 24 / .80) 0%, rgb(6 10 18 / .88) 100%); }
+  /* the corner icons stay above the panels, and a panel docked at the right
+     starts below them; square corners on the panels to match the brackets */
+  .fsicon, .panels { z-index:6; }
+  .side.hud.dock-right, .nameplate.dock-right { top:52px; }
+  .side.hud.holopanel, .nameplate.holopanel { border-radius:3px; }
+  .side.hud .trail[hidden] { display:none; }
   @media (max-width:640px){ .side.hud { position:static; width:auto; max-height:none; border-radius:0; border-left:0; border-right:0; border-top:1px solid var(--line); } }
   /* ---- the loading bar: a lit tube that fills with the bytes actually
      received, a bead at its head, ticks every tenth, the file named beneath.
@@ -294,7 +300,7 @@
           whole-brain image stack, with its cell body, its dendrites and the entire
           length of its axon.</p>
       </div>
-      <div class="trail"><span data-trailcount></span><button class="btn" data-clear>Clear the traces</button></div>
+      <div class="trail" hidden><span data-trailcount></span><button class="btn" data-clear>Clear the traces</button></div>
       </aside>
       </div>
       <div class="ctl">
@@ -333,8 +339,9 @@
           <label class="tog"><input type="checkbox" data-t-microns checked> the connectome cubes</label>
           <label class="tog"><input type="checkbox" data-t-turn checked> turn</label>
           <label class="surf">shell <input type="range" data-surface min="0" max="100" value="50"></label>
-          <label class="surf">divisions <input type="range" data-divisions min="0" max="100" value="50">
-          <span class="lab" style="min-width:0">cables</span><label class="tog"><input type="checkbox" data-t-solid checked> solid cables</label> <input type="range" data-cables min="0.2" max="4" step="0.1" value="1" title="How much light each axon carries in the every-axon and region views"></label>
+          <label class="surf">divisions <input type="range" data-divisions min="0" max="100" value="50"></label>
+          <span class="lab" style="min-width:0">cables</span><label class="tog"><input type="checkbox" data-t-solid checked> solid cables</label>
+          <label class="surf">light <input type="range" data-cables min="0.2" max="4" step="0.1" value="1" title="How much light each axon carries in the every-axon and region views"></label>
           <label class="tog"><input type="checkbox" data-t-zoom checked> follow the neuron</label>
         </div>
         <div class="row">
@@ -477,7 +484,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "./js/mouse.js?v=57";
+  import { mountMouse } from "./js/mouse.js?v=59";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");
