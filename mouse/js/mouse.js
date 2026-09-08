@@ -448,6 +448,25 @@ export async function mountMouse(el) {
   }
   placeCubes().catch(() => {});
 
+  /* A cell as tissue, not plastic. Matte, a soft sheen the way a membrane
+     catches light, no metal, and a fresnel rim in the cell's own colour so
+     the silhouette of every branch reads against the ones behind it.
+     Submerged tissue is never glossy; the rim carries the form instead. */
+  function tissueMaterial(col, featured, neighbour) {
+    const m = new THREE.MeshPhysicalMaterial({
+      color: col, roughness: 0.88, metalness: 0, sheen: 0.55, sheenRoughness: 0.85,
+      sheenColor: col.clone().lerp(new THREE.Color("#ffffff"), 0.5),
+      emissive: col, emissiveIntensity: featured ? 0.08 : 0.04,
+      transparent: !!neighbour, opacity: neighbour ? 0.9 : 1 });
+    m.onBeforeCompile = (sh) => {
+      sh.uniforms.uRim = { value: col.clone().multiplyScalar(featured ? 0.9 : 0.6) };
+      sh.fragmentShader = sh.fragmentShader
+        .replace("#include <common>", "#include <common>" + String.fromCharCode(10) + "uniform vec3 uRim;")
+        .replace("#include <emissivemap_fragment>", "#include <emissivemap_fragment>" + String.fromCharCode(10) +
+          "{ vec3 nV = normalize(vViewPosition); float f = pow(1.0 - abs(dot(normalize(normal), nV)), 3.0); totalEmissiveRadiance += uRim * f; }");
+    };
+    return m;
+  }
   const packCache = {};
   async function loadPack(cu) {
     if (packCache[cu.id]) return packCache[cu.id];
@@ -506,9 +525,13 @@ export async function mountMouse(el) {
       const file = cell.file.startsWith("meshes/") || cell.file.startsWith("data/") ? cell.file : cu.dir + cell.file;
       let m; try { m = await loadGlb(file); } catch (e) { continue; }
       if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals();
-      const col = new THREE.Color(cell.colour || (cell.featured ? "#fff1c0" : null) || CAT[cell.category] || cu.colour);
-      m.material = new THREE.MeshStandardMaterial({ color: col, roughness: 0.65, metalness: 0.05, emissive: col, emissiveIntensity: cell.featured ? 0.1 : 0.06,
-        transparent: !!(featuredSlug && cell.role === "pyramidal cell" && !cell.featured), opacity: (featuredSlug && cell.role === "pyramidal cell" && !cell.featured) ? 0.7 : 1 });
+      /* the neighbours each get a colour of their own from a warm palette,
+         so packed cells can be told apart; the featured cell stays cream,
+         the fibres green */
+      const NEIGHBOUR = ["#e0b060", "#c98a5b", "#d9c48a", "#b98e7a", "#e6a86b", "#cdb27e", "#d4a373", "#bfa27a", "#e3b98a", "#c7a06a"];
+      const isNeighbour = featuredSlug && cell.role === "pyramidal cell" && !cell.featured;
+      const col = new THREE.Color(cell.colour || (cell.featured ? "#fff1c0" : null) || (isNeighbour ? NEIGHBOUR[cells.length % NEIGHBOUR.length] : null) || CAT[cell.category] || cu.colour);
+      m.material = tissueMaterial(col, cell.featured, isNeighbour);
       m.renderOrder = 12; group.add(m); cells.push({ cell, mesh: m, colour: col });
       if (pack.synapses && pack.synapses.file && cell.featured) {
         try { const d = await dots(pack.synapses.file); group.add(d.pts); synCount += d.n; cell.synCount = d.n; cells[cells.length - 1].dots = d.pts; } catch (e) {}

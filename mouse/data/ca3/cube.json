@@ -69,12 +69,12 @@
   "extent_mm": [
    [
     0.0475,
-    0.1465,
+    0.1457,
     -0.0461
    ],
    [
-    0.3837,
-    0.4106,
+    0.3843,
+    0.411,
     0.046
    ]
   ]
@@ -86,30 +86,30 @@
    "role": "pyramidal cell",
    "segId": "648518346438632877",
    "file": "meshes/ca3/pyramidal-648518346438632877.glb",
-   "faces": 30000,
-   "vertices": 16878,
-   "bytes": 383244,
+   "faces": 299999,
+   "vertices": 150134,
+   "bytes": 5402308,
    "sourceFaces": 4471568,
    "strayFacesDropped": 0,
    "cleaning": {
     "componentsIn": 20927,
     "componentsDroppedUnder5um2": 20638,
-    "finalAgg": 8,
+    "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 23584.0,
-     "decimated": 12359.0
+     "decimated": 21376.0
     }
    },
    "source": "hero/hero_648518346438632877.obj",
    "bounds_mm": [
     [
      0.0475,
-     0.1465,
+     0.1457,
      -0.0461
     ],
     [
-     0.3837,
-     0.4106,
+     0.3843,
+     0.411,
      0.046
     ]
    ],
@@ -127,9 +127,9 @@
    "role": "mossy fibre",
    "segId": "648518346432881590",
    "file": "meshes/ca3/mossy-fibre-648518346432881590.glb",
-   "faces": 19999,
-   "vertices": 9862,
-   "bytes": 239048,
+   "faces": 79999,
+   "vertices": 39795,
+   "bytes": 958244,
    "sourceFaces": 98201,
    "strayFacesDropped": 0,
    "cleaning": {
@@ -138,18 +138,18 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 555.0,
-     "decimated": 525.0
+     "decimated": 553.0
     }
    },
    "source": "hero/fibre_648518346432881590.obj",
    "bounds_mm": [
     [
      0.1722,
-     0.2323,
+     0.2322,
      -0.04
     ],
     [
-     0.2197,
+     0.2198,
      0.3902,
      0.046
     ]
@@ -162,9 +162,9 @@
    "role": "mossy fibre",
    "segId": "648518346440660317",
    "file": "meshes/ca3/mossy-fibre-648518346440660317.glb",
-   "faces": 20000,
-   "vertices": 9915,
-   "bytes": 239688,
+   "faces": 60983,
+   "vertices": 30455,
+   "bytes": 732068,
    "sourceFaces": 62545,
    "strayFacesDropped": 0,
    "cleaning": {
@@ -173,7 +173,7 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 370.0,
-     "decimated": 356.0
+     "decimated": 370.0
     }
    },
    "source": "hero/fibre_648518346440660317.obj",
@@ -185,7 +185,7 @@
     ],
     [
      0.1915,
-     0.3879,
+     0.388,
      0.046
     ]
    ],
@@ -197,9 +197,9 @@
    "role": "mossy fibre",
    "segId": "648518346448994107",
    "file": "meshes/ca3/mossy-fibre-648518346448994107.glb",
-   "faces": 19999,
-   "vertices": 9874,
-   "bytes": 239192,
+   "faces": 80000,
+   "vertices": 39859,
+   "bytes": 959016,
    "sourceFaces": 91321,
    "strayFacesDropped": 0,
    "cleaning": {
@@ -208,7 +208,7 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 503.0,
-     "decimated": 478.0
+     "decimated": 502.0
     }
    },
    "source": "hero/fibre_648518346448994107.obj",
@@ -232,9 +232,9 @@
    "role": "mossy fibre",
    "segId": "648518346450631673",
    "file": "meshes/ca3/mossy-fibre-648518346450631673.glb",
-   "faces": 19999,
-   "vertices": 9958,
-   "bytes": 240196,
+   "faces": 46518,
+   "vertices": 23250,
+   "bytes": 558816,
    "sourceFaces": 48266,
    "strayFacesDropped": 0,
    "cleaning": {
@@ -243,7 +243,7 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 276.0,
-     "decimated": 269.0
+     "decimated": 276.0
     }
    },
    "source": "hero/fibre_648518346450631673.obj",
@@ -254,7 +254,7 @@
      -0.0461
     ],
     [
-     0.172,
+     0.1721,
      0.3652,
      0.046
     ]
@@ -267,9 +267,9 @@
    "role": "mossy fibre",
    "segId": "648518346452106477",
    "file": "meshes/ca3/mossy-fibre-648518346452106477.glb",
-   "faces": 20000,
-   "vertices": 9917,
-   "bytes": 239712,
+   "faces": 64899,
+   "vertices": 32427,
+   "bytes": 779228,
    "sourceFaces": 66515,
    "strayFacesDropped": 0,
    "cleaning": {
@@ -278,14 +278,14 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 375.0,
-     "decimated": 360.0
+     "decimated": 375.0
     }
    },
    "source": "hero/fibre_648518346452106477.obj",
    "bounds_mm": [
     [
      0.1572,
-     0.3184,
+     0.3183,
      -0.0461
     ],
     [
@@ -302,9 +302,9 @@
    "role": "mossy fibre",
    "segId": "648518346460875907",
    "file": "meshes/ca3/mossy-fibre-648518346460875907.glb",
-   "faces": 20000,
-   "vertices": 9942,
-   "bytes": 240008,
+   "faces": 47354,
+   "vertices": 23679,
+   "bytes": 568980,
    "sourceFaces": 48600,
    "strayFacesDropped": 0,
    "cleaning": {
@@ -313,7 +313,7 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 269.0,
-     "decimated": 261.0
+     "decimated": 269.0
     }
    },
    "source": "hero/fibre_648518346460875907.obj",
@@ -337,9 +337,9 @@
    "role": "pyramidal cell",
    "segId": "648518346437119102",
    "file": "meshes/ca3/pyramidal-648518346437119102.glb",
-   "faces": 19999,
-   "vertices": 6446,
-   "bytes": 198052,
+   "faces": 80000,
+   "vertices": 33000,
+   "bytes": 876708,
    "sourceFaces": 108986,
    "strayFacesDropped": 110,
    "cleaning": {
@@ -348,19 +348,19 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 20225.0,
-     "decimated": 18445.0
+     "decimated": 20146.0
     }
    },
    "source": "hq/thorny pyramidals ca3 250/648518346437119102.obj",
    "bounds_mm": [
     [
-     0.1502,
-     0.1567,
+     0.1501,
+     0.1566,
      -0.0461
     ],
     [
-     0.3972,
-     0.3068,
+     0.3975,
+     0.307,
      0.046
     ]
    ],
@@ -379,9 +379,9 @@
    "role": "pyramidal cell",
    "segId": "648518346440709733",
    "file": "meshes/ca3/pyramidal-648518346440709733.glb",
-   "faces": 20000,
-   "vertices": 6806,
-   "bytes": 202372,
+   "faces": 34244,
+   "vertices": 16185,
+   "bytes": 400388,
    "sourceFaces": 63163,
    "strayFacesDropped": 52,
    "cleaning": {
@@ -390,7 +390,7 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 11333.0,
-     "decimated": 11207.0
+     "decimated": 11333.0
     }
    },
    "source": "hq/thorny pyramidals ca3 250/648518346440709733.obj",
@@ -421,9 +421,9 @@
    "role": "pyramidal cell",
    "segId": "648518346441176157",
    "file": "meshes/ca3/pyramidal-648518346441176157.glb",
-   "faces": 19998,
-   "vertices": 6419,
-   "bytes": 197720,
+   "faces": 76733,
+   "vertices": 30875,
+   "bytes": 831608,
    "sourceFaces": 103999,
    "strayFacesDropped": 52,
    "cleaning": {
@@ -432,18 +432,18 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 19109.0,
-     "decimated": 17536.0
+     "decimated": 19109.0
     }
    },
    "source": "hq/thorny pyramidals ca3 250/648518346441176157.obj",
    "bounds_mm": [
     [
-     0.1635,
-     0.1038,
+     0.1634,
+     0.1037,
      -0.0461
     ],
     [
-     0.394,
+     0.3952,
      0.4029,
      0.0463
     ]
@@ -463,9 +463,9 @@
    "role": "pyramidal cell",
    "segId": "648518346443510793",
    "file": "meshes/ca3/pyramidal-648518346443510793.glb",
-   "faces": 19999,
-   "vertices": 6868,
-   "bytes": 203120,
+   "faces": 42086,
+   "vertices": 20694,
+   "bytes": 501552,
    "sourceFaces": 74428,
    "strayFacesDropped": 6,
    "cleaning": {
@@ -474,7 +474,7 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 13509.0,
-     "decimated": 13196.0
+     "decimated": 13509.0
     }
    },
    "source": "hq/thorny pyramidals ca3 250/648518346443510793.obj",
@@ -485,7 +485,7 @@
      -0.0461
     ],
     [
-     0.4003,
+     0.4001,
      0.3581,
      0.046
     ]
@@ -505,9 +505,9 @@
    "role": "pyramidal cell",
    "segId": "648518346445728800",
    "file": "meshes/ca3/pyramidal-648518346445728800.glb",
-   "faces": 19998,
-   "vertices": 6584,
-   "bytes": 199700,
+   "faces": 68752,
+   "vertices": 29147,
+   "bytes": 762984,
    "sourceFaces": 102446,
    "strayFacesDropped": 59,
    "cleaning": {
@@ -516,19 +516,19 @@
     "finalAgg": 7,
     "surfaceArea_um2": {
      "afterCleaning": 19280.0,
-     "decimated": 17574.0
+     "decimated": 19280.0
     }
    },
    "source": "hq/thorny pyramidals ca3 250/648518346445728800.obj",
    "bounds_mm": [
     [
-     0.1622,
+     0.1621,
      0.1385,
      -0.0461
     ],
     [
      0.3956,
-     0.4001,
+     0.4006,
      0.046
     ]
    ],
@@ -539,6 +539,636 @@
    ],
    "nucleusVolume_um3": 1490.3,
    "distanceToFeaturedNucleus_um": 32.7,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346452500473",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346452500473",
+   "file": "meshes/ca3/pyramidal-648518346452500473.glb",
+   "faces": 72482,
+   "vertices": 28011,
+   "bytes": 771732,
+   "sourceFaces": 94318,
+   "strayFacesDropped": 78,
+   "cleaning": {
+    "componentsIn": 442,
+    "componentsDroppedUnder5um2": 392,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 16156.0,
+     "decimated": 16156.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346452500473.obj",
+   "bounds_mm": [
+    [
+     0.1597,
+     0.1238,
+     -0.0461
+    ],
+    [
+     0.3984,
+     0.2672,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2241,
+    0.2378,
+    0.0258
+   ],
+   "nucleusVolume_um3": 1438.8,
+   "distanceToFeaturedNucleus_um": 37.3,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346451545760",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346451545760",
+   "file": "meshes/ca3/pyramidal-648518346451545760.glb",
+   "faces": 53941,
+   "vertices": 25803,
+   "bytes": 633992,
+   "sourceFaces": 78682,
+   "strayFacesDropped": 26,
+   "cleaning": {
+    "componentsIn": 409,
+    "componentsDroppedUnder5um2": 374,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 15071.0,
+     "decimated": 15071.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346451545760.obj",
+   "bounds_mm": [
+    [
+     0.1728,
+     0.116,
+     -0.0461
+    ],
+    [
+     0.405,
+     0.3621,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2506,
+    0.2658,
+    0.0238
+   ],
+   "nucleusVolume_um3": 1318.3,
+   "distanceToFeaturedNucleus_um": 41.7,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346449558821",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346449558821",
+   "file": "meshes/ca3/pyramidal-648518346449558821.glb",
+   "faces": 51605,
+   "vertices": 22185,
+   "bytes": 576560,
+   "sourceFaces": 69215,
+   "strayFacesDropped": 69,
+   "cleaning": {
+    "componentsIn": 378,
+    "componentsDroppedUnder5um2": 332,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 12433.0,
+     "decimated": 12433.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346449558821.obj",
+   "bounds_mm": [
+    [
+     0.1575,
+     0.1797,
+     -0.0461
+    ],
+    [
+     0.3714,
+     0.2496,
+     0.0461
+    ]
+   ],
+   "nucleus_mm": [
+    0.2091,
+    0.2275,
+    0.0285
+   ],
+   "nucleusVolume_um3": 1677.2,
+   "distanceToFeaturedNucleus_um": 44.7,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346450244465",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346450244465",
+   "file": "meshes/ca3/pyramidal-648518346450244465.glb",
+   "faces": 59403,
+   "vertices": 25444,
+   "bytes": 662452,
+   "sourceFaces": 84960,
+   "strayFacesDropped": 6,
+   "cleaning": {
+    "componentsIn": 456,
+    "componentsDroppedUnder5um2": 423,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 16335.0,
+     "decimated": 16335.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346450244465.obj",
+   "bounds_mm": [
+    [
+     0.1859,
+     0.1686,
+     -0.0462
+    ],
+    [
+     0.405,
+     0.3556,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2529,
+    0.2879,
+    0.0228
+   ],
+   "nucleusVolume_um3": 1393.9,
+   "distanceToFeaturedNucleus_um": 46.4,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346435431676",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346435431676",
+   "file": "meshes/ca3/pyramidal-648518346435431676.glb",
+   "faces": 51255,
+   "vertices": 24793,
+   "bytes": 605756,
+   "sourceFaces": 76202,
+   "strayFacesDropped": 47,
+   "cleaning": {
+    "componentsIn": 421,
+    "componentsDroppedUnder5um2": 387,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 14251.0,
+     "decimated": 14251.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346435431676.obj",
+   "bounds_mm": [
+    [
+     0.0314,
+     0.1606,
+     -0.0461
+    ],
+    [
+     0.4002,
+     0.4083,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2244,
+    0.319,
+    0.0218
+   ],
+   "nucleusVolume_um3": 1442.2,
+   "distanceToFeaturedNucleus_um": 49.4,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346441978075",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346441978075",
+   "file": "meshes/ca3/pyramidal-648518346441978075.glb",
+   "faces": 46229,
+   "vertices": 19430,
+   "bytes": 511244,
+   "sourceFaces": 71235,
+   "strayFacesDropped": 14,
+   "cleaning": {
+    "componentsIn": 414,
+    "componentsDroppedUnder5um2": 385,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 13425.0,
+     "decimated": 13425.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346441978075.obj",
+   "bounds_mm": [
+    [
+     0.1626,
+     0.1303,
+     -0.0461
+    ],
+    [
+     0.396,
+     0.2695,
+     0.0461
+    ]
+   ],
+   "nucleus_mm": [
+    0.2287,
+    0.2237,
+    0.0228
+   ],
+   "nucleusVolume_um3": 1427.2,
+   "distanceToFeaturedNucleus_um": 52.2,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346433199997",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346433199997",
+   "file": "meshes/ca3/pyramidal-648518346433199997.glb",
+   "faces": 46851,
+   "vertices": 20661,
+   "bytes": 529748,
+   "sourceFaces": 61189,
+   "strayFacesDropped": 50,
+   "cleaning": {
+    "componentsIn": 312,
+    "componentsDroppedUnder5um2": 280,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 10766.0,
+     "decimated": 10766.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346433199997.obj",
+   "bounds_mm": [
+    [
+     0.1821,
+     0.271,
+     -0.0461
+    ],
+    [
+     0.398,
+     0.4069,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2477,
+    0.3098,
+    0.0234
+   ],
+   "nucleusVolume_um3": 1351.4,
+   "distanceToFeaturedNucleus_um": 53.8,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346425090817",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346425090817",
+   "file": "meshes/ca3/pyramidal-648518346425090817.glb",
+   "faces": 39205,
+   "vertices": 15082,
+   "bytes": 416924,
+   "sourceFaces": 51630,
+   "strayFacesDropped": 59,
+   "cleaning": {
+    "componentsIn": 220,
+    "componentsDroppedUnder5um2": 210,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 10004.0,
+     "decimated": 10004.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346425090817.obj",
+   "bounds_mm": [
+    [
+     0.1918,
+     0.1627,
+     -0.046
+    ],
+    [
+     0.3981,
+     0.3677,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2477,
+    0.2249,
+    0.0219
+   ],
+   "nucleusVolume_um3": 1076.4,
+   "distanceToFeaturedNucleus_um": 60.9,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346449770312",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346449770312",
+   "file": "meshes/ca3/pyramidal-648518346449770312.glb",
+   "faces": 46283,
+   "vertices": 20344,
+   "bytes": 522536,
+   "sourceFaces": 71099,
+   "strayFacesDropped": 17,
+   "cleaning": {
+    "componentsIn": 398,
+    "componentsDroppedUnder5um2": 374,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 13531.0,
+     "decimated": 13531.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346449770312.obj",
+   "bounds_mm": [
+    [
+     0.1437,
+     0.0855,
+     -0.0461
+    ],
+    [
+     0.3761,
+     0.2719,
+     0.0461
+    ]
+   ],
+   "nucleus_mm": [
+    0.1979,
+    0.2087,
+    0.0252
+   ],
+   "nucleusVolume_um3": 1375.2,
+   "distanceToFeaturedNucleus_um": 64.4,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346451309409",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346451309409",
+   "file": "meshes/ca3/pyramidal-648518346451309409.glb",
+   "faces": 56614,
+   "vertices": 24611,
+   "bytes": 635728,
+   "sourceFaces": 83858,
+   "strayFacesDropped": 27,
+   "cleaning": {
+    "componentsIn": 507,
+    "componentsDroppedUnder5um2": 485,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 14429.0,
+     "decimated": 14429.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346451309409.obj",
+   "bounds_mm": [
+    [
+     0.1236,
+     0.1337,
+     -0.0461
+    ],
+    [
+     0.4017,
+     0.4396,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.263,
+    0.3104,
+    0.0223
+   ],
+   "nucleusVolume_um3": 1455.8,
+   "distanceToFeaturedNucleus_um": 65.9,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346434066375",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346434066375",
+   "file": "meshes/ca3/pyramidal-648518346434066375.glb",
+   "faces": 40763,
+   "vertices": 17590,
+   "bytes": 456368,
+   "sourceFaces": 61773,
+   "strayFacesDropped": 92,
+   "cleaning": {
+    "componentsIn": 371,
+    "componentsDroppedUnder5um2": 351,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 9900.0,
+     "decimated": 9900.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346434066375.obj",
+   "bounds_mm": [
+    [
+     0.0665,
+     0.1594,
+     -0.0461
+    ],
+    [
+     0.3669,
+     0.2369,
+     0.0464
+    ]
+   ],
+   "nucleus_mm": [
+    0.1821,
+    0.203,
+    0.0293
+   ],
+   "nucleusVolume_um3": 1345.7,
+   "distanceToFeaturedNucleus_um": 74.4,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346431861023",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346431861023",
+   "file": "meshes/ca3/pyramidal-648518346431861023.glb",
+   "faces": 61731,
+   "vertices": 24464,
+   "bytes": 664664,
+   "sourceFaces": 82377,
+   "strayFacesDropped": 104,
+   "cleaning": {
+    "componentsIn": 447,
+    "componentsDroppedUnder5um2": 411,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 15313.0,
+     "decimated": 15313.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346431861023.obj",
+   "bounds_mm": [
+    [
+     0.2043,
+     0.2151,
+     -0.046
+    ],
+    [
+     0.4086,
+     0.3791,
+     0.0461
+    ]
+   ],
+   "nucleus_mm": [
+    0.2313,
+    0.3435,
+    0.0177
+   ],
+   "nucleusVolume_um3": 1513.8,
+   "distanceToFeaturedNucleus_um": 75.1,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346474119640",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346474119640",
+   "file": "meshes/ca3/pyramidal-648518346474119640.glb",
+   "faces": 65181,
+   "vertices": 27700,
+   "bytes": 724196,
+   "sourceFaces": 95986,
+   "strayFacesDropped": 111,
+   "cleaning": {
+    "componentsIn": 518,
+    "componentsDroppedUnder5um2": 480,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 14344.0,
+     "decimated": 14344.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346474119640.obj",
+   "bounds_mm": [
+    [
+     0.0779,
+     0.2494,
+     -0.0461
+    ],
+    [
+     0.3584,
+     0.431,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2351,
+    0.3596,
+    0.0306
+   ],
+   "nucleusVolume_um3": 1472.1,
+   "distanceToFeaturedNucleus_um": 91.4,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346446374761",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346446374761",
+   "file": "meshes/ca3/pyramidal-648518346446374761.glb",
+   "faces": 32194,
+   "vertices": 15073,
+   "bytes": 374748,
+   "sourceFaces": 61356,
+   "strayFacesDropped": 0,
+   "cleaning": {
+    "componentsIn": 557,
+    "componentsDroppedUnder5um2": 532,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 11297.0,
+     "decimated": 11297.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346446374761.obj",
+   "bounds_mm": [
+    [
+     0.1461,
+     0.0483,
+     -0.0461
+    ],
+    [
+     0.3387,
+     0.2223,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.1924,
+    0.1814,
+    0.0233
+   ],
+   "nucleusVolume_um3": 1594.0,
+   "distanceToFeaturedNucleus_um": 92.3,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346455289164",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346455289164",
+   "file": "meshes/ca3/pyramidal-648518346455289164.glb",
+   "faces": 40522,
+   "vertices": 16727,
+   "bytes": 444568,
+   "sourceFaces": 57295,
+   "strayFacesDropped": 23,
+   "cleaning": {
+    "componentsIn": 319,
+    "componentsDroppedUnder5um2": 291,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 10404.0,
+     "decimated": 10404.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346455289164.obj",
+   "bounds_mm": [
+    [
+     0.116,
+     0.1043,
+     -0.046
+    ],
+    [
+     0.237,
+     0.227,
+     0.0461
+    ]
+   ],
+   "nucleus_mm": [
+    0.1599,
+    0.1837,
+    0.0301
+   ],
+   "nucleusVolume_um3": 1597.5,
+   "distanceToFeaturedNucleus_um": 101.4,
    "synapsesOntoFeaturedCell": 0
   }
  ],
@@ -752,14 +1382,11 @@
   "materializationVersion": 671,
   "materializationNote": "version 671 exports were made 2026-07-29 (D:/Meshes/renders/hero_incoming.pkl, hero_outgoing_requery.pkl); 671 has since expired on the server. The featured root id is still the latest root as of the build date, so the cell has not been edited",
   "fullTableCrossCheck": {
-   "ran": true,
-   "files": 93,
-   "rowsPostIsHero": 6293,
-   "rowsPreIsHero": 128,
-   "matchesCachedExports": true
+   "ran": false,
+   "reason": "--no-verify"
   },
   "readback": {
-   "meshesReloaded": 12,
+   "meshesReloaded": 27,
    "mismatches": [],
    "synapsesInsideFeaturedExtent": 6333,
    "synapsesTotal": 6333,
@@ -767,8 +1394,8 @@
   },
   "meshSource": "hero + fibres: native CAVE meshes via meshparty (D:/Meshes/hero); neighbours: D:/Meshes/hq thorny population (cleaned, 5 faces/um2)",
   "nucleusSource": "c3_nuclei_v1 via D:/Meshes/renders/soma3d.parquet",
-  "decimation": "fast_simplification quadric collapse to 30000 (featured) / 20000 faces",
-  "built": "2026-09-07",
+  "decimation": "fast_simplification quadric collapse to 300000 (featured) / 80000 faces",
+  "built": "2026-09-08",
   "builder": "tools/build-ca3-cube.py"
  },
  "placement": {
