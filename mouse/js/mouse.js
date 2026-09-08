@@ -57,6 +57,11 @@ const T = ZH ? {
   reading: "读取中…", couldNot: "无法读取这个神经元。", clickAny: "点击任意一个胞体。",
   neurons: " 个神经元", oneAtATime: "逐个随机点亮。", bodiesShown: " 个胞体已显示。点击一个。",
   readingAll: "正在读取全部轴突：", drawn: " 个神经元已绘制", segs: " 条轴突线段",
+  lh: { reading: (n) => `正在读取 ${n} 个来源`, neurons: " 个神经元", segs: " 条线段", rate: " MB/s", left: (s) => `照此速度约 ${s} 秒后完成`, done: "读取完毕", ofBytes: " / " },
+  regionHint: "输入一个脑区，如 海马、CA3、丘脑：看到进出它的全部投射。",
+  regionNone: (q) => `没有叫“${q}”的脑区。试试 CA3、HPF、TH 或英文名称。`,
+  regionStatus: (acr, name, inner, c) => `${name}（${acr}${inner ? `，含其内 ${inner} 个子区` : ""}）：胞体在此的 ${c.from} 个（金色），轴突末梢落入此处的 ${c.to} 个（青色），两者皆是的 ${c.both} 个（品红）。`,
+  dir: { from: "胞体在此", to: "投射到此", both: "两者皆是" },
   loadShell: "脑外壳", loadIndex: "神经元索引", loadCells: "每一个细胞", loadShard: "神经元数据块",
   allDone: (n, s) => `${n} 个神经元，${s} 条轴突线段，每一条都是实测的。此比例下省略了短于 0.3 mm 的末梢。`,
   cellsDone: (k, e, t) => `已绘制 ${k} 个细胞，即这只小鼠脑中已定位的 ${t} 个细胞的十二分之一。`,
@@ -73,6 +78,11 @@ const T = ZH ? {
   reading: "reading…", couldNot: "Could not read that neuron. ", clickAny: "Click any cell body.",
   neurons: " neurons", oneAtATime: "One at a time, at random.", bodiesShown: " cell bodies shown. Click one.",
   readingAll: "Reading every axon: ", drawn: " neurons drawn", segs: " axon segments",
+  lh: { reading: (n) => `reading ${n} sources`, neurons: " neurons", segs: " segments", rate: " MB/s", left: (s) => `about ${s} s left at this rate`, done: "every axon read", ofBytes: " of " },
+  regionHint: "Type a region, hippocampus, CA3, thalamus, to see every projection to and from it.",
+  regionNone: (q) => `No region called "${q}". Try CA3, HPF, TH, or a name.`,
+  regionStatus: (acr, name, inner, c) => `${name} (${acr}${inner ? `, with ${inner} regions inside it` : ""}): ${fmt(c.from)} neurons with their cell body there (gold), ${fmt(c.to)} whose axons end there (cyan), ${fmt(c.both)} both (magenta).`,
+  dir: { from: "cell body here", to: "axon ends here", both: "both" },
   loadShell: "the brain shell", loadIndex: "the neuron index", loadCells: "every cell", loadShard: "a neuron shard",
   allDone: (n, s) => `${n} neurons, ${s} axon segments, every one of them measured. Twigs under 0.3 mm are left out at this scale.`,
   cellsDone: (k, e, t) => `${k} cells drawn, 1 in ${e} of the ${t} mapped in this brain.`,
@@ -123,6 +133,68 @@ export async function mountMouse(el) {
     bar.done(); return out.buffer;
   }
   const card = el.querySelector("[data-card]");
+  /* The name plate: the card's heading alone, top left on the canvas. The
+     rest of the card sits at the right. Both are panels you can drag, and a
+     panel dropped with more than thirty percent of it past an edge of the
+     stage docks flush to that edge; drag it by its grip to pull it off. */
+  const plate = el.querySelector("[data-nameplate]");
+  function syncPlate() {
+    if (!plate || !card) return;
+    const h3 = card.querySelector("h3");
+    const body = plate.querySelector("[data-plate-body]");
+    if (h3 && body) { body.innerHTML = h3.innerHTML; h3.classList.add("in-plate"); }
+    plate.hidden = !h3;
+  }
+  if (card) new MutationObserver(syncPlate).observe(card, { childList: true });
+  function makeDockable(panel, home) {
+    const grip = panel.querySelector(".grip"); if (!grip) return;
+    const stage = el.querySelector(".view");
+    const key = "mouse.dock." + (panel.dataset.dock || "panel");
+    function apply(state) {
+      panel.classList.remove("dock-left", "dock-right", "dock-top", "dock-bottom", "floating");
+      if (state.dock) { panel.classList.add("dock-" + state.dock); panel.style.left = panel.style.top = ""; return; }
+      panel.classList.add("floating");
+      panel.style.left = state.x + "px"; panel.style.top = state.y + "px";
+    }
+    let state = null;
+    try { state = JSON.parse(localStorage.getItem(key) || "null"); } catch (e) {}
+    if (!state) state = { dock: home };
+    apply(state);
+    let drag = null;
+    grip.addEventListener("pointerdown", (e) => {
+      const r = panel.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+      drag = { dx: e.clientX - r.left, dy: e.clientY - r.top, sr, w: r.width, h: r.height };
+      grip.setPointerCapture(e.pointerId); e.preventDefault();
+      panel.classList.add("dragging");
+    });
+    grip.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      const x = e.clientX - drag.dx - drag.sr.left, y = e.clientY - drag.dy - drag.sr.top;
+      apply({ x, y });
+      state = { x, y };
+    });
+    const drop = (e) => {
+      if (!drag) return;
+      panel.classList.remove("dragging");
+      const sr = drag.sr, x = state.x, y = state.y, w = drag.w, h = drag.h;
+      /* the share of the panel past each edge; the biggest past thirty
+         percent wins and the panel docks there */
+      const over = { left: -x / w, right: (x + w - sr.width) / w, top: -y / h, bottom: (y + h - sr.height) / h };
+      let best = null;
+      for (const k in over) if (over[k] > 0.3 && (!best || over[k] > over[best])) best = k;
+      state = best ? { dock: best } : { x: Math.max(0, Math.min(sr.width - w, x)), y: Math.max(0, Math.min(sr.height - h, y)) };
+      apply(state);
+      try { localStorage.setItem(key, JSON.stringify(state)); } catch (e2) {}
+      drag = null;
+    };
+    grip.addEventListener("pointerup", drop);
+    grip.addEventListener("pointercancel", drop);
+    grip.addEventListener("dblclick", () => { state = { dock: home }; apply(state); try { localStorage.setItem(key, JSON.stringify(state)); } catch (e2) {} });
+  }
+  if (plate) makeDockable(plate, "left");
+  const hudPanel = el.querySelector("[data-hud]");
+  if (hudPanel) makeDockable(hudPanel, "right");
+  syncPlate();
   const legend = el.querySelector("[data-legend]");
   const q = (s) => el.querySelector(s);
 
@@ -317,6 +389,25 @@ export async function mountMouse(el) {
     /* the pack's own units and file names: synapse bins are Int16 in
        unit_um (1 um after the rebuild), files are repo-relative paths */
     const unit = (pack.synapseBin && pack.synapseBin.unit_um) || (pack.synapses && pack.synapses.unit_mm ? pack.synapses.unit_mm * 1000 : 10);
+    /* Two layouts ship. MICrONS writes N Int16 xyz then N flags (planar);
+       CA3 writes seven bytes per point, x y z flag (interleaved), and says
+       so in its layout string. Read the one the pack declares: reading the
+       CA3 file as planar takes every value past the first across a record
+       boundary, which drew the featured cell's synapses as a ghost of its
+       arbor several millimetres wide outside the cube. */
+    const layoutOf = (o) => (o && o.layout) || "";
+    const interleaved = /per point/i.test(layoutOf(pack.synapses) + " " + layoutOf(pack.synapseBin));
+    function readSyn(buf) {
+      const n = Math.floor(buf.byteLength / 7);
+      const q = new Int16Array(n * 3), fl = new Uint8Array(n);
+      if (interleaved) {
+        const dv = new DataView(buf);
+        for (let i = 0; i < n; i++) { q[i * 3] = dv.getInt16(i * 7, true); q[i * 3 + 1] = dv.getInt16(i * 7 + 2, true); q[i * 3 + 2] = dv.getInt16(i * 7 + 4, true); fl[i] = dv.getUint8(i * 7 + 6); }
+      } else {
+        q.set(new Int16Array(buf, 0, n * 3)); fl.set(new Uint8Array(buf, n * 6, n));
+      }
+      return { n, q, fl };
+    }
     const CAT = { excitatory: "#6fd0ff", inhibitory: "#ff5cc0", glia: "#3fe3b0",
                   "pyramidal cell": "#ffd23f", "mossy fibre": "#3fe3b0" };
     /* one synapse bin for the whole pack (CA3: the featured cell's), read
@@ -324,8 +415,7 @@ export async function mountMouse(el) {
        dimmer */
     async function dots(file, colourIn, colourAuto) {
       const buf = await (await fetch(R(file))).arrayBuffer();
-      const n = Math.floor(buf.byteLength / 7);
-      const q = new Int16Array(buf, 0, n * 3), fl = new Uint8Array(buf, n * 6, n);
+      const { n, q, fl } = readSyn(buf);
       const pos = new Float32Array(n * 3), col = new Float32Array(n * 3);
       const cw = new THREE.Color("#ffffff"), ca = new THREE.Color(colourAuto || "#666e7c");
       for (let i = 0; i < n; i++) {
@@ -356,8 +446,7 @@ export async function mountMouse(el) {
       if (synFile && cell.category !== "glia") {
         try {
           const buf = await (await fetch(R(synFile.startsWith("data/") ? synFile : cu.dir.replace("meshes/", "data/") + synFile))).arrayBuffer();
-          const n = Math.floor(buf.byteLength / 7);
-          const q = new Int16Array(buf, 0, n * 3), fl = new Uint8Array(buf, n * 6, n);
+          const { n, q, fl } = readSyn(buf);
           const pos = new Float32Array(n * 3); for (let i = 0; i < n * 3; i++) pos[i] = q[i] * unit / 1000;
           const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
           const pts = new THREE.Points(g, new THREE.PointsMaterial({ color: "#ffffff", size: 1.4, sizeAttenuation: false, transparent: true, opacity: 0.4, depthWrite: false }));
@@ -750,18 +839,203 @@ export async function mountMouse(el) {
   const coarseBuf = {};
   const bySrc = {};
   for (const r of N) (bySrc[r.src] = bySrc[r.src] || []).push(r);
-  async function ensureCoarse(src) {
-    if (coarseBuf[src]) return coarseBuf[src];
+  /* The coarse file of one source, READ AS A STREAM. Every record's byte
+     range in the file is known before a byte arrives (the index carries
+     each neuron's cbytes, and the file is their concatenation), so as chunks
+     land each completed record is handed to onRecord at once, and the total
+     is the sum of cbytes, a true number, where a gzipped content-length is
+     not. The finished buffer is kept for the views that read it whole. */
+  async function streamCoarse(src, onRecord, signal, onBytes) {
+    const recs = bySrc[src] || [];
+    let off = 0;
+    for (const r of recs) { r._coff = off; off += r.cbytes || 0; }
+    const need = off;
+    if (coarseBuf[src]) {
+      if (onRecord) for (const r of recs) if (r.cbytes) onRecord(r, coarseBuf[src]);
+      if (onBytes) onBytes(src, need, need);
+      return coarseBuf[src];
+    }
     const files = meta.coarse_files || ["axons-coarse.bin"];
     const file = files.find((f) => f.replace(/^axons-coarse-?/, "").replace(/\.bin$/, "") === src) || files[0];
-    status.textContent = T.readingAll + (T.sources[src] || src || "all") + "…";
-    const buf = await fetchProgress("data/" + file, T.readingAll + (T.sources[src] || src || "all"));
-    /* block offsets per record, so a subset can be read without a full pass */
-    let off = 0;
-    for (const r of (bySrc[src] || N)) { r._coff = off; off += r.cbytes || 0; }
-    coarseBuf[src] = buf;
+    const r = await fetch(R("data/" + file), signal ? { signal } : undefined);
+    if (!r.ok) throw new Error(`${r.status} ${file}`);
+    const out = new Uint8Array(need);
+    let have = 0, next = 0;
+    const drain = () => {
+      while (next < recs.length && recs[next]._coff + (recs[next].cbytes || 0) <= have) {
+        if (recs[next].cbytes && onRecord) onRecord(recs[next], out.buffer);
+        next++;
+      }
+    };
+    if (!r.body) {
+      const b = new Uint8Array(await r.arrayBuffer());
+      out.set(b.subarray(0, need)); have = Math.min(b.length, need);
+    } else {
+      const rd = r.body.getReader();
+      for (;;) {
+        const { done, value } = await rd.read();
+        if (done) break;
+        const n = Math.min(value.length, need - have);
+        if (n > 0) out.set(value.subarray(0, n), have);
+        have += n;
+        drain();
+        if (onBytes) onBytes(src, have, need);
+      }
+    }
+    drain();
+    if (onBytes) onBytes(src, have, need);
+    coarseBuf[src] = out.buffer;
+    return out.buffer;
+  }
+  /* the views that read a source whole still get the byte bar */
+  async function ensureCoarse(src) {
+    if (coarseBuf[src]) return coarseBuf[src];
+    const label = T.readingAll + (T.sources[src] || src || "all");
+    status.textContent = label + "…";
+    const buf = await streamCoarse(src, null, null, (x, have, need) => bar.set(have, need, label));
+    bar.done();
     return buf;
   }
+
+  /* ---- the born line material. A segment that has landed grows in from
+     its soma end over GROW seconds behind a hot white head, stays bright
+     for a moment, and settles into the hairball. The growth is the reading
+     order made visible: an axon appears the way its bytes arrived. Reduced
+     motion: it is simply there. ---- */
+  const GROW = 0.9, FRESH = 1.6;
+  let liveT = performance.now() / 1000;
+  function bornMaterial(alpha) {
+    return new THREE.ShaderMaterial({
+      uniforms: { uTime: { value: 0 }, uAlpha: { value: alpha },
+        uGrow: { value: REDUCED ? 0.001 : GROW }, uFresh: { value: REDUCED ? 0.0 : 1.0 } },
+      vertexShader: `attribute float aBorn; attribute float aAlong;
+        varying vec3 vC; varying float vBorn; varying float vAlong;
+        void main() { vC = color; vBorn = aBorn; vAlong = aAlong;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `uniform float uTime; uniform float uAlpha; uniform float uGrow; uniform float uFresh;
+        varying vec3 vC; varying float vBorn; varying float vAlong;
+        void main() {
+          float age = uTime - vBorn; if (age < 0.0) discard;
+          float front = age / uGrow;
+          float reveal = smoothstep(vAlong - 0.04, vAlong, front); if (reveal <= 0.001) discard;
+          float head = exp(-abs(front - vAlong) * 18.0) * step(front, 1.05) * uFresh;
+          float fresh = exp(-max(age - uGrow, 0.0) / ${FRESH}) * uFresh;
+          vec3 c = vC * (1.0 + fresh * 1.2) + vec3(1.0) * head * 2.0;
+          float a = uAlpha * reveal * (1.0 + fresh * 1.5 + head * 4.0);
+          gl_FragColor = vec4(c, a);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
+        }`,
+      vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+  }
+  /* a LineSegments sized for a set of records before any has arrived; records
+     are written in as they land and the draw range grows behind them */
+  function liveMesh(recs, alpha) {
+    let S = 0; for (const r of recs) S += Math.max(0, (r.cverts || 0) - (r.cpaths || 0));
+    const pos = new Float32Array(S * 6), col = new Float32Array(S * 6), born = new Float32Array(S * 2), along = new Float32Array(S * 2);
+    const g = new THREE.BufferGeometry();
+    const attrs = { position: new THREE.BufferAttribute(pos, 3), color: new THREE.BufferAttribute(col, 3),
+      aBorn: new THREE.BufferAttribute(born, 1), aAlong: new THREE.BufferAttribute(along, 1) };
+    for (const k in attrs) { attrs[k].setUsage(THREE.DynamicDrawUsage); g.setAttribute(k, attrs[k]); }
+    g.setDrawRange(0, 0);
+    const mesh = new THREE.LineSegments(g, bornMaterial(alpha));
+    mesh.frustumCulled = false;
+    const L = { mesh, pos, col, born, along, seg: 0, S, flushed: 0, dirty: false,
+      flush() {
+        if (!this.dirty) return;
+        const from = this.flushed * 2, count = (this.seg - this.flushed) * 2;
+        for (const k in attrs) {
+          const a = attrs[k], sz = a.itemSize;
+          if (a.addUpdateRange) { a.clearUpdateRanges(); a.addUpdateRange(from * sz, count * sz); }
+          else a.updateRange = { offset: from * sz, count: count * sz };
+          a.needsUpdate = true;
+        }
+        g.setDrawRange(0, this.seg * 2);
+        this.flushed = this.seg; this.dirty = false;
+      } };
+    return L;
+  }
+  /* one record's coarse block into a live mesh, coloured, born now */
+  function pushRecord(L, buf, off, c, t) {
+    const dv = new DataView(buf, off, 8), P = dv.getUint32(0, true), V = dv.getUint32(4, true);
+    const counts = new Uint16Array(buf, off + 8, P);
+    const xyz = new Int16Array(buf, off + 8 + 2 * P, V * 3);
+    let v = 0, o = L.seg * 6, k = L.seg * 2, segs = 0;
+    const pos = L.pos, col = L.col, born = L.born, along = L.along;
+    for (let i = 0; i < P; i++) {
+      const n = counts[i], den = Math.max(1, n - 1);
+      for (let j = 0; j < n - 1; j++) {
+        if (k + 2 > L.S * 2) { v += n; break; }
+        const a = v + j, b = a + 1;
+        pos[o++] = xyz[a * 3] / 100; pos[o++] = xyz[a * 3 + 1] / 100; pos[o++] = xyz[a * 3 + 2] / 100;
+        pos[o++] = xyz[b * 3] / 100; pos[o++] = xyz[b * 3 + 1] / 100; pos[o++] = xyz[b * 3 + 2] / 100;
+        col[k * 3] = c.r; col[k * 3 + 1] = c.g; col[k * 3 + 2] = c.b;
+        col[k * 3 + 3] = c.r; col[k * 3 + 4] = c.g; col[k * 3 + 5] = c.b;
+        born[k] = t; born[k + 1] = t; along[k] = j / den; along[k + 1] = (j + 1) / den;
+        k += 2; segs++;
+      }
+      v += n;
+    }
+    L.seg = k / 2; L.dirty = true;
+    return segs;
+  }
+
+  /* ---- the reading HUD: what is being read, how much of it, how fast, and
+     what has landed where. Every number on it is measured: bytes from the
+     stream, the rate from a two second window of them, the time left from
+     that rate and the bytes still to come, the division counts from the
+     records as they land. ---- */
+  const hudEl = el.querySelector("[data-loadhud]");
+  const fmtMB1 = (b) => (b / 1048576).toFixed(1) + " MB";
+  const hud = {
+    at: 0, samples: [], hide: 0,
+    begin(srcs, totals) {
+      if (!hudEl) return;
+      clearTimeout(this.hide); this.samples = []; this.at = 0;
+      hudEl.hidden = false;
+      hudEl.innerHTML = '<div class="lh-bar">' + srcs.map((x) =>
+          `<i data-lh-src="${x}" style="flex:${Math.max(1, totals[x])}" title="${T.sources[x] || x}"><b></b></i>`).join("") +
+        '</div><div class="lh-line" data-lh-line></div><div class="lh-div" data-lh-div>' +
+        Object.keys(DIVISION).filter((d) => d !== "ventricles").map((d) =>
+          `<span data-lh-d="${d}" style="--c:${DIVISION[d]}"><i></i>${DIV(d)}<em>0</em></span>`).join("") + "</div>";
+    },
+    tick(bytes, totals, drawn, total, segs, divCount, force) {
+      if (!hudEl || hudEl.hidden) return;
+      const now = performance.now();
+      if (!force && now - this.at < 120) return;
+      this.at = now;
+      let have = 0, need = 0;
+      for (const x in totals) { have += bytes[x] || 0; need += totals[x]; }
+      for (const x in totals) {
+        const i = hudEl.querySelector(`[data-lh-src="${x}"] b`);
+        if (i) i.style.width = (totals[x] ? 100 * (bytes[x] || 0) / totals[x] : 0).toFixed(1) + "%";
+      }
+      this.samples.push([now, have]);
+      while (this.samples.length > 2 && now - this.samples[0][0] > 2000) this.samples.shift();
+      const s0 = this.samples[0];
+      const rate = now - s0[0] > 200 ? (have - s0[1]) / ((now - s0[0]) / 1000) : 0;
+      const left = rate > 0 ? Math.max(0, (need - have) / rate) : null;
+      const line = hudEl.querySelector("[data-lh-line]");
+      if (line) line.innerHTML =
+        `<span>${T.lh.reading(Object.keys(totals).length)}</span><span class="u">${fmtMB1(have)}${T.lh.ofBytes}${fmtMB1(need)}</span>` +
+        `<span>${fmt(drawn)} / ${fmt(total)}${T.lh.neurons}</span><span>${fmt(segs)}${T.lh.segs}</span>` +
+        (rate > 0 ? `<span class="u">${(rate / 1048576).toFixed(1)}${T.lh.rate}${left != null ? ", " + T.lh.left(Math.ceil(left)) : ""}</span>` : "");
+      let max = 1; for (const d in divCount) if (divCount[d] > max) max = divCount[d];
+      hudEl.querySelectorAll("[data-lh-d]").forEach((sp) => {
+        const n = divCount[sp.dataset.lhD] || 0;
+        sp.querySelector("em").textContent = fmt(n);
+        sp.style.opacity = n ? (0.45 + 0.55 * Math.sqrt(n / max)).toFixed(2) : 0.25;
+      });
+    },
+    done() {
+      if (!hudEl) return;
+      hudEl.querySelectorAll("[data-lh-src] b").forEach((b) => { b.style.width = "100%"; });
+      const line = hudEl.querySelector("[data-lh-line]");
+      if (line) line.innerHTML = `<span>${T.lh.done}</span>`;
+      this.hide = setTimeout(() => { hudEl.hidden = true; }, 2600);
+    },
+    end() { if (hudEl) { clearTimeout(this.hide); hudEl.hidden = true; } },
+  };
   /* one LineSegments for a set of records, coloured by colourOf(record) */
   function axonMesh(recs, buf, colourOf) {
     let S = 0; for (const r of recs) S += Math.max(0, (r.cverts || 0) - (r.cpaths || 0));
@@ -789,19 +1063,196 @@ export async function mountMouse(el) {
   const hairAlpha = (segs) => Math.min(0.2, 0.11 / Math.sqrt(Math.max(segs, 1) / 1000));
 
   const divColour = {}; const colourOfDivision = (r) => divColour[r.major] || (divColour[r.major] = new THREE.Color(DIVISION[r.major] || "#9aa2b1"));
+  /* Every axon: the five sources stream in parallel, and each neuron is
+     drawn the moment its bytes have landed, growing in from the cell body.
+     Leaving the view aborts the streams; a source that had finished is kept,
+     so coming back does not read it twice. */
+  let allAbort = null, allLive = null;
   async function loadAllAxons() {
-    if (axonsLoaded) return; axonsLoaded = true;
-    let drawn = 0, segsAll = 0; const meshes = [];
-    for (const src of Object.keys(bySrc)) {
-      let buf; try { buf = await ensureCoarse(src); } catch (e) { continue; }
-      const { mesh, segs, drawn: d } = axonMesh(bySrc[src], buf, colourOfDivision);
-      meshes.push(mesh); axonG.add(mesh); segsAll += segs; drawn += d;
-      for (const mm of meshes) mm.material.opacity = hairAlpha(segsAll);
-      status.textContent = `${fmt(drawn)} / ${fmt(N.length)}${T.drawn}, ${fmt(segsAll)}${T.segs}…`;
+    if (axonsLoaded || allAbort) return;
+    allAbort = new AbortController();
+    const signal = allAbort.signal;
+    const srcs = Object.keys(bySrc);
+    const live = {}, bytes = {}, totals = {}, divCount = {};
+    let drawn = 0, segsAll = 0;
+    for (const src of srcs) {
+      live[src] = liveMesh(bySrc[src], 0.05);
+      axonG.add(live[src].mesh);
+      totals[src] = bySrc[src].reduce((a, r) => a + (r.cbytes || 0), 0);
+      bytes[src] = 0;
     }
+    allLive = live;
+    hud.begin(srcs, totals);
+    status.textContent = T.readingAll + srcs.map((x) => T.sources[x] || x).join(", ") + "…";
+    const onRecord = (rec, buf) => {
+      const L = live[rec.src]; if (!L) return;
+      segsAll += pushRecord(L, buf, rec._coff, colourOfDivision(rec), liveT);
+      drawn++; divCount[rec.major] = (divCount[rec.major] || 0) + 1;
+    };
+    const onBytes = (src, have, need) => {
+      bytes[src] = have;
+      for (const L of Object.values(live)) L.mesh.material.uniforms.uAlpha.value = hairAlpha(Math.max(segsAll, 20000));
+      hud.tick(bytes, totals, drawn, N.length, segsAll, divCount, false);
+    };
+    try {
+      await Promise.all(srcs.map((src) => streamCoarse(src, onRecord, signal, onBytes)));
+    } catch (e) {
+      for (const L of Object.values(live)) { axonG.remove(L.mesh); L.mesh.geometry.dispose(); L.mesh.material.dispose(); }
+      allLive = null; allAbort = null; hud.end();
+      if (!signal.aborted) status.textContent = T.couldNot + e.message;
+      return;
+    }
+    for (const L of Object.values(live)) { L.flush(); L.mesh.material.uniforms.uAlpha.value = hairAlpha(segsAll); }
+    hud.tick(bytes, totals, drawn, N.length, segsAll, divCount, true);
+    axonsLoaded = true; allAbort = null;
     axonG.userData.segments = segsAll;
+    hud.done();
     status.textContent = T.allDone(fmt(drawn), fmt(segsAll));
   }
+
+  /* ---- to and from a region ---------------------------------------------
+     Type a region and every axon that starts there or ends there is drawn:
+     gold for a cell body in the region, cyan for an axon whose tips land in
+     it, magenta for both. "Ends there" means at least two per cent of the
+     neuron's tips, read off the index. A region means itself and everything
+     inside it in the Allen tree (data/ontology.json), so "hippocampus" is
+     CA1, CA2, CA3, the dentate gyrus and the rest. The axons stream in the
+     same way the whole brain does, and grow in as they land. */
+  const projG = new THREE.Group(); world.add(projG); projG.visible = false;
+  const regionLegend = q("[data-region-legend]"), regionIn = q("[data-region-q]"), regionSel = q("[data-region-colour]");
+  const DIRC = { from: "#ffc24a", to: "#6fd0ff", both: "#ff5cc0" };
+  let ONT = null, regionQuery = "", regionColour = "direction", regionSeq = 0, regionLive = null, regionAbort = null, regionIso = null;
+  async function ontology() {
+    if (ONT) return ONT;
+    ONT = await (await fetch(R("data/ontology.json"))).json();
+    const dl = q("#regionlist");
+    if (dl && !dl.children.length) {
+      const opts = Object.keys(ONT).map((k) => `<option value="${k}">${ONT[k].name}</option>`);
+      dl.innerHTML = opts.join("");
+    }
+    return ONT;
+  }
+  function descendants(acr) {
+    const set = new Set([acr]); let grew = true;
+    while (grew) { grew = false; for (const k in ONT) { const p = ONT[k].parent; if (p && set.has(p) && !set.has(k)) { set.add(k); grew = true; } } }
+    return set;
+  }
+  /* the words people type that the Allen tree does not use */
+  const SYNONYM = { hippocampus: "HPF", "hippocampal formation": "HPF", cortex: "Isocortex", neocortex: "Isocortex",
+    "olfactory bulb": "MOB", cerebellum: "CB", striatum: "STR", thalamus: "TH", hypothalamus: "HY",
+    midbrain: "MB", pons: "P", medulla: "MY", "dentate gyrus": "DG", amygdala: "BLA", "visual cortex": "VIS",
+    "motor cortex": "MO", "somatosensory cortex": "SS", "prefrontal": "PL", subiculum: "SUB", "entorhinal": "ENT" };
+  function resolveRegion(text) {
+    let qs = text.trim().toLowerCase(); if (!qs) return null;
+    const keys = Object.keys(ONT);
+    if (SYNONYM[qs] && ONT[SYNONYM[qs]]) return SYNONYM[qs];
+    let acr = keys.find((k) => k.toLowerCase() === qs);
+    if (acr) return acr;
+    const widest = (pool) => pool.sort((a, b) => descendants(b).size - descendants(a).size)[0];
+    /* a name, then the name with its ending worn down: "hippocampus" finds
+       "hippocampal formation" at "hippocamp". The widest match wins, so it
+       is the formation and not the commissure. */
+    for (let cut = qs; cut.length >= 5; cut = cut.slice(0, -1)) {
+      const starts = keys.filter((k) => ONT[k].name.toLowerCase().startsWith(cut));
+      if (starts.length) return widest(starts);
+      const has = keys.filter((k) => ONT[k].name.toLowerCase().includes(cut));
+      if (has.length) return widest(has);
+    }
+    return null;
+  }
+  async function drawRegion() {
+    const my = ++regionSeq;
+    if (regionAbort) regionAbort.abort();
+    regionAbort = null;
+    for (const L of Object.values(regionLive || {})) { projG.remove(L.mesh); L.mesh.geometry.dispose(); L.mesh.material.dispose(); }
+    regionLive = null;
+    clearTargets();
+    if (regionLegend) regionLegend.innerHTML = "";
+    if (!regionQuery) { status.textContent = T.regionHint; return; }
+    await ontology(); if (my !== regionSeq) return;
+    const acr = resolveRegion(regionQuery);
+    if (!acr) { status.textContent = T.regionNone(regionQuery); return; }
+    const set = descendants(acr);
+    const dirOf = (r) => {
+      const from = set.has(r.region) || set.has(r.rf);
+      const to = (r.tf || []).some((t) => set.has(t[0]) && t[1] >= 0.02);
+      return from && to ? "both" : from ? "from" : to ? "to" : null;
+    };
+    const all = N.filter((r) => r.cbytes && dirOf(r));
+    const counts = { from: 0, to: 0, both: 0 };
+    for (const r of all) counts[dirOf(r)]++;
+    status.textContent = T.regionStatus(acr, ONT[acr].name, set.size - 1, counts);
+    /* the colour key: direction, or the source's subtype, or the division */
+    let keyOfR, colours = {}, legend = [];
+    if (regionColour === "direction") {
+      keyOfR = dirOf; for (const d in DIRC) colours[d] = new THREE.Color(DIRC[d]);
+      legend = ["from", "to", "both"].map((d) => [d, T.dir[d], counts[d]]);
+    } else {
+      keyOfR = regionColour === "division" ? (r) => r.major || "?" : (r) => (r.st ? `${r.src}:${r.st}` : "?");
+      const c = {}; for (const r of all) { const k = keyOfR(r); c[k] = (c[k] || 0) + 1; }
+      const keys = Object.keys(c).sort((x, y) => c[y] - c[x]);
+      keys.forEach((k, i) => { colours[k] = regionColour === "division" ? new THREE.Color(DIVISION[k] || "#9aa2b1") : classColour(i); });
+      legend = keys.slice(0, 14).map((k) => [k, regionColour === "division" ? DIV(k) : ((nameOf({ src: k.split(":")[0], st: k.split(":")[1] }) || {}).name || k), c[k]]);
+    }
+    if (regionLegend) {
+      regionLegend.innerHTML = legend.map(([k, label, n]) =>
+        `<button type="button" class="rchip" data-rkey="${k}" aria-pressed="${regionIso === k}" style="--c:#${colours[k].getHexString()}"><i></i>${label}<em>${fmt(n)}</em></button>`).join("");
+      regionLegend.querySelectorAll("[data-rkey]").forEach((b) => b.addEventListener("click", () => {
+        regionIso = regionIso === b.dataset.rkey ? null : b.dataset.rkey; drawRegion();
+      }));
+    }
+    const draw = regionIso ? all.filter((r) => keyOfR(r) === regionIso) : all;
+    const want = new Set(draw);
+    const srcs = Object.keys(bySrc).filter((x) => draw.some((r) => r.src === x));
+    const live = {}, bytes = {}, totals = {}, divCount = {};
+    let drawn = 0, segsAll = 0;
+    for (const x of srcs) {
+      live[x] = liveMesh(draw.filter((r) => r.src === x), 0.1); projG.add(live[x].mesh);
+      totals[x] = bySrc[x].reduce((a, r) => a + (r.cbytes || 0), 0); bytes[x] = 0;
+    }
+    regionLive = live;
+    const alphaFor = (segs) => Math.min(0.5, 0.45 / Math.sqrt(Math.max(segs, 1) / 1000));
+    const needRead = srcs.some((x) => !coarseBuf[x]);
+    if (needRead) hud.begin(srcs, totals);
+    regionAbort = new AbortController();
+    const signal = regionAbort.signal;
+    const onRecord = (rec, buf) => {
+      if (!want.has(rec)) return;
+      const L = live[rec.src]; if (!L) return;
+      segsAll += pushRecord(L, buf, rec._coff, colours[keyOfR(rec)] || colours["?"] || new THREE.Color("#9aa2b1"), liveT);
+      drawn++; divCount[rec.major] = (divCount[rec.major] || 0) + 1;
+    };
+    const onBytes = (x, have, need) => {
+      bytes[x] = have;
+      for (const L of Object.values(live)) L.mesh.material.uniforms.uAlpha.value = alphaFor(Math.max(segsAll, 2000));
+      if (needRead) hud.tick(bytes, totals, drawn, draw.length, segsAll, divCount, false);
+    };
+    try { await Promise.all(srcs.map((x) => streamCoarse(x, onRecord, signal, onBytes))); }
+    catch (e) { if (!signal.aborted) status.textContent = T.couldNot + e.message; return; }
+    if (my !== regionSeq) return;
+    regionAbort = null;
+    for (const L of Object.values(live)) { L.flush(); L.mesh.material.uniforms.uAlpha.value = alphaFor(segsAll); }
+    if (needRead) { hud.tick(bytes, totals, drawn, draw.length, segsAll, divCount, true); hud.done(); }
+    showRegionShell(acr);
+  }
+  /* the region's own boundary, tinted glass with a tag, as the match view draws it */
+  async function showRegionShell(acr) {
+    const p = regionMesh(acr); if (!p) return;
+    const src = await p; if (mode !== "region") return;
+    const info = RINFO[acr] || {}; const col = new THREE.Color(DIVISION[info.major] || "#9aa2b1");
+    const mat = new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.16, blending: THREE.NormalBlending, depthWrite: false, side: THREE.FrontSide });
+    const mesh = new THREE.Mesh(src.geometry, mat); mesh.renderOrder = 3; targetG.add(mesh);
+    let label = null;
+    if (rlabels) { label = document.createElement("button"); label.className = "rlbl soma"; label.innerHTML = `<b>${acr}</b><small>${info.name || (ONT && ONT[acr] && ONT[acr].name) || ""}</small>`; rlabels.appendChild(label); }
+    shown.push({ acr, mesh, mat, label, base: 0.16, center: src.userData.center, strong: false });
+  }
+  if (regionIn) {
+    regionIn.addEventListener("focus", () => { ontology(); });
+    const go = () => { regionQuery = regionIn.value; regionIso = null; if (mode !== "region") setMode("region"); else drawRegion(); writeUrl(); };
+    regionIn.addEventListener("change", go);
+    regionIn.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); go(); } });
+  }
+  if (regionSel) regionSel.addEventListener("change", () => { regionColour = regionSel.value; regionIso = null; if (mode === "region") drawRegion(); writeUrl(); });
 
   /* ---- all that match: every neuron passing the filters, drawn at once and
      coloured by the portal's projection subtype (or by division), with a
@@ -1021,6 +1472,7 @@ export async function mountMouse(el) {
     const box = (sel) => { const t = q(sel); return t ? (t.checked ? "1" : "0") : null; };
     const layers = [box("[data-t-shell]"), box("[data-t-regions]"), box("[data-t-cells]"), box("[data-t-microns]"), box("[data-t-turn]"), box("[data-t-zoom]")];
     if (layers.join("") !== "110011") u.set("l", layers.join(""));
+    if (mode === "region" && regionQuery) { u.set("rq", regionQuery); if (regionColour !== "direction") u.set("rc", regionColour); }
     if (filterSrc !== "all") u.set("src", filterSrc);
     if (filterDiv !== "all") u.set("div", filterDiv);
     if (filterRegion) u.set("region", filterRegion);
@@ -1041,6 +1493,8 @@ export async function mountMouse(el) {
   function setUrl() { writeUrl(); }
   function readView() {
     const u = new URLSearchParams(location.search);
+    if (u.get("rq")) { regionQuery = u.get("rq"); if (regionIn) regionIn.value = regionQuery; }
+    if (u.get("rc") && regionSel) { regionColour = u.get("rc"); regionSel.value = regionColour; }
     const r = (u.get("r") || "").split(",").map(Number);
     if (r.length === 2 && r.every(Number.isFinite)) { pivot.rotation.x = r[0]; pivot.rotation.y = r[1]; }
     if (u.get("z")) zoomUser = zoomUserNow = Math.min(9, Math.max(0.25, Number(u.get("z")) || 1));
@@ -1122,14 +1576,19 @@ export async function mountMouse(el) {
 
   /* ---- modes and toggles ------------------------------------------------- */
   function setMode(m) {
+    if (mode === "all" && m !== "all" && allAbort) allAbort.abort();
+    if (mode === "region" && m !== "region" && regionAbort) regionAbort.abort();
     mode = m;
     el.querySelectorAll("[data-mode]").forEach((b) => b.setAttribute("aria-selected", b.dataset.mode === m ? "true" : "false"));
     matchG.visible = (m === "match");
     /* the lit neuron's region tags belong to the single-neuron views */
     targetG.visible = m !== "all";
     if (rlabels) rlabels.hidden = (m === "all");
+    if (regionLegend) regionLegend.hidden = (m !== "region");
     if (m !== "match" && current) showTargets(current.rec); else if (m !== "match") clearTargets();
+    projG.visible = (m === "region");
     if (m === "all") { loadAllAxons(); axonG.visible = true; focusG.visible = false; trailG.visible = false; somaG.visible = false; }
+    else if (m === "region") { axonG.visible = false; focusG.visible = false; trailG.visible = false; somaG.visible = false; drawRegion(); }
     else if (m === "match") { axonG.visible = false; focusG.visible = false; trailG.visible = false; somaG.visible = false; if (!keepIsolated) isolated = null; keepIsolated = false; drawMatching(); }
     else { axonG.visible = false; focusG.visible = true; trailG.visible = true; somaG.visible = (m === "pick"); }
     if (inside && m !== "all" && m !== "match") { /* stay inside */ }
@@ -1308,11 +1767,17 @@ export async function mountMouse(el) {
     const k = 1 - Math.pow(0.08, dt);
     /* while a neuron is lit the atlas steps back so one axon can be read
        against it; it comes forward again for the whole-brain views */
-    const lit = !!current || !!inside || mode === "all" || mode === "match";
+    const lit = !!current || !!inside || mode === "all" || mode === "match" || mode === "region";
     for (const m of regionMats) m.opacity += ((lit ? REGION_A_LIT : REGION_A) * divisionGain - m.opacity) * k;
     if (shellSolid) shellSolid.opacity += ((lit ? SHELL_A_LIT : SHELL_A) * surfaceGain - shellSolid.opacity) * k;
     if (holoMat) { holoMat.userData.tick(holoMat, performance.now() / 1000); holoMat.uniforms.uOpacity.value = holoMat.userData.gain * surfaceGain * (lit ? 0.6 : 1); }
-    bloom.strength += ((inside ? 0.1 : mode === "all" ? 0.12 : mode === "match" ? 0.05 : 0.3) - bloom.strength) * k;
+    bloom.strength += ((inside ? 0.1 : mode === "all" ? 0.12 : mode === "match" ? 0.05 : mode === "region" ? 0.09 : 0.3) - bloom.strength) * k;
+    /* the live meshes: the clock the born times are on, and the GPU catches
+       up with whatever landed since the last frame, once per frame */
+    liveT = performance.now() / 1000;
+    for (const set of [allLive, regionLive]) if (set) for (const L of Object.values(set)) {
+      L.mesh.material.uniforms.uTime.value = liveT; L.flush();
+    }
     frameNow.lerp(frameTarget, k); zNow += (zTarget - zNow) * k;
     world.position.copy(frameNow);       /* world's position is in pivot space */
     /* a portrait phone sees a narrower slice, so the camera backs off in
@@ -1337,6 +1802,12 @@ export async function mountMouse(el) {
   loop.run();
 
   /* a shared link lands on its view: neuron, mode, camera, sliders, filters */
+  /* a handle for a headless check: the page's own clock can be stepped
+     where requestAnimationFrame never fires */
+  el.__mouse = { loop, setMode, drawRegion, loadAllAxons, hud, streamCoarse,
+    get all() { return allLive; }, get region() { return regionLive; }, get mode() { return mode; },
+    setRegion(q2) { regionQuery = q2; regionIso = null; if (regionIn) regionIn.value = q2; }, N,
+    scene, world, packG, cubeMeshes, CUBES, get inside() { return inside; }, camera, THREE };
   const view = readView();
   if (new URLSearchParams(location.search).get("holo")) applyLook(new URLSearchParams(location.search).get("holo"));
   const wantRec = view.n && N.find((r) => r.id === view.n);
@@ -1345,6 +1816,7 @@ export async function mountMouse(el) {
   if (wantCube) { const cu = CUBES.find((c) => c.id === wantCube); if (cu) { setMode("pick"); const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); } }
   else if (view.mode === "match") { keepIsolated = !!isolated; setMode("match"); if (wantRec) focusOn(wantRec, true); }
   else if (view.mode === "all") { setMode("all"); }
+  else if (view.mode === "region") { setMode("region"); }
   else if (wantRec) { setMode(view.mode === "wire" ? "wire" : "pick"); autoNext = view.mode === "wire"; focusOn(wantRec, true); }
   else if (fr && fr.value || view.mode === "pick") setMode("pick");
   else setMode("wire");

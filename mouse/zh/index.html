@@ -82,6 +82,51 @@
   .pz { display:inline-block; font-size:12px; line-height:1; letter-spacing:-.05em; }
   .pz-turn { font-size:16px; }
   .box .canvas { height:min(68vh,640px); min-height:360px; width:100%; }
+  /* the reading HUD: a bar per source sized by its bytes, the numbers, and
+     the divisions lighting up as their neurons land */
+  .loadhud { position:absolute; left:12px; right:12px; bottom:34px; pointer-events:none; font:500 11px/1.5 ui-monospace,Consolas,monospace; letter-spacing:.06em; color:#9fd0ff; text-shadow:0 1px 8px #000; }
+  .loadhud[hidden] { display:none; }
+  .lh-bar { display:flex; gap:3px; height:3px; margin:0 0 6px; }
+  .lh-bar i { position:relative; display:block; background:rgba(159,208,255,.14); border-radius:2px; overflow:hidden; }
+  .lh-bar i b { position:absolute; left:0; top:0; bottom:0; width:0; background:#9fd0ff; box-shadow:0 0 10px #9fd0ff; transition:width .12s linear; }
+  .lh-line { display:flex; flex-wrap:wrap; gap:0 16px; opacity:.9; }
+  .lh-line .u { color:#cdefff; }
+  .lh-div { display:flex; flex-wrap:wrap; gap:2px 12px; margin-top:4px; opacity:.9; }
+  .lh-div span { display:inline-flex; align-items:center; gap:5px; transition:opacity .3s; }
+  .lh-div i { width:6px; height:6px; border-radius:50%; background:var(--c); box-shadow:0 0 6px var(--c); }
+  .lh-div em { font-style:normal; color:#cdefff; }
+  .stage:fullscreen .loadhud { bottom:auto; top:44px; }
+  /* the region legend: one chip per colour, click to see it alone */
+  .rlegend { display:flex; flex-wrap:wrap; gap:4px 6px; }
+  .rlegend[hidden] { display:none; }
+  .rchip { appearance:none; display:inline-flex; align-items:center; gap:5px; font:inherit; font-size:12px; color:var(--ink); background:transparent; border:1px solid rgba(239,244,251,.14); border-radius:999px; padding:2px 9px 2px 6px; cursor:pointer; }
+  .rchip i { width:8px; height:8px; border-radius:50%; background:var(--c); box-shadow:0 0 6px var(--c); }
+  .rchip em { font-style:normal; opacity:.7; }
+  .rchip[aria-pressed="true"] { border-color:var(--c); box-shadow:0 0 10px -3px var(--c); }
+
+  /* two panels on the canvas: the name plate and the card. Each docks to an
+     edge or floats where it was dropped; the grip is the handle. */
+  .side.hud { top:12px; left:auto; right:12px; }
+  .side.hud.dock-left { left:12px; right:auto; }
+  .side.hud.dock-right { right:12px; left:auto; }
+  .side.hud.dock-top { top:12px; }
+  .side.hud.dock-bottom { top:auto; bottom:44px; }
+  .side.hud.floating { right:auto; bottom:auto; }
+  .side.hud .in-plate { display:none; }
+  .nameplate { position:absolute; top:12px; left:12px; z-index:4; display:flex; align-items:center; gap:8px; padding:8px 12px 8px 8px; border-radius:10px; max-width:min(360px, calc(100% - 24px)); }
+  .nameplate[hidden] { display:none; }
+  .nameplate.dock-right { left:auto; right:12px; }
+  .nameplate.dock-bottom { top:auto; bottom:44px; }
+  .nameplate.floating { right:auto; bottom:auto; }
+  .nameplate [data-plate-body] { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:var(--ink); }
+  .nameplate [data-plate-body] s { width:11px; height:11px; border-radius:3px; flex:none; text-decoration:none; display:inline-block; }
+  .grip { flex:none; cursor:grab; color:var(--faint); font-size:16px; line-height:1; padding:2px 4px; border-radius:4px; user-select:none; touch-action:none; }
+  .grip:hover { color:var(--ink); background:rgba(239,244,251,.06); }
+  .dragging .grip, .dragging { cursor:grabbing; }
+  .side.hud > .grip { position:absolute; top:8px; right:8px; }
+  .side.hud.dragging, .nameplate.dragging { opacity:.85; transition:none; }
+  @media (max-width:640px){ .nameplate { position:static; max-width:none; border-radius:0; } .side.hud .in-plate { display:flex; } .nameplate { display:none; } }
+
   .status { position:absolute; left:12px; bottom:10px; right:12px; font:500 11px/1.4 ui-monospace,Consolas,monospace;
     letter-spacing:.06em; color:#9fd0ff; opacity:.85; pointer-events:none; text-shadow:0 1px 8px #000; }
   .ctl { border-top:1px solid var(--line); padding:12px clamp(12px,3vw,18px) 13px; }
@@ -214,8 +259,11 @@
       <button class="fsicon" data-fullscreen-icon title="全屏" aria-label="全屏">&#x26F6;</button>
       <button class="panels" data-panels aria-pressed="true" title="隐藏控件">控件</button>
       <div class="status" data-status>正在加载大脑…</div>
+      <div class="loadhud" data-loadhud hidden></div>
       <div class="lbar is-off" data-lbar aria-hidden="true"><div class="lbar-track"><div class="lbar-fill" data-lbar-fill></div><div class="lbar-head" data-lbar-head></div></div><div class="lbar-txt" data-lbar-txt></div></div>
+      <div class="nameplate holopanel" data-nameplate data-dock="plate" hidden><span class="grip" title="Drag. Past an edge it docks; double click sends it home.">&#x2807;</span><div data-plate-body></div></div>
       <aside class="side hud holopanel" data-hud>
+      <span class="grip" title="Drag. Past an edge it docks; double click sends it home.">&#x2807;</span>
       <div data-card>
         <h3>一个神经元</h3>
         <p>在左侧选择一种模式。每个神经元都是一个真实的细胞，从整脑成像数据中重建而来，
@@ -232,6 +280,7 @@
             <button data-mode="pick" role="tab">选择一个胞体</button>
             <button data-mode="all" role="tab">全部轴突</button>
             <button data-mode="match" role="tab">符合筛选的全部</button>
+            <button data-mode="region" role="tab">某脑区的往来投射</button>
           </div>
           <button class="btn" data-next>换一个</button>
           <button class="btn" data-pause>暂停旋转</button>
@@ -243,6 +292,13 @@
           <button class="btn" data-image>保存图片</button>
           <a class="btn" data-shader href="https://amyleesterling.github.io/scifi-ui/hologram-3d.html">着色器</a>
           <a class="btn" data-request href="https://github.com/amyleesterling/whatisabrain-feedback/issues/new?title=%E5%8A%9F%E8%83%BD%E5%BB%BA%E8%AE%AE%EF%BC%9A" target="_blank" rel="noopener">提出功能建议</a>
+        </div>
+        <div class="row">
+          <span class="lab">脑区</span>
+          <input type="search" data-region-q list="regionlist" placeholder="如 CA3、HPF、丘脑（英文名）…" style="background:#0F1218;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font:inherit;font-size:13px;width:230px">
+          <datalist id="regionlist"></datalist>
+          <select data-region-colour><option value="direction">按方向着色</option><option value="subtype">按亚型着色</option><option value="division">按脑区着色</option></select>
+          <div class="rlegend" data-region-legend hidden title="点一种颜色单独查看"></div>
         </div>
         <div class="row">
           <span class="lab">图层</span>
