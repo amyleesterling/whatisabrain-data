@@ -146,20 +146,38 @@ export async function mountMouse(el) {
     plate.hidden = !h3;
   }
   if (card) new MutationObserver(syncPlate).observe(card, { childList: true });
+  if (card) card.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-copy-id]"); if (!b) return;
+    const id = b.dataset.copyId;
+    const done = () => { const was = b.textContent; b.textContent = ZH ? "已复制" : "copied"; setTimeout(() => { b.textContent = was; }, 1400); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(id).then(done, done); else done();
+  });
   function makeDockable(panel, home) {
     const grip = panel.querySelector(".grip"); if (!grip) return;
     const stage = el.querySelector(".view");
     const key = "mouse.dock." + (panel.dataset.dock || "panel");
+    /* a floating panel remembers where it is as a fraction of the stage,
+       so a fullscreen stage puts it in the same place, not at the same
+       pixel, which on a wide screen was the middle */
     function apply(state) {
       panel.classList.remove("dock-left", "dock-right", "dock-top", "dock-bottom", "floating");
       if (state.dock) { panel.classList.add("dock-" + state.dock); panel.style.left = panel.style.top = ""; return; }
       panel.classList.add("floating");
-      panel.style.left = state.x + "px"; panel.style.top = state.y + "px";
+      const sr = stage.getBoundingClientRect();
+      const x = state.fx != null ? state.fx * sr.width : state.x, y = state.fy != null ? state.fy * sr.height : state.y;
+      panel.style.left = Math.max(0, Math.min(sr.width - panel.offsetWidth, x)) + "px";
+      panel.style.top = Math.max(0, Math.min(sr.height - panel.offsetHeight, y)) + "px";
     }
     let state = null;
     try { state = JSON.parse(localStorage.getItem(key) || "null"); } catch (e) {}
     if (!state) state = { dock: home };
     apply(state);
+    /* a panel left floating in a fullscreen stage is off the edge of the
+       ordinary one; on any change of size it is pulled back inside, and a
+       panel more than half out docks to the side it was nearest */
+    function reapply() { apply(state); }
+    document.addEventListener("fullscreenchange", () => setTimeout(reapply, 50));
+    window.addEventListener("resize", reapply);
     let drag = null;
     grip.addEventListener("pointerdown", (e) => {
       const r = panel.getBoundingClientRect(), sr = stage.getBoundingClientRect();
@@ -182,7 +200,7 @@ export async function mountMouse(el) {
       const over = { left: -x / w, right: (x + w - sr.width) / w, top: -y / h, bottom: (y + h - sr.height) / h };
       let best = null;
       for (const k in over) if (over[k] > 0.3 && (!best || over[k] > over[best])) best = k;
-      state = best ? { dock: best } : { x: Math.max(0, Math.min(sr.width - w, x)), y: Math.max(0, Math.min(sr.height - h, y)) };
+      state = best ? { dock: best } : { fx: Math.max(0, Math.min(sr.width - w, x)) / sr.width, fy: Math.max(0, Math.min(sr.height - h, y)) / sr.height };
       apply(state);
       try { localStorage.setItem(key, JSON.stringify(state)); } catch (e2) {}
       drag = null;
@@ -191,6 +209,22 @@ export async function mountMouse(el) {
     grip.addEventListener("pointercancel", drop);
     grip.addEventListener("dblclick", () => { state = { dock: home }; apply(state); try { localStorage.setItem(key, JSON.stringify(state)); } catch (e2) {} });
   }
+  /* scifi-ui's hologram chrome on both panels: four corner brackets that
+     push outward when the panel is lit, and a scan sweep that runs once
+     whenever the card is rewritten. Ambient things loop; a sweep is an
+     event, so it runs once per change and never on its own. */
+  function holoChrome(panel) {
+    if (!panel || panel.querySelector(".hk")) return;
+    ["tl", "tr", "bl", "br"].forEach((k) => { const b = document.createElement("b"); b.className = "hk " + k; panel.appendChild(b); });
+    const sweep = document.createElement("i"); sweep.className = "hsweep"; panel.appendChild(sweep);
+  }
+  function holoBoot(panel) {
+    if (!panel || REDUCED) return;
+    const sw = panel.querySelector(".hsweep"); if (!sw) return;
+    sw.classList.remove("on"); void sw.offsetWidth; sw.classList.add("on");
+  }
+  holoChrome(plate); holoChrome(el.querySelector("[data-hud]"));
+  if (card) new MutationObserver(() => { holoBoot(el.querySelector("[data-hud]")); holoBoot(plate); }).observe(card, { childList: true });
   if (plate) makeDockable(plate, "left");
   const hudPanel = el.querySelector("[data-hud]");
   if (hudPanel) makeDockable(hudPanel, "right");
@@ -213,10 +247,49 @@ export async function mountMouse(el) {
   const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.3, 0.4, 0.85);
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
+  /* THE CABLE PASS. Nine million line segments drawn additively at one
+     alpha have to be drawn at a thousandth of a pixel's light each or the
+     pile clips to white, and then a single axon is invisible. So the axon
+     layers are drawn on their own, bright, into a floating point buffer
+     where the sum is allowed to pass one, and that sum is compressed with a
+     soft knee, 1 - exp(-k * light), before it is added to the picture: one
+     cable is a line you can see, a thousand on top of each other go
+     smoothly toward white. The lines live on layer 1 so the composer never
+     sees them. uK is the "cables" slider. */
+  const CABLE_LAYER = 1;
+  const cableRT = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, depthBuffer: false, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+  const cableMat = new THREE.ShaderMaterial({
+    uniforms: { tDiffuse: { value: cableRT.texture }, uK: { value: 1 } },
+    vertexShader: "varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }",
+    fragmentShader: `uniform sampler2D tDiffuse; uniform float uK; varying vec2 vUv;
+      void main() { vec3 c = texture2D(tDiffuse, vUv).rgb * uK;
+        /* range across the pile, not a knee. Nine million segments over a
+           few hundred thousand pixels is thirty lines a pixel on average, so
+           a line bright enough to see alone saturates everything. At 0.012
+           a line: ten lines read at 0.2, thirty at 0.4, a hundred at 0.65, a
+           thousand at 0.95, and the sparse outer axons stay faint but there. */
+        c = pow(c / (c + 1.0), vec3(0.7));
+        gl_FragColor = vec4(c, 1.0);
+        #include <colorspace_fragment> }`,
+    blending: THREE.AdditiveBlending, transparent: true, depthTest: false, depthWrite: false });
+  const cableScene = new THREE.Scene(); cableScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), cableMat));
+  const cableCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  let cableGain = 1;
+  function renderCables() {
+    const prevTarget = renderer.getRenderTarget(), prevAuto = renderer.autoClear, prevMask = camera.layers.mask;
+    renderer.setRenderTarget(cableRT); renderer.setClearColor(0x000000, 0); renderer.clear();
+    camera.layers.set(CABLE_LAYER);
+    renderer.render(scene, camera);
+    camera.layers.mask = prevMask;
+    renderer.setRenderTarget(prevTarget); renderer.autoClear = false;
+    renderer.render(cableScene, cableCam);
+    renderer.autoClear = prevAuto;
+  }
   function fitAll() {
     if (!fitRenderer(renderer, camera, mount)) return;
     const w = mount.clientWidth, h = mount.clientHeight;
     composer.setSize(w, h); bloom.setSize(w, h);
+    const pr = renderer.getPixelRatio(); cableRT.setSize(Math.round(w * pr), Math.round(h * pr));
   }
   fitAll();
 
@@ -435,7 +508,7 @@ export async function mountMouse(el) {
       if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals();
       const col = new THREE.Color(cell.colour || (cell.featured ? "#fff1c0" : null) || CAT[cell.category] || cu.colour);
       m.material = new THREE.MeshStandardMaterial({ color: col, roughness: 0.65, metalness: 0.05, emissive: col, emissiveIntensity: cell.featured ? 0.1 : 0.06,
-        transparent: !!(featuredSlug && cell.role === "pyramidal cell" && !cell.featured), opacity: (featuredSlug && cell.role === "pyramidal cell" && !cell.featured) ? 0.35 : 1 });
+        transparent: !!(featuredSlug && cell.role === "pyramidal cell" && !cell.featured), opacity: (featuredSlug && cell.role === "pyramidal cell" && !cell.featured) ? 0.7 : 1 });
       m.renderOrder = 12; group.add(m); cells.push({ cell, mesh: m, colour: col });
       if (pack.synapses && pack.synapses.file && cell.featured) {
         try { const d = await dots(pack.synapses.file); group.add(d.pts); synCount += d.n; cell.synCount = d.n; cells[cells.length - 1].dots = d.pts; } catch (e) {}
@@ -475,6 +548,9 @@ export async function mountMouse(el) {
     let pk; try { pk = await loadPack(cu); } catch (e) { status.textContent = (ZH ? "这个立方体的数据还没有到位。" : "This cube's data is not on the site yet. ") + cu.note; inside = null; return; }
     if (inside !== cu) return;
     packG.clear(); pk.group.position.copy(cu.centre); packG.add(pk.group);
+    /* up close the box is an outline, not a fill: a fill over the whole
+       view is what hid the neighbour cells */
+    for (const c of cubeMeshes) c.material.opacity = c.userData.cube === cu ? 0 : 0.22;
     renderCubeCard(cu, pk);
     if (h1 && cu.population) h1.textContent = ZH ? `${cu.name}：${fmt(pk.cells.length)} / ${fmt(cu.population.n)} ${cu.population.what}` : `${fmt(pk.cells.length)} of ${fmt(cu.population.n)} cells in ${cu.name}`;
     syncCubeBtns();
@@ -482,6 +558,7 @@ export async function mountMouse(el) {
   }
   function leaveCube() {
     inside = null; packG.clear(); syncStatus(); if (h1) h1.textContent = h1Home; syncCubeBtns();
+    for (const c of cubeMeshes) c.material.opacity = 0.22;
     if (mode === "wire") { autoNext = true; const r = pickRandom(); if (r) focusOn(r); }
   }
   function renderCubeCard(cu, pk) {
@@ -907,26 +984,50 @@ export async function mountMouse(el) {
   function bornMaterial(alpha) {
     return new THREE.ShaderMaterial({
       uniforms: { uTime: { value: 0 }, uAlpha: { value: alpha },
-        uGrow: { value: REDUCED ? 0.001 : GROW }, uFresh: { value: REDUCED ? 0.0 : 1.0 } },
+        uGrow: { value: REDUCED ? 0.001 : GROW }, uFresh: { value: REDUCED ? 0.0 : 1.0 },
+        uSolid: { value: 1 }, uCamDist: { value: 20 }, uShade: { value: 0.6 } },
       vertexShader: `attribute float aBorn; attribute float aAlong;
-        varying vec3 vC; varying float vBorn; varying float vAlong;
+        varying vec3 vC; varying float vBorn; varying float vAlong; varying float vDepth;
         void main() { vC = color; vBorn = aBorn; vAlong = aAlong;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+          vec4 mv = modelViewMatrix * vec4(position, 1.0); vDepth = -mv.z;
+          gl_Position = projectionMatrix * mv; }`,
       fragmentShader: `uniform float uTime; uniform float uAlpha; uniform float uGrow; uniform float uFresh;
-        varying vec3 vC; varying float vBorn; varying float vAlong;
+        uniform float uSolid; uniform float uCamDist; uniform float uShade;
+        varying vec3 vC; varying float vBorn; varying float vAlong; varying float vDepth;
         void main() {
           float age = uTime - vBorn; if (age < 0.0) discard;
           float front = age / uGrow;
           float reveal = smoothstep(vAlong - 0.04, vAlong, front); if (reveal <= 0.001) discard;
           float head = exp(-abs(front - vAlong) * 18.0) * step(front, 1.05) * uFresh;
           float fresh = exp(-max(age - uGrow, 0.0) / ${FRESH}) * uFresh;
-          vec3 c = vC * (1.0 + fresh * 1.2) + vec3(1.0) * head * 2.0;
-          float a = uAlpha * reveal * (1.0 + fresh * 1.5 + head * 4.0);
-          gl_FragColor = vec4(c, a);
+          if (uSolid > 0.5) {
+            /* solid: the nearest line wins the pixel, and depth shades the
+               ball so it has a front and a back. The brain is about 13 mm
+               across; the shading runs over that span about the camera's
+               distance to the centre. */
+            float t = clamp((vDepth - (uCamDist - 6.5)) / 13.0, 0.0, 1.0);
+            float shade = 1.0 - uShade * t;
+            vec3 c = vC * shade * (1.0 + fresh * 0.8) + vec3(1.0) * head * 1.5;
+            gl_FragColor = vec4(c, reveal);
+          } else {
+            vec3 c = vC * (1.0 + fresh * 1.2) + vec3(1.0) * head * 2.0;
+            float a = uAlpha * reveal * (1.0 + fresh * 1.5 + head * 4.0);
+            gl_FragColor = vec4(c, a);
+          }
           #include <tonemapping_fragment>
           #include <colorspace_fragment>
         }`,
-      vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+      vertexColors: true, transparent: true, blending: THREE.NormalBlending, depthWrite: true });
+  }
+  let cablesSolid = true;
+  function setCableMode(mat, mesh) {
+    mat.uniforms.uSolid.value = cablesSolid ? 1 : 0;
+    mat.blending = cablesSolid ? THREE.NormalBlending : THREE.AdditiveBlending;
+    mat.depthWrite = cablesSolid; mat.depthTest = true;
+    mat.needsUpdate = true;
+    /* solid lines are drawn by the composer with everything else (and get
+       the bloom); light lines go to the float buffer on the cable layer */
+    if (mesh) mesh.layers.set(cablesSolid ? 0 : CABLE_LAYER);
   }
   /* a LineSegments sized for a set of records before any has arrived; records
      are written in as they land and the draw range grows behind them */
@@ -940,6 +1041,7 @@ export async function mountMouse(el) {
     g.setDrawRange(0, 0);
     const mesh = new THREE.LineSegments(g, bornMaterial(alpha));
     mesh.frustumCulled = false;
+    setCableMode(mesh.material, mesh);
     const L = { mesh, pos, col, born, along, seg: 0, S, flushed: 0, dirty: false,
       flush() {
         if (!this.dirty) return;
@@ -1060,7 +1162,9 @@ export async function mountMouse(el) {
      not a white blob. Tuned by reading the framebuffer back: at 1.83
      million segments, 0.0045 keeps the canvas under one per cent
      saturated and 0.012 sends eight per cent of it to white. */
-  const hairAlpha = (segs) => Math.min(0.2, 0.11 / Math.sqrt(Math.max(segs, 1) / 1000));
+  /* on the float buffer the knee holds the pile, so a line can carry real
+     light: about thirty times what the clipped canvas allowed */
+  const hairAlpha = (segs) => Math.min(0.5, 1.2 / Math.sqrt(Math.max(segs, 1) / 1000)) * cableGain;
 
   const divColour = {}; const colourOfDivision = (r) => divColour[r.major] || (divColour[r.major] = new THREE.Color(DIVISION[r.major] || "#9aa2b1"));
   /* Every axon: the five sources stream in parallel, and each neuron is
@@ -1211,7 +1315,7 @@ export async function mountMouse(el) {
       totals[x] = bySrc[x].reduce((a, r) => a + (r.cbytes || 0), 0); bytes[x] = 0;
     }
     regionLive = live;
-    const alphaFor = (segs) => Math.min(0.5, 0.45 / Math.sqrt(Math.max(segs, 1) / 1000));
+    const alphaFor = (segs) => Math.min(0.9, 2.0 / Math.sqrt(Math.max(segs, 1) / 1000)) * cableGain;
     const needRead = srcs.some((x) => !coarseBuf[x]);
     if (needRead) hud.begin(srcs, totals);
     regionAbort = new AbortController();
@@ -1252,6 +1356,24 @@ export async function mountMouse(el) {
     regionIn.addEventListener("change", go);
     regionIn.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); go(); } });
   }
+  /* the cables slider: how much light a line carries, and the knee with it */
+  const solidIn = q("[data-t-solid]");
+  if (solidIn) solidIn.addEventListener("change", () => {
+    cablesSolid = solidIn.checked;
+    for (const set of [allLive, regionLive]) if (set) for (const L of Object.values(set)) setCableMode(L.mesh.material, L.mesh);
+    loop.once();
+  });
+  const cablesIn = q("[data-cables]");
+  if (cablesIn) cablesIn.addEventListener("input", () => {
+    cableGain = parseFloat(cablesIn.value) || 1;
+    cableMat.uniforms.uK.value = cableGain;
+    for (const set of [allLive, regionLive]) if (set) for (const L of Object.values(set)) L.mesh.material.uniforms.uShade.value = Math.min(0.9, 0.6 * cableGain);
+    for (const set of [allLive, regionLive]) if (set) for (const L of Object.values(set)) {
+      const segs = L.mesh.geometry.drawRange.count / 2;
+      L.mesh.material.uniforms.uAlpha.value = (mode === "region" ? Math.min(0.9, 2.0 / Math.sqrt(Math.max(segs, 1) / 1000)) * cableGain : hairAlpha(Math.max(segs, 20000)));
+    }
+    loop.once();
+  });
   if (regionSel) regionSel.addEventListener("change", () => { regionColour = regionSel.value; regionIso = null; if (mode === "region") drawRegion(); writeUrl(); });
 
   /* ---- all that match: every neuron passing the filters, drawn at once and
@@ -1268,6 +1390,26 @@ export async function mountMouse(el) {
   const NAMES = {};
   fetch(R("data/subtype-names.json")).then((r) => r.json()).then((j) => Object.assign(NAMES, j)).catch(() => {});
   const nameOf = (r) => (NAMES[r.src] && NAMES[r.src][r.st]) || null;
+  /* What to call a neuron. The portals name them by number (202502_015),
+     which says nothing; what the data does say is where the cell body is,
+     by full Allen name, and for the ION sets the projection class it was
+     sorted into. So a neuron is "Field CA3 neuron", with the class beneath
+     when there is one, and the number stays as the fine print and the
+     tooltip, because the number is what the portal knows it by. */
+  function displayName(r) {
+    const region = r.region_name || REGIONS[r.region] || r.region || "";
+    const head = region ? (ZH ? `${region}神经元` : `${region} neuron`) : r.id;
+    const cls = nameOf(r);
+    const sub = cls ? cls.name : "";
+    return { head, sub, id: r.id };
+  }
+  const PORTAL = {
+    "MouseLight": "https://ml-neuronbrowser.janelia.org/",
+    "SEU-ALLEN": "https://doi.org/10.35077/g.25",
+    "ION-PFC": "https://mouse.digital-brain.cn/projectome/pfc",
+    "ION-HIPP": "https://mouse.digital-brain.cn/hipp",
+    "ION-CTX": "https://mouse.digital-brain.cn/projectome",
+  };
   /* a categorical palette for up to 64 classes: golden-angle hues at one
      lightness, so no class is brighter than another by accident */
   const classColour = (i) => new THREE.Color().setHSL(((i * 137.508) % 360) / 360, 0.72, 0.62);
@@ -1417,6 +1559,13 @@ export async function mountMouse(el) {
   }
 
   /* ---- the card ------------------------------------------------------------ */
+  function nameHeading(rec, col) {
+    const d = displayName(rec);
+    return `<h3 title="${rec.id} · ${T.sources[rec.src] || rec.src}"><s style="background:${col}"></s><span class="nm">${d.head}</span></h3>` +
+      (d.sub ? `<p class="side nm-sub">${d.sub}</p>` : "") +
+      `<p class="side nm-id"><code>${rec.id}</code> <button type="button" class="lnk" data-copy-id="${rec.id}" title="${ZH ? "复制编号" : "Copy the id"}">${ZH ? "复制" : "copy"}</button>` +
+      (PORTAL[rec.src] ? ` · <a href="${PORTAL[rec.src]}" target="_blank" rel="noopener" title="${ZH ? "在原始数据门户中打开（用编号查找）" : "Open the source portal; find it there by this id"}">${ZH ? "在门户中打开" : "open in its portal"}</a>` : "") + `</p>`;
+  }
   function renderCard(rec, loading) {
     if (!card) return;
     const col = DIVISION[rec.major] || "#9aa2b1";
@@ -1441,7 +1590,7 @@ export async function mountMouse(el) {
       : rec.targets.map(([k, f]) =>
       `<div class="tb"><span class="tb-l">${DIV(k)}</span><span class="tb-r"><i style="width:${Math.round(f * 100)}%;background:${DIVISION[k] || "#9aa2b1"}"></i></span><span class="tb-v">${Math.round(f * 100)}%</span></div>`).join("");
     card.innerHTML =
-      `<h3><s style="background:${col}"></s>${rec.id}</h3>` +
+      nameHeading(rec, col) +
       `<p class="side">${src}${loading ? " · " + T.reading : ""}</p>` +
       (ZH
         ? `<p>胞体位于 <b>${rec.region_name || rec.region || T.unlabelled}</b>${rec.region ? ` (${rec.region})` : ""}${rec.major ? `，${DIV(rec.major)}` : ""}。` +
@@ -1776,7 +1925,9 @@ export async function mountMouse(el) {
        up with whatever landed since the last frame, once per frame */
     liveT = performance.now() / 1000;
     for (const set of [allLive, regionLive]) if (set) for (const L of Object.values(set)) {
-      L.mesh.material.uniforms.uTime.value = liveT; L.flush();
+      L.mesh.material.uniforms.uTime.value = liveT;
+      L.mesh.material.uniforms.uCamDist.value = camera.position.length();
+      L.flush();
     }
     frameNow.lerp(frameTarget, k); zNow += (zTarget - zNow) * k;
     world.position.copy(frameNow);       /* world's position is in pivot space */
@@ -1796,6 +1947,7 @@ export async function mountMouse(el) {
       if (holdT > HOLD && autoNext && mode === "wire") { const r = pickRandom(); if (r) focusOn(r); }
     }
     composer.render();
+    if ((mode === "all" || mode === "region") && !cablesSolid) renderCables();
     placeRegionLabels();
   });
   new ResizeObserver(fitAll).observe(mount);
