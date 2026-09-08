@@ -987,13 +987,18 @@ export async function mountMouse(el) {
         uGrow: { value: REDUCED ? 0.001 : GROW }, uFresh: { value: REDUCED ? 0.0 : 1.0 },
         uSolid: { value: 1 }, uCamDist: { value: 20 }, uShade: { value: 0.6 } },
       vertexShader: `attribute float aBorn; attribute float aAlong;
-        varying vec3 vC; varying float vBorn; varying float vAlong; varying float vDepth;
+        varying vec3 vC; varying float vBorn; varying float vAlong; varying float vDepth; varying float vLit;
         void main() { vC = color; vBorn = aBorn; vAlong = aAlong;
           vec4 mv = modelViewMatrix * vec4(position, 1.0); vDepth = -mv.z;
+          /* a light on the ball: the outer cables shade by their direction
+             from the brain's centre, so the front layer has relief instead
+             of one flat colour */
+          vec3 rV = normalize(mv.xyz - (modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz);
+          vLit = 0.45 + 0.55 * max(dot(rV, normalize(vec3(0.35, 0.55, 0.75))), 0.0);
           gl_Position = projectionMatrix * mv; }`,
       fragmentShader: `uniform float uTime; uniform float uAlpha; uniform float uGrow; uniform float uFresh;
         uniform float uSolid; uniform float uCamDist; uniform float uShade;
-        varying vec3 vC; varying float vBorn; varying float vAlong; varying float vDepth;
+        varying vec3 vC; varying float vBorn; varying float vAlong; varying float vDepth; varying float vLit;
         void main() {
           float age = uTime - vBorn; if (age < 0.0) discard;
           float front = age / uGrow;
@@ -1006,7 +1011,7 @@ export async function mountMouse(el) {
                across; the shading runs over that span about the camera's
                distance to the centre. */
             float t = clamp((vDepth - (uCamDist - 6.5)) / 13.0, 0.0, 1.0);
-            float shade = 1.0 - uShade * t;
+            float shade = (1.0 - uShade * t) * mix(1.0, vLit, uShade);
             vec3 c = vC * shade * (1.0 + fresh * 0.8) + vec3(1.0) * head * 1.5;
             gl_FragColor = vec4(c, reveal);
           } else {
@@ -1058,7 +1063,12 @@ export async function mountMouse(el) {
     return L;
   }
   /* one record's coarse block into a live mesh, coloured, born now */
-  function pushRecord(L, buf, off, c, t) {
+  const jitterOf = (off) => 0.62 + 0.38 * (((off * 2654435761) >>> 0) % 1000) / 1000;
+  function pushRecord(L, buf, off, c0, t) {
+    /* every neuron a little brighter or darker than its division colour,
+       keyed to its byte offset so it is the same every time, or a million
+       cables of one colour read as one painted surface */
+    const j = jitterOf(off), c = { r: c0.r * j, g: c0.g * j, b: c0.b * j };
     const dv = new DataView(buf, off, 8), P = dv.getUint32(0, true), V = dv.getUint32(4, true);
     const counts = new Uint16Array(buf, off + 8, P);
     const xyz = new Int16Array(buf, off + 8 + 2 * P, V * 3);
