@@ -1,0 +1,646 @@
+{
+ "shards": 6,
+ "layout": "per neuron at (shard, offset), bytes long: Uint32 paths P, Uint32 vertices V, P x Uint16 path lengths, V x Int16 xyz (10 um), V x Uint16 geodesic distance from the soma (10 um), V x Uint8 compartment (1 soma, 2 axon, 3 dendrite, 4 apical)",
+ "regions_note": "region_name filled from neurons.json",
+ "neurons": [
+  {
+   "id": "AA1248",
+   "src": "MouseLight",
+   "soma": [
+    2.14,
+    -2.39,
+    2.84
+   ],
+   "region": "VISp5",
+   "major": "Isocortex",
+   "axon_mm": 40.2,
+   "dend_mm": 10.49,
+   "reach_mm": 11.82,
+   "tips": 215,
+   "targets": [
+    [
+     "Midbrain",
+     0.449
+    ],
+    [
+     "Thalamus",
+     0.268
+    ],
+    [
+     "Isocortex",
+     0.215
+    ],
+    [
+     "fibre tracts",
+     0.063
+    ],
+    [
+     "Hypothalamus",
+     0.005
+    ]
+   ],
+   "paths": 614,
+   "verts": 1369,
+   "bytes": 13557,
+   "cbytes": 3186,
+   "cpaths": 221,
+   "cverts": 456,
+   "shard": 0,
+   "offset": 9298171,
+   "tf": [
+    [
+     "SCsg",
+     0.283
+    ],
+    [
+     "LGv",
+     0.249
+    ],
+    [
+     "VISp",
+     0.14
+    ],
+    [
+     "SCop",
+     0.101
+    ],
+    [
+     "fiber tracts",
+     0.053
+    ],
+    [
+     "SCzo",
+     0.036
+    ],
+    [
+     "RSPv",
+     0.034
+    ],
+    [
+     "SCig",
+     0.031
+    ]
+   ],
+   "rf": "VISp",
+   "region_name": "Primary visual area, layer 5"
+  },
+  {
+   "id": "AA0735",
+   "src": "MouseLight",
+   "soma": [
+    -3.75,
+    -1.59,
+    1.11
+   ],
+   "region": "MOs5",
+   "major": "Isocortex",
+   "axon_mm": 414.45,
+   "dend_mm": 7.8,
+   "reach_mm": 9.82,
+   "tips": 592,
+   "targets": [
+    [
+     "Isocortex",
+     0.601
+    ],
+    [
+     "Striatum",
+     0.244
+    ],
+    [
+     "Olfactory areas",
+     0.098
+    ],
+    [
+     "fibre tracts",
+     0.029
+    ],
+    [
+     "Cortical subplate",
+     0.019
+    ],
+    [
+     "Pallidum",
+     0.008
+    ]
+   ],
+   "paths": 1292,
+   "verts": 4532,
+   "bytes": 43380,
+   "cbytes": 13910,
+   "cpaths": 879,
+   "cverts": 2024,
+   "shard": 0,
+   "offset": 16389429,
+   "tf": [
+    [
+     "MOs",
+     0.291
+    ],
+    [
+     "CP",
+     0.245
+    ],
+    [
+     "PIR",
+     0.073
+    ],
+    [
+     "MOp",
+     0.06
+    ],
+    [
+     "SSp-m",
+     0.06
+    ],
+    [
+     "SSp-ul",
+     0.04
+    ],
+    [
+     "ORBl",
+     0.024
+    ],
+    [
+     "ACAd",
+     0.023
+    ]
+   ],
+   "rf": "MOs",
+   "region_name": "Secondary motor area, layer 5"
+  },
+  {
+   "id": "AA1226",
+   "src": "MouseLight",
+   "soma": [
+    -0.46,
+    2.39,
+    1.32
+   ],
+   "region": "LHA",
+   "major": "Hypothalamus",
+   "axon_mm": 472.94,
+   "dend_mm": 4.75,
+   "reach_mm": 14.44,
+   "tips": 2383,
+   "targets": [
+    [
+     "Isocortex",
+     0.484
+    ],
+    [
+     "Olfactory areas",
+     0.474
+    ],
+    [
+     "Cortical subplate",
+     0.024
+    ],
+    [
+     "Striatum",
+     0.006
+    ],
+    [
+     "fibre tracts",
+     0.005
+    ],
+    [
+     "Hypothalamus",
+     0.003
+    ]
+   ],
+   "paths": 4844,
+   "verts": 12191,
+   "bytes": 119415,
+   "cbytes": 36292,
+   "cpaths": 2545,
+   "cverts": 5199,
+   "shard": 0,
+   "offset": 9715019,
+   "tf": [
+    [
+     "AON",
+     0.241
+    ],
+    [
+     "AIv",
+     0.225
+    ],
+    [
+     "ORBl",
+     0.144
+    ],
+    [
+     "PIR",
+     0.114
+    ],
+    [
+     "OLF",
+     0.103
+    ],
+    [
+     "ORBvl",
+     0.098
+    ],
+    [
+     "EPd",
+     0.021
+    ],
+    [
+     "DP",
+     0.01
+    ]
+   ],
+   "rf": "LHA",
+   "region_name": "Lateral hypothalamic area"
+  },
+  {
+   "id": "AA1414",
+   "src": "MouseLight",
+   "soma": [
+    -3.78,
+    1.0,
+    -0.44
+   ],
+   "region": "AON",
+   "major": "Olfactory areas",
+   "axon_mm": 429.15,
+   "dend_mm": 4.78,
+   "reach_mm": 14.05,
+   "tips": 2711,
+   "targets": [
+    [
+     "Isocortex",
+     0.976
+    ],
+    [
+     "fibre tracts",
+     0.014
+    ],
+    [
+     "Olfactory areas",
+     0.008
+    ],
+    [
+     "Striatum",
+     0.001
+    ]
+   ],
+   "paths": 5493,
+   "verts": 13476,
+   "bytes": 132278,
+   "cbytes": 40568,
+   "cpaths": 2877,
+   "cverts": 5801,
+   "shard": 0,
+   "offset": 6241336,
+   "tf": [
+    [
+     "SSp-ll",
+     0.243
+    ],
+    [
+     "ACAd",
+     0.169
+    ],
+    [
+     "MOs",
+     0.149
+    ],
+    [
+     "MOp",
+     0.109
+    ],
+    [
+     "ORBvl",
+     0.083
+    ],
+    [
+     "PL",
+     0.06
+    ],
+    [
+     "ORBl",
+     0.058
+    ],
+    [
+     "SSp-tr",
+     0.029
+    ]
+   ],
+   "rf": "AON",
+   "region_name": "Anterior olfactory nucleus"
+  },
+  {
+   "id": "AA1415",
+   "src": "MouseLight",
+   "soma": [
+    -0.81,
+    0.77,
+    -1.49
+   ],
+   "region": "int",
+   "major": "fibre tracts",
+   "axon_mm": 422.93,
+   "dend_mm": 4.12,
+   "reach_mm": 9.79,
+   "tips": 2070,
+   "targets": [
+    [
+     "Isocortex",
+     0.731
+    ],
+    [
+     "Thalamus",
+     0.22
+    ],
+    [
+     "fibre tracts",
+     0.046
+    ],
+    [
+     "Pallidum",
+     0.002
+    ],
+    [
+     "Olfactory areas",
+     0.001
+    ],
+    [
+     "Striatum",
+     0.0
+    ]
+   ],
+   "paths": 4201,
+   "verts": 10949,
+   "bytes": 106951,
+   "cbytes": 34040,
+   "cpaths": 2376,
+   "cverts": 4880,
+   "shard": 0,
+   "offset": 6134385,
+   "tf": [
+    [
+     "MOs",
+     0.177
+    ],
+    [
+     "ORBl",
+     0.16
+    ],
+    [
+     "ACAd",
+     0.149
+    ],
+    [
+     "RT",
+     0.113
+    ],
+    [
+     "VPL",
+     0.087
+    ],
+    [
+     "RSPd",
+     0.084
+    ],
+    [
+     "ORBvl",
+     0.046
+    ],
+    [
+     "PL",
+     0.036
+    ]
+   ],
+   "rf": "int",
+   "region_name": "internal capsule"
+  },
+  {
+   "id": "AA1418",
+   "src": "MouseLight",
+   "soma": [
+    -0.29,
+    1.97,
+    1.9
+   ],
+   "region": "SI",
+   "major": "Pallidum",
+   "axon_mm": 374.63,
+   "dend_mm": 4.65,
+   "reach_mm": 11.04,
+   "tips": 1509,
+   "targets": [
+    [
+     "Isocortex",
+     0.908
+    ],
+    [
+     "Cortical subplate",
+     0.058
+    ],
+    [
+     "Olfactory areas",
+     0.028
+    ],
+    [
+     "fibre tracts",
+     0.005
+    ],
+    [
+     "Striatum",
+     0.001
+    ]
+   ],
+   "paths": 3126,
+   "verts": 8625,
+   "bytes": 83885,
+   "cbytes": 25502,
+   "cpaths": 1773,
+   "cverts": 3658,
+   "shard": 0,
+   "offset": 5924422,
+   "tf": [
+    [
+     "ORBvl",
+     0.284
+    ],
+    [
+     "ACAd",
+     0.273
+    ],
+    [
+     "ORBm",
+     0.134
+    ],
+    [
+     "ACAv",
+     0.081
+    ],
+    [
+     "CLA",
+     0.062
+    ],
+    [
+     "MOs",
+     0.052
+    ],
+    [
+     "ORBl",
+     0.047
+    ],
+    [
+     "AIv",
+     0.019
+    ]
+   ],
+   "rf": "SI",
+   "region_name": "Substantia innominata"
+  },
+  {
+   "id": "AA1446",
+   "src": "MouseLight",
+   "soma": [
+    2.3,
+    0.67,
+    -1.67
+   ],
+   "region": "MB",
+   "major": "Midbrain",
+   "axon_mm": 357.68,
+   "dend_mm": 5.35,
+   "reach_mm": 12.39,
+   "tips": 2741,
+   "targets": [
+    [
+     "Striatum",
+     0.952
+    ],
+    [
+     "fibre tracts",
+     0.048
+    ]
+   ],
+   "paths": 5550,
+   "verts": 12467,
+   "bytes": 123311,
+   "cbytes": 38804,
+   "cpaths": 2757,
+   "cverts": 5547,
+   "shard": 0,
+   "offset": 5135886,
+   "tf": [
+    [
+     "CP",
+     0.957
+    ],
+    [
+     "ec",
+     0.024
+    ],
+    [
+     "ccb",
+     0.018
+    ],
+    [
+     "ccg",
+     0.0
+    ],
+    [
+     "scwm",
+     0.0
+    ]
+   ],
+   "rf": "MB",
+   "region_name": "Midbrain"
+  },
+  {
+   "id": "AA0492",
+   "src": "MouseLight",
+   "soma": [
+    2.05,
+    -2.7,
+    2.08
+   ],
+   "region": "VISp5",
+   "major": "Isocortex",
+   "axon_mm": 146.32,
+   "dend_mm": 9.32,
+   "reach_mm": 10.8,
+   "tips": 260,
+   "targets": [
+    [
+     "Isocortex",
+     0.602
+    ],
+    [
+     "Striatum",
+     0.259
+    ],
+    [
+     "Hippocampal formation",
+     0.092
+    ],
+    [
+     "fibre tracts",
+     0.044
+    ],
+    [
+     "ventricles",
+     0.004
+    ]
+   ],
+   "paths": 605,
+   "verts": 1912,
+   "bytes": 18426,
+   "cbytes": 5356,
+   "cpaths": 346,
+   "cverts": 776,
+   "shard": 0,
+   "offset": 19207994,
+   "tf": [
+    [
+     "CP",
+     0.248
+    ],
+    [
+     "RSPd",
+     0.181
+    ],
+    [
+     "VISp",
+     0.159
+    ],
+    [
+     "TEa",
+     0.043
+    ],
+    [
+     "PRE",
+     0.039
+    ],
+    [
+     "RSPagl",
+     0.035
+    ],
+    [
+     "RSPv",
+     0.029
+    ],
+    [
+     "VISpor",
+     0.028
+    ]
+   ],
+   "rf": "VISp",
+   "region_name": "Primary visual area, layer 5"
+  }
+ ],
+ "synapse": {
+  "note": "A real synapse from the MICrONS volume in primary visual cortex: Tendril, an inhibitory axon (seg 864691136195546856), contacting Aura, a layer 5 thick-tufted pyramidal cell (seg 864691135948123745). Meshes centred on the contact, 1 unit = 600 um.",
+  "meshes": [
+   "meshes/synapse/synapse-aura.glb",
+   "meshes/synapse/synapse-tendril.glb"
+  ]
+ }
+}

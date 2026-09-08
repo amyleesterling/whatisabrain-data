@@ -1,0 +1,22 @@
+{
+ "space": "Allen CCFv3 (2017 annotation), x anterior to posterior, y dorsal to ventral, z left to right",
+ "units": "mm, centred on the root structure's bounding box centre",
+ "center_um": [
+  6587.83515,
+  3849.085,
+  5688.1645
+ ],
+ "bbox_um": [
+  [
+   -16.8297,
+   133.93,
+   485.729
+  ],
+  [
+   13192.5,
+   7564.24,
+   10890.6
+  ]
+ ],
+ "quant": "neurons-*.bin, axons-coarse.bin and cells.bin store Int16 in units of 10 um about the same centre"
+}

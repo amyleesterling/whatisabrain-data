@@ -1,0 +1,44 @@
+The whole mouse brain, wired (whatisabrain.com/mouse)
+
+Page code (index.html, js/): Copyright Amy Sterling. All rights reserved; no
+licence to copy or reuse is granted. Third party parts keep their own licences:
+three.js (MIT).
+
+Data files under data/ and meshes/ are derived from open datasets and carry
+those datasets' licences. Each is credited on the page.
+
+  meshes/*.glb            Allen Mouse Brain Common Coordinate Framework v3,
+                          2017 structure meshes, decimated. Allen Institute
+                          terms of use (https://alleninstitute.org/terms-of-use/).
+                          Cite Wang Q. et al., Cell 181, 936 (2020).
+
+  data/neurons.*          MouseLight neurons: Janelia Research Campus,
+  data/axons-coarse.bin   ml-neuronbrowser.janelia.org, CC BY-NC 4.0.
+                          Cite Winnubst J. et al., Cell 179, 268 (2019).
+                          SEU-ALLEN neurons: Brain Image Library,
+                          doi 10.35077/g.25, CC BY-SA 4.0. Cite Peng H. et al.,
+                          Nature 598, 174 (2021). The derived neuron files are
+                          therefore shared under CC BY-SA 4.0 for the SEU-ALLEN
+                          records and CC BY-NC 4.0 for the MouseLight records;
+                          each record names its source.
+
+  data/neurons-*.bin      ION prefrontal cortex and hippocampus projectomes: Institute
+  (continued)             of Neuroscience, Chinese Academy of Sciences, via the Digital
+                          Brain atlas (mouse.digital-brain.cn), dataset DOIs
+                          10.12412/BSDC.1690164952.20001 and 10.12412/BSDC.1667278800.20001.
+                          Cite Gao L. et al., Nat Neurosci 25, 515 (2022) and Qiu S. et
+                          al., Science 383, eadj9198 (2024). Shared for research and
+                          education with attribution; not for commercial use.
+                          ION whole-cortex projectome (source ION-CTX): the same
+                          portal, mouse.digital-brain.cn/projectome/whole-cortex.
+                          Cite Gao L. et al., Neuron 114, 86 (2026),
+                          doi 10.1016/j.neuron.2025.10.019. Same terms.
+
+  data/cells.*            Allen Brain Cell Atlas, MERFISH-C57BL6J-638850, CCF
+                          coordinates release 2023-12-15 and WMB taxonomy
+                          CCN20230722, CC BY-NC 4.0. Cite Yao Z. et al.,
+                          Nature 624, 317 (2023).
+
+No dataset here may be used commercially without the permission of its owner.
+The build that produced these files is tools/build-mouse.py. The data/ folder is
+hosted in the public repository github.com/amyleesterling/whatisabrain-data.

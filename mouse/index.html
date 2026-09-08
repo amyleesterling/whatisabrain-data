@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>30,000 neurons of 70 million | what is a brain</title>
+<meta name="description" content="Nearly twenty thousand real neurons, each traced along its entire axon across a whole mouse brain, drawn where they were found. Watch a signal leave a cell body and reach every region its axon touches.">
+<meta property="og:title" content="30,000 neurons of 70 million">
+<meta property="og:description" content="Real neurons traced across a whole mouse brain. Watch a signal leave a cell body and find every region its axon reaches.">
+<meta property="og:url" content="https://whatisabrain.com/mouse/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://whatisabrain.com/mouse/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A translucent mouse brain with the axon of one neuron lit across it">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://whatisabrain.com/mouse/og.jpg">
+<link rel="canonical" href="https://whatisabrain.com/mouse/">
+<link rel="alternate" hreflang="en" href="https://whatisabrain.com/mouse/">
+<link rel="alternate" hreflang="zh-Hans" href="https://whatisabrain.com/mouse/zh/">
+<link rel="icon" href="/brain-favicon.png">
+<link rel="stylesheet" href="vendor/scifi-ui/panel-surface.css">
+<script type="importmap">
+{"imports":{"three":"./vendor/three/three.module.min.js","three/addons/":"./vendor/three/addons/"}}
+</script>
+<style>
+  :root {
+    --ink:#EFF2F7; --dim:#9AA2B1; --faint:#666E7C; --ground:#07080B;
+    --panel:#0F1218; --line:#1D222B; --edge:#4A5568; --accent:#6fd0ff;
+  }
+  * { box-sizing:border-box; }
+  * { scrollbar-color: #2A313D transparent; scrollbar-width: thin; }
+  ::-webkit-scrollbar { width:11px; height:11px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:#252C38; border-radius:6px; border:2px solid transparent; background-clip:content-box; }
+  body { margin:0; background:var(--ground); color:var(--ink);
+    font:400 17px/1.7 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-text-size-adjust:100%; overflow-x:hidden; }
+  .wrap { max-width:820px; margin:0 auto; padding:clamp(26px,5vw,48px) clamp(16px,5vw,32px) 20px; }
+  .wide { max-width:1240px; margin:0 auto; padding:0 clamp(12px,3vw,28px); }
+  h1 { margin:0 0 8px; font-size:clamp(22px,4.8vw,32px); font-weight:500; letter-spacing:-.015em; text-wrap:balance; }
+  h2 { margin:48px 0 12px; font-size:13px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); }
+  p { margin:0 0 15px; }
+  a { color:var(--accent); }
+  .lede { color:var(--dim); font-size:15.5px; }
+  .lede b { color:var(--ink); font-weight:500; }
+  .note { font-size:14.5px; color:var(--dim); border-left:2px solid var(--line); padding:2px 0 2px 16px; margin:22px 0; }
+  .note b { color:var(--ink); font-weight:500; }
+  .home { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); text-decoration:none; display:inline-block; margin-bottom:14px; }
+  .home:hover { color:var(--ink); }
+  .lang { float:right; font-size:12px; color:var(--faint); text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:4px 12px; }
+  .lang:hover { color:var(--ink); border-color:var(--edge); }
+
+  .stage { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:18px; align-items:start; margin:20px 0 0; }
+  @media (max-width:900px){ .stage { grid-template-columns:minmax(0,1fr); } }
+  .box { background:#090B10; border:1px solid var(--line); border-radius:6px; overflow:hidden; position:relative; }
+  .box .view { position:relative; background:#090B10; }
+  .fsicon { position:absolute; top:10px; right:10px; z-index:3; appearance:none; width:32px; height:32px; border-radius:8px; border:1px solid rgba(239,244,251,.2);
+    background:rgba(9,11,16,.6); color:var(--dim); font-size:16px; line-height:1; cursor:pointer; }
+  .fsicon:hover { color:var(--ink); border-color:var(--edge); }
+  .box .view:fullscreen .canvas { height:100vh; min-height:0; }
+  .box .canvas { height:min(68vh,640px); min-height:360px; width:100%; }
+  .status { position:absolute; left:12px; bottom:10px; right:12px; font:500 11px/1.4 ui-monospace,Consolas,monospace;
+    letter-spacing:.06em; color:#9fd0ff; opacity:.85; pointer-events:none; text-shadow:0 1px 8px #000; }
+  .ctl { border-top:1px solid var(--line); padding:12px clamp(12px,3vw,18px) 13px; }
+  .row { display:flex; flex-wrap:wrap; align-items:center; gap:7px 12px; margin:0 0 8px; }
+  .row:last-child { margin-bottom:0; }
+  .lab { font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); min-width:56px; }
+  .tabs { display:flex; flex-wrap:wrap; gap:6px; }
+  a.btn { text-decoration:none; display:inline-block; }
+  .tabs button, .btn { appearance:none; background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:999px;
+    padding:5px 13px; font:inherit; font-size:13px; cursor:pointer; transition:color .15s,border-color .15s,background .15s; }
+  .tabs button:hover, .btn:hover { color:var(--ink); border-color:var(--edge); }
+  .tabs button[aria-selected="true"] { color:#cfe6ff; border-color:rgba(111,208,255,.55); background:rgba(111,208,255,.10); }
+  .tog { display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--dim); cursor:pointer; }
+  .tog input { accent-color:#6fd0ff; }
+  select { background:#0F1218; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:4px 8px; font:inherit; font-size:13px; }
+  .rlabels { position:absolute; inset:0; pointer-events:none; }
+  /* region tags: small, the acronym and its share, the full name on hover */
+  .rlbl { position:absolute; transform:translate(-50%,-50%); pointer-events:auto; cursor:pointer; white-space:nowrap; font:500 10px/1 ui-monospace,Consolas,monospace; letter-spacing:.08em;
+    color:rgba(239,244,251,.78); padding:3px 6px; border:1px solid rgba(239,244,251,.14); border-radius:4px; background:rgba(9,11,16,.55); transition:opacity .3s, color .2s, border-color .2s; }
+  .rlbl:hover { color:var(--ink); border-color:rgba(239,244,251,.4); }
+  .rlbl b { font-weight:700; }
+  .rlbl small { opacity:.6; margin-left:4px; font-size:9px; }
+  .rlbl.soma b { color:#fff1c0; }
+  .rlbl.is-on { color:var(--ink); border-color:currentColor; background:rgba(9,11,16,.85); }
+  .tbars button.tb { appearance:none; background:transparent; border:0; padding:0; width:100%; text-align:left; color:var(--dim); cursor:pointer; font:inherit; font-size:11.5px; }
+  .tbars button.tb:hover, .tbars button.tb.is-on { color:var(--ink); }
+  .tbars button.tb.is-on .tb-r { background:#24303f; }
+  .tb-l b { font-weight:600; color:var(--ink); }
+  /* the sliders: a neon tube, clear at the zero end and solid at the full
+     end, a lit rim along the top so it reads as a cylinder, a bright bead
+     for the thumb. Each carries its own colour in --c. */
+  .surf { display:inline-flex; align-items:center; gap:10px; font-size:13px; color:var(--dim); }
+  .surf input { --c:111 208 255; appearance:none; -webkit-appearance:none; width:130px; height:12px; margin:0; border-radius:999px; background:transparent; cursor:pointer; outline:none; }
+  .surf input[data-divisions] { --c:224 92 255; }
+  .surf input::-webkit-slider-runnable-track { height:12px; border-radius:999px;
+    background: linear-gradient(90deg, rgb(var(--c) / 0) 0%, rgb(var(--c) / .35) 45%, rgb(var(--c) / 1) 100%);
+    box-shadow: inset 0 2px 2px rgb(255 255 255 / .3), inset 0 -3px 4px rgb(0 0 0 / .45); transition: box-shadow .2s; }
+  .surf input::-moz-range-track { height:12px; border-radius:999px;
+    background: linear-gradient(90deg, rgb(var(--c) / 0) 0%, rgb(var(--c) / .35) 45%, rgb(var(--c) / 1) 100%);
+    box-shadow: inset 0 2px 2px rgb(255 255 255 / .3), inset 0 -3px 4px rgb(0 0 0 / .45); transition: box-shadow .2s; }
+  .surf input::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:18px; height:18px; margin-top:-3px; border-radius:50%; border:0;
+    background: radial-gradient(circle at 35% 30%, #fff 0%, rgb(var(--c)) 45%, rgb(var(--c) / .9) 100%);
+    box-shadow: inset 0 -2px 3px rgb(0 0 0 / .35); transition: box-shadow .2s; }
+  .surf input::-moz-range-thumb { width:18px; height:18px; border-radius:50%; border:0;
+    background: radial-gradient(circle at 35% 30%, #fff 0%, rgb(var(--c)) 45%, rgb(var(--c) / .9) 100%);
+    box-shadow: inset 0 -2px 3px rgb(0 0 0 / .35); transition: box-shadow .2s; }
+  /* the glow comes on only while the tube is being moved */
+  .surf input:active::-webkit-slider-runnable-track { box-shadow: 0 0 14px rgb(var(--c) / .55), 0 0 3px rgb(var(--c) / .7), inset 0 2px 2px rgb(255 255 255 / .35), inset 0 -3px 4px rgb(0 0 0 / .45); }
+  .surf input:active::-moz-range-track { box-shadow: 0 0 14px rgb(var(--c) / .55), 0 0 3px rgb(var(--c) / .7), inset 0 2px 2px rgb(255 255 255 / .35), inset 0 -3px 4px rgb(0 0 0 / .45); }
+  .surf input:active::-webkit-slider-thumb { box-shadow: 0 0 10px rgb(var(--c) / .9), 0 0 22px rgb(var(--c) / .5), inset 0 -2px 3px rgb(0 0 0 / .35); }
+  .surf input:active::-moz-range-thumb { box-shadow: 0 0 10px rgb(var(--c) / .9), 0 0 22px rgb(var(--c) / .5), inset 0 -2px 3px rgb(0 0 0 / .35); }
+  .surf input:focus-visible { outline: 1px solid rgb(var(--c) / .5); outline-offset: 3px; }
+  .legend { display:flex; flex-wrap:wrap; gap:5px 10px; margin:8px 0 0; }
+  .legend .lg { display:inline-flex; align-items:center; gap:6px; font-size:11.5px; color:var(--dim); }
+  .legend .lg s { width:9px; height:9px; border-radius:2px; text-decoration:none; display:inline-block; }
+  .legend .lg.dim { color:var(--faint); }
+
+  .side { background:#090B10; border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .side h3 { margin:0 0 4px; font-size:14px; font-weight:500; color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .side h3 s { width:11px; height:11px; border-radius:3px; flex:none; text-decoration:none; display:inline-block; }
+  .side p { font-size:12.5px; color:var(--dim); margin:8px 0 0; }
+  .side p b { color:var(--ink); font-weight:500; }
+  .side p.side { color:var(--faint); font-size:11.5px; margin:2px 0 0; }
+  .side p.badge { font-size:11px; color:var(--faint); letter-spacing:.02em; border-top:1px solid var(--line); padding-top:8px; margin-top:10px; }
+  .side .trail { font-size:11px; color:var(--faint); margin-top:10px; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .klist { display:flex; flex-direction:column; gap:2px; margin:6px 0 0; max-height:340px; overflow:auto; }
+  .kk { appearance:none; background:transparent; border:1px solid transparent; border-radius:6px; padding:3px 6px; color:var(--dim); font:inherit; font-size:11.5px; text-align:left; cursor:pointer; display:flex; align-items:center; gap:7px; }
+  .kk:hover, .kk.is-on { color:var(--ink); border-color:var(--line); background:#0F1218; }
+  .kk s { width:10px; height:10px; border-radius:3px; flex:none; text-decoration:none; display:inline-block; }
+  .kk b { font-weight:600; color:var(--ink); }
+  .kk .kd { color:var(--faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; }
+  .kk .kn { margin-left:auto; font-variant-numeric:tabular-nums; color:var(--faint); }
+  .tbars { margin:6px 0 0; }
+  .tb { display:grid; grid-template-columns:118px 1fr 34px; gap:8px; align-items:center; font-size:11.5px; color:var(--dim); margin:3px 0; }
+  .tb-l { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tb-r { height:3px; background:#151a22; border-radius:2px; position:relative; }
+  .tb-r i { position:absolute; left:0; top:0; bottom:0; border-radius:2px; box-shadow:0 0 8px currentColor; }
+  .tb-v { text-align:right; font-variant-numeric:tabular-nums; }
+  .unit { text-transform:none; }
+
+  .cmp { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0; }
+  @media (max-width:640px){ .cmp { grid-template-columns:1fr; } }
+  .cmp div { background:#090B10; border:1px solid var(--line); border-radius:10px; padding:14px 16px; font-size:14px; color:var(--dim); }
+  .cmp b { display:block; color:var(--ink); font-weight:500; margin-bottom:4px; }
+  .src { font-size:14px; color:var(--dim); }
+  .src li { margin:0 0 10px; }
+  .src b { color:var(--ink); font-weight:500; }
+  footer { margin-top:56px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--faint); }
+  footer a { color:var(--dim); }
+</style>
+</head>
+<body>
+
+<div class="wide" style="padding-top:clamp(26px,5vw,48px)">
+  <a class="lang" href="zh/" hreflang="zh-Hans" lang="zh-Hans">中文</a>
+  <a class="home" href="/">What's a brain?</a>
+  <h1>30,000 neurons of 70 million</h1>
+  <p class="lede"><b>Watch a signal leave a cell body and reach every region its axon
+    touches.</b> Every line here is an <a href="neuron/">axon</a>, the single long
+    fibre a neuron grows to carry its signal to other cells, followed from the cell
+    body to its last branch across a whole mouse brain. Drag to turn the brain, right-drag to move it,
+    scroll to zoom. Nothing here is drawn from imagination: the brain is a measured
+    atlas, every cell is a real cell, every line is a real axon.</p>
+</div>
+
+<div class="wide">
+  <section class="stage" id="mouse">
+    <div class="box">
+      <div class="view">
+      <div class="canvas" data-mount></div>
+      <div class="rlabels" data-rlabels></div>
+      <button class="fsicon" data-fullscreen-icon title="Fullscreen" aria-label="Fullscreen">&#x26F6;</button>
+      <div class="status" data-status>Loading the brain…</div>
+      </div>
+      <div class="ctl">
+        <div class="row">
+          <span class="lab">Show</span>
+          <div class="tabs" role="tablist">
+            <button data-mode="wire" role="tab" aria-selected="true">One neuron at a time</button>
+            <button data-mode="pick" role="tab">Pick a cell body</button>
+            <button data-mode="all" role="tab">Every axon at once</button>
+            <button data-mode="match" role="tab">All that match</button>
+          </div>
+          <button class="btn" data-next>Another</button>
+          <button class="btn" data-pause>Pause turning</button>
+          <span class="lab" style="min-width:0">Jump to</span>
+          <button class="btn" data-cube="microns" style="color:#ffc24a;border-color:rgba(255,194,74,.45)">MICrONS V1</button>
+          <button class="btn" data-cube="ca3" style="color:#3fe3b0;border-color:rgba(63,227,176,.45)">CA3</button>
+          <button class="btn" data-fullscreen>Fullscreen</button>
+          <button class="btn" data-share>Share this view</button>
+          <button class="btn" data-image>Save an image</button>
+          <a class="btn" data-shader href="https://amyleesterling.github.io/scifi-ui/hologram-3d.html" title="Design a hologram look in the scifi-ui maker and bring it back onto this brain">Shader</a>
+          <a class="btn" data-request href="https://github.com/amyleesterling/whatisabrain-feedback/issues/new?title=Feature%20request%3A%20" target="_blank" rel="noopener">Request a feature</a>
+        </div>
+        <div class="row">
+          <span class="lab">Layers</span>
+          <label class="tog"><input type="checkbox" data-t-shell checked> brain</label>
+          <label class="tog"><input type="checkbox" data-t-regions checked> divisions</label>
+          <label class="tog"><input type="checkbox" data-t-cells> every cell</label>
+          <label class="tog"><input type="checkbox" data-t-microns checked> the connectome cubes</label>
+          <label class="tog"><input type="checkbox" data-t-turn checked> turn</label>
+          <label class="surf">shell <input type="range" data-surface min="0" max="100" value="50"></label>
+          <label class="surf">divisions <input type="range" data-divisions min="0" max="100" value="50"></label>
+          <label class="tog"><input type="checkbox" data-t-zoom checked> follow the neuron</label>
+        </div>
+        <div class="row">
+          <span class="lab">From</span>
+          <select data-f-src>
+            <option value="all">every dataset</option>
+            <option value="MouseLight">MouseLight (Janelia)</option>
+            <option value="SEU-ALLEN">SEU-ALLEN</option>
+            <option value="ION-PFC">ION prefrontal cortex</option>
+            <option value="ION-HIPP">ION hippocampus</option>
+            <option value="ION-CTX">ION whole cortex</option>
+          </select>
+          <input type="search" data-f-region placeholder="cell body region, e.g. CA3" style="background:#0F1218;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font:inherit;font-size:13px;width:190px">
+          <select data-f-div><option value="all">every division</option></select>
+          <select data-colour title="how the all-that-match view is coloured"><option value="subtype">colour by subtype</option><option value="family">colour by pathway family</option><option value="region">colour by cell body region</option><option value="division">colour by division</option></select>
+        </div>
+        <div class="legend" data-legend hidden></div>
+      </div>
+    </div>
+    <aside class="side">
+      <div data-card>
+        <h3>One neuron</h3>
+        <p>Pick a mode on the left. Each neuron is one cell, reconstructed from a
+          whole-brain image stack, with its cell body, its dendrites and the entire
+          length of its axon.</p>
+      </div>
+      <div class="trail"><span data-trailcount></span><button class="btn" data-clear>Clear the traces</button></div>
+    </aside>
+  </section>
+</div>
+
+<main class="wrap">
+  <h2>What you are looking at</h2>
+  <p>The outline is the Allen Institute's reference mouse brain, the Common
+    Coordinate Framework, an average of many brains that every dataset here was
+    registered to by the people who made it. That shared frame is the whole
+    trick: neurons traced in different labs, in different years, with different
+    microscopes, land in the same brain and can be drawn together.</p>
+  <p>Each neuron was filled with a fluorescent protein, the whole brain was
+    imaged at sub-micron resolution, and a person or an algorithm followed
+    every branch of the axon through the stack, sometimes for centimetres.
+    Five collections are drawn: the Janelia <b>MouseLight</b> project, the
+    <b>SEU-ALLEN</b> collaboration between Southeast University and the Allen
+    Institute, and three projectome atlases from the Institute of Neuroscience in
+    Shanghai, of the <b>prefrontal cortex</b>, the <b>hippocampus</b> and the
+    <b>whole cortex</b>. The counts on the card are what loaded, not a number
+    typed in.</p>
+  <p class="note"><b>A sample, not the population.</b> A mouse brain has about
+    70 million neurons and this page draws about thirty-two thousand. It shows where these
+    neurons go. It says nothing about how many neurons go there, and the
+    divisions with the most cells here are the ones these projects chose to
+    label, not the ones with the most neurons.</p>
+
+  <h2>Signal speed</h2>
+  <p>The light that runs the axon is a stand-in for an action potential. It
+    travels along the tree at 4 millimetres per second of cable, measured from
+    the cell body. A real spike in a thin unmyelinated axon covers about a metre
+    per second, and a myelinated one several times that, so what you see is
+    slowed roughly 250 times. The card gives each neuron's real crossing time
+    at one metre per second.</p>
+
+  <h2>What this is not</h2>
+  <div class="cmp">
+    <div><b>An axon is not a connection</b>
+      Each line is where one axon goes. Where it makes synapses, and onto which
+      cells, is not in this data. The bar on the card counts axon tips by
+      division, which is the honest proxy available.</div>
+    <div><b>Not a whole-brain connectome</b>
+      Nobody has one for a mouse yet. The most complete mouse connectome at
+      synapse level is <a href="https://amyleesterling.github.io/microns/">MICrONS</a>:
+      every synapse in one cubic millimetre of visual cortex, about 75,000
+      neurons and half a billion synapses. Turn on <b>the cubic millimetre</b>
+      to see that block at its true size, in the visual cortex where it came
+      from.</div>
+  </div>
+  <p>The human page on this site draws the opposite thing. On
+    <a href="/tracks/">the white matter</a> each cable is a bundle of a million
+    axons averaged over a thousand people, because no one can trace a single axon
+    across a human brain. Here each line is one axon in one mouse.</p>
+
+  <h2>Every cell</h2>
+  <p>The <b>every cell</b> layer is a different kind of data: the Allen Brain
+    Cell Atlas imaged one mouse brain in serial sections and recorded, for
+    every cell, which of about a thousand genes it was expressing. That gives a
+    position and a cell type for millions of cells in one animal, also in the
+    reference frame. The page draws one cell in twelve, coloured by the atlas's
+    own 34 cell classes and its own colours. Because the brain was cut into
+    sections a fifth of a millimetre apart, the cloud shows a faint striping at
+    the section spacing. That is the measurement, not an artefact of drawing.</p>
+
+  <h2>Where the data comes from</h2>
+  <ul class="src">
+    <li><b>How many neurons a mouse has.</b> Herculano-Houzel S., Mota B. and Lent R., Cellular scaling
+      rules for rodent brains, PNAS 103, 12138 (2006): about 71 million neurons in the whole mouse brain,
+      counted by isotropic fractionation. The title rounds both numbers.</li>
+    <li><b>Reference brain.</b> Allen Mouse Brain Common Coordinate Framework, version 3, 2017
+      annotation and structure meshes. Wang Q. et al., Cell 181, 936 (2020).
+      Allen Institute terms of use.</li>
+    <li><b>MouseLight.</b> Winnubst J. et al., Reconstruction of 1,000 projection neurons reveals
+      new cell types and organization of long-range connectivity in the mouse brain,
+      Cell 179, 268 (2019). Data from the
+      <a href="https://ml-neuronbrowser.janelia.org/">MouseLight NeuronBrowser</a>, Janelia
+      Research Campus, CC BY-NC 4.0, CCF v3.0 coordinates.</li>
+    <li><b>SEU-ALLEN.</b> Peng H. et al., Morphological diversity of single neurons in molecularly
+      defined cell types, Nature 598, 174 (2021). 1,741 registered reconstructions from the
+      <a href="https://doi.org/10.35077/g.25">Brain Image Library</a>, CC BY-SA 4.0.</li>
+    <li><b>ION prefrontal cortex.</b> Gao L. et al., Single-neuron projectome of mouse prefrontal
+      cortex, Nature Neuroscience 25, 515 (2022). 6,357 reconstructions from the
+      <a href="https://mouse.digital-brain.cn/projectome/pfc">Digital Brain projectome atlas</a>,
+      Institute of Neuroscience, Chinese Academy of Sciences, Shanghai. Dataset DOI
+      <a href="https://doi.org/10.12412/BSDC.1690164952.20001">10.12412/BSDC.1690164952.20001</a>.</li>
+    <li><b>ION hippocampus.</b> Qiu S. et al., Whole-brain spatial organization of hippocampal
+      single-neuron projectomes, Science 383, eadj9198 (2024). 10,100 reconstructions from the
+      <a href="https://mouse.digital-brain.cn/hipp">Digital Brain hippocampus atlas</a>, same
+      institute. Dataset DOI
+      <a href="https://doi.org/10.12412/BSDC.1667278800.20001">10.12412/BSDC.1667278800.20001</a>.
+      The Shanghai reconstructions carry the axon and the cell body; dendrites were traced separately
+      and are not drawn here.</li>
+    <li><b>ION whole cortex.</b> Gao L. et al., Integrative analysis of single-neuron projectomes
+      links connectome, transcriptome, and function in the mouse cortex, Neuron 114, 86 (2026).
+      18,621 reconstructions across the whole cortex from the
+      <a href="https://mouse.digital-brain.cn/projectome/whole-cortex">Digital Brain whole-cortex atlas</a>,
+      same institute, with the portal's projectome classes (IT, PT and CT groups). 6,357 of them are the
+      prefrontal reconstructions above under the same ids, so 12,264 are new here; the prefrontal set keeps
+      its own class scheme.</li>
+    <li><b>Every cell.</b> Yao Z. et al., A high-resolution transcriptomic and spatial atlas of cell
+      types in the whole mouse brain, Nature 624, 317 (2023). Allen Brain Cell Atlas,
+      MERFISH dataset C57BL6J-638850, CCF coordinates release 2023-12-15, CC BY-NC 4.0.</li>
+    <li><b>The cubic millimetre.</b> MICrONS Consortium, Functional connectomics spanning multiple
+      areas of mouse visual cortex, Nature 640, 435 (2025). Shown here only as a box at its
+      size, placed at the centroid of primary visual cortex in the reference brain, which is where
+      that volume was taken to within what this page can show.</li>
+  </ul>
+  <p class="note">Where an axon's tips land is computed by this page from the
+    2017 annotation volume at 25 µm, tip by tip, and reported at the level of
+    the twelve major divisions. Cell body regions are looked up the same way and
+    were checked against the regions Janelia lists for every MouseLight neuron.
+    The build script, tools/build-mouse.py, and its checks ship with the site's source.</p>
+
+  <footer>
+    <p><a href="/"><b>What's a brain?</b></a> &middot;
+      <a href="zh/" lang="zh-Hans">中文</a> &middot;
+      <a href="/tracks/">The white matter</a> &middot;
+      <a href="https://amyleesterling.github.io/microns/">The cubic millimetre</a> &middot;
+      <a href="/museum/fly">The fly brain</a> &middot;
+      <a href="/museum/citations">Sources</a>.
+      Built by <a href="https://x.com/amyneurons">Amy Sterling</a>.</p>
+  </footer>
+</main>
+
+<script type="module">
+  import { mountMouse } from "./js/mouse.js?v=53";
+  const el = document.getElementById("mouse");
+  mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
+    const s = el.querySelector("[data-status]");
+    if (s) s.textContent = "The brain did not load. " + e.message;
+    throw e;
+  });
+</script>
+</body>
+</html>

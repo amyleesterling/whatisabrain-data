@@ -1,0 +1,247 @@
+{
+ "total_cells_in_source": 3739961,
+ "kept": 311680,
+ "every": 12,
+ "source": "Allen Brain Cell Atlas, MERFISH-C57BL6J-638850, CCF coordinates release 20231215; taxonomy WMB CCN20230722",
+ "layout": "kept*6 bytes Int16 xyz (10 um about the centre), then kept bytes Uint8 class index",
+ "classes": [
+  {
+   "i": 0,
+   "label": "CS20230722_CLAS_01",
+   "name": "01 IT-ET Glut",
+   "color": "#FA0087",
+   "n": 54781
+  },
+  {
+   "i": 1,
+   "label": "CS20230722_CLAS_02",
+   "name": "02 NP-CT-L6b Glut",
+   "color": "#61e2a4",
+   "n": 13894
+  },
+  {
+   "i": 2,
+   "label": "CS20230722_CLAS_03",
+   "name": "03 OB-CR Glut",
+   "color": "#D00000",
+   "n": 818
+  },
+  {
+   "i": 3,
+   "label": "CS20230722_CLAS_04",
+   "name": "04 DG-IMN Glut",
+   "color": "#16f2f2",
+   "n": 3003
+  },
+  {
+   "i": 4,
+   "label": "CS20230722_CLAS_05",
+   "name": "05 OB-IMN GABA",
+   "color": "#1b4332",
+   "n": 6566
+  },
+  {
+   "i": 5,
+   "label": "CS20230722_CLAS_06",
+   "name": "06 CTX-CGE GABA",
+   "color": "#CCFF33",
+   "n": 3589
+  },
+  {
+   "i": 6,
+   "label": "CS20230722_CLAS_07",
+   "name": "07 CTX-MGE GABA",
+   "color": "#f954ee",
+   "n": 7183
+  },
+  {
+   "i": 7,
+   "label": "CS20230722_CLAS_08",
+   "name": "08 CNU-MGE GABA",
+   "color": "#70E000",
+   "n": 2008
+  },
+  {
+   "i": 8,
+   "label": "CS20230722_CLAS_09",
+   "name": "09 CNU-LGE GABA",
+   "color": "#B199FF",
+   "n": 21294
+  },
+  {
+   "i": 9,
+   "label": "CS20230722_CLAS_10",
+   "name": "10 LSX GABA",
+   "color": "#3283FE",
+   "n": 1555
+  },
+  {
+   "i": 10,
+   "label": "CS20230722_CLAS_11",
+   "name": "11 CNU-HYa GABA",
+   "color": "#450099",
+   "n": 3177
+  },
+  {
+   "i": 11,
+   "label": "CS20230722_CLAS_12",
+   "name": "12 HY GABA",
+   "color": "#FF6600",
+   "n": 3270
+  },
+  {
+   "i": 12,
+   "label": "CS20230722_CLAS_13",
+   "name": "13 CNU-HYa Glut",
+   "color": "#90E0EF",
+   "n": 1954
+  },
+  {
+   "i": 13,
+   "label": "CS20230722_CLAS_14",
+   "name": "14 HY Glut",
+   "color": "#AA0DFE",
+   "n": 2306
+  },
+  {
+   "i": 14,
+   "label": "CS20230722_CLAS_15",
+   "name": "15 HY Gnrh1 Glut",
+   "color": "#F28266",
+   "n": 5
+  },
+  {
+   "i": 15,
+   "label": "CS20230722_CLAS_16",
+   "name": "16 HY MM Glut",
+   "color": "#01d669",
+   "n": 313
+  },
+  {
+   "i": 16,
+   "label": "CS20230722_CLAS_17",
+   "name": "17 MH-LH Glut",
+   "color": "#FAA307",
+   "n": 482
+  },
+  {
+   "i": 17,
+   "label": "CS20230722_CLAS_18",
+   "name": "18 TH Glut",
+   "color": "#0D47A1",
+   "n": 4911
+  },
+  {
+   "i": 18,
+   "label": "CS20230722_CLAS_19",
+   "name": "19 MB Glut",
+   "color": "#007200",
+   "n": 6723
+  },
+  {
+   "i": 19,
+   "label": "CS20230722_CLAS_20",
+   "name": "20 MB GABA",
+   "color": "#9EF01A",
+   "n": 4383
+  },
+  {
+   "i": 20,
+   "label": "CS20230722_CLAS_21",
+   "name": "21 MB Dopa",
+   "color": "#38B000",
+   "n": 345
+  },
+  {
+   "i": 21,
+   "label": "CS20230722_CLAS_22",
+   "name": "22 MB-HB Sero",
+   "color": "#EC4067",
+   "n": 246
+  },
+  {
+   "i": 22,
+   "label": "CS20230722_CLAS_23",
+   "name": "23 P Glut",
+   "color": "#6b5ca5",
+   "n": 2698
+  },
+  {
+   "i": 23,
+   "label": "CS20230722_CLAS_24",
+   "name": "24 MY Glut",
+   "color": "#F0A0FF",
+   "n": 2386
+  },
+  {
+   "i": 24,
+   "label": "CS20230722_CLAS_25",
+   "name": "25 Pineal Glut",
+   "color": "#086375",
+   "n": 2
+  },
+  {
+   "i": 25,
+   "label": "CS20230722_CLAS_26",
+   "name": "26 P GABA",
+   "color": "#72195a",
+   "n": 1583
+  },
+  {
+   "i": 26,
+   "label": "CS20230722_CLAS_27",
+   "name": "27 MY GABA",
+   "color": "#0096C7",
+   "n": 2225
+  },
+  {
+   "i": 27,
+   "label": "CS20230722_CLAS_28",
+   "name": "28 CB GABA",
+   "color": "#FFFB46",
+   "n": 10004
+  },
+  {
+   "i": 28,
+   "label": "CS20230722_CLAS_29",
+   "name": "29 CB Glut",
+   "color": "#9D0208",
+   "n": 15484
+  },
+  {
+   "i": 29,
+   "label": "CS20230722_CLAS_30",
+   "name": "30 Astro-Epen",
+   "color": "#594a26",
+   "n": 49079
+  },
+  {
+   "i": 30,
+   "label": "CS20230722_CLAS_31",
+   "name": "31 OPC-Oligo",
+   "color": "#03045E",
+   "n": 44963
+  },
+  {
+   "i": 31,
+   "label": "CS20230722_CLAS_32",
+   "name": "32 OEC",
+   "color": "#996B2E",
+   "n": 759
+  },
+  {
+   "i": 32,
+   "label": "CS20230722_CLAS_33",
+   "name": "33 Vascular",
+   "color": "#858881",
+   "n": 35439
+  },
+  {
+   "i": 33,
+   "label": "CS20230722_CLAS_34",
+   "name": "34 Immune",
+   "color": "#825f45",
+   "n": 4252
+  }
+ ]
+}

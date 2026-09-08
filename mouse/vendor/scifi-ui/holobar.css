@@ -1,0 +1,100 @@
+/* Carried across whole from amyleesterling/scifi-ui (hologram.css section 5,
+   commit d063c2e). The step rail: a counter in tabular caps, a hairline rail,
+   the run so far filled, a brighter dot at the step you are on. Per that
+   repo's AGENTS.md rule, this is the real component, not an approximation:
+   no value below was changed. Pair with holobar.js and hologram-tap.js. */
+/* ---- 5. step rail --------------------------------------------------------
+     A counter in tabular caps, a hairline rail, the run so far filled and
+     glowing, a brighter dot at the step you are on, dimmer ticks after it.
+     Write one empty div with data-steps and hologram.js builds the parts.
+     Any number of steps, clickable, arrow keys, and it reports the current
+     step back on a holobar:change event. */
+  .holobar {
+    display: flex; align-items: center; gap: 12px;
+    font: 500 9px/1 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+
+.holobar-count {
+    flex: 0 0 auto; letter-spacing: .25em; text-transform: uppercase;
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+    color: rgb(var(--holo-ink, 239 244 251) / .58);
+    transition: color .3s ease;
+  }
+
+.holobar-count s { text-decoration: none; color: rgb(var(--holo-ink, 239 244 251) / .28); }
+
+.holobar:hover .holobar-count, .holobar:focus-within .holobar-count,
+  .holobar.holo-on .holobar-count {
+    color: rgb(var(--holo-ink, 239 244 251) / .85);
+  }
+
+/* 8px of side room so the end tick boxes cannot push past the wrapper.
+     grab, because the rail is draggable as well as clickable, and touch-action
+     none so a drag that starts on the rail is not stolen by the page scroll. */
+  .holobar-rail {
+    position: relative; flex: 1 1 auto; height: 2px; min-width: 44px; margin: 0 8px;
+    cursor: grab; touch-action: none;
+  }
+
+.holobar-rail::before {
+    content: ""; position: absolute; inset: 0; border-radius: 999px;
+    background: rgb(var(--holo-ink, 239 244 251) / .11);
+  }
+
+.holobar-fill {
+    position: absolute; top: 0; bottom: 0; left: 0; border-radius: 999px;
+    width: calc(var(--holobar-progress, 0) * 100%);
+    background: linear-gradient(90deg,
+      rgb(var(--holo-beam, 178 216 248) / .7), rgb(var(--holo-beam, 178 216 248)));
+    box-shadow: 0 0 6px rgb(var(--holo-beam, 178 216 248) / .55);
+    transition: width .7s cubic-bezier(.16,1,.3,1);
+  }
+
+/* the hit area is 16px so a finger can find it. Only the dot inside is small */
+  .holobar-tick {
+    position: absolute; top: 50%; width: 16px; height: 16px;
+    margin: 0; padding: 0; border: 0; background: none; cursor: grab;
+    transform: translate(-50%,-50%); touch-action: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+.holobar-tick i {
+    display: block; width: 3px; height: 3px; border-radius: 50%;
+    background: rgb(var(--holo-ink, 239 244 251) / .2);
+    transition: width .3s ease, height .3s ease,
+                background .3s ease, box-shadow .3s ease;
+  }
+
+.holobar-tick[data-done] i { background: rgb(var(--holo-beam, 178 216 248) / .72); }
+
+.holobar-tick[aria-current] i {
+    width: 7px; height: 7px; background: rgb(var(--holo-beam, 178 216 248));
+    box-shadow: 0 0 7px rgb(var(--holo-beam, 178 216 248) / .95);
+  }
+
+.holobar-tick:hover i, .holobar-tick:focus-visible i,
+  .holobar-tick.holo-on i {
+    width: 6px; height: 6px; background: rgb(var(--holo-beam, 178 216 248) / .9);
+  }
+
+.holobar-tick:focus-visible {
+    outline: 2px solid rgb(var(--holo-beam, 178 216 248) / .9);
+    outline-offset: 0; border-radius: 3px;
+  }
+
+/* mid drag the fill has to track the pointer, so the 700ms ease that makes a
+     click feel considered is dropped for the duration, and the cursor changes
+     on the whole control rather than only on whatever is under the pointer */
+  .holobar.is-dragging .holobar-rail,
+  .holobar.is-dragging .holobar-tick { cursor: grabbing; }
+
+.holobar.is-dragging .holobar-fill { transition: none; }
+
+.holobar.is-dragging .holobar-tick i {
+    transition: background .3s ease, box-shadow .3s ease;
+  }
+
+@media (prefers-reduced-motion: reduce) {
+    .holobar-fill, .holobar-tick i, .holobar-count { transition: none; }
+  }
+

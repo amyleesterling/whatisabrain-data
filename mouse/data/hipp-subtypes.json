@@ -1,0 +1,310 @@
+[
+ {
+  "subtype": "1",
+  "n": 106,
+  "soma": "CA1 66%, ProS 18%, SUB 15%",
+  "targets": "ACB 20%, CA1 15%, LSr 10%, PA 6%",
+  "axon_mm_median": 134.5
+ },
+ {
+  "subtype": "2",
+  "n": 220,
+  "soma": "CA1 74%, ProS 19%, SUB 5%",
+  "targets": "CA1 20%, ACB 16%, LSr 16%, HY 5%",
+  "axon_mm_median": 108.8
+ },
+ {
+  "subtype": "3",
+  "n": 45,
+  "soma": "CA1 49%, ProS 31%, SUB 20%",
+  "targets": "ACB 25%, CA1 15%, LSr 8%, ENTl 5%",
+  "axon_mm_median": 151.5
+ },
+ {
+  "subtype": "4",
+  "n": 29,
+  "soma": "CA1 52%, ProS 24%, SUB 21%",
+  "targets": "ACB 27%, CA1 15%, LSr 9%, SUB 5%",
+  "axon_mm_median": 152.0
+ },
+ {
+  "subtype": "5",
+  "n": 503,
+  "soma": "CA1 48%, ProS 24%, SUB 22%",
+  "targets": "ACB 19%, CA1 13%, LSr 12%, SUB 5%",
+  "axon_mm_median": 91.1
+ },
+ {
+  "subtype": "6",
+  "n": 15,
+  "soma": "CA1 67%, SUB 20%, ProS 13%",
+  "targets": "ACB 20%, CA1 16%, LSr 7%, HY 6%",
+  "axon_mm_median": 172.3
+ },
+ {
+  "subtype": "7",
+  "n": 138,
+  "soma": "CA1 74%, ProS 20%, SUB 4%",
+  "targets": "CA1 20%, LSr 15%, ACB 14%, HY 7%",
+  "axon_mm_median": 89.8
+ },
+ {
+  "subtype": "8",
+  "n": 136,
+  "soma": "CA1 41%, SUB 38%, ProS 19%",
+  "targets": "ACB 15%, CA1 11%, RSPv 9%, LSr 6%",
+  "axon_mm_median": 91.3
+ },
+ {
+  "subtype": "9",
+  "n": 13,
+  "soma": "SUB 77%, CA1 23%",
+  "targets": "MMl 28%, MMm 12%, HY 8%, MMp 6%",
+  "axon_mm_median": 29.2
+ },
+ {
+  "subtype": "10",
+  "n": 122,
+  "soma": "CA1 62%, SUB 19%, ProS 18%",
+  "targets": "ACB 26%, LSr 19%, HY 9%, AHN 4%",
+  "axon_mm_median": 65.1
+ },
+ {
+  "subtype": "11",
+  "n": 59,
+  "soma": "CA1 53%, SUB 25%, ProS 22%",
+  "targets": "ACB 22%, HY 13%, LSr 10%, AHN 8%",
+  "axon_mm_median": 89.8
+ },
+ {
+  "subtype": "12",
+  "n": 44,
+  "soma": "CA1 82%, ProS 11%, SUB 7%",
+  "targets": "ACB 27%, HY 13%, CA1 12%, AHN 5%",
+  "axon_mm_median": 159.4
+ },
+ {
+  "subtype": "13",
+  "n": 73,
+  "soma": "SUB 38%, CA1 32%, ProS 30%",
+  "targets": "ACB 15%, CA1 8%, RSPv 8%, LSr 7%",
+  "axon_mm_median": 120.9
+ },
+ {
+  "subtype": "14",
+  "n": 69,
+  "soma": "CA1 51%, ProS 35%, SUB 10%",
+  "targets": "CA1 15%, HY 14%, ACB 10%, LSr 10%",
+  "axon_mm_median": 98.7
+ },
+ {
+  "subtype": "15",
+  "n": 71,
+  "soma": "CA1 70%, ProS 18%, SUB 11%",
+  "targets": "ACB 15%, HY 14%, CA1 14%, LSr 10%",
+  "axon_mm_median": 127.7
+ },
+ {
+  "subtype": "16",
+  "n": 368,
+  "soma": "CA1 36%, SUB 31%, ProS 27%",
+  "targets": "ACB 16%, LSr 11%, CA1 8%, HY 8%",
+  "axon_mm_median": 92.8
+ },
+ {
+  "subtype": "17",
+  "n": 11,
+  "soma": "CA1 91%, ProS 9%",
+  "targets": "AON 22%, LSr 15%, ORBm 9%, ACB 6%",
+  "axon_mm_median": 41.6
+ },
+ {
+  "subtype": "18",
+  "n": 41,
+  "soma": "CA1 68%, SUB 15%, ProS 10%",
+  "targets": "LSr 27%, ACB 16%, AON 11%, SF 5%",
+  "axon_mm_median": 19.1
+ },
+ {
+  "subtype": "19",
+  "n": 46,
+  "soma": "CA1 89%, ProS 11%",
+  "targets": "CA1 28%, LSr 17%, ProS 9%, TR 7%",
+  "axon_mm_median": 111.6
+ },
+ {
+  "subtype": "20",
+  "n": 51,
+  "soma": "CA1 76%, ProS 16%, SUB 6%",
+  "targets": "CA1 29%, LSr 14%, ProS 9%, ACB 7%",
+  "axon_mm_median": 80.0
+ },
+ {
+  "subtype": "21",
+  "n": 41,
+  "soma": "CA1 93%, CA2 2%, SUB 2%",
+  "targets": "CA1 34%, LSr 17%, ProS 7%, SUB 6%",
+  "axon_mm_median": 65.7
+ },
+ {
+  "subtype": "22",
+  "n": 103,
+  "soma": "CA1 93%, SUB 4%, ProS 3%",
+  "targets": "CA1 33%, LSr 10%, SUB 10%, ProS 7%",
+  "axon_mm_median": 56.3
+ },
+ {
+  "subtype": "23",
+  "n": 47,
+  "soma": "CA1 96%, SUB 2%, ProS 2%",
+  "targets": "CA1 27%, LSr 10%, AON 9%, ENTl 7%",
+  "axon_mm_median": 74.2
+ },
+ {
+  "subtype": "24",
+  "n": 24,
+  "soma": "CA1 96%, ProS 4%",
+  "targets": "CA1 28%, LSr 12%, ProS 8%, ENTl 6%",
+  "axon_mm_median": 90.4
+ },
+ {
+  "subtype": "25",
+  "n": 116,
+  "soma": "CA1 89%, SUB 6%, ProS 5%",
+  "targets": "CA1 30%, LSr 14%, ProS 7%, SUB 6%",
+  "axon_mm_median": 60.5
+ },
+ {
+  "subtype": "26",
+  "n": 18,
+  "soma": "CA1 94%, ProS 6%",
+  "targets": "CA1 20%, LSr 16%, AON 8%, TR 5%",
+  "axon_mm_median": 97.9
+ },
+ {
+  "subtype": "27",
+  "n": 20,
+  "soma": "CA1 95%, ProS 5%",
+  "targets": "CA1 19%, AON 15%, LSr 9%, ENTl 8%",
+  "axon_mm_median": 106.5
+ },
+ {
+  "subtype": "28",
+  "n": 19,
+  "soma": "CA1 95%, ProS 5%",
+  "targets": "CA1 19%, AON 16%, ENTl 13%, LSr 7%",
+  "axon_mm_median": 123.1
+ },
+ {
+  "subtype": "29",
+  "n": 25,
+  "soma": "CA1 92%, ProS 8%",
+  "targets": "AON 19%, CA1 17%, ENTl 14%, ProS 6%",
+  "axon_mm_median": 132.4
+ },
+ {
+  "subtype": "30",
+  "n": 11,
+  "soma": "SUB 55%, ProS 27%, CA1 18%",
+  "targets": "AV 32%, AMd 16%, AMv 9%, LD 6%",
+  "axon_mm_median": 23.8
+ },
+ {
+  "subtype": "31",
+  "n": 180,
+  "soma": "SUB 46%, ProS 24%, CA1 20%",
+  "targets": "AV 28%, CA1 11%, AMd 9%, AMv 7%",
+  "axon_mm_median": 52.2
+ },
+ {
+  "subtype": "32",
+  "n": 11,
+  "soma": "SUB 73%, CA1 18%, ProS 9%",
+  "targets": "AV 16%, RSPv 11%, CA1 9%, AMv 8%",
+  "axon_mm_median": 71.7
+ },
+ {
+  "subtype": "33",
+  "n": 14,
+  "soma": "POST 29%, PAR 29%, CA3 14%",
+  "targets": "ENTm 57%, CA3 10%, CA1 9%, ENTl 5%",
+  "axon_mm_median": 19.1
+ },
+ {
+  "subtype": "34",
+  "n": 716,
+  "soma": "CA3 86%, CA1 7%, CA2 3%",
+  "targets": "CA1 49%, CA3 32%, LSr 3%, alv 3%",
+  "axon_mm_median": 209.9
+ },
+ {
+  "subtype": "35",
+  "n": 538,
+  "soma": "PRE 43%, POST 18%, PAR 16%",
+  "targets": "ENTm 59%, ENTl 7%, PAR 7%, SUB 6%",
+  "axon_mm_median": 35.1
+ },
+ {
+  "subtype": "36",
+  "n": 96,
+  "soma": "SUB 53%, ProS 19%, CA1 11%",
+  "targets": "MMl 13%, ENTm 11%, SUB 10%, PAR 10%",
+  "axon_mm_median": 42.5
+ },
+ {
+  "subtype": "37",
+  "n": 236,
+  "soma": "SUB 58%, ProS 31%, CA1 10%",
+  "targets": "RSPv 37%, SUB 9%, PAR 8%, ENTm 7%",
+  "axon_mm_median": 57.8
+ },
+ {
+  "subtype": "38",
+  "n": 137,
+  "soma": "CA1 78%, ProS 9%, SUB 7%",
+  "targets": "CA1 30%, RSPv 18%, SUB 7%, ProS 6%",
+  "axon_mm_median": 37.8
+ },
+ {
+  "subtype": "39",
+  "n": 797,
+  "soma": "CA1 73%, CA3 15%, SUB 4%",
+  "targets": "CA1 39%, LSr 10%, CA3 9%, SUB 7%",
+  "axon_mm_median": 50.9
+ },
+ {
+  "subtype": "40",
+  "n": 110,
+  "soma": "CA1 42%, DG-sg 34%, SUB 5%",
+  "targets": "CA3 22%, CA1 17%, DG-po 13%, alv 7%",
+  "axon_mm_median": 2.1
+ },
+ {
+  "subtype": "41",
+  "n": 16,
+  "soma": "CA1 81%, ProS 12%, SUB 6%",
+  "targets": "CA1 41%, ProS 12%, PA 7%, COApm 6%",
+  "axon_mm_median": 26.4
+ },
+ {
+  "subtype": "42",
+  "n": 30,
+  "soma": "CA1 80%, SUB 7%, HATA 7%",
+  "targets": "CA1 38%, ENTm 12%, ENTl 10%, BLAp 5%",
+  "axon_mm_median": 38.6
+ },
+ {
+  "subtype": "43",
+  "n": 4390,
+  "soma": "DG-sg 59%, CA1 24%, DG-mo 7%",
+  "targets": "DG-po 34%, CA3 23%, CA1 19%, DG-sg 4%",
+  "axon_mm_median": 4.2
+ },
+ {
+  "subtype": "others",
+  "n": 245,
+  "soma": "CA1 62%, ProS 11%, SUB 11%",
+  "targets": "CA1 20%, ACB 7%, ENTl 6%, AON 6%",
+  "axon_mm_median": 100.2
+ }
+]

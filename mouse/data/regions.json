@@ -1,0 +1,2534 @@
+{
+"SPVC": {
+"id": 429,
+"name": "Spinal nucleus of the trigeminal, caudal part",
+"major": "Medulla",
+"file": "SPVC.glb"
+},
+"SPVI": {
+"id": 437,
+"name": "Spinal nucleus of the trigeminal, interpolar part",
+"major": "Medulla",
+"file": "SPVI.glb"
+},
+"KF": {
+"id": 123,
+"name": "Koelliker-Fuse subnucleus",
+"major": "Pons",
+"file": "KF.glb"
+},
+"MY": {
+"id": 354,
+"name": "Medulla",
+"major": "Medulla",
+"file": "MY.glb"
+},
+"P": {
+"id": 771,
+"name": "Pons",
+"major": "Pons",
+"file": "P.glb"
+},
+"root": {
+"id": 997,
+"name": "root",
+"major": null,
+"file": "root.glb"
+},
+"SUV": {
+"id": 217,
+"name": "Superior vestibular nucleus",
+"major": "Medulla",
+"file": "SUV.glb"
+},
+"NTS": {
+"id": 651,
+"name": "Nucleus of the solitary tract",
+"major": "Medulla",
+"file": "NTS.glb"
+},
+"IRN": {
+"id": 136,
+"name": "Intermediate reticular nucleus",
+"major": "Medulla",
+"file": "IRN.glb"
+},
+"PARN": {
+"id": 852,
+"name": "Parvicellular reticular nucleus",
+"major": "Medulla",
+"file": "PARN.glb"
+},
+"PPN": {
+"id": 1052,
+"name": "Pedunculopontine nucleus",
+"major": "Midbrain",
+"file": "PPN.glb"
+},
+"MRN": {
+"id": 128,
+"name": "Midbrain reticular nucleus",
+"major": "Midbrain",
+"file": "MRN.glb"
+},
+"MDRNd": {
+"id": 1098,
+"name": "Medullary reticular nucleus, dorsal part",
+"major": "Medulla",
+"file": "MDRNd.glb"
+},
+"MB": {
+"id": 313,
+"name": "Midbrain",
+"major": "Midbrain",
+"file": "MB.glb"
+},
+"PRNc": {
+"id": 1093,
+"name": "Pontine reticular nucleus, caudal part",
+"major": "Pons",
+"file": "PRNc.glb"
+},
+"MDRNv": {
+"id": 1107,
+"name": "Medullary reticular nucleus, ventral part",
+"major": "Medulla",
+"file": "MDRNv.glb"
+},
+"PGRNl": {
+"id": 978,
+"name": "Paragigantocellular reticular nucleus, lateral part",
+"major": "Medulla",
+"file": "PGRNl.glb"
+},
+"VII": {
+"id": 661,
+"name": "Facial motor nucleus",
+"major": "Medulla",
+"file": "VII.glb"
+},
+"LRNm": {
+"id": 955,
+"name": "Lateral reticular nucleus, magnocellular part",
+"major": "Medulla",
+"file": "LRNm.glb"
+},
+"GRN": {
+"id": 1048,
+"name": "Gigantocellular reticular nucleus",
+"major": "Medulla",
+"file": "GRN.glb"
+},
+"MARN": {
+"id": 307,
+"name": "Magnocellular reticular nucleus",
+"major": "Medulla",
+"file": "MARN.glb"
+},
+"PG": {
+"id": 931,
+"name": "Pontine gray",
+"major": "Pons",
+"file": "PG.glb"
+},
+"PB": {
+"id": 867,
+"name": "Parabrachial nucleus",
+"major": "Pons",
+"file": "PB.glb"
+},
+"rust": {
+"id": 863,
+"name": "rubrospinal tract",
+"major": "fibre tracts",
+"file": "rust.glb"
+},
+"VCO": {
+"id": 101,
+"name": "Ventral cochlear nucleus",
+"major": "Medulla",
+"file": "VCO.glb"
+},
+"MV": {
+"id": 202,
+"name": "Medial vestibular nucleus",
+"major": "Medulla",
+"file": "MV.glb"
+},
+"CU": {
+"id": 711,
+"name": "Cuneate nucleus",
+"major": "Medulla",
+"file": "CU.glb"
+},
+"SPIV": {
+"id": 225,
+"name": "Spinal vestibular nucleus",
+"major": "Medulla",
+"file": "SPIV.glb"
+},
+"GR": {
+"id": 1039,
+"name": "Gracile nucleus",
+"major": "Medulla",
+"file": "GR.glb"
+},
+"SPVO": {
+"id": 445,
+"name": "Spinal nucleus of the trigeminal, oral part",
+"major": "Medulla",
+"file": "SPVO.glb"
+},
+"PSV": {
+"id": 7,
+"name": "Principal sensory nucleus of the trigeminal",
+"major": "Pons",
+"file": "PSV.glb"
+},
+"I5": {
+"id": 549009227,
+"name": "Intertrigeminal nucleus",
+"major": "Pons",
+"file": "I5.glb"
+},
+"PC5": {
+"id": 549009223,
+"name": "Parvicellular motor 5 nucleus",
+"major": "Pons",
+"file": "PC5.glb"
+},
+"LIN": {
+"id": 203,
+"name": "Linear nucleus of the medulla",
+"major": "Medulla",
+"file": "LIN.glb"
+},
+"FOTU": {
+"id": 944,
+"name": "Folium-tuber vermis (VII)",
+"major": "Cerebellum",
+"file": "FOTU.glb"
+},
+"PRM": {
+"id": 1025,
+"name": "Paramedian lobule",
+"major": "Cerebellum",
+"file": "PRM.glb"
+},
+"ANcr2": {
+"id": 1064,
+"name": "Crus 2",
+"major": "Cerebellum",
+"file": "ANcr2.glb"
+},
+"arb": {
+"id": 728,
+"name": "arbor vitae",
+"major": "fibre tracts",
+"file": "arb.glb"
+},
+"DEC": {
+"id": 936,
+"name": "Declive (VI)",
+"major": "Cerebellum",
+"file": "DEC.glb"
+},
+"CUL4, 5": {
+"id": 1091,
+"name": "Lobules IV-V",
+"major": "Cerebellum",
+"file": "CUL4_5.glb"
+},
+"COPY": {
+"id": 1033,
+"name": "Copula pyramidis",
+"major": "Cerebellum",
+"file": "COPY.glb"
+},
+"PFL": {
+"id": 1041,
+"name": "Paraflocculus",
+"major": "Cerebellum",
+"file": "PFL.glb"
+},
+"ANcr1": {
+"id": 1056,
+"name": "Crus 1",
+"major": "Cerebellum",
+"file": "ANcr1.glb"
+},
+"IO": {
+"id": 83,
+"name": "Inferior olivary complex",
+"major": "Medulla",
+"file": "IO.glb"
+},
+"tspc": {
+"id": 1043,
+"name": "crossed tectospinal pathway",
+"major": "fibre tracts",
+"file": "tspc.glb"
+},
+"pyd": {
+"id": 198,
+"name": "pyramidal decussation",
+"major": "fibre tracts",
+"file": "pyd.glb"
+},
+"RO": {
+"id": 222,
+"name": "Nucleus raphe obscurus",
+"major": "Medulla",
+"file": "RO.glb"
+},
+"py": {
+"id": 190,
+"name": "pyramid",
+"major": "fibre tracts",
+"file": "py.glb"
+},
+"P5": {
+"id": 549009215,
+"name": "Peritrigeminal zone",
+"major": "Pons",
+"file": "P5.glb"
+},
+"scp": {
+"id": 326,
+"name": "superior cerebelar peduncles",
+"major": "fibre tracts",
+"file": "scp.glb"
+},
+"V": {
+"id": 621,
+"name": "Motor nucleus of trigeminal",
+"major": "Pons",
+"file": "V.glb"
+},
+"RN": {
+"id": 214,
+"name": "Red nucleus",
+"major": "Midbrain",
+"file": "RN.glb"
+},
+"PRNr": {
+"id": 146,
+"name": "Pontine reticular nucleus",
+"major": "Pons",
+"file": "PRNr.glb"
+},
+"APN": {
+"id": 215,
+"name": "Anterior pretectal nucleus",
+"major": "Midbrain",
+"file": "APN.glb"
+},
+"ZI": {
+"id": 797,
+"name": "Zona incerta",
+"major": "Hypothalamus",
+"file": "ZI.glb"
+},
+"SCig": {
+"id": 10,
+"name": "Superior colliculus, motor related, intermediate gray layer",
+"major": "Midbrain",
+"file": "SCig.glb"
+},
+"PGRNd": {
+"id": 970,
+"name": "Paragigantocellular reticular nucleus, dorsal part",
+"major": "Medulla",
+"file": "PGRNd.glb"
+},
+"SNr": {
+"id": 381,
+"name": "Substantia nigra, reticular part",
+"major": "Midbrain",
+"file": "SNr.glb"
+},
+"GPi": {
+"id": 1031,
+"name": "Globus pallidus, internal segment",
+"major": "Pallidum",
+"file": "GPi.glb"
+},
+"GPe": {
+"id": 1022,
+"name": "Globus pallidus, external segment",
+"major": "Pallidum",
+"file": "GPe.glb"
+},
+"STR": {
+"id": 477,
+"name": "Striatum",
+"major": "Striatum",
+"file": "STR.glb"
+},
+"SNc": {
+"id": 374,
+"name": "Substantia nigra, compact part",
+"major": "Midbrain",
+"file": "SNc.glb"
+},
+"PAL": {
+"id": 803,
+"name": "Pallidum",
+"major": "Pallidum",
+"file": "PAL.glb"
+},
+"CP": {
+"id": 672,
+"name": "Caudoputamen",
+"major": "Striatum",
+"file": "CP.glb"
+},
+"cpd": {
+"id": 924,
+"name": "cerebal peduncle",
+"major": "fibre tracts",
+"file": "cpd.glb"
+},
+"SCdg": {
+"id": 26,
+"name": "Superior colliculus, motor related, deep gray layer",
+"major": "Midbrain",
+"file": "SCdg.glb"
+},
+"SCiw": {
+"id": 17,
+"name": "Superior colliculus, motor related, intermediate white layer",
+"major": "Midbrain",
+"file": "SCiw.glb"
+},
+"PAG": {
+"id": 795,
+"name": "Periaqueductal gray",
+"major": "Midbrain",
+"file": "PAG.glb"
+},
+"SCdw": {
+"id": 42,
+"name": "Superior colliculus, motor related, deep white layer",
+"major": "Midbrain",
+"file": "SCdw.glb"
+},
+"MD": {
+"id": 362,
+"name": "Mediodorsal nucleus of thalamus",
+"major": "Thalamus",
+"file": "MD.glb"
+},
+"MOs": {
+"id": 993,
+"name": "Secondary motor area",
+"major": "Isocortex",
+"file": "MOs.glb"
+},
+"SSs": {
+"id": 378,
+"name": "Supplemental somatosensory area",
+"major": "Isocortex",
+"file": "SSs.glb"
+},
+"SSp-n": {
+"id": 353,
+"name": "Primary somatosensory area, nose",
+"major": "Isocortex",
+"file": "SSp-n.glb"
+},
+"SSp-bfd": {
+"id": 329,
+"name": "Primary somatosensory area, barrel field",
+"major": "Isocortex",
+"file": "SSp-bfd.glb"
+},
+"VISp": {
+"id": 385,
+"name": "Primary visual area",
+"major": "Isocortex",
+"file": "VISp.glb"
+},
+"LGv": {
+"id": 178,
+"name": "Ventral part of the lateral geniculate complex",
+"major": "Thalamus",
+"file": "LGv.glb"
+},
+"RT": {
+"id": 262,
+"name": "Reticular nucleus of the thalamus",
+"major": "Thalamus",
+"file": "RT.glb"
+},
+"or": {
+"id": 484682520,
+"name": "optic radiation",
+"major": "fibre tracts",
+"file": "or.glb"
+},
+"VISl": {
+"id": 409,
+"name": "Lateral visual area",
+"major": "Isocortex",
+"file": "VISl.glb"
+},
+"LGd-co": {
+"id": 496345668,
+"name": "Dorsal part of the lateral geniculate complex, core",
+"major": "Thalamus",
+"file": "LGd-co.glb"
+},
+"sptV": {
+"id": 794,
+"name": "spinal tract of the trigeminal nerve",
+"major": "fibre tracts",
+"file": "sptV.glb"
+},
+"SIM": {
+"id": 1007,
+"name": "Simple lobule",
+"major": "Cerebellum",
+"file": "SIM.glb"
+},
+"VISal": {
+"id": 402,
+"name": "Anterolateral visual area",
+"major": "Isocortex",
+"file": "VISal.glb"
+},
+"VISrl": {
+"id": 417,
+"name": "Rostrolateral visual area",
+"major": "Isocortex",
+"file": "VISrl.glb"
+},
+"VISpm": {
+"id": 533,
+"name": "posteromedial visual area",
+"major": "Isocortex",
+"file": "VISpm.glb"
+},
+"RSPd": {
+"id": 879,
+"name": "Retrosplenial area, dorsal part",
+"major": "Isocortex",
+"file": "RSPd.glb"
+},
+"VISli": {
+"id": 312782574,
+"name": "Laterointermediate area",
+"major": "Isocortex",
+"file": "VISli.glb"
+},
+"POST": {
+"id": 1037,
+"name": "Postsubiculum",
+"major": "Hippocampal formation",
+"file": "POST.glb"
+},
+"dhc": {
+"id": 443,
+"name": "dorsal hippocampal commissure",
+"major": "fibre tracts",
+"file": "dhc.glb"
+},
+"SUB": {
+"id": 502,
+"name": "Subiculum",
+"major": "Hippocampal formation",
+"file": "SUB.glb"
+},
+"fp": {
+"id": 971,
+"name": "corpus callosum, posterior forceps",
+"major": "fibre tracts",
+"file": "fp.glb"
+},
+"HPF": {
+"id": 1089,
+"name": "Hippocampal formation",
+"major": "Hippocampal formation",
+"file": "HPF.glb"
+},
+"RSPv": {
+"id": 886,
+"name": "Retrosplenial area, ventral part",
+"major": "Isocortex",
+"file": "RSPv.glb"
+},
+"PRE": {
+"id": 1084,
+"name": "Presubiculum",
+"major": "Hippocampal formation",
+"file": "PRE.glb"
+},
+"ACAd": {
+"id": 39,
+"name": "Anterior cingulate area, dorsal part",
+"major": "Isocortex",
+"file": "ACAd.glb"
+},
+"AV": {
+"id": 255,
+"name": "Anteroventral nucleus of thalamus",
+"major": "Thalamus",
+"file": "AV.glb"
+},
+"MMd": {
+"id": 606826659,
+"name": "Medial mammillary nucleus, dorsal part",
+"major": "Hypothalamus",
+"file": "MMd.glb"
+},
+"ENTl": {
+"id": 918,
+"name": "Entorhinal area, lateral part",
+"major": "Hippocampal formation",
+"file": "ENTl.glb"
+},
+"SUM": {
+"id": 525,
+"name": "Supramammillary nucleus",
+"major": "Hypothalamus",
+"file": "SUM.glb"
+},
+"ccs": {
+"id": 986,
+"name": "corpus callosum, splenium",
+"major": "fibre tracts",
+"file": "ccs.glb"
+},
+"pm": {
+"id": 753,
+"name": "principal mammillary tract",
+"major": "fibre tracts",
+"file": "pm.glb"
+},
+"cing": {
+"id": 940,
+"name": "cingulum bundle",
+"major": "fibre tracts",
+"file": "cing.glb"
+},
+"VM": {
+"id": 685,
+"name": "Ventral medial nucleus of the thalamus",
+"major": "Thalamus",
+"file": "VM.glb"
+},
+"VAL": {
+"id": 629,
+"name": "Ventral anterior-lateral complex of the thalamus",
+"major": "Thalamus",
+"file": "VAL.glb"
+},
+"PF": {
+"id": 930,
+"name": "Parafascicular nucleus",
+"major": "Thalamus",
+"file": "PF.glb"
+},
+"PCN": {
+"id": 907,
+"name": "Paracentral nucleus",
+"major": "Thalamus",
+"file": "PCN.glb"
+},
+"PO": {
+"id": 1020,
+"name": "Posterior complex of the thalamus",
+"major": "Thalamus",
+"file": "PO.glb"
+},
+"CL": {
+"id": 575,
+"name": "Central lateral nucleus of the thalamus",
+"major": "Thalamus",
+"file": "CL.glb"
+},
+"ENTm": {
+"id": 926,
+"name": "Entorhinal area, medial part, dorsal zone",
+"major": "Hippocampal formation",
+"file": "ENTm.glb"
+},
+"PAR": {
+"id": 843,
+"name": "Parasubiculum",
+"major": "Hippocampal formation",
+"file": "PAR.glb"
+},
+"ccb": {
+"id": 484682516,
+"name": "corpus callosum, body",
+"major": "fibre tracts",
+"file": "ccb.glb"
+},
+"scwm": {
+"id": 484682512,
+"name": "supra-callosal cerebral white matter",
+"major": "fibre tracts",
+"file": "scwm.glb"
+},
+"ORBl": {
+"id": 723,
+"name": "Orbital area, lateral part",
+"major": "Isocortex",
+"file": "ORBl.glb"
+},
+"ORBm": {
+"id": 731,
+"name": "Orbital area, medial part",
+"major": "Isocortex",
+"file": "ORBm.glb"
+},
+"RSPagl": {
+"id": 894,
+"name": "Retrosplenial area, lateral agranular part",
+"major": "Isocortex",
+"file": "RSPagl.glb"
+},
+"ACAv": {
+"id": 48,
+"name": "Anterior cingulate area, ventral part",
+"major": "Isocortex",
+"file": "ACAv.glb"
+},
+"VISa": {
+"id": 312782546,
+"name": "Anterior area",
+"major": "Isocortex",
+"file": "VISa.glb"
+},
+"VPL": {
+"id": 718,
+"name": "Ventral posterolateral nucleus of the thalamus",
+"major": "Thalamus",
+"file": "VPL.glb"
+},
+"VPM": {
+"id": 733,
+"name": "Ventral posteromedial nucleus of the thalamus",
+"major": "Thalamus",
+"file": "VPM.glb"
+},
+"PL": {
+"id": 972,
+"name": "Prelimbic area",
+"major": "Isocortex",
+"file": "PL.glb"
+},
+"fa": {
+"id": 956,
+"name": "corpus callosum, anterior forceps",
+"major": "fibre tracts",
+"file": "fa.glb"
+},
+"ORBvl": {
+"id": 746,
+"name": "Orbital area, ventrolateral part",
+"major": "Isocortex",
+"file": "ORBvl.glb"
+},
+"MOp": {
+"id": 985,
+"name": "Primary motor area",
+"major": "Isocortex",
+"file": "MOp.glb"
+},
+"SSp-ll": {
+"id": 337,
+"name": "Primary somatosensory area, lower limb",
+"major": "Isocortex",
+"file": "SSp-ll.glb"
+},
+"SSp-tr": {
+"id": 361,
+"name": "Primary somatosensory area, trunk",
+"major": "Isocortex",
+"file": "SSp-tr.glb"
+},
+"SSp-ul": {
+"id": 369,
+"name": "Primary somatosensory area, upper limb",
+"major": "Isocortex",
+"file": "SSp-ul.glb"
+},
+"ml": {
+"id": 697,
+"name": "medial lemniscus",
+"major": "fibre tracts",
+"file": "ml.glb"
+},
+"TRN": {
+"id": 574,
+"name": "Tegmental reticular nucleus",
+"major": "Pons",
+"file": "TRN.glb"
+},
+"LAV": {
+"id": 209,
+"name": "Lateral vestibular nucleus",
+"major": "Medulla",
+"file": "LAV.glb"
+},
+"SOCl": {
+"id": 114,
+"name": "Superior olivary complex, lateral part",
+"major": "Pons",
+"file": "SOCl.glb"
+},
+"XII": {
+"id": 773,
+"name": "Hypoglossal nucleus",
+"major": "Medulla",
+"file": "XII.glb"
+},
+"NR": {
+"id": 177,
+"name": "Nucleus of Roller",
+"major": "Medulla",
+"file": "NR.glb"
+},
+"CA3": {
+"id": 463,
+"name": "Field CA3",
+"major": "Hippocampal formation",
+"file": "CA3.glb"
+},
+"DG-po": {
+"id": 10704,
+"name": "Dentate gyrus, polymorph layer",
+"major": "Hippocampal formation",
+"file": "DG-po.glb"
+},
+"DG-sg": {
+"id": 632,
+"name": "Dentate gyrus, granule cell layer",
+"major": "Hippocampal formation",
+"file": "DG-sg.glb"
+},
+"NDB": {
+"id": 596,
+"name": "Diagonal band nucleus",
+"major": "Pallidum",
+"file": "NDB.glb"
+},
+"DG-mo": {
+"id": 10703,
+"name": "Dentate gyrus, molecular layer",
+"major": "Hippocampal formation",
+"file": "DG-mo.glb"
+},
+"CA1": {
+"id": 382,
+"name": "Field CA1",
+"major": "Hippocampal formation",
+"file": "CA1.glb"
+},
+"IPR": {
+"id": 607344834,
+"name": "Interpeduncular nucleus, rostral",
+"major": "Midbrain",
+"file": "IPR.glb"
+},
+"LHA": {
+"id": 194,
+"name": "Lateral hypothalamic area",
+"major": "Hypothalamus",
+"file": "LHA.glb"
+},
+"LPO": {
+"id": 226,
+"name": "Lateral preoptic area",
+"major": "Hypothalamus",
+"file": "LPO.glb"
+},
+"VTA": {
+"id": 749,
+"name": "Ventral tegmental area",
+"major": "Midbrain",
+"file": "VTA.glb"
+},
+"SI": {
+"id": 342,
+"name": "Substantia innominata",
+"major": "Pallidum",
+"file": "SI.glb"
+},
+"IMD": {
+"id": 59,
+"name": "Intermediodorsal nucleus of the thalamus",
+"major": "Thalamus",
+"file": "IMD.glb"
+},
+"STN": {
+"id": 470,
+"name": "Subthalamic nucleus",
+"major": "Hypothalamus",
+"file": "STN.glb"
+},
+"LD": {
+"id": 155,
+"name": "Lateral dorsal nucleus of thalamus",
+"major": "Thalamus",
+"file": "LD.glb"
+},
+"LP": {
+"id": 218,
+"name": "Lateral posterior nucleus of the thalamus",
+"major": "Thalamus",
+"file": "LP.glb"
+},
+"em": {
+"id": 1092,
+"name": "external medullary lamina of the thalamus",
+"major": "fibre tracts",
+"file": "em.glb"
+},
+"PVT": {
+"id": 149,
+"name": "Paraventricular nucleus of the thalamus",
+"major": "Thalamus",
+"file": "PVT.glb"
+},
+"CM": {
+"id": 599,
+"name": "Central medial nucleus of the thalamus",
+"major": "Thalamus",
+"file": "CM.glb"
+},
+"RE": {
+"id": 181,
+"name": "Nucleus of reuniens",
+"major": "Thalamus",
+"file": "RE.glb"
+},
+"PIR": {
+"id": 961,
+"name": "Piriform area",
+"major": "Olfactory areas",
+"file": "PIR.glb"
+},
+"VISC": {
+"id": 677,
+"name": "Visceral area",
+"major": "Isocortex",
+"file": "VISC.glb"
+},
+"COAa": {
+"id": 639,
+"name": "Cortical amygdalar area, anterior part",
+"major": "Olfactory areas",
+"file": "COAa.glb"
+},
+"GU": {
+"id": 1057,
+"name": "Gustatory areas",
+"major": "Isocortex",
+"file": "GU.glb"
+},
+"EPd": {
+"id": 952,
+"name": "Endopiriform nucleus, dorsal part",
+"major": "Cortical subplate",
+"file": "EPd.glb"
+},
+"BMAa": {
+"id": 327,
+"name": "Basomedial amygdalar nucleus, anterior part",
+"major": "Cortical subplate",
+"file": "BMAa.glb"
+},
+"ec": {
+"id": 579,
+"name": "external capsule",
+"major": "fibre tracts",
+"file": "ec.glb"
+},
+"CEAc": {
+"id": 544,
+"name": "Central amygdalar nucleus, capsular part",
+"major": "Striatum",
+"file": "CEAc.glb"
+},
+"CEAl": {
+"id": 551,
+"name": "Central amygdalar nucleus, lateral part",
+"major": "Striatum",
+"file": "CEAl.glb"
+},
+"AAA": {
+"id": 23,
+"name": "Anterior amygdalar area",
+"major": "Striatum",
+"file": "AAA.glb"
+},
+"AId": {
+"id": 104,
+"name": "Agranular insular area, dorsal part",
+"major": "Isocortex",
+"file": "AId.glb"
+},
+"PT": {
+"id": 15,
+"name": "Parataenial nucleus",
+"major": "Thalamus",
+"file": "PT.glb"
+},
+"RH": {
+"id": 189,
+"name": "Rhomboid nucleus",
+"major": "Thalamus",
+"file": "RH.glb"
+},
+"SMT": {
+"id": 366,
+"name": "Submedial nucleus of the thalamus",
+"major": "Thalamus",
+"file": "SMT.glb"
+},
+"TTd": {
+"id": 597,
+"name": "Taenia tecta, dorsal part",
+"major": "Olfactory areas",
+"file": "TTd.glb"
+},
+"ACB": {
+"id": 56,
+"name": "Nucleus accumbens",
+"major": "Striatum",
+"file": "ACB.glb"
+},
+"DP": {
+"id": 814,
+"name": "Dorsal peduncular area",
+"major": "Olfactory areas",
+"file": "DP.glb"
+},
+"OLF": {
+"id": 698,
+"name": "Olfactory areas",
+"major": "Olfactory areas",
+"file": "OLF.glb"
+},
+"Eth": {
+"id": 560581551,
+"name": "Ethmoid nucleus of the thalamus",
+"major": "Thalamus",
+"file": "Eth.glb"
+},
+"AIv": {
+"id": 119,
+"name": "Agranular insular area, ventral part",
+"major": "Isocortex",
+"file": "AIv.glb"
+},
+"Xi": {
+"id": 560581559,
+"name": "Xiphoid thalamic nucleus",
+"major": "Thalamus",
+"file": "Xi.glb"
+},
+"OT": {
+"id": 754,
+"name": "Olfactory tubercle",
+"major": "Striatum",
+"file": "OT.glb"
+},
+"CLA": {
+"id": 583,
+"name": "Claustrum",
+"major": "Cortical subplate",
+"file": "CLA.glb"
+},
+"PCG": {
+"id": 898,
+"name": "Pontine central gray",
+"major": "Pons",
+"file": "PCG.glb"
+},
+"TH": {
+"id": 549,
+"name": "Thalamus",
+"major": "Thalamus",
+"file": "TH.glb"
+},
+"ILA": {
+"id": 44,
+"name": "Infralimbic area",
+"major": "Isocortex",
+"file": "ILA.glb"
+},
+"SSp-m": {
+"id": 345,
+"name": "Primary somatosensory area, mouth",
+"major": "Isocortex",
+"file": "SSp-m.glb"
+},
+"int": {
+"id": 6,
+"name": "internal capsule",
+"major": "fibre tracts",
+"file": "int.glb"
+},
+"ND": {
+"id": 587,
+"name": "Nucleus of Darkschewitsch",
+"major": "Midbrain",
+"file": "ND.glb"
+},
+"AMv": {
+"id": 1104,
+"name": "Anteromedial nucleus, ventral part",
+"major": "Thalamus",
+"file": "AMv.glb"
+},
+"FRP": {
+"id": 184,
+"name": "Frontal pole, cerebral cortex",
+"major": "Isocortex",
+"file": "FRP.glb"
+},
+"MGd": {
+"id": 1072,
+"name": "Medial geniculate complex, dorsal part",
+"major": "Thalamus",
+"file": "MGd.glb"
+},
+"fiber tracts": {
+"id": 1009,
+"name": "fiber tracts",
+"major": "fibre tracts",
+"file": "fiber_tracts.glb"
+},
+"ECT": {
+"id": 895,
+"name": "Ectorhinal area",
+"major": "Isocortex",
+"file": "ECT.glb"
+},
+"TEa": {
+"id": 541,
+"name": "Temporal association areas",
+"major": "Isocortex",
+"file": "TEa.glb"
+},
+"LA": {
+"id": 131,
+"name": "Lateral amygdalar nucleus",
+"major": "Cortical subplate",
+"file": "LA.glb"
+},
+"VISam": {
+"id": 394,
+"name": "Anteromedial visual area",
+"major": "Isocortex",
+"file": "VISam.glb"
+},
+"BST": {
+"id": 351,
+"name": "Bed nuclei of the stria terminalis",
+"major": "Pallidum",
+"file": "BST.glb"
+},
+"alv": {
+"id": 466,
+"name": "alveus",
+"major": "fibre tracts",
+"file": "alv.glb"
+},
+"FC": {
+"id": 982,
+"name": "Fasciola cinerea",
+"major": "Hippocampal formation",
+"file": "FC.glb"
+},
+"ProS": {
+"id": 484682470,
+"name": "Prosubiculum",
+"major": "Hippocampal formation",
+"file": "ProS.glb"
+},
+"LSc": {
+"id": 250,
+"name": "Lateral septal nucleus, caudal (caudodorsal) part",
+"major": "Striatum",
+"file": "LSc.glb"
+},
+"LSr": {
+"id": 258,
+"name": "Lateral septal nucleus, rostral (rostroventral) part",
+"major": "Striatum",
+"file": "LSr.glb"
+},
+"fi": {
+"id": 603,
+"name": "fimbria",
+"major": "fibre tracts",
+"file": "fi.glb"
+},
+"SF": {
+"id": 310,
+"name": "Septofimbrial nucleus",
+"major": "Striatum",
+"file": "SF.glb"
+},
+"CA2": {
+"id": 423,
+"name": "Field CA2",
+"major": "Hippocampal formation",
+"file": "CA2.glb"
+},
+"vhc": {
+"id": 449,
+"name": "ventral hippocampal commissure",
+"major": "fibre tracts",
+"file": "vhc.glb"
+},
+"SSp-un": {
+"id": 182305689,
+"name": "Primary somatosensory area, unassigned",
+"major": "Isocortex",
+"file": "SSp-un.glb"
+},
+"LDT": {
+"id": 162,
+"name": "Laterodorsal tegmental nucleus",
+"major": "Pons",
+"file": "LDT.glb"
+},
+"PRP": {
+"id": 169,
+"name": "Nucleus prepositus",
+"major": "Medulla",
+"file": "PRP.glb"
+},
+"SUT": {
+"id": 534,
+"name": "Supratrigeminal nucleus",
+"major": "Pons",
+"file": "SUT.glb"
+},
+"MS": {
+"id": 564,
+"name": "Medial septal nucleus",
+"major": "Pallidum",
+"file": "MS.glb"
+},
+"CUN": {
+"id": 616,
+"name": "Cuneiform nucleus",
+"major": "Midbrain",
+"file": "CUN.glb"
+},
+"ICe": {
+"id": 828,
+"name": "Inferior colliculus, external nucleus",
+"major": "Midbrain",
+"file": "ICe.glb"
+},
+"ICd": {
+"id": 820,
+"name": "Inferior colliculus, dorsal nucleus",
+"major": "Midbrain",
+"file": "ICd.glb"
+},
+"NB": {
+"id": 580,
+"name": "Nucleus of the brachium of the inferior colliculus",
+"major": "Midbrain",
+"file": "NB.glb"
+},
+"MGv": {
+"id": 1079,
+"name": "Medial geniculate complex, ventral part",
+"major": "Thalamus",
+"file": "MGv.glb"
+},
+"ICc": {
+"id": 811,
+"name": "Inferior colliculus, central nucleus",
+"major": "Midbrain",
+"file": "ICc.glb"
+},
+"MGm": {
+"id": 1088,
+"name": "Medial geniculate complex, medial part",
+"major": "Thalamus",
+"file": "MGm.glb"
+},
+"bic": {
+"id": 482,
+"name": "brachium of the inferior colliculus",
+"major": "fibre tracts",
+"file": "bic.glb"
+},
+"PoT": {
+"id": 563807435,
+"name": "Posterior triangular thalamic nucleus",
+"major": "Thalamus",
+"file": "PoT.glb"
+},
+"POL": {
+"id": 1029,
+"name": "Posterior limiting nucleus of the thalamus",
+"major": "Thalamus",
+"file": "POL.glb"
+},
+"tb": {
+"id": 841,
+"name": "trapezoid body",
+"major": "fibre tracts",
+"file": "tb.glb"
+},
+"SCop": {
+"id": 851,
+"name": "Superior colliculus, optic layer",
+"major": "Midbrain",
+"file": "SCop.glb"
+},
+"SCsg": {
+"id": 842,
+"name": "Superior colliculus, superficial gray layer",
+"major": "Midbrain",
+"file": "SCsg.glb"
+},
+"OP": {
+"id": 706,
+"name": "Olivary pretectal nucleus",
+"major": "Midbrain",
+"file": "OP.glb"
+},
+"PBG": {
+"id": 874,
+"name": "Parabigeminal nucleus",
+"major": "Midbrain",
+"file": "PBG.glb"
+},
+"TRS": {
+"id": 581,
+"name": "Triangular nucleus of septum",
+"major": "Pallidum",
+"file": "TRS.glb"
+},
+"NPC": {
+"id": 634,
+"name": "Nucleus of the posterior commissure",
+"major": "Midbrain",
+"file": "NPC.glb"
+},
+"CS": {
+"id": 679,
+"name": "Superior central nucleus raphe",
+"major": "Pons",
+"file": "CS.glb"
+},
+"AON": {
+"id": 159,
+"name": "Anterior olfactory nucleus",
+"major": "Olfactory areas",
+"file": "AON.glb"
+},
+"IG": {
+"id": 19,
+"name": "Induseum griseum",
+"major": "Hippocampal formation",
+"file": "IG.glb"
+},
+"DMX": {
+"id": 839,
+"name": "Dorsal motor nucleus of the vagus nerve",
+"major": "Medulla",
+"file": "DMX.glb"
+},
+"BLAa": {
+"id": 303,
+"name": "Basolateral amygdalar nucleus, anterior part",
+"major": "Cortical subplate",
+"file": "BLAa.glb"
+},
+"amc": {
+"id": 884,
+"name": "amygdalar capsule",
+"major": "fibre tracts",
+"file": "amc.glb"
+},
+"EPv": {
+"id": 966,
+"name": "Endopiriform nucleus, ventral part",
+"major": "Cortical subplate",
+"file": "EPv.glb"
+},
+"CTXsp": {
+"id": 703,
+"name": "Cortical subplate",
+"major": "Cortical subplate",
+"file": "CTXsp.glb"
+},
+"AIp": {
+"id": 111,
+"name": "Agranular insular area, posterior part",
+"major": "Isocortex",
+"file": "AIp.glb"
+},
+"PERI": {
+"id": 922,
+"name": "Perirhinal area",
+"major": "Isocortex",
+"file": "PERI.glb"
+},
+"PAA": {
+"id": 788,
+"name": "Piriform-amygdalar area",
+"major": "Olfactory areas",
+"file": "PAA.glb"
+},
+"BMAp": {
+"id": 334,
+"name": "Basomedial amygdalar nucleus, posterior part",
+"major": "Cortical subplate",
+"file": "BMAp.glb"
+},
+"MEA": {
+"id": 403,
+"name": "Medial amygdalar nucleus",
+"major": "Striatum",
+"file": "MEA.glb"
+},
+"BLAv": {
+"id": 451,
+"name": "Basolateral amygdalar nucleus, ventral part",
+"major": "Cortical subplate",
+"file": "BLAv.glb"
+},
+"TR": {
+"id": 566,
+"name": "Postpiriform transition area",
+"major": "Olfactory areas",
+"file": "TR.glb"
+},
+"COApl": {
+"id": 655,
+"name": "Cortical amygdalar area, posterior part, lateral zone",
+"major": "Olfactory areas",
+"file": "COApl.glb"
+},
+"COApm": {
+"id": 663,
+"name": "Cortical amygdalar area, posterior part, medial zone",
+"major": "Olfactory areas",
+"file": "COApm.glb"
+},
+"BLAp": {
+"id": 311,
+"name": "Basolateral amygdalar nucleus, posterior part",
+"major": "Cortical subplate",
+"file": "BLAp.glb"
+},
+"MA": {
+"id": 298,
+"name": "Magnocellular nucleus",
+"major": "Pallidum",
+"file": "MA.glb"
+},
+"NLOT": {
+"id": 619,
+"name": "Nucleus of the lateral olfactory tract",
+"major": "Olfactory areas",
+"file": "NLOT.glb"
+},
+"IA": {
+"id": 1105,
+"name": "Intercalated amygdalar nucleus",
+"major": "Striatum",
+"file": "IA.glb"
+},
+"ee": {
+"id": 964,
+"name": "corpus callosum, extreme capsule",
+"major": "fibre tracts",
+"file": "ee.glb"
+},
+"CEAm": {
+"id": 559,
+"name": "Central amygdalar nucleus, medial part",
+"major": "Striatum",
+"file": "CEAm.glb"
+},
+"ccg": {
+"id": 1108,
+"name": "genu of corpus callosum",
+"major": "fibre tracts",
+"file": "ccg.glb"
+},
+"HY": {
+"id": 1097,
+"name": "Hypothalamus",
+"major": "Hypothalamus",
+"file": "HY.glb"
+},
+"Acs5": {
+"id": 549009219,
+"name": "Accessory trigeminal nucleus",
+"major": "Pons",
+"file": "Acs5.glb"
+},
+"FF": {
+"id": 804,
+"name": "Fields of Forel",
+"major": "Hypothalamus",
+"file": "FF.glb"
+},
+"LGd-ip": {
+"id": 496345672,
+"name": "Dorsal part of the lateral geniculate complex, ipsilateral zone",
+"major": "Thalamus",
+"file": "LGd-ip.glb"
+},
+"LGd-sh": {
+"id": 496345664,
+"name": "Dorsal part of the lateral geniculate complex, shell",
+"major": "Thalamus",
+"file": "LGd-sh.glb"
+},
+"NOD": {
+"id": 968,
+"name": "Nodulus (X)",
+"major": "Cerebellum",
+"file": "NOD.glb"
+},
+"V4": {
+"id": 145,
+"name": "fourth ventricle",
+"major": "ventricles",
+"file": "V4.glb"
+},
+"x": {
+"id": 765,
+"name": "Nucleus x",
+"major": "Medulla",
+"file": "x.glb"
+},
+"IAD": {
+"id": 1113,
+"name": "Interanterodorsal nucleus of the thalamus",
+"major": "Thalamus",
+"file": "IAD.glb"
+},
+"IAM": {
+"id": 1120,
+"name": "Interanteromedial nucleus of the thalamus",
+"major": "Thalamus",
+"file": "IAM.glb"
+},
+"y": {
+"id": 781,
+"name": "Nucleus y",
+"major": "Medulla",
+"file": "y.glb"
+},
+"chpl": {
+"id": 108,
+"name": "choroid plexus",
+"major": "ventricles",
+"file": "chpl.glb"
+},
+"gVIIn": {
+"id": 1116,
+"name": "genu of the facial nerve",
+"major": "fibre tracts",
+"file": "gVIIn.glb"
+},
+"AUDv": {
+"id": 1018,
+"name": "Ventral auditory area",
+"major": "Isocortex",
+"file": "AUDv.glb"
+},
+"AMd": {
+"id": 1096,
+"name": "Anteromedial nucleus, dorsal part",
+"major": "Thalamus",
+"file": "AMd.glb"
+},
+"VTN": {
+"id": 757,
+"name": "Ventral tegmental nucleus",
+"major": "Midbrain",
+"file": "VTN.glb"
+},
+"mtg": {
+"id": 681,
+"name": "mammillotegmental tract",
+"major": "fibre tracts",
+"file": "mtg.glb"
+},
+"AT": {
+"id": 231,
+"name": "Anterior tegmental nucleus",
+"major": "Midbrain",
+"file": "AT.glb"
+},
+"VPMpc": {
+"id": 741,
+"name": "Ventral posteromedial nucleus of the thalamus, parvicellular part",
+"major": "Thalamus",
+"file": "VPMpc.glb"
+},
+"TTv": {
+"id": 605,
+"name": "Taenia tecta, ventral part",
+"major": "Olfactory areas",
+"file": "TTv.glb"
+},
+"DCO": {
+"id": 96,
+"name": "Dorsal cochlear nucleus",
+"major": "Medulla",
+"file": "DCO.glb"
+},
+"ll": {
+"id": 658,
+"name": "lateral lemniscus",
+"major": "fibre tracts",
+"file": "ll.glb"
+},
+"mcp": {
+"id": 78,
+"name": "middle cerebellar peduncle",
+"major": "fibre tracts",
+"file": "mcp.glb"
+},
+"POR": {
+"id": 122,
+"name": "Superior olivary complex, periolivary region",
+"major": "Pons",
+"file": "POR.glb"
+},
+"NLL": {
+"id": 612,
+"name": "Nucleus of the lateral lemniscus",
+"major": "Pons",
+"file": "NLL.glb"
+},
+"cst": {
+"id": 784,
+"name": "corticospinal tract",
+"major": "fibre tracts",
+"file": "cst.glb"
+},
+"lot": {
+"id": 665,
+"name": "lateral olfactory tract, body",
+"major": "fibre tracts",
+"file": "lot.glb"
+},
+"PYR": {
+"id": 951,
+"name": "Pyramus (VIII)",
+"major": "Cerebellum",
+"file": "PYR.glb"
+},
+"V3": {
+"id": 129,
+"name": "third ventricle",
+"major": "ventricles",
+"file": "V3.glb"
+},
+"VISpor": {
+"id": 312782628,
+"name": "Postrhinal area",
+"major": "Isocortex",
+"file": "VISpor.glb"
+},
+"DN": {
+"id": 846,
+"name": "Dentate nucleus",
+"major": "Cerebellum",
+"file": "DN.glb"
+},
+"IP": {
+"id": 91,
+"name": "Interposed nucleus",
+"major": "Cerebellum",
+"file": "IP.glb"
+},
+"FL": {
+"id": 1049,
+"name": "Flocculus",
+"major": "Cerebellum",
+"file": "FL.glb"
+},
+"V4r": {
+"id": 153,
+"name": "lateral recess",
+"major": "ventricles",
+"file": "V4r.glb"
+},
+"FS": {
+"id": 998,
+"name": "Fundus of striatum",
+"major": "Striatum",
+"file": "FS.glb"
+},
+"UVU": {
+"id": 957,
+"name": "Uvula (IX)",
+"major": "Cerebellum",
+"file": "UVU.glb"
+},
+"SOCm": {
+"id": 105,
+"name": "Superior olivary complex, medial part",
+"major": "Pons",
+"file": "SOCm.glb"
+},
+"CB": {
+"id": 512,
+"name": "Cerebellum",
+"major": "Cerebellum",
+"file": "CB.glb"
+},
+"icp": {
+"id": 1123,
+"name": "inferior cerebellar peduncle",
+"major": "fibre tracts",
+"file": "icp.glb"
+},
+"FN": {
+"id": 989,
+"name": "Fastigial nucleus",
+"major": "Cerebellum",
+"file": "FN.glb"
+},
+"PH": {
+"id": 946,
+"name": "Posterior hypothalamic nucleus",
+"major": "Hypothalamus",
+"file": "PH.glb"
+},
+"CENT3": {
+"id": 984,
+"name": "Lobule III",
+"major": "Cerebellum",
+"file": "CENT3.glb"
+},
+"CENT2": {
+"id": 976,
+"name": "Lobule II",
+"major": "Cerebellum",
+"file": "CENT2.glb"
+},
+"vVIIIn": {
+"id": 413,
+"name": "vestibular nerve",
+"major": "fibre tracts",
+"file": "vVIIIn.glb"
+},
+"LSv": {
+"id": 266,
+"name": "Lateral septal nucleus, ventral part",
+"major": "Striatum",
+"file": "LSv.glb"
+},
+"MPN": {
+"id": 515,
+"name": "Medial preoptic nucleus",
+"major": "Hypothalamus",
+"file": "MPN.glb"
+},
+"MPO": {
+"id": 523,
+"name": "Medial preoptic area",
+"major": "Hypothalamus",
+"file": "MPO.glb"
+},
+"VL": {
+"id": 81,
+"name": "lateral ventricle",
+"major": "ventricles",
+"file": "VL.glb"
+},
+"TU": {
+"id": 614,
+"name": "Tuberal nucleus",
+"major": "Hypothalamus",
+"file": "TU.glb"
+},
+"PIL": {
+"id": 560581563,
+"name": "Posterior intralaminar thalamic nucleus",
+"major": "Thalamus",
+"file": "PIL.glb"
+},
+"SPFp": {
+"id": 422,
+"name": "Subparafascicular nucleus, parvicellular part",
+"major": "Thalamus",
+"file": "SPFp.glb"
+},
+"PA": {
+"id": 780,
+"name": "Posterior amygdalar nucleus",
+"major": "Cortical subplate",
+"file": "PA.glb"
+},
+"RPF": {
+"id": 549009203,
+"name": "Retroparafascicular nucleus",
+"major": "Midbrain",
+"file": "RPF.glb"
+},
+"PPT": {
+"id": 1061,
+"name": "Posterior pretectal nucleus",
+"major": "Midbrain",
+"file": "PPT.glb"
+},
+"VISpl": {
+"id": 425,
+"name": "Posterolateral visual area",
+"major": "Isocortex",
+"file": "VISpl.glb"
+},
+"SCzo": {
+"id": 834,
+"name": "Superior colliculus, zonal layer",
+"major": "Midbrain",
+"file": "SCzo.glb"
+},
+"SO": {
+"id": 390,
+"name": "Supraoptic nucleus",
+"major": "Hypothalamus",
+"file": "SO.glb"
+},
+"VLPO": {
+"id": 689,
+"name": "Ventrolateral preoptic nucleus",
+"major": "Hypothalamus",
+"file": "VLPO.glb"
+},
+"AUDd": {
+"id": 1011,
+"name": "Dorsal auditory area",
+"major": "Isocortex",
+"file": "AUDd.glb"
+},
+"bsc": {
+"id": 916,
+"name": "brachium of the superior colliculus",
+"major": "fibre tracts",
+"file": "bsc.glb"
+},
+"aco": {
+"id": 900,
+"name": "anterior commissure, olfactory limb",
+"major": "fibre tracts",
+"file": "aco.glb"
+},
+"INC": {
+"id": 67,
+"name": "Interstitial nucleus of Cajal",
+"major": "Midbrain",
+"file": "INC.glb"
+},
+"APr": {
+"id": 484682508,
+"name": "Area prostriata",
+"major": "Hippocampal formation",
+"file": "APr.glb"
+},
+"IIIn": {
+"id": 832,
+"name": "oculomotor nerve",
+"major": "fibre tracts",
+"file": "IIIn.glb"
+},
+"nst": {
+"id": 102,
+"name": "nigrostriatal tract",
+"major": "fibre tracts",
+"file": "nst.glb"
+},
+"VPLpc": {
+"id": 725,
+"name": "Ventral posterolateral nucleus of the thalamus, parvicellular part",
+"major": "Thalamus",
+"file": "VPLpc.glb"
+},
+"SPA": {
+"id": 609,
+"name": "Subparafascicular area",
+"major": "Thalamus",
+"file": "SPA.glb"
+},
+"fr": {
+"id": 595,
+"name": "fasciculus retroflexus",
+"major": "fibre tracts",
+"file": "fr.glb"
+},
+"SPFm": {
+"id": 414,
+"name": "Subparafascicular nucleus, magnocellular part",
+"major": "Thalamus",
+"file": "SPFm.glb"
+},
+"LH": {
+"id": 186,
+"name": "Lateral habenula",
+"major": "Thalamus",
+"file": "LH.glb"
+},
+"PSTN": {
+"id": 364,
+"name": "Parasubthalamic nucleus",
+"major": "Hypothalamus",
+"file": "PSTN.glb"
+},
+"sm": {
+"id": 802,
+"name": "stria medullaris",
+"major": "fibre tracts",
+"file": "sm.glb"
+},
+"SH": {
+"id": 333,
+"name": "Septohippocampal nucleus",
+"major": "Striatum",
+"file": "SH.glb"
+},
+"AD": {
+"id": 64,
+"name": "Anterodorsal nucleus",
+"major": "Thalamus",
+"file": "AD.glb"
+},
+"MMl": {
+"id": 606826647,
+"name": "Medial mammillary nucleus, lateral part",
+"major": "Hypothalamus",
+"file": "MMl.glb"
+},
+"mtt": {
+"id": 690,
+"name": "mammillothalamic tract",
+"major": "fibre tracts",
+"file": "mtt.glb"
+},
+"RR": {
+"id": 246,
+"name": "Midbrain reticular nucleus, retrorubral area",
+"major": "Midbrain",
+"file": "RR.glb"
+},
+"MMm": {
+"id": 606826651,
+"name": "Medial mammillary nucleus, medial part",
+"major": "Hypothalamus",
+"file": "MMm.glb"
+},
+"MMp": {
+"id": 606826655,
+"name": "Medial mammillary nucleus, posterior part",
+"major": "Hypothalamus",
+"file": "MMp.glb"
+},
+"LM": {
+"id": 210,
+"name": "Lateral mammillary nucleus",
+"major": "Hypothalamus",
+"file": "LM.glb"
+},
+"fx": {
+"id": 436,
+"name": "columns of the fornix",
+"major": "fibre tracts",
+"file": "fx.glb"
+},
+"VeCB": {
+"id": 589508455,
+"name": "Vestibulocerebellar nucleus",
+"major": "Cerebellum",
+"file": "VeCB.glb"
+},
+"MOB": {
+"id": 507,
+"name": "Main olfactory bulb",
+"major": "Olfactory areas",
+"file": "MOB.glb"
+},
+"III": {
+"id": 35,
+"name": "Oculomotor nucleus",
+"major": "Midbrain",
+"file": "III.glb"
+},
+"mlf": {
+"id": 62,
+"name": "medial longitudinal fascicle",
+"major": "fibre tracts",
+"file": "mlf.glb"
+},
+"RL": {
+"id": 197,
+"name": "Rostral linear nucleus raphe",
+"major": "Midbrain",
+"file": "RL.glb"
+},
+"VI": {
+"id": 653,
+"name": "Abducens nucleus",
+"major": "Medulla",
+"file": "VI.glb"
+},
+"das": {
+"id": 506,
+"name": "dorsal acoustic stria",
+"major": "fibre tracts",
+"file": "das.glb"
+},
+"uf": {
+"id": 850,
+"name": "uncinate fascicle",
+"major": "fibre tracts",
+"file": "uf.glb"
+},
+"AHN": {
+"id": 88,
+"name": "Anterior hypothalamic nucleus",
+"major": "Hypothalamus",
+"file": "AHN.glb"
+},
+"NOT": {
+"id": 628,
+"name": "Nucleus of the optic tract",
+"major": "Midbrain",
+"file": "NOT.glb"
+},
+"vtd": {
+"id": 397,
+"name": "ventral tegmental decussation",
+"major": "fibre tracts",
+"file": "vtd.glb"
+},
+"AUDp": {
+"id": 1002,
+"name": "Primary auditory area",
+"major": "Isocortex",
+"file": "AUDp.glb"
+},
+"MEPO": {
+"id": 452,
+"name": "Median preoptic nucleus",
+"major": "Hypothalamus",
+"file": "MEPO.glb"
+},
+"MMme": {
+"id": 732,
+"name": "Medial mammillary nucleus, median part",
+"major": "Hypothalamus",
+"file": "MMme.glb"
+},
+"PeF": {
+"id": 576073704,
+"name": "Perifornical nucleus",
+"major": "Hypothalamus",
+"file": "PeF.glb"
+},
+"EW": {
+"id": 975,
+"name": "Edinger-Westphal nucleus",
+"major": "Midbrain",
+"file": "EW.glb"
+},
+"AUDpo": {
+"id": 1027,
+"name": "Posterior auditory area",
+"major": "Isocortex",
+"file": "AUDpo.glb"
+},
+"VMH": {
+"id": 693,
+"name": "Ventromedial hypothalamic nucleus",
+"major": "Hypothalamus",
+"file": "VMH.glb"
+},
+"DMH": {
+"id": 830,
+"name": "Dorsomedial nucleus of the hypothalamus",
+"major": "Hypothalamus",
+"file": "DMH.glb"
+},
+"PR": {
+"id": 1077,
+"name": "Perireunensis nucleus",
+"major": "Thalamus",
+"file": "PR.glb"
+},
+"SGN": {
+"id": 325,
+"name": "Suprageniculate nucleus",
+"major": "Thalamus",
+"file": "SGN.glb"
+},
+"ar": {
+"id": 484682524,
+"name": "auditory radiation",
+"major": "fibre tracts",
+"file": "ar.glb"
+},
+"PRC": {
+"id": 50,
+"name": "Precommissural nucleus",
+"major": "Midbrain",
+"file": "PRC.glb"
+},
+"PMd": {
+"id": 980,
+"name": "Dorsal premammillary nucleus",
+"major": "Hypothalamus",
+"file": "PMd.glb"
+},
+"st": {
+"id": 301,
+"name": "stria terminalis",
+"major": "fibre tracts",
+"file": "st.glb"
+},
+"DR": {
+"id": 872,
+"name": "Dorsal nucleus raphe",
+"major": "Midbrain",
+"file": "DR.glb"
+},
+"ECU": {
+"id": 903,
+"name": "External cuneate nucleus",
+"major": "Medulla",
+"file": "ECU.glb"
+},
+"RPO": {
+"id": 238,
+"name": "Nucleus raphe pontis",
+"major": "Pons",
+"file": "RPO.glb"
+},
+"act": {
+"id": 908,
+"name": "anterior commissure, temporal limb",
+"major": "fibre tracts",
+"file": "act.glb"
+},
+"cbc": {
+"id": 744,
+"name": "cerebellar commissure",
+"major": "fibre tracts",
+"file": "cbc.glb"
+},
+"HATA": {
+"id": 589508447,
+"name": "Hippocampo-amygdalar transition area",
+"major": "Hippocampal formation",
+"file": "HATA.glb"
+},
+"PVHd": {
+"id": 63,
+"name": "Paraventricular hypothalamic nucleus, descending division",
+"major": "Hypothalamus",
+"file": "PVHd.glb"
+},
+"CLI": {
+"id": 591,
+"name": "Central linear nucleus raphe",
+"major": "Midbrain",
+"file": "CLI.glb"
+},
+"Su3": {
+"id": 614454277,
+"name": "Supraoculomotor periaqueductal gray",
+"major": "Midbrain",
+"file": "Su3.glb"
+},
+"RCH": {
+"id": 173,
+"name": "Retrochiasmatic area",
+"major": "Hypothalamus",
+"file": "RCH.glb"
+},
+"cic": {
+"id": 633,
+"name": "inferior colliculus commissure",
+"major": "fibre tracts",
+"file": "cic.glb"
+},
+"pc": {
+"id": 158,
+"name": "posterior commissure",
+"major": "fibre tracts",
+"file": "pc.glb"
+},
+"PVH": {
+"id": 38,
+"name": "Paraventricular hypothalamic nucleus",
+"major": "Hypothalamus",
+"file": "PVH.glb"
+},
+"PMv": {
+"id": 1004,
+"name": "Ventral premammillary nucleus",
+"major": "Hypothalamus",
+"file": "PMv.glb"
+},
+"SEZ": {
+"id": 98,
+"name": "subependymal zone",
+"major": "ventricles",
+"file": "SEZ.glb"
+},
+"AOBgl": {
+"id": 188,
+"name": "Accessory olfactory bulb, glomerular layer",
+"major": "Olfactory areas",
+"file": "AOBgl.glb"
+},
+"opt": {
+"id": 125,
+"name": "optic tract",
+"major": "fibre tracts",
+"file": "opt.glb"
+},
+"IGL": {
+"id": 27,
+"name": "Intergeniculate leaflet of the lateral geniculate complex",
+"major": "Thalamus",
+"file": "IGL.glb"
+},
+"PVp": {
+"id": 126,
+"name": "Periventricular hypothalamic nucleus, posterior part",
+"major": "Hypothalamus",
+"file": "PVp.glb"
+},
+"mfb": {
+"id": 54,
+"name": "medial forebrain bundle",
+"major": "fibre tracts",
+"file": "mfb.glb"
+},
+"stc": {
+"id": 484682528,
+"name": "commissural branch of stria terminalis",
+"major": "fibre tracts",
+"file": "stc.glb"
+},
+"MT": {
+"id": 58,
+"name": "Medial terminal nucleus of the accessory optic tract",
+"major": "Midbrain",
+"file": "MT.glb"
+},
+"SAG": {
+"id": 271,
+"name": "Nucleus sagulum",
+"major": "Midbrain",
+"file": "SAG.glb"
+},
+"IntG": {
+"id": 563807439,
+"name": "Intermediate geniculate nucleus",
+"major": "Thalamus",
+"file": "IntG.glb"
+},
+"SubG": {
+"id": 321,
+"name": "Subgeniculate nucleus",
+"major": "Thalamus",
+"file": "SubG.glb"
+},
+"AQ": {
+"id": 140,
+"name": "cerebral aqueduct",
+"major": "ventricles",
+"file": "AQ.glb"
+},
+"MH": {
+"id": 483,
+"name": "Medial habenula",
+"major": "Thalamus",
+"file": "MH.glb"
+},
+"DTN": {
+"id": 880,
+"name": "Dorsal tegmental nucleus",
+"major": "Pons",
+"file": "DTN.glb"
+},
+"PDTg": {
+"id": 599626927,
+"name": "Posterodorsal tegmental nucleus",
+"major": "Pons",
+"file": "PDTg.glb"
+},
+"sctv": {
+"id": 866,
+"name": "ventral spinocerebellar tract",
+"major": "fibre tracts",
+"file": "sctv.glb"
+},
+"mct": {
+"id": 428,
+"name": "medial corticohypothalamic tract",
+"major": "fibre tracts",
+"file": "mct.glb"
+},
+"NTB": {
+"id": 642,
+"name": "Nucleus of the trapezoid body",
+"major": "Medulla",
+"file": "NTB.glb"
+},
+"SLD": {
+"id": 358,
+"name": "Sublaterodorsal nucleus",
+"major": "Pons",
+"file": "SLD.glb"
+},
+"RPA": {
+"id": 230,
+"name": "Nucleus raphe pallidus",
+"major": "Medulla",
+"file": "RPA.glb"
+},
+"lotd": {
+"id": 538,
+"name": "dorsal limb",
+"major": "fibre tracts",
+"file": "lotd.glb"
+},
+"NI": {
+"id": 604,
+"name": "Nucleus incertus",
+"major": "Pons",
+"file": "NI.glb"
+},
+"B": {
+"id": 280,
+"name": "Barrington's nucleus",
+"major": "Pons",
+"file": "B.glb"
+},
+"IF": {
+"id": 12,
+"name": "Interfascicular nucleus raphe",
+"major": "Midbrain",
+"file": "IF.glb"
+},
+"AVP": {
+"id": 263,
+"name": "Anteroventral preoptic nucleus",
+"major": "Hypothalamus",
+"file": "AVP.glb"
+},
+"von": {
+"id": 949,
+"name": "vomeronasal nerve",
+"major": "fibre tracts",
+"file": "von.glb"
+},
+"AOBmi": {
+"id": 204,
+"name": "Accessory olfactory bulb, mitral layer",
+"major": "Olfactory areas",
+"file": "AOBmi.glb"
+},
+"IPDL": {
+"id": 607344858,
+"name": "Interpeduncular nucleus, dorsolateral",
+"major": "Midbrain",
+"file": "IPDL.glb"
+},
+"mp": {
+"id": 673,
+"name": "mammillary peduncle",
+"major": "fibre tracts",
+"file": "mp.glb"
+},
+"IPN": {
+"id": 100,
+"name": "Interpeduncular nucleus",
+"major": "Midbrain",
+"file": "IPN.glb"
+},
+"SG": {
+"id": 318,
+"name": "Supragenual nucleus",
+"major": "Pons",
+"file": "SG.glb"
+},
+"dscp": {
+"id": 812,
+"name": "superior cerebellar peduncle decussation",
+"major": "fibre tracts",
+"file": "dscp.glb"
+},
+"PS": {
+"id": 1109,
+"name": "Parastrial nucleus",
+"major": "Hypothalamus",
+"file": "PS.glb"
+},
+"VIIn": {
+"id": 798,
+"name": "facial nerve",
+"major": "fibre tracts",
+"file": "VIIn.glb"
+},
+"ADP": {
+"id": 72,
+"name": "Anterodorsal preoptic nucleus",
+"major": "Hypothalamus",
+"file": "ADP.glb"
+},
+"AVPV": {
+"id": 272,
+"name": "Anteroventral periventricular nucleus",
+"major": "Hypothalamus",
+"file": "AVPV.glb"
+},
+"PVi": {
+"id": 118,
+"name": "Periventricular hypothalamic nucleus, intermediate part",
+"major": "Hypothalamus",
+"file": "PVi.glb"
+},
+"och": {
+"id": 117,
+"name": "optic chiasm",
+"major": "fibre tracts",
+"file": "och.glb"
+},
+"TMv": {
+"id": 1,
+"name": "Tuberomammillary nucleus, ventral part",
+"major": "Hypothalamus",
+"file": "TMv.glb"
+},
+"IPC": {
+"id": 607344838,
+"name": "Interpeduncular nucleus, caudal",
+"major": "Midbrain",
+"file": "IPC.glb"
+},
+"IPI": {
+"id": 607344850,
+"name": "Interpeduncular nucleus, intermediate",
+"major": "Midbrain",
+"file": "IPI.glb"
+},
+"df": {
+"id": 530,
+"name": "dorsal fornix",
+"major": "fibre tracts",
+"file": "df.glb"
+},
+"SBPV": {
+"id": 347,
+"name": "Subparaventricular zone",
+"major": "Hypothalamus",
+"file": "SBPV.glb"
+},
+"SCH": {
+"id": 286,
+"name": "Suprachiasmatic nucleus",
+"major": "Hypothalamus",
+"file": "SCH.glb"
+},
+"ARH": {
+"id": 223,
+"name": "Arcuate hypothalamic nucleus",
+"major": "Hypothalamus",
+"file": "ARH.glb"
+},
+"PVa": {
+"id": 30,
+"name": "Periventricular hypothalamic nucleus, anterior part",
+"major": "Hypothalamus",
+"file": "PVa.glb"
+},
+"VMPO": {
+"id": 576073699,
+"name": "Ventromedial preoptic nucleus",
+"major": "Hypothalamus",
+"file": "VMPO.glb"
+},
+"BAC": {
+"id": 287,
+"name": "Bed nucleus of the anterior commissure",
+"major": "Pallidum",
+"file": "BAC.glb"
+},
+"BA": {
+"id": 292,
+"name": "Bed nucleus of the accessory olfactory tract",
+"major": "Striatum",
+"file": "BA.glb"
+},
+"sV": {
+"id": 229,
+"name": "sensory root of the trigeminal nerve",
+"major": "fibre tracts",
+"file": "sV.glb"
+},
+"MA3": {
+"id": 549009211,
+"name": "Medial accesory oculomotor nucleus",
+"major": "Midbrain",
+"file": "MA3.glb"
+},
+"PP": {
+"id": 1044,
+"name": "Peripeduncular nucleus",
+"major": "Thalamus",
+"file": "PP.glb"
+},
+"MPT": {
+"id": 531,
+"name": "Medial pretectal area",
+"major": "Midbrain",
+"file": "MPT.glb"
+},
+"LT": {
+"id": 66,
+"name": "Lateral terminal nucleus of the accessory optic tract",
+"major": "Midbrain",
+"file": "LT.glb"
+},
+"DT": {
+"id": 75,
+"name": "Dorsal terminal nucleus of the accessory optic tract",
+"major": "Midbrain",
+"file": "DT.glb"
+},
+"csc": {
+"id": 336,
+"name": "superior colliculus commissure",
+"major": "fibre tracts",
+"file": "csc.glb"
+},
+"Pa5": {
+"id": 589508451,
+"name": "Paratrigeminal nucleus",
+"major": "Medulla",
+"file": "Pa5.glb"
+},
+"PST": {
+"id": 356,
+"name": "Preparasubthalamic nucleus",
+"major": "Hypothalamus",
+"file": "PST.glb"
+}
+}

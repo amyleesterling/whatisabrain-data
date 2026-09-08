@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>七千万个神经元中的三万个 | what is a brain</title>
+<meta name="description" content="三万多个真实神经元，每一个的轴突都在整个小鼠脑中被完整追踪，并画在它原本的位置上。看一个信号离开胞体，抵达轴突所触及的每一个脑区。">
+<meta property="og:title" content="七千万个神经元中的三万个">
+<meta property="og:description" content="在整个小鼠脑中被完整追踪的真实神经元。看一个信号离开胞体，找到它的轴突所抵达的每一个脑区。">
+<meta property="og:url" content="https://whatisabrain.com/mouse/zh/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://whatisabrain.com/mouse/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="半透明的小鼠脑，其中一个神经元的轴突被点亮">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://whatisabrain.com/mouse/og.jpg">
+<link rel="canonical" href="https://whatisabrain.com/mouse/zh/">
+<link rel="alternate" hreflang="en" href="https://whatisabrain.com/mouse/">
+<link rel="alternate" hreflang="zh-Hans" href="https://whatisabrain.com/mouse/zh/">
+<link rel="icon" href="/brain-favicon.png">
+<link rel="stylesheet" href="../vendor/scifi-ui/panel-surface.css">
+<script type="importmap">
+{"imports":{"three":"../vendor/three/three.module.min.js","three/addons/":"../vendor/three/addons/"}}
+</script>
+<style>
+  :root {
+    --ink:#EFF2F7; --dim:#9AA2B1; --faint:#666E7C; --ground:#07080B;
+    --panel:#0F1218; --line:#1D222B; --edge:#4A5568; --accent:#6fd0ff;
+  }
+  * { box-sizing:border-box; }
+  * { scrollbar-color: #2A313D transparent; scrollbar-width: thin; }
+  ::-webkit-scrollbar { width:11px; height:11px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:#252C38; border-radius:6px; border:2px solid transparent; background-clip:content-box; }
+  body { margin:0; background:var(--ground); color:var(--ink);
+    font:400 17px/1.8 ui-sans-serif,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    -webkit-text-size-adjust:100%; overflow-x:hidden; }
+  .wrap { max-width:820px; margin:0 auto; padding:clamp(26px,5vw,48px) clamp(16px,5vw,32px) 20px; }
+  .wide { max-width:1240px; margin:0 auto; padding:0 clamp(12px,3vw,28px); }
+  h1 { margin:0 0 8px; font-size:clamp(22px,4.8vw,32px); font-weight:500; letter-spacing:.01em; text-wrap:balance; }
+  h2 { margin:48px 0 12px; font-size:13px; font-weight:500; letter-spacing:.18em; color:var(--faint); }
+  p { margin:0 0 15px; }
+  a { color:var(--accent); }
+  .lede { color:var(--dim); font-size:15.5px; }
+  .lede b { color:var(--ink); font-weight:500; }
+  .note { font-size:14.5px; color:var(--dim); border-left:2px solid var(--line); padding:2px 0 2px 16px; margin:22px 0; }
+  .note b { color:var(--ink); font-weight:500; }
+  .home { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); text-decoration:none; display:inline-block; margin-bottom:14px; }
+  .home:hover { color:var(--ink); }
+  .lang { float:right; font-size:12px; color:var(--faint); text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:4px 12px; }
+  .lang:hover { color:var(--ink); border-color:var(--edge); }
+
+  .stage { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:18px; align-items:start; margin:20px 0 0; }
+  @media (max-width:900px){ .stage { grid-template-columns:minmax(0,1fr); } }
+  .box { background:#090B10; border:1px solid var(--line); border-radius:6px; overflow:hidden; position:relative; }
+  .box .view { position:relative; background:#090B10; }
+  .fsicon { position:absolute; top:10px; right:10px; z-index:3; appearance:none; width:32px; height:32px; border-radius:8px; border:1px solid rgba(239,244,251,.2);
+    background:rgba(9,11,16,.6); color:var(--dim); font-size:16px; line-height:1; cursor:pointer; }
+  .fsicon:hover { color:var(--ink); border-color:var(--edge); }
+  .box .view:fullscreen .canvas { height:100vh; min-height:0; }
+  .box .canvas { height:min(68vh,640px); min-height:360px; width:100%; }
+  .status { position:absolute; left:12px; bottom:10px; right:12px; font:500 11px/1.4 ui-monospace,Consolas,monospace;
+    letter-spacing:.06em; color:#9fd0ff; opacity:.85; pointer-events:none; text-shadow:0 1px 8px #000; }
+  .ctl { border-top:1px solid var(--line); padding:12px clamp(12px,3vw,18px) 13px; }
+  .row { display:flex; flex-wrap:wrap; align-items:center; gap:7px 12px; margin:0 0 8px; }
+  .row:last-child { margin-bottom:0; }
+  .lab { font-size:11px; letter-spacing:.16em; color:var(--faint); min-width:56px; }
+  .tabs { display:flex; flex-wrap:wrap; gap:6px; }
+  a.btn { text-decoration:none; display:inline-block; }
+  .tabs button, .btn { appearance:none; background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:999px;
+    padding:5px 13px; font:inherit; font-size:13px; cursor:pointer; transition:color .15s,border-color .15s,background .15s; }
+  .tabs button:hover, .btn:hover { color:var(--ink); border-color:var(--edge); }
+  .tabs button[aria-selected="true"] { color:#cfe6ff; border-color:rgba(111,208,255,.55); background:rgba(111,208,255,.10); }
+  .tog { display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--dim); cursor:pointer; }
+  .tog input { accent-color:#6fd0ff; }
+  select { background:#0F1218; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:4px 8px; font:inherit; font-size:13px; }
+  .rlabels { position:absolute; inset:0; pointer-events:none; }
+  /* region tags: small, the acronym and its share, the full name on hover */
+  .rlbl { position:absolute; transform:translate(-50%,-50%); pointer-events:auto; cursor:pointer; white-space:nowrap; font:500 10px/1 ui-monospace,Consolas,monospace; letter-spacing:.08em;
+    color:rgba(239,244,251,.78); padding:3px 6px; border:1px solid rgba(239,244,251,.14); border-radius:4px; background:rgba(9,11,16,.55); transition:opacity .3s, color .2s, border-color .2s; }
+  .rlbl:hover { color:var(--ink); border-color:rgba(239,244,251,.4); }
+  .rlbl b { font-weight:700; }
+  .rlbl small { opacity:.6; margin-left:4px; font-size:9px; }
+  .rlbl.soma b { color:#fff1c0; }
+  .rlbl.is-on { color:var(--ink); border-color:currentColor; background:rgba(9,11,16,.85); }
+  .tbars button.tb { appearance:none; background:transparent; border:0; padding:0; width:100%; text-align:left; color:var(--dim); cursor:pointer; font:inherit; font-size:11.5px; }
+  .tbars button.tb:hover, .tbars button.tb.is-on { color:var(--ink); }
+  .tbars button.tb.is-on .tb-r { background:#24303f; }
+  .tb-l b { font-weight:600; color:var(--ink); }
+  /* the sliders: a neon tube, clear at the zero end and solid at the full
+     end, a lit rim along the top so it reads as a cylinder, a bright bead
+     for the thumb. Each carries its own colour in --c. */
+  .surf { display:inline-flex; align-items:center; gap:10px; font-size:13px; color:var(--dim); }
+  .surf input { --c:111 208 255; appearance:none; -webkit-appearance:none; width:130px; height:12px; margin:0; border-radius:999px; background:transparent; cursor:pointer; outline:none; }
+  .surf input[data-divisions] { --c:224 92 255; }
+  .surf input::-webkit-slider-runnable-track { height:12px; border-radius:999px;
+    background: linear-gradient(90deg, rgb(var(--c) / 0) 0%, rgb(var(--c) / .35) 45%, rgb(var(--c) / 1) 100%);
+    box-shadow: inset 0 2px 2px rgb(255 255 255 / .3), inset 0 -3px 4px rgb(0 0 0 / .45); transition: box-shadow .2s; }
+  .surf input::-moz-range-track { height:12px; border-radius:999px;
+    background: linear-gradient(90deg, rgb(var(--c) / 0) 0%, rgb(var(--c) / .35) 45%, rgb(var(--c) / 1) 100%);
+    box-shadow: inset 0 2px 2px rgb(255 255 255 / .3), inset 0 -3px 4px rgb(0 0 0 / .45); transition: box-shadow .2s; }
+  .surf input::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:18px; height:18px; margin-top:-3px; border-radius:50%; border:0;
+    background: radial-gradient(circle at 35% 30%, #fff 0%, rgb(var(--c)) 45%, rgb(var(--c) / .9) 100%);
+    box-shadow: inset 0 -2px 3px rgb(0 0 0 / .35); transition: box-shadow .2s; }
+  .surf input::-moz-range-thumb { width:18px; height:18px; border-radius:50%; border:0;
+    background: radial-gradient(circle at 35% 30%, #fff 0%, rgb(var(--c)) 45%, rgb(var(--c) / .9) 100%);
+    box-shadow: inset 0 -2px 3px rgb(0 0 0 / .35); transition: box-shadow .2s; }
+  /* the glow comes on only while the tube is being moved */
+  .surf input:active::-webkit-slider-runnable-track { box-shadow: 0 0 14px rgb(var(--c) / .55), 0 0 3px rgb(var(--c) / .7), inset 0 2px 2px rgb(255 255 255 / .35), inset 0 -3px 4px rgb(0 0 0 / .45); }
+  .surf input:active::-moz-range-track { box-shadow: 0 0 14px rgb(var(--c) / .55), 0 0 3px rgb(var(--c) / .7), inset 0 2px 2px rgb(255 255 255 / .35), inset 0 -3px 4px rgb(0 0 0 / .45); }
+  .surf input:active::-webkit-slider-thumb { box-shadow: 0 0 10px rgb(var(--c) / .9), 0 0 22px rgb(var(--c) / .5), inset 0 -2px 3px rgb(0 0 0 / .35); }
+  .surf input:active::-moz-range-thumb { box-shadow: 0 0 10px rgb(var(--c) / .9), 0 0 22px rgb(var(--c) / .5), inset 0 -2px 3px rgb(0 0 0 / .35); }
+  .surf input:focus-visible { outline: 1px solid rgb(var(--c) / .5); outline-offset: 3px; }
+  .legend { display:flex; flex-wrap:wrap; gap:5px 10px; margin:8px 0 0; }
+  .legend .lg { display:inline-flex; align-items:center; gap:6px; font-size:11.5px; color:var(--dim); }
+  .legend .lg s { width:9px; height:9px; border-radius:2px; text-decoration:none; display:inline-block; }
+  .legend .lg.dim { color:var(--faint); }
+
+  .side { background:#090B10; border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .side h3 { margin:0 0 4px; font-size:14px; font-weight:500; color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .side h3 s { width:11px; height:11px; border-radius:3px; flex:none; text-decoration:none; display:inline-block; }
+  .side p { font-size:12.5px; color:var(--dim); margin:8px 0 0; }
+  .side p b { color:var(--ink); font-weight:500; }
+  .side p.side { color:var(--faint); font-size:11.5px; margin:2px 0 0; }
+  .side p.badge { font-size:11px; color:var(--faint); letter-spacing:.02em; border-top:1px solid var(--line); padding-top:8px; margin-top:10px; }
+  .side .trail { font-size:11px; color:var(--faint); margin-top:10px; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .klist { display:flex; flex-direction:column; gap:2px; margin:6px 0 0; max-height:340px; overflow:auto; }
+  .kk { appearance:none; background:transparent; border:1px solid transparent; border-radius:6px; padding:3px 6px; color:var(--dim); font:inherit; font-size:11.5px; text-align:left; cursor:pointer; display:flex; align-items:center; gap:7px; }
+  .kk:hover, .kk.is-on { color:var(--ink); border-color:var(--line); background:#0F1218; }
+  .kk s { width:10px; height:10px; border-radius:3px; flex:none; text-decoration:none; display:inline-block; }
+  .kk b { font-weight:600; color:var(--ink); }
+  .kk .kd { color:var(--faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; }
+  .kk .kn { margin-left:auto; font-variant-numeric:tabular-nums; color:var(--faint); }
+  .tbars { margin:6px 0 0; }
+  .tb { display:grid; grid-template-columns:118px 1fr 34px; gap:8px; align-items:center; font-size:11.5px; color:var(--dim); margin:3px 0; }
+  .tb-l { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tb-r { height:3px; background:#151a22; border-radius:2px; position:relative; }
+  .tb-r i { position:absolute; left:0; top:0; bottom:0; border-radius:2px; box-shadow:0 0 8px currentColor; }
+  .tb-v { text-align:right; font-variant-numeric:tabular-nums; }
+
+  .cmp { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0; }
+  @media (max-width:640px){ .cmp { grid-template-columns:1fr; } }
+  .cmp div { background:#090B10; border:1px solid var(--line); border-radius:10px; padding:14px 16px; font-size:14px; color:var(--dim); }
+  .cmp b { display:block; color:var(--ink); font-weight:500; margin-bottom:4px; }
+  .src { font-size:14px; color:var(--dim); }
+  .src li { margin:0 0 10px; }
+  .src b { color:var(--ink); font-weight:500; }
+  footer { margin-top:56px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--faint); }
+  footer a { color:var(--dim); }
+</style>
+</head>
+<body>
+
+<div class="wide" style="padding-top:clamp(26px,5vw,48px)">
+  <a class="lang" href="../" hreflang="en">English</a>
+  <a class="home" href="/">What's a brain?</a>
+  <h1>七千万个神经元中的三万个</h1>
+  <p class="lede"><b>看一个信号离开胞体，抵达轴突所触及的每一个脑区。</b>
+    这里的每一条线都是一根<a href="../neuron/?lang=zh">轴突</a>，即神经元为了把信号送到其他细胞而长出的那一根长纤维，
+    从胞体一直追踪到它在整个小鼠脑中的最后一个分支。拖动可以转动大脑，右键拖动可以平移，滚轮可以缩放。这里没有任何东西是想象出来的：
+    脑的轮廓是实测的图谱，每一个细胞都是真实的细胞，每一条线都是一根真实的轴突。</p>
+</div>
+
+<div class="wide">
+  <section class="stage" id="mouse">
+    <div class="box">
+      <div class="view">
+      <div class="canvas" data-mount></div>
+      <div class="rlabels" data-rlabels></div>
+      <button class="fsicon" data-fullscreen-icon title="全屏" aria-label="全屏">&#x26F6;</button>
+      <div class="status" data-status>正在加载大脑…</div>
+      </div>
+      <div class="ctl">
+        <div class="row">
+          <span class="lab">显示</span>
+          <div class="tabs" role="tablist">
+            <button data-mode="wire" role="tab" aria-selected="true">逐个点亮</button>
+            <button data-mode="pick" role="tab">选择一个胞体</button>
+            <button data-mode="all" role="tab">全部轴突</button>
+            <button data-mode="match" role="tab">符合筛选的全部</button>
+          </div>
+          <button class="btn" data-next>换一个</button>
+          <button class="btn" data-pause>暂停旋转</button>
+          <span class="lab" style="min-width:0">跳到</span>
+          <button class="btn" data-cube="microns" style="color:#ffc24a;border-color:rgba(255,194,74,.45)">MICrONS V1</button>
+          <button class="btn" data-cube="ca3" style="color:#3fe3b0;border-color:rgba(63,227,176,.45)">CA3</button>
+          <button class="btn" data-fullscreen>全屏</button>
+          <button class="btn" data-share>分享这个视图</button>
+          <button class="btn" data-image>保存图片</button>
+          <a class="btn" data-shader href="https://amyleesterling.github.io/scifi-ui/hologram-3d.html">着色器</a>
+          <a class="btn" data-request href="https://github.com/amyleesterling/whatisabrain-feedback/issues/new?title=%E5%8A%9F%E8%83%BD%E5%BB%BA%E8%AE%AE%EF%BC%9A" target="_blank" rel="noopener">提出功能建议</a>
+        </div>
+        <div class="row">
+          <span class="lab">图层</span>
+          <label class="tog"><input type="checkbox" data-t-shell checked> 脑</label>
+          <label class="tog"><input type="checkbox" data-t-regions checked> 脑区</label>
+          <label class="tog"><input type="checkbox" data-t-cells> 每一个细胞</label>
+          <label class="tog"><input type="checkbox" data-t-microns checked> 连接组立方体</label>
+          <label class="tog"><input type="checkbox" data-t-turn checked> 旋转</label>
+          <label class="surf">外壳 <input type="range" data-surface min="0" max="100" value="50"></label>
+          <label class="surf">脑区 <input type="range" data-divisions min="0" max="100" value="50"></label>
+          <label class="tog"><input type="checkbox" data-t-zoom checked> 跟随神经元</label>
+        </div>
+        <div class="row">
+          <span class="lab">来源</span>
+          <select data-f-src>
+            <option value="all">全部数据集</option>
+            <option value="MouseLight">MouseLight（Janelia）</option>
+            <option value="SEU-ALLEN">SEU-ALLEN（东南大学与艾伦研究所）</option>
+            <option value="ION-PFC">中科院神经所 前额叶皮层</option>
+            <option value="ION-HIPP">中科院神经所 海马</option>
+            <option value="ION-CTX">中科院神经所 全皮层</option>
+          </select>
+          <input type="search" data-f-region placeholder="胞体所在脑区，如 CA3" style="background:#0F1218;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font:inherit;font-size:13px;width:190px">
+          <select data-f-div><option value="all">所有脑区</option></select>
+          <select data-colour title="“符合筛选的全部”视图的着色方式"><option value="subtype">按投射亚型着色</option><option value="family">按通路家族着色</option><option value="region">按胞体区域着色</option><option value="division">按脑区着色</option></select>
+        </div>
+        <div class="legend" data-legend hidden></div>
+      </div>
+    </div>
+    <aside class="side">
+      <div data-card>
+        <h3>一个神经元</h3>
+        <p>在左侧选择一种模式。每个神经元都是一个真实的细胞，从整脑成像数据中重建而来，
+          包括它的胞体、树突，以及轴突的全部长度。</p>
+      </div>
+      <div class="trail"><span data-trailcount></span><button class="btn" data-clear>清除轨迹</button></div>
+    </aside>
+  </section>
+</div>
+
+<main class="wrap">
+  <h2>你看到的是什么</h2>
+  <p>脑的轮廓是艾伦研究所的小鼠参考脑，即通用坐标框架（Common Coordinate Framework），
+    由许多只小鼠的脑平均而成。这里的每一个数据集，都是由制作它的研究者配准到这个框架中的。
+    这个共用的框架就是全部的诀窍：不同实验室、不同年份、不同显微镜追踪出的神经元，
+    落在同一个脑里，于是可以画在一起。</p>
+  <p>每个神经元先被荧光蛋白填充，然后整个脑以亚微米分辨率成像，再由人或算法沿着图像堆栈
+    追踪轴突的每一根分支，有时长达几厘米。这里画出了五个数据集：Janelia 的 <b>MouseLight</b> 计划，
+    东南大学与艾伦研究所合作的 <b>SEU-ALLEN</b>，以及中国科学院脑科学与智能技术卓越创新中心
+    （神经科学研究所）在上海完成的三个单神经元投射组图谱：<b>前额叶皮层</b>、<b>海马</b>和<b>全皮层</b>。
+    卡片上的数字是实际加载的数量，而不是事先写好的。</p>
+  <p class="note"><b>这是样本，不是全体。</b> 一只小鼠的脑大约有七千万个神经元，这个页面画了三万两千个左右。
+    它能告诉你这些神经元去了哪里，但不能告诉你有多少神经元去了那里。这里细胞最多的脑区，
+    是这几个项目选择标记的脑区，而不是神经元最多的脑区。</p>
+
+  <h2>信号的速度</h2>
+  <p>沿轴突奔跑的光，代表一个动作电位。它以每秒 4 毫米的速度沿着神经纤维前进，从胞体算起。
+    真实的动作电位在细的无髓鞘轴突中大约每秒传导一米，在有髓鞘的轴突中还要快好几倍，
+    所以你看到的画面放慢了大约 250 倍。卡片会给出每个神经元在每秒一米下的真实穿越时间。</p>
+
+  <h2>这不是什么</h2>
+  <div class="cmp">
+    <div><b>一根轴突不等于一个连接</b>
+      每一条线只表示一根轴突去了哪里。它在哪里形成突触、连到哪些细胞，不在这些数据里。
+      卡片上的条形图按脑区统计轴突末梢的数量，这是现有数据中最诚实的替代指标。</div>
+    <div><b>不是全脑连接组</b>
+      目前还没有人做出小鼠的全脑连接组。在突触层面上最完整的小鼠连接组是
+      <a href="https://amyleesterling.github.io/microns/">MICrONS</a>：视觉皮层中一立方毫米内的每一个突触，
+      约七万五千个神经元、五亿个突触。打开<b>一立方毫米</b>图层，就能在它原本所在的视觉皮层里，
+      看到这个数据块的真实大小。</div>
+  </div>
+  <p>本站的人脑页面画的是相反的东西。在<a href="/tracks/">白质</a>页面上，每一根缆线都是一百万根轴突
+    在一千个人身上平均后的纤维束，因为没有人能在人脑中追踪单根轴突。而在这里，每一条线都是一只小鼠体内的一根轴突。</p>
+
+  <h2>每一个细胞</h2>
+  <p><b>每一个细胞</b>图层是另一类数据：艾伦脑细胞图谱把一只小鼠的脑连续切片成像，
+    记录了每一个细胞正在表达大约一千个基因中的哪些。这样就得到了一只动物体内数百万个细胞的位置和类型，
+    同样在参考框架里。页面每十二个细胞画一个，颜色按图谱自己的 34 个细胞类别、用图谱自己的配色。
+    因为这个脑被切成了间隔五分之一毫米的切片，点云会呈现出与切片间距一致的淡淡条纹。
+    那是测量本身，不是绘制的瑕疵。</p>
+
+  <h2>数据来源</h2>
+  <ul class="src">
+    <li><b>小鼠有多少神经元。</b> Herculano-Houzel S.、Mota B. 与 Lent R.，Cellular scaling rules for rodent
+      brains，PNAS 103, 12138 (2006)：用各向同性分离法计数，整个小鼠脑约有 7,100 万个神经元。标题取了两个数的整数。</li>
+    <li><b>参考脑。</b> 艾伦小鼠脑通用坐标框架第三版，2017 年标注与结构网格。Wang Q. 等，Cell 181, 936 (2020)。
+      艾伦研究所使用条款。</li>
+    <li><b>MouseLight。</b> Winnubst J. 等，Reconstruction of 1,000 projection neurons reveals new cell types and
+      organization of long-range connectivity in the mouse brain，Cell 179, 268 (2019)。数据来自 Janelia 研究园区的
+      <a href="https://ml-neuronbrowser.janelia.org/">MouseLight NeuronBrowser</a>，CC BY-NC 4.0，CCF v3.0 坐标。</li>
+    <li><b>SEU-ALLEN。</b> Peng H. 等，Morphological diversity of single neurons in molecularly defined cell types，
+      Nature 598, 174 (2021)。1,741 个已配准重建，来自
+      <a href="https://doi.org/10.35077/g.25">Brain Image Library</a>，CC BY-SA 4.0。</li>
+    <li><b>中科院神经所 前额叶皮层。</b> Gao L. 等，Single-neuron projectome of mouse prefrontal cortex，
+      Nature Neuroscience 25, 515 (2022)。6,357 个重建，来自中国科学院脑科学与智能技术卓越创新中心的
+      <a href="https://mouse.digital-brain.cn/projectome/pfc">数字脑投射组图谱</a>。数据集 DOI
+      <a href="https://doi.org/10.12412/BSDC.1690164952.20001">10.12412/BSDC.1690164952.20001</a>。</li>
+    <li><b>中科院神经所 海马。</b> Qiu S. 等，Whole-brain spatial organization of hippocampal single-neuron projectomes，
+      Science 383, eadj9198 (2024)。10,100 个重建，来自同一中心的
+      <a href="https://mouse.digital-brain.cn/hipp">数字脑海马图谱</a>。数据集 DOI
+      <a href="https://doi.org/10.12412/BSDC.1667278800.20001">10.12412/BSDC.1667278800.20001</a>。
+      上海的重建包含轴突和胞体；树突是单独追踪的，这里没有画出。</li>
+    <li><b>中科院神经所 全皮层。</b> Gao L. 等，Integrative analysis of single-neuron projectomes links connectome,
+      transcriptome, and function in the mouse cortex，Neuron 114, 86 (2026)。覆盖整个皮层的 18,621 个重建，来自同一中心的
+      <a href="https://mouse.digital-brain.cn/projectome/whole-cortex">数字脑全皮层图谱</a>，并带有门户给出的投射组类别
+      （IT、PT、CT 各组）。其中 6,357 个就是上面前额叶数据集里的同一批重建、同样的编号，所以这里新增 12,264 个；
+      前额叶数据集保留它自己的分类。</li>
+    <li><b>每一个细胞。</b> Yao Z. 等，A high-resolution transcriptomic and spatial atlas of cell types in the whole
+      mouse brain，Nature 624, 317 (2023)。艾伦脑细胞图谱，MERFISH 数据集 C57BL6J-638850，CCF 坐标 2023-12-15 版，
+      CC BY-NC 4.0。</li>
+    <li><b>一立方毫米。</b> MICrONS 联盟，Functional connectomics spanning multiple areas of mouse visual cortex，
+      Nature 640, 435 (2025)。这里只画出一个与之等大的方块，放在参考脑初级视觉皮层的中心，
+      在本页面能表达的精度内，那就是该数据的采集位置。</li>
+  </ul>
+  <p class="note">轴突末梢落在哪个脑区，是本页面用 25 µm 分辨率的 2017 年标注体逐个末梢计算的，
+    并按十二个主要脑区汇报。胞体所在脑区用同样的方法查找，并且对每一个 MouseLight 神经元，
+    都与 Janelia 列出的脑区做了核对。构建脚本 tools/build-mouse.py 及其检查随本站源码保存。
+    中文版由 Amy 的 Claude 翻译；如有不妥，欢迎指正。</p>
+
+  <footer>
+    <p><a href="/"><b>What's a brain?</b></a> &middot;
+      <a href="../">English</a> &middot;
+      <a href="/tracks/">白质</a> &middot;
+      <a href="https://amyleesterling.github.io/microns/">一立方毫米</a> &middot;
+      <a href="/museum/fly">果蝇脑</a> &middot;
+      <a href="/museum/citations">来源</a>。
+      由 <a href="https://x.com/amyneurons">Amy Sterling</a> 制作。</p>
+  </footer>
+</main>
+
+<script type="module">
+  import { mountMouse } from "../js/mouse.js?v=53";
+  const el = document.getElementById("mouse");
+  mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
+    const s = el.querySelector("[data-status]");
+    if (s) s.textContent = "大脑没有加载出来。" + e.message;
+    throw e;
+  });
+</script>
+</body>
+</html>

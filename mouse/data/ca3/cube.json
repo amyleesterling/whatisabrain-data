@@ -1,0 +1,780 @@
+{
+ "frame": {
+  "units": "mm",
+  "origin": "centre of the segmentation volume's bounding box (origin_nm below)",
+  "origin_nm": [
+   831987.0,
+   873567.0,
+   50400.0
+  ],
+  "axes": "same as the source voxel frame: x and y lie in the section plane, z is the sectioning axis; Y up, +y is the apical direction of the featured cell (nucleus at y = 0.2721, mossy fibre contacts at mean y = 0.2997)",
+  "up": "+y",
+  "handedness": "unchanged from the EM voxel frame (x right, y down, z into the stack as neuroglancer draws it); no reflection applied",
+  "normals": "none stored; call geometry.computeVertexNormals() after load"
+ },
+ "bounds_mm": [
+  [
+   -0.4628,
+   -0.5165,
+   -0.0461
+  ],
+  [
+   0.4628,
+   0.5165,
+   0.0461
+  ]
+ ],
+ "size_mm": [
+  0.9256,
+  1.0329,
+  0.0922
+ ],
+ "segmentationBounds_nm": [
+  [
+   369198.0,
+   357102.0,
+   4320.0
+  ],
+  [
+   1294776.0,
+   1390032.0,
+   96480.0
+  ]
+ ],
+ "paperStatedVolume": "1 x 1 x 0.092 mm (1 mm x 1 mm x 92.2 um) at 3 x 3 x 45 nm imaging voxels; the segmentation served at 18 x 18 x 45 nm covers 0.926 x 1.033 x 0.092 mm",
+ "featured": {
+  "segId": "648518346438632877",
+  "slug": "pyramidal-648518346438632877",
+  "nucleus_mm": [
+   0.2094,
+   0.2721,
+   0.0256
+  ],
+  "mossyFibreContactCentroid_mm": [
+   0.1778,
+   0.2997,
+   -0.0176
+  ],
+  "aim": "aim the camera at mossyFibreContactCentroid_mm, that is where the thorny excrescences are; the nucleus is 60 um away in a straight line",
+  "nucleusToContactCentroid_um": 60.3,
+  "busiestFibre": {
+   "segId": "648518346448994107",
+   "synapses": 53,
+   "boundingBox_um": [
+    4.7,
+    5.2,
+    6.4
+   ]
+  },
+  "extent_mm": [
+   [
+    0.0475,
+    0.1465,
+    -0.0461
+   ],
+   [
+    0.3837,
+    0.4106,
+    0.046
+   ]
+  ]
+ },
+ "meshes": [
+  {
+   "slug": "pyramidal-648518346438632877",
+   "name": "CA3 pyramidal cell (thorny)",
+   "role": "pyramidal cell",
+   "segId": "648518346438632877",
+   "file": "meshes/ca3/pyramidal-648518346438632877.glb",
+   "faces": 30000,
+   "vertices": 16878,
+   "bytes": 383244,
+   "sourceFaces": 4471568,
+   "strayFacesDropped": 0,
+   "cleaning": {
+    "componentsIn": 20927,
+    "componentsDroppedUnder5um2": 20638,
+    "finalAgg": 8,
+    "surfaceArea_um2": {
+     "afterCleaning": 23584.0,
+     "decimated": 12359.0
+    }
+   },
+   "source": "hero/hero_648518346438632877.obj",
+   "bounds_mm": [
+    [
+     0.0475,
+     0.1465,
+     -0.0461
+    ],
+    [
+     0.3837,
+     0.4106,
+     0.046
+    ]
+   ],
+   "featured": true,
+   "nucleus_mm": [
+    0.2094,
+    0.2721,
+    0.0256
+   ],
+   "nucleusVolume_um3": 1470.2
+  },
+  {
+   "slug": "mossy-fibre-648518346432881590",
+   "name": "mossy fibre",
+   "role": "mossy fibre",
+   "segId": "648518346432881590",
+   "file": "meshes/ca3/mossy-fibre-648518346432881590.glb",
+   "faces": 19999,
+   "vertices": 9862,
+   "bytes": 239048,
+   "sourceFaces": 98201,
+   "strayFacesDropped": 0,
+   "cleaning": {
+    "componentsIn": 40,
+    "componentsDroppedUnder5um2": 39,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 555.0,
+     "decimated": 525.0
+    }
+   },
+   "source": "hero/fibre_648518346432881590.obj",
+   "bounds_mm": [
+    [
+     0.1722,
+     0.2323,
+     -0.04
+    ],
+    [
+     0.2197,
+     0.3902,
+     0.046
+    ]
+   ],
+   "synapsesOntoFeaturedCell": 43
+  },
+  {
+   "slug": "mossy-fibre-648518346440660317",
+   "name": "mossy fibre",
+   "role": "mossy fibre",
+   "segId": "648518346440660317",
+   "file": "meshes/ca3/mossy-fibre-648518346440660317.glb",
+   "faces": 20000,
+   "vertices": 9915,
+   "bytes": 239688,
+   "sourceFaces": 62545,
+   "strayFacesDropped": 0,
+   "cleaning": {
+    "componentsIn": 19,
+    "componentsDroppedUnder5um2": 18,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 370.0,
+     "decimated": 356.0
+    }
+   },
+   "source": "hero/fibre_648518346440660317.obj",
+   "bounds_mm": [
+    [
+     0.1666,
+     0.271,
+     -0.0461
+    ],
+    [
+     0.1915,
+     0.3879,
+     0.046
+    ]
+   ],
+   "synapsesOntoFeaturedCell": 27
+  },
+  {
+   "slug": "mossy-fibre-648518346448994107",
+   "name": "mossy fibre",
+   "role": "mossy fibre",
+   "segId": "648518346448994107",
+   "file": "meshes/ca3/mossy-fibre-648518346448994107.glb",
+   "faces": 19999,
+   "vertices": 9874,
+   "bytes": 239192,
+   "sourceFaces": 91321,
+   "strayFacesDropped": 0,
+   "cleaning": {
+    "componentsIn": 48,
+    "componentsDroppedUnder5um2": 46,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 503.0,
+     "decimated": 478.0
+    }
+   },
+   "source": "hero/fibre_648518346448994107.obj",
+   "bounds_mm": [
+    [
+     0.1113,
+     0.2797,
+     -0.0461
+    ],
+    [
+     0.1777,
+     0.3556,
+     0.046
+    ]
+   ],
+   "synapsesOntoFeaturedCell": 53
+  },
+  {
+   "slug": "mossy-fibre-648518346450631673",
+   "name": "mossy fibre",
+   "role": "mossy fibre",
+   "segId": "648518346450631673",
+   "file": "meshes/ca3/mossy-fibre-648518346450631673.glb",
+   "faces": 19999,
+   "vertices": 9958,
+   "bytes": 240196,
+   "sourceFaces": 48266,
+   "strayFacesDropped": 0,
+   "cleaning": {
+    "componentsIn": 31,
+    "componentsDroppedUnder5um2": 30,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 276.0,
+     "decimated": 269.0
+    }
+   },
+   "source": "hero/fibre_648518346450631673.obj",
+   "bounds_mm": [
+    [
+     0.1351,
+     0.2931,
+     -0.0461
+    ],
+    [
+     0.172,
+     0.3652,
+     0.046
+    ]
+   ],
+   "synapsesOntoFeaturedCell": 15
+  },
+  {
+   "slug": "mossy-fibre-648518346452106477",
+   "name": "mossy fibre",
+   "role": "mossy fibre",
+   "segId": "648518346452106477",
+   "file": "meshes/ca3/mossy-fibre-648518346452106477.glb",
+   "faces": 20000,
+   "vertices": 9917,
+   "bytes": 239712,
+   "sourceFaces": 66515,
+   "strayFacesDropped": 0,
+   "cleaning": {
+    "componentsIn": 31,
+    "componentsDroppedUnder5um2": 29,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 375.0,
+     "decimated": 360.0
+    }
+   },
+   "source": "hero/fibre_648518346452106477.obj",
+   "bounds_mm": [
+    [
+     0.1572,
+     0.3184,
+     -0.0461
+    ],
+    [
+     0.177,
+     0.3904,
+     0.046
+    ]
+   ],
+   "synapsesOntoFeaturedCell": 1
+  },
+  {
+   "slug": "mossy-fibre-648518346460875907",
+   "name": "mossy fibre",
+   "role": "mossy fibre",
+   "segId": "648518346460875907",
+   "file": "meshes/ca3/mossy-fibre-648518346460875907.glb",
+   "faces": 20000,
+   "vertices": 9942,
+   "bytes": 240008,
+   "sourceFaces": 48600,
+   "strayFacesDropped": 0,
+   "cleaning": {
+    "componentsIn": 22,
+    "componentsDroppedUnder5um2": 21,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 269.0,
+     "decimated": 261.0
+    }
+   },
+   "source": "hero/fibre_648518346460875907.obj",
+   "bounds_mm": [
+    [
+     0.1446,
+     0.2938,
+     -0.0461
+    ],
+    [
+     0.1674,
+     0.3984,
+     0.046
+    ]
+   ],
+   "synapsesOntoFeaturedCell": 26
+  },
+  {
+   "slug": "pyramidal-648518346437119102",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346437119102",
+   "file": "meshes/ca3/pyramidal-648518346437119102.glb",
+   "faces": 19999,
+   "vertices": 6446,
+   "bytes": 198052,
+   "sourceFaces": 108986,
+   "strayFacesDropped": 110,
+   "cleaning": {
+    "componentsIn": 502,
+    "componentsDroppedUnder5um2": 464,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 20225.0,
+     "decimated": 18445.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346437119102.obj",
+   "bounds_mm": [
+    [
+     0.1502,
+     0.1567,
+     -0.0461
+    ],
+    [
+     0.3972,
+     0.3068,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2212,
+    0.2609,
+    0.0166
+   ],
+   "nucleusVolume_um3": 1473.2,
+   "distanceToFeaturedNucleus_um": 18.6,
+   "synapsesOntoFeaturedCell": 1
+  },
+  {
+   "slug": "pyramidal-648518346440709733",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346440709733",
+   "file": "meshes/ca3/pyramidal-648518346440709733.glb",
+   "faces": 20000,
+   "vertices": 6806,
+   "bytes": 202372,
+   "sourceFaces": 63163,
+   "strayFacesDropped": 52,
+   "cleaning": {
+    "componentsIn": 463,
+    "componentsDroppedUnder5um2": 431,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 11333.0,
+     "decimated": 11207.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346440709733.obj",
+   "bounds_mm": [
+    [
+     0.1497,
+     0.1946,
+     -0.0461
+    ],
+    [
+     0.3816,
+     0.2948,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2057,
+    0.2514,
+    0.0235
+   ],
+   "nucleusVolume_um3": 1533.3,
+   "distanceToFeaturedNucleus_um": 21.2,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346441176157",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346441176157",
+   "file": "meshes/ca3/pyramidal-648518346441176157.glb",
+   "faces": 19998,
+   "vertices": 6419,
+   "bytes": 197720,
+   "sourceFaces": 103999,
+   "strayFacesDropped": 52,
+   "cleaning": {
+    "componentsIn": 449,
+    "componentsDroppedUnder5um2": 423,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 19109.0,
+     "decimated": 17536.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346441176157.obj",
+   "bounds_mm": [
+    [
+     0.1635,
+     0.1038,
+     -0.0461
+    ],
+    [
+     0.394,
+     0.4029,
+     0.0463
+    ]
+   ],
+   "nucleus_mm": [
+    0.2316,
+    0.2793,
+    0.0307
+   ],
+   "nucleusVolume_um3": 1522.9,
+   "distanceToFeaturedNucleus_um": 23.9,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346443510793",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346443510793",
+   "file": "meshes/ca3/pyramidal-648518346443510793.glb",
+   "faces": 19999,
+   "vertices": 6868,
+   "bytes": 203120,
+   "sourceFaces": 74428,
+   "strayFacesDropped": 6,
+   "cleaning": {
+    "componentsIn": 541,
+    "componentsDroppedUnder5um2": 510,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 13509.0,
+     "decimated": 13196.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346443510793.obj",
+   "bounds_mm": [
+    [
+     0.1679,
+     0.1594,
+     -0.0461
+    ],
+    [
+     0.4003,
+     0.3581,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2356,
+    0.2632,
+    0.0228
+   ],
+   "nucleusVolume_um3": 1524.4,
+   "distanceToFeaturedNucleus_um": 27.8,
+   "synapsesOntoFeaturedCell": 0
+  },
+  {
+   "slug": "pyramidal-648518346445728800",
+   "name": "CA3 pyramidal cell (thorny), neighbour",
+   "role": "pyramidal cell",
+   "segId": "648518346445728800",
+   "file": "meshes/ca3/pyramidal-648518346445728800.glb",
+   "faces": 19998,
+   "vertices": 6584,
+   "bytes": 199700,
+   "sourceFaces": 102446,
+   "strayFacesDropped": 59,
+   "cleaning": {
+    "componentsIn": 553,
+    "componentsDroppedUnder5um2": 510,
+    "finalAgg": 7,
+    "surfaceArea_um2": {
+     "afterCleaning": 19280.0,
+     "decimated": 17574.0
+    }
+   },
+   "source": "hq/thorny pyramidals ca3 250/648518346445728800.obj",
+   "bounds_mm": [
+    [
+     0.1622,
+     0.1385,
+     -0.0461
+    ],
+    [
+     0.3956,
+     0.4001,
+     0.046
+    ]
+   ],
+   "nucleus_mm": [
+    0.2218,
+    0.3023,
+    0.0248
+   ],
+   "nucleusVolume_um3": 1490.3,
+   "distanceToFeaturedNucleus_um": 32.7,
+   "synapsesOntoFeaturedCell": 0
+  }
+ ],
+ "synapses": {
+  "file": "data/ca3/synapses-hero.bin",
+  "layout": "per point 7 bytes little-endian: Int16 x, Int16 y, Int16 z, Uint8 flag",
+  "unit_mm": 0.0001,
+  "unitNote": "0.1 um per integer about the same origin as the meshes (NOT the 10 um of the whole-brain files: 53 synapses from one fibre sit inside a 4.7 x 5.2 x 6.4 um box)",
+  "flags": {
+   "0": "outgoing, the featured cell is presynaptic",
+   "1": "incoming, the featured cell is postsynaptic",
+   "2": "autapse, the table lists the featured cell as both pre and post (88 rows, drawn once; the CA3 handoff notes these carry no axon signal)"
+  },
+  "count": 6333,
+  "incoming": 6205,
+  "outgoing": 40,
+  "autapses": 88,
+  "incomingFromLabelledMossyFibres": 165,
+  "mossyFibreSynapseIndices": {
+   "648518346432881590": [
+    261,
+    484,
+    600,
+    784,
+    809,
+    810,
+    811,
+    962,
+    963,
+    964,
+    1262,
+    1277,
+    1609,
+    1702,
+    1847,
+    1929,
+    2039,
+    2381,
+    2534,
+    2631,
+    2639,
+    2904,
+    3383,
+    3384,
+    3385,
+    3405,
+    3406,
+    3407,
+    4000,
+    4195,
+    4550,
+    4926,
+    5246,
+    5330,
+    5371,
+    5441,
+    5460,
+    5461,
+    5480,
+    5481,
+    5762,
+    5909,
+    6164
+   ],
+   "648518346440660317": [
+    267,
+    537,
+    538,
+    902,
+    1387,
+    1591,
+    1734,
+    1964,
+    2440,
+    2511,
+    2564,
+    2855,
+    3188,
+    3862,
+    4127,
+    4207,
+    4216,
+    4217,
+    4528,
+    5039,
+    5555,
+    6179,
+    6180,
+    6181,
+    6182,
+    6183,
+    6184
+   ],
+   "648518346448994107": [
+    235,
+    392,
+    415,
+    493,
+    626,
+    843,
+    929,
+    930,
+    936,
+    997,
+    998,
+    999,
+    1137,
+    1579,
+    1580,
+    1652,
+    1969,
+    1974,
+    2055,
+    2388,
+    2389,
+    2414,
+    2593,
+    3057,
+    3172,
+    3362,
+    3539,
+    3650,
+    3965,
+    4182,
+    4229,
+    4230,
+    4231,
+    4442,
+    4443,
+    4678,
+    4746,
+    4747,
+    4748,
+    4750,
+    4751,
+    4752,
+    5022,
+    5236,
+    5237,
+    5238,
+    5306,
+    6019,
+    6020,
+    6055,
+    6056,
+    6057,
+    6058
+   ],
+   "648518346450631673": [
+    58,
+    161,
+    1172,
+    2649,
+    3131,
+    4083,
+    4303,
+    4492,
+    4576,
+    4577,
+    5136,
+    5502,
+    5503,
+    5903,
+    5920
+   ],
+   "648518346452106477": [
+    4820
+   ],
+   "648518346460875907": [
+    135,
+    505,
+    916,
+    1034,
+    1168,
+    1196,
+    1229,
+    1286,
+    1374,
+    1377,
+    1781,
+    2017,
+    2059,
+    2136,
+    2219,
+    2512,
+    2996,
+    3337,
+    3550,
+    3704,
+    4386,
+    4728,
+    4867,
+    5146,
+    5752,
+    6036
+   ]
+  },
+  "mossyFibreSynapseIndicesNote": "indices into synapses-hero.bin, keyed by the presynaptic mossy fibre root id; these are the 6 hand-labelled fibres in the mesh set",
+  "presynapticPartners": 2512,
+  "partnersWithAtLeast5Synapses": 165,
+  "unlabelledPartnersWithAtLeast5Synapses": 160,
+  "unlabelledPartnersNote": "the CA3 handoff found >=5 synapses per connection separates mossy fibres from everything else at AUC 1.00 in this table, so these are probably mossy fibres without a mesh here; not coloured, not claimed",
+  "position": "ctr_pt_position of synapses_ca3_v1, nanometres in the mesh frame"
+ },
+ "provenance": {
+  "paper": "Zheng, Park, Hammerschmith, Lu, Yu, Sorek, Silverman, Jordan, Sterling, Silversmith, Collman, Seung, Tank. Connectomic reconstruction from hippocampal CA3 reveals spatially graded mossy fiber inputs and selective feedforward inhibition to pyramidal cells. bioRxiv 2025",
+  "doi": "10.1101/2025.07.09.663979",
+  "datastack": "zheng_ca3",
+  "segmentation": "graphene://https://minnie.microns-daf.com/segmentation/table/zheng_ca3",
+  "synapseTable": "synapses_ca3_v1",
+  "materializationVersion": 671,
+  "materializationNote": "version 671 exports were made 2026-07-29 (D:/Meshes/renders/hero_incoming.pkl, hero_outgoing_requery.pkl); 671 has since expired on the server. The featured root id is still the latest root as of the build date, so the cell has not been edited",
+  "fullTableCrossCheck": {
+   "ran": true,
+   "files": 93,
+   "rowsPostIsHero": 6293,
+   "rowsPreIsHero": 128,
+   "matchesCachedExports": true
+  },
+  "readback": {
+   "meshesReloaded": 12,
+   "mismatches": [],
+   "synapsesInsideFeaturedExtent": 6333,
+   "synapsesTotal": 6333,
+   "ok": true
+  },
+  "meshSource": "hero + fibres: native CAVE meshes via meshparty (D:/Meshes/hero); neighbours: D:/Meshes/hq thorny population (cleaned, 5 faces/um2)",
+  "nucleusSource": "c3_nuclei_v1 via D:/Meshes/renders/soma3d.parquet",
+  "decimation": "fast_simplification quadric collapse to 30000 (featured) / 20000 faces",
+  "built": "2026-09-07",
+  "builder": "tools/build-ca3-cube.py"
+ },
+ "placement": {
+  "registeredToCCF": false,
+  "note": "This volume's position in the Allen CCF is not registered anywhere in the data. The page places the cube at the Allen CA3 centroid and must say 'approximate'.",
+  "sampleLocation": "dorsal hippocampus of an adult female mouse (C57BL/6J-Tg(Thy1-GCaMP6f) GP5.3Dkim/J, 4 months), 300 um coronal sections, series thickness 40 to 45 nm. So z (the sectioning axis) runs roughly anterior to posterior and the x y plane is roughly coronal; the in-plane rotation and the hemisphere are not recorded. The paper says the sectioning plane sat at a slightly acute angle to the apical dendrites. No stereotaxic coordinates and no explicit CA3 subfield are given (paper, Methods).",
+  "sampleLocationSource": "bioRxiv full text, read 2026-09-07"
+ }
+}

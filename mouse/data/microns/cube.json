@@ -1,0 +1,953 @@
+{
+ "frame": "Cube frame: millimetres, origin at the centre of the tissue bounding box (bbox of every nucleus in nucleus_detection_v0 at v1300), x and z as in MICrONS, y flipped so the pia is up (y_cube = -(y_nm - origin_y) / 1e6). Face winding flipped to match. Meshes are in this frame directly; drop the group into the page's cube with no further centring.",
+ "origin_nm": [
+  949504.0,
+  751648.0,
+  854100.0
+ ],
+ "tissueBounds_nm": [
+  [
+   194304.0,
+   262272.0,
+   593360.0
+  ],
+  [
+   1704704.0,
+   1241024.0,
+   1114840.0
+  ]
+ ],
+ "tissueBounds_mm": [
+  [
+   -0.7552,
+   0.489376,
+   -0.26074
+  ],
+  [
+   0.7552,
+   -0.489376,
+   0.26074
+  ]
+ ],
+ "tissueExtent_mm": [
+  1.5104,
+  0.9788,
+  0.5215
+ ],
+ "tissueBoundsNote": "Bounding box of 144120 nucleus detections; y is flipped in the mm version so min/max swap on y.",
+ "segmentationArrayBounds_nm": [
+  [
+   0.0,
+   0.0,
+   0.0
+  ],
+  [
+   1750472.0,
+   1290872.0,
+   1114320.0
+  ]
+ ],
+ "segmentationArrayNote": "cloud-volume bounds of seg_m1300 (the allocated array, larger than the imaged tissue); resolution [8.0, 8.0, 40.0] nm",
+ "synapseBin": {
+  "layout": "N x Int16 xyz little-endian, then N x Uint8 flag",
+  "unit_um": 1.0,
+  "flag": {
+   "0": "outgoing (this cell is presynaptic)",
+   "1": "incoming (this cell is postsynaptic)"
+  },
+  "table": "synapses_pni_2",
+  "position": "ctr_pt_position"
+ },
+ "mesh": {
+  "lod": 2,
+  "targetFaces": 20000,
+  "decimator": "fast_simplification.simplify agg=7",
+  "glb": "POSITION float32 + uint16/uint32 indices, no normals; GLTFLoader computes vertex normals"
+ },
+ "provenance": {
+  "meshSource": "precomputed://gs://iarpa_microns/minnie/minnie65/seg_m1300",
+  "datastack": "minnie65_public",
+  "materializationVersion": 1300,
+  "materializationTimestamp": "2025-01-13T10:10:01.286229+00:00",
+  "voxel_nm": [
+   4.0,
+   4.0,
+   40.0
+  ],
+  "tables": [
+   "nucleus_detection_v0",
+   "synapses_pni_2"
+  ],
+  "cellListSource": "apps/explore/src/data/neurons.ts (segId, nickname, scientificType, category)",
+  "pulled": "2026-09-07",
+  "citation": "MICrONS Consortium, Functional connectomics spanning multiple areas of mouse visual cortex, Nature 2025"
+ },
+ "cells": [
+  {
+   "slug": "lightning-tree",
+   "name": "Lightning Tree",
+   "type": "Layer 5 Thick-Tufted Pyramidal",
+   "category": "excitatory",
+   "segId": "864691135572530981",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 588983,
+     "pos_mm": [
+      0.4156,
+      -0.0118,
+      -0.0415
+     ],
+     "volume_um3": 394.5
+    }
+   ],
+   "soma_mm": [
+    0.4156,
+    -0.0118,
+    -0.0415
+   ],
+   "soma_nm": [
+    1365120.0,
+    763456.0,
+    812600.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 588983",
+   "file": "meshes/microns/lightning-tree.glb",
+   "faces": 20000,
+   "vertices": 11516,
+   "bytes": 258904,
+   "sourceFacesLod2": 474769,
+   "bbox_nm": [
+    [
+     651487.9375,
+     321023.90625,
+     594000.3125
+    ],
+    [
+     1570432.0,
+     1046528.0,
+     1114319.5
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.2980160625,
+     0.43062409375,
+     -0.2600996875
+    ],
+    [
+     0.620928,
+     -0.29488,
+     0.2602195
+    ]
+   ],
+   "extent_um": [
+    918.9,
+    725.5,
+    520.3
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-lightning-tree.bin",
+    "count": 7612,
+    "outgoing": 477,
+    "incoming": 7135,
+    "autapses": 34,
+    "uniqueQuantisedPositions": 7180,
+    "bytes": 53284
+   }
+  },
+  {
+   "slug": "coral-fan",
+   "name": "Coral Fan",
+   "type": "Parvalbumin Basket Cell",
+   "category": "inhibitory",
+   "segId": "864691136662432990",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 258234,
+     "pos_mm": [
+      -0.2463,
+      0.2244,
+      -0.011
+     ],
+     "volume_um3": 384.2
+    }
+   ],
+   "soma_mm": [
+    -0.2463,
+    0.2244,
+    -0.011
+   ],
+   "soma_nm": [
+    703168.0,
+    527296.0,
+    843120.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 258234",
+   "file": "meshes/microns/coral-fan.glb",
+   "faces": 19997,
+   "vertices": 15823,
+   "bytes": 310572,
+   "sourceFacesLod2": 815639,
+   "bbox_nm": [
+    [
+     519231.9375,
+     367967.625,
+     594000.3125
+    ],
+    [
+     1016639.5,
+     896127.6875,
+     1114159.5
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.4302720625,
+     0.383680375,
+     -0.2600996875
+    ],
+    [
+     0.0671355,
+     -0.1444796875,
+     0.2600595
+    ]
+   ],
+   "extent_um": [
+    497.4,
+    528.2,
+    520.2
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-coral-fan.bin",
+    "count": 21083,
+    "outgoing": 6681,
+    "incoming": 14402,
+    "autapses": 32,
+    "uniqueQuantisedPositions": 15599,
+    "bytes": 147581
+   }
+  },
+  {
+   "slug": "candelabra",
+   "name": "Candelabra",
+   "type": "Chandelier Cell",
+   "category": "inhibitory",
+   "segId": "864691135572094189",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 389613,
+     "pos_mm": [
+      -0.0162,
+      0.3349,
+      0.0692
+     ],
+     "volume_um3": 256.1
+    }
+   ],
+   "soma_mm": [
+    -0.0162,
+    0.3349,
+    0.0692
+   ],
+   "soma_nm": [
+    933312.0,
+    416768.0,
+    923280.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 389613",
+   "file": "meshes/microns/candelabra.glb",
+   "faces": 19999,
+   "vertices": 14450,
+   "bytes": 294108,
+   "sourceFacesLod2": 385861,
+   "bbox_nm": [
+    [
+     734272.1875,
+     299871.5625,
+     739600.0625
+    ],
+    [
+     1128160.25,
+     606048.25,
+     1114319.5
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.2152318125,
+     0.4517764375,
+     -0.1144999375
+    ],
+    [
+     0.17865625,
+     0.14559975,
+     0.2602195
+    ]
+   ],
+   "extent_um": [
+    393.9,
+    306.2,
+    374.7
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-candelabra.bin",
+    "count": 7521,
+    "outgoing": 1058,
+    "incoming": 6463,
+    "autapses": 12,
+    "uniqueQuantisedPositions": 5209,
+    "bytes": 52647
+   }
+  },
+  {
+   "slug": "reaching-hand",
+   "name": "Reaching Hand",
+   "type": "Martinotti Cell",
+   "category": "inhibitory",
+   "segId": "864691135919630768",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 260505,
+     "pos_mm": [
+      -0.2757,
+      0.1344,
+      -0.0361
+     ],
+     "volume_um3": 309.7
+    }
+   ],
+   "soma_mm": [
+    -0.2757,
+    0.1344,
+    -0.0361
+   ],
+   "soma_nm": [
+    673792.0,
+    617280.0,
+    818040.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 260505",
+   "file": "meshes/microns/reaching-hand.glb",
+   "faces": 20000,
+   "vertices": 15103,
+   "bytes": 301948,
+   "sourceFacesLod2": 548460,
+   "bbox_nm": [
+    [
+     474272.25,
+     354304.40625,
+     662080.125
+    ],
+    [
+     972127.8125,
+     760255.625,
+     1015600.5
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.47523175,
+     0.39734359375,
+     -0.192019875
+    ],
+    [
+     0.0226238125,
+     -0.008607625,
+     0.1615005
+    ]
+   ],
+   "extent_um": [
+    497.9,
+    406.0,
+    353.5
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-reaching-hand.bin",
+    "count": 15645,
+    "outgoing": 8042,
+    "incoming": 7603,
+    "autapses": 24,
+    "uniqueQuantisedPositions": 12754,
+    "bytes": 109515
+   }
+  },
+  {
+   "slug": "dust-star",
+   "name": "Dust Star",
+   "type": "Layer 4 Cell",
+   "category": "excitatory",
+   "segId": "864691135279086497",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 295875,
+     "pos_mm": [
+      -0.1666,
+      0.1285,
+      -0.1913
+     ],
+     "volume_um3": 246.1
+    }
+   ],
+   "soma_mm": [
+    -0.1666,
+    0.1285,
+    -0.1913
+   ],
+   "soma_nm": [
+    782912.0,
+    623104.0,
+    662800.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 295875",
+   "file": "meshes/microns/dust-star.glb",
+   "faces": 20000,
+   "vertices": 11001,
+   "bytes": 252728,
+   "sourceFacesLod2": 132937,
+   "bbox_nm": [
+    [
+     707391.8125,
+     395200.03125,
+     594000.3125
+    ],
+    [
+     851776.0,
+     736448.25,
+     758480.3125
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.2421121875,
+     0.35644796875,
+     -0.2600996875
+    ],
+    [
+     -0.097728,
+     0.01519975,
+     -0.0956196875
+    ]
+   ],
+   "extent_um": [
+    144.4,
+    341.2,
+    164.5
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-dust-star.bin",
+    "count": 2148,
+    "outgoing": 43,
+    "incoming": 2105,
+    "autapses": 13,
+    "uniqueQuantisedPositions": 2084,
+    "bytes": 15036
+   }
+  },
+  {
+   "slug": "forest-floor",
+   "name": "Forest Floor",
+   "type": "Protoplasmic Astrocyte",
+   "category": "other",
+   "segId": "864691135113162137",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 117611,
+     "pos_mm": [
+      -0.4941,
+      0.1011,
+      0.133
+     ],
+     "volume_um3": 159.2
+    },
+    {
+     "nucleusId": 157701,
+     "pos_mm": [
+      -0.4851,
+      0.1218,
+      0.1009
+     ],
+     "volume_um3": 154.7
+    }
+   ],
+   "soma_mm": [
+    -0.4941,
+    0.1011,
+    0.133
+   ],
+   "soma_nm": [
+    455424.0,
+    650560.0,
+    987080.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 117611 (largest of 2)",
+   "file": "meshes/microns/forest-floor.glb",
+   "faces": 19997,
+   "vertices": 9608,
+   "bytes": 235988,
+   "sourceFacesLod2": 1184727,
+   "bbox_nm": [
+    [
+     425696.5,
+     578655.8125,
+     930960.4375
+    ],
+    [
+     495519.5625,
+     672544.25,
+     1021680.5625
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.5238075,
+     0.1729921875,
+     0.0768604375
+    ],
+    [
+     -0.4539844375,
+     0.07910375,
+     0.1675805625
+    ]
+   ],
+   "extent_um": [
+    69.8,
+    93.9,
+    90.7
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-forest-floor.bin",
+    "count": 510,
+    "outgoing": 208,
+    "incoming": 302,
+    "autapses": 36,
+    "uniqueQuantisedPositions": 505,
+    "bytes": 3570
+   }
+  },
+  {
+   "slug": "crown",
+   "name": "Crown",
+   "type": "Layer 2/3 Pyramidal",
+   "category": "excitatory",
+   "segId": "864691135855890478",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 189149,
+     "pos_mm": [
+      -0.3732,
+      0.2723,
+      0.1078
+     ],
+     "volume_um3": 300.9
+    }
+   ],
+   "soma_mm": [
+    -0.3732,
+    0.2723,
+    0.1078
+   ],
+   "soma_nm": [
+    576320.0,
+    479360.0,
+    961880.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 189149",
+   "file": "meshes/microns/crown.glb",
+   "faces": 19998,
+   "vertices": 11944,
+   "bytes": 264028,
+   "sourceFacesLod2": 543864,
+   "bbox_nm": [
+    [
+     359840.5,
+     325087.96875,
+     594000.3125
+    ],
+    [
+     1443040.0,
+     1024255.625,
+     1114319.5
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.5896635,
+     0.42656003125,
+     -0.2600996875
+    ],
+    [
+     0.493536,
+     -0.272607625,
+     0.2602195
+    ]
+   ],
+   "extent_um": [
+    1083.2,
+    699.2,
+    520.3
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-crown.bin",
+    "count": 6866,
+    "outgoing": 1274,
+    "incoming": 5592,
+    "autapses": 10,
+    "uniqueQuantisedPositions": 6583,
+    "bytes": 48062
+   }
+  },
+  {
+   "slug": "spindle",
+   "name": "Spindle",
+   "type": "Bipolar Interneuron",
+   "category": "inhibitory",
+   "segId": "864691135407923657",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 259211,
+     "pos_mm": [
+      -0.2787,
+      0.2165,
+      0.2139
+     ],
+     "volume_um3": 229.5
+    }
+   ],
+   "soma_mm": [
+    -0.2787,
+    0.2165,
+    0.2139
+   ],
+   "soma_nm": [
+    670784.0,
+    535168.0,
+    1068040.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 259211",
+   "file": "meshes/microns/spindle.glb",
+   "faces": 20000,
+   "vertices": 9976,
+   "bytes": 240424,
+   "sourceFacesLod2": 53649,
+   "bbox_nm": [
+    [
+     616192.375,
+     336480.125,
+     966719.75
+    ],
+    [
+     744160.375,
+     697567.625,
+     1114319.5
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.333311625,
+     0.415167875,
+     0.11261975
+    ],
+    [
+     -0.205343625,
+     0.054080375,
+     0.2602195
+    ]
+   ],
+   "extent_um": [
+    128.0,
+    361.1,
+    147.6
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-spindle.bin",
+    "count": 1793,
+    "outgoing": 27,
+    "incoming": 1766,
+    "autapses": 5,
+    "uniqueQuantisedPositions": 1524,
+    "bytes": 12551
+   }
+  },
+  {
+   "slug": "watcher",
+   "name": "Watcher",
+   "type": "Microglia",
+   "category": "other",
+   "segId": "864691136194411734",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 302974,
+     "pos_mm": [
+      -0.201,
+      -0.0729,
+      -0.037
+     ],
+     "volume_um3": 76.8
+    }
+   ],
+   "soma_mm": [
+    -0.201,
+    -0.0729,
+    -0.037
+   ],
+   "soma_nm": [
+    748480.0,
+    824512.0,
+    817120.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 302974",
+   "file": "meshes/microns/watcher.glb",
+   "faces": 20000,
+   "vertices": 9849,
+   "bytes": 238904,
+   "sourceFacesLod2": 58510,
+   "bbox_nm": [
+    [
+     695551.625,
+     787008.0,
+     788479.5
+    ],
+    [
+     784352.0,
+     868384.25,
+     846400.4375
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.253952375,
+     -0.03536,
+     -0.0656205
+    ],
+    [
+     -0.165152,
+     -0.11673625,
+     -0.0076995625
+    ]
+   ],
+   "extent_um": [
+    88.8,
+    81.4,
+    57.9
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-watcher.bin",
+    "count": 26,
+    "outgoing": 12,
+    "incoming": 14,
+    "autapses": 8,
+    "uniqueQuantisedPositions": 25,
+    "bytes": 182
+   }
+  },
+  {
+   "slug": "spire",
+   "name": "Spire",
+   "type": "Pyramidal Neuron",
+   "category": "excitatory",
+   "segId": "864691135214123064",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 267295,
+     "pos_mm": [
+      -0.248,
+      -0.0448,
+      0.0445
+     ],
+     "volume_um3": 393.8
+    }
+   ],
+   "soma_mm": [
+    -0.248,
+    -0.0448,
+    0.0445
+   ],
+   "soma_nm": [
+    701504.0,
+    796416.0,
+    898600.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 267295",
+   "file": "meshes/microns/spire.glb",
+   "faces": 19999,
+   "vertices": 10924,
+   "bytes": 251796,
+   "sourceFacesLod2": 290308,
+   "bbox_nm": [
+    [
+     553440.4375,
+     340256.1875,
+     594000.3125
+    ],
+    [
+     1006464.375,
+     1092351.625,
+     1086400.375
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.3960635625,
+     0.4113918125,
+     -0.2600996875
+    ],
+    [
+     0.056960375,
+     -0.340703625,
+     0.232300375
+    ]
+   ],
+   "extent_um": [
+    453.0,
+    752.1,
+    492.4
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-spire.bin",
+    "count": 4801,
+    "outgoing": 161,
+    "incoming": 4640,
+    "autapses": 23,
+    "uniqueQuantisedPositions": 4551,
+    "bytes": 33607
+   }
+  },
+  {
+   "slug": "aura",
+   "name": "Aura",
+   "type": "Layer 5 Thick-Tufted Pyramidal",
+   "category": "excitatory",
+   "segId": "864691135948123745",
+   "rootValidAtVersion": true,
+   "nuclei": [
+    {
+     "nucleusId": 267307,
+     "pos_mm": [
+      -0.241,
+      -0.0382,
+      0.031
+     ],
+     "volume_um3": 478.2
+    }
+   ],
+   "soma_mm": [
+    -0.241,
+    -0.0382,
+    0.031
+   ],
+   "soma_nm": [
+    708480.0,
+    789824.0,
+    885080.0
+   ],
+   "somaSource": "nucleus_detection_v0 id 267307",
+   "file": "meshes/microns/aura.glb",
+   "faces": 20000,
+   "vertices": 10820,
+   "bytes": 250552,
+   "sourceFacesLod2": 581018,
+   "bbox_nm": [
+    [
+     531808.125,
+     340288.1875,
+     719519.75
+    ],
+    [
+     1085983.625,
+     1071936.375,
+     1091840.375
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.417695875,
+     0.4113598125,
+     -0.13458025
+    ],
+    [
+     0.136479625,
+     -0.320288375,
+     0.237740375
+    ]
+   ],
+   "extent_um": [
+    554.2,
+    731.6,
+    372.3
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-aura.bin",
+    "count": 11083,
+    "outgoing": 360,
+    "incoming": 10723,
+    "autapses": 52,
+    "uniqueQuantisedPositions": 10332,
+    "bytes": 77581
+   }
+  },
+  {
+   "slug": "tendril",
+   "name": "Tendril",
+   "type": "Long-range Axon",
+   "category": "inhibitory",
+   "segId": "864691136195546856",
+   "rootValidAtVersion": true,
+   "nuclei": [],
+   "soma_mm": null,
+   "somaSource": "no nucleus in nucleus_detection_v0 for this root at v1300",
+   "file": "meshes/microns/tendril.glb",
+   "faces": 20000,
+   "vertices": 12190,
+   "bytes": 266992,
+   "sourceFacesLod2": 148838,
+   "bbox_nm": [
+    [
+     614368.375,
+     389695.9375,
+     689160.5
+    ],
+    [
+     1253824.125,
+     993600.1875,
+     1088400.375
+    ]
+   ],
+   "bbox_mm": [
+    [
+     -0.335135625,
+     0.3619520625,
+     -0.1649395
+    ],
+    [
+     0.304320125,
+     -0.2419521875,
+     0.234300375
+    ]
+   ],
+   "extent_um": [
+    639.5,
+    603.9,
+    399.2
+   ],
+   "synapses": {
+    "file": "data/microns/synapses-tendril.bin",
+    "count": 627,
+    "outgoing": 599,
+    "incoming": 28,
+    "autapses": 3,
+    "uniqueQuantisedPositions": 611,
+    "bytes": 4389
+   }
+  }
+ ]
+}

@@ -1,0 +1,4076 @@
+{
+ "ION-PFC": {
+  "57": {
+   "n": 240,
+   "name": "Prelimbic area cells to Periaqueductal gray, Midbrain",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Prelimbic area; axons end in Periaqueductal gray, Midbrain.",
+   "soma": "PL 50%, ACAd 19%, ACAv 7%",
+   "targets": "PAG 14%, MB 11%, CP 10%, MRN 7%",
+   "axon_mm": 167.8
+  },
+  "56": {
+   "n": 121,
+   "name": "Secondary motor area cells to Midbrain reticular nucleus, Secondary motor area",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Secondary motor area; axons end in Midbrain reticular nucleus, Secondary motor area.",
+   "soma": "MOs 38%, PL 26%, ACAd 17%",
+   "targets": "MRN 11%, MOs 9%, PAG 9%, MB 8%",
+   "axon_mm": 150.2
+  },
+  "61": {
+   "n": 153,
+   "name": "Orbital area, ventrolateral part cells to Caudoputamen, Orbital area, ventrolateral part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Orbital area, ventrolateral part; axons end in Caudoputamen, Orbital area, ventrolateral part.",
+   "soma": "ORBvl 58%, ORBl 36%, ORBm 3%",
+   "targets": "CP 18%, ORBvl 9%, ORBl 9%, PCG 8%",
+   "axon_mm": 90.9
+  },
+  "28": {
+   "n": 80,
+   "name": "Secondary motor area cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Secondary motor area, Caudoputamen.",
+   "soma": "MOs 54%, FRP 20%, ORBl 12%",
+   "targets": "MOs 39%, CP 15%, MOp 9%, FRP 7%",
+   "axon_mm": 127.1
+  },
+  "27": {
+   "n": 90,
+   "name": "Secondary motor area corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Secondary motor area.",
+   "soma": "MOs 37%, PL 18%, ORBl 14%",
+   "targets": "CP 43%, MOs 19%, FRP 5%, PL 4%",
+   "axon_mm": 272.3
+  },
+  "60": {
+   "n": 27,
+   "name": "Prelimbic area cells to Caudoputamen, Prelimbic area",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Prelimbic area; axons end in Caudoputamen, Prelimbic area.",
+   "soma": "PL 70%, ORBm 15%, ACAd 11%",
+   "targets": "CP 15%, PL 11%, MRN 7%, MB 7%",
+   "axon_mm": 33.1
+  },
+  "31": {
+   "n": 88,
+   "name": "Secondary motor area cells to Caudoputamen, Secondary motor area",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Secondary motor area; axons end in Caudoputamen, Secondary motor area.",
+   "soma": "MOs 57%, ACAd 31%, ORBl 6%",
+   "targets": "CP 33%, MOs 25%, ACAd 9%, SSp-bfd 3%",
+   "axon_mm": 243.2
+  },
+  "44": {
+   "n": 48,
+   "name": "Prelimbic area cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Prelimbic area, Secondary motor area.",
+   "soma": "PL 52%, MOs 21%, ACAd 21%",
+   "targets": "PL 27%, MOs 22%, ACAd 12%, CP 8%",
+   "axon_mm": 32.9
+  },
+  "33": {
+   "n": 139,
+   "name": "Orbital area, lateral part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Orbital area, lateral part, Secondary motor area.",
+   "soma": "ORBl 50%, ORBvl 22%, AId 14%",
+   "targets": "ORBl 26%, MOs 18%, ORBvl 14%, CP 11%",
+   "axon_mm": 59.3
+  },
+  "46": {
+   "n": 69,
+   "name": "Orbital area, ventrolateral part cells to Submedial nucleus of the thalamus, Reticular nucleus of the thalamus",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Orbital area, ventrolateral part; axons end in Submedial nucleus of the thalamus, Reticular nucleus of the thalamus.",
+   "soma": "ORBvl 59%, ORBl 38%, ORBm 1%",
+   "targets": "SMT 16%, RE 10%, RT 10%, AMd 8%",
+   "axon_mm": 32.2
+  },
+  "42": {
+   "n": 127,
+   "name": "Prelimbic area cells to Caudoputamen, Prelimbic area",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Prelimbic area; axons end in Caudoputamen, Prelimbic area.",
+   "soma": "PL 37%, ORBvl 26%, ORBm 14%",
+   "targets": "CP 16%, PL 13%, MOs 7%, ACAd 7%",
+   "axon_mm": 85.8
+  },
+  "24": {
+   "n": 99,
+   "name": "Agranular insular area, dorsal part corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Secondary motor area.",
+   "soma": "AId 69%, MOs 31%",
+   "targets": "CP 42%, MOs 17%, AId 13%, MOp 11%",
+   "axon_mm": 247.7
+  },
+  "50": {
+   "n": 231,
+   "name": "Orbital area, ventrolateral part corticothalamic cells",
+   "family": "to thalamus",
+   "desc": "Axons end mostly in thalamus: Mediodorsal nucleus of thalamus, Reticular nucleus of the thalamus.",
+   "soma": "ORBvl 37%, ORBl 27%, PL 17%",
+   "targets": "MD 40%, RT 6%, VM 6%, ORBvl 4%",
+   "axon_mm": 47.5
+  },
+  "32": {
+   "n": 88,
+   "name": "Orbital area, lateral part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Orbital area, lateral part, Caudoputamen.",
+   "soma": "ORBl 59%, AId 17%, ORBvl 16%",
+   "targets": "ORBl 41%, CP 15%, AId 10%, ORBvl 7%",
+   "axon_mm": 52.5
+  },
+  "51": {
+   "n": 128,
+   "name": "Orbital area, ventrolateral part corticothalamic cells",
+   "family": "to thalamus",
+   "desc": "Axons end mostly in thalamus: Mediodorsal nucleus of thalamus, Parataenial nucleus.",
+   "soma": "ORBvl 41%, ORBm 41%, PL 8%",
+   "targets": "MD 38%, PT 16%, PVT 9%, RE 4%",
+   "axon_mm": 49.0
+  },
+  "17": {
+   "n": 58,
+   "name": "Orbital area, medial part cells to Prelimbic area, Orbital area, medial part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Orbital area, medial part; axons end in Prelimbic area, Orbital area, medial part.",
+   "soma": "ORBm 36%, PL 33%, FRP 16%",
+   "targets": "PL 14%, ORBm 13%, CP 13%, AIv 11%",
+   "axon_mm": 50.0
+  },
+  "6": {
+   "n": 59,
+   "name": "Orbital area, ventrolateral part cells to Orbital area, ventrolateral part, Retrosplenial area, dorsal part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Orbital area, ventrolateral part; axons end in Orbital area, ventrolateral part, Retrosplenial area, dorsal part.",
+   "soma": "ORBvl 59%, ORBl 14%, ORBm 8%",
+   "targets": "ORBvl 13%, RSPd 13%, ACAd 11%, MOs 10%",
+   "axon_mm": 65.6
+  },
+  "47": {
+   "n": 125,
+   "name": "Orbital area, lateral part corticothalamic cells",
+   "family": "to thalamus",
+   "desc": "Axons end mostly in thalamus: Mediodorsal nucleus of thalamus, Ventral medial nucleus of the thalamus.",
+   "soma": "ORBl 41%, AId 29%, MOs 12%",
+   "targets": "MD 22%, VM 15%, SMT 12%, ORBl 9%",
+   "axon_mm": 51.5
+  },
+  "2": {
+   "n": 67,
+   "name": "Anterior cingulate area, ventral part corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Anterior cingulate area, ventral part.",
+   "soma": "ACAv 39%, ACAd 34%, PL 13%",
+   "targets": "CP 49%, ACAv 14%, ACAd 13%, PL 5%",
+   "axon_mm": 59.2
+  },
+  "15": {
+   "n": 86,
+   "name": "Orbital area, ventrolateral part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Secondary motor area, Caudoputamen.",
+   "soma": "ORBvl 33%, ORBl 29%, ORBm 13%",
+   "targets": "MOs 24%, CP 13%, ORBl 12%, ORBvl 9%",
+   "axon_mm": 59.2
+  },
+  "20": {
+   "n": 42,
+   "name": "Agranular insular area, dorsal part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Secondary motor area, Agranular insular area, dorsal part.",
+   "soma": "AId 62%, ORBvl 14%, ORBl 12%",
+   "targets": "MOs 23%, AId 9%, MOp 8%, ORBl 6%",
+   "axon_mm": 130.4
+  },
+  "14": {
+   "n": 53,
+   "name": "Agranular insular area, dorsal part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Agranular insular area, dorsal part, Secondary motor area.",
+   "soma": "AId 49%, AIv 21%, MOs 15%",
+   "targets": "AId 29%, MOs 17%, AIv 9%, ORBl 7%",
+   "axon_mm": 36.9
+  },
+  "35": {
+   "n": 67,
+   "name": "Orbital area, lateral part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Secondary motor area, Caudoputamen.",
+   "soma": "ORBl 70%, ORBvl 16%, AId 7%",
+   "targets": "MOs 25%, CP 23%, ORBl 19%, ORBvl 8%",
+   "axon_mm": 160.8
+  },
+  "59": {
+   "n": 122,
+   "name": "Orbital area, lateral part cells to Orbital area, lateral part, Substantia innominata",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Orbital area, lateral part; axons end in Orbital area, lateral part, Substantia innominata.",
+   "soma": "ORBl 39%, AIv 31%, AId 21%",
+   "targets": "ORBl 9%, SI 9%, MB 8%, OT 7%",
+   "axon_mm": 126.7
+  },
+  "37": {
+   "n": 99,
+   "name": "Orbital area, lateral part cells to Caudoputamen, Orbital area, lateral part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Orbital area, lateral part; axons end in Caudoputamen, Orbital area, lateral part.",
+   "soma": "ORBl 38%, AId 34%, ORBvl 13%",
+   "targets": "CP 28%, ORBl 18%, AId 12%, MOs 9%",
+   "axon_mm": 137.2
+  },
+  "26": {
+   "n": 209,
+   "name": "Prelimbic area corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Prelimbic area.",
+   "soma": "PL 47%, ACAd 22%, MOs 11%",
+   "targets": "CP 49%, PL 10%, MOs 8%, ACAd 7%",
+   "axon_mm": 211.4
+  },
+  "64": {
+   "n": 144,
+   "name": "Orbital area, medial part cells to Lateral hypothalamic area, Hypothalamus",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Orbital area, medial part; axons end in Lateral hypothalamic area, Hypothalamus.",
+   "soma": "ORBm 30%, ILA 28%, ORBvl 19%",
+   "targets": "LHA 12%, HY 8%, PAG 7%, MEA 7%",
+   "axon_mm": 103.4
+  },
+  "7": {
+   "n": 57,
+   "name": "Orbital area, ventrolateral part cells to Orbital area, ventrolateral part, Caudoputamen",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Orbital area, ventrolateral part; axons end in Orbital area, ventrolateral part, Caudoputamen.",
+   "soma": "ORBvl 51%, PL 18%, ORBm 11%",
+   "targets": "ORBvl 18%, CP 16%, ACAd 8%, PL 7%",
+   "axon_mm": 100.4
+  },
+  "54": {
+   "n": 91,
+   "name": "Anterior cingulate area, ventral part cells to Anterior cingulate area, ventral part, Midbrain",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Anterior cingulate area, ventral part; axons end in Anterior cingulate area, ventral part, Midbrain.",
+   "soma": "ACAv 82%, ACAd 14%, ORBvl 1%",
+   "targets": "ACAv 15%, MB 9%, PAG 7%, CP 7%",
+   "axon_mm": 121.8
+  },
+  "21": {
+   "n": 64,
+   "name": "Orbital area, medial part corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Nucleus accumbens, Caudoputamen.",
+   "soma": "ORBm 55%, PL 17%, ORBvl 12%",
+   "targets": "ACB 17%, CP 12%, ORBm 9%, OT 7%",
+   "axon_mm": 132.9
+  },
+  "22": {
+   "n": 53,
+   "name": "Orbital area, ventrolateral part cells to Entorhinal area, lateral part, Orbital area, ventrolateral part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Orbital area, ventrolateral part; axons end in Entorhinal area, lateral part, Orbital area, ventrolateral part.",
+   "soma": "ORBvl 26%, ORBm 25%, ORBl 17%",
+   "targets": "ENTl 18%, ORBvl 10%, ORBm 6%, MOs 6%",
+   "axon_mm": 57.3
+  },
+  "38": {
+   "n": 162,
+   "name": "Prelimbic area corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Nucleus accumbens.",
+   "soma": "PL 49%, ORBm 35%, ILA 7%",
+   "targets": "CP 20%, ACB 18%, PL 10%, ORBm 9%",
+   "axon_mm": 165.3
+  },
+  "16": {
+   "n": 84,
+   "name": "Prelimbic area corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Prelimbic area.",
+   "soma": "PL 37%, ORBm 26%, ORBvl 19%",
+   "targets": "CP 23%, PL 14%, ACB 12%, ORBm 10%",
+   "axon_mm": 32.6
+  },
+  "39": {
+   "n": 68,
+   "name": "Orbital area, medial part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Orbital area, medial part, Nucleus accumbens.",
+   "soma": "ORBm 50%, PL 26%, ILA 15%",
+   "targets": "ORBm 31%, ACB 12%, ILA 11%, PL 10%",
+   "axon_mm": 66.4
+  },
+  "52": {
+   "n": 133,
+   "name": "Prelimbic area cells to Mediodorsal nucleus of thalamus, Parataenial nucleus",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Prelimbic area; axons end in Mediodorsal nucleus of thalamus, Parataenial nucleus.",
+   "soma": "PL 45%, ACAd 37%, ORBm 5%",
+   "targets": "MD 27%, PT 10%, PL 7%, ACAd 5%",
+   "axon_mm": 48.5
+  },
+  "45": {
+   "n": 130,
+   "name": "Agranular insular area, dorsal part corticothalamic cells",
+   "family": "to thalamus",
+   "desc": "Axons end mostly in thalamus: Mediodorsal nucleus of thalamus, Ventral medial nucleus of the thalamus.",
+   "soma": "AId 78%, AIv 18%, ORBl 2%",
+   "targets": "MD 42%, VM 9%, IMD 6%, AId 5%",
+   "axon_mm": 44.1
+  },
+  "13": {
+   "n": 91,
+   "name": "Agranular insular area, dorsal part cells to Agranular insular area, dorsal part, Caudoputamen",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Agranular insular area, dorsal part; axons end in Agranular insular area, dorsal part, Caudoputamen.",
+   "soma": "AId 65%, MOs 24%, AIv 8%",
+   "targets": "AId 32%, CP 15%, MOs 13%, ACB 4%",
+   "axon_mm": 52.5
+  },
+  "62": {
+   "n": 224,
+   "name": "Prelimbic area cells to Periaqueductal gray, Lateral hypothalamic area",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Prelimbic area; axons end in Periaqueductal gray, Lateral hypothalamic area.",
+   "soma": "PL 45%, ORBm 25%, ORBvl 15%",
+   "targets": "LHA 11%, PAG 10%, SI 8%, MB 7%",
+   "axon_mm": 136.0
+  },
+  "41": {
+   "n": 124,
+   "name": "Prelimbic area cells to Caudoputamen, Prelimbic area",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Prelimbic area; axons end in Caudoputamen, Prelimbic area.",
+   "soma": "PL 45%, ORBm 17%, ORBvl 17%",
+   "targets": "CP 31%, PL 19%, ORBm 8%, FRP 8%",
+   "axon_mm": 90.1
+  },
+  "19": {
+   "n": 73,
+   "name": "Prelimbic area cells to Prelimbic area, Basolateral amygdalar nucleus, posterior part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Prelimbic area; axons end in Prelimbic area, Basolateral amygdalar nucleus, posterior part.",
+   "soma": "PL 49%, ORBm 23%, FRP 10%",
+   "targets": "PL 18%, BLAp 14%, BLAa 12%, CP 11%",
+   "axon_mm": 44.8
+  },
+  "34": {
+   "n": 77,
+   "name": "Secondary motor area cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Secondary motor area, Agranular insular area, dorsal part.",
+   "soma": "MOs 51%, AId 43%, ORBl 4%",
+   "targets": "MOs 43%, AId 21%, MOp 11%, CP 10%",
+   "axon_mm": 66.1
+  },
+  "23": {
+   "n": 164,
+   "name": "Agranular insular area, dorsal part corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Agranular insular area, dorsal part.",
+   "soma": "AId 89%, MOs 7%, AIv 3%",
+   "targets": "CP 37%, AId 30%, MOs 7%, ACB 5%",
+   "axon_mm": 113.1
+  },
+  "18": {
+   "n": 34,
+   "name": "Secondary motor area cells to Secondary motor area, Anterior cingulate area, dorsal part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Secondary motor area; axons end in Secondary motor area, Anterior cingulate area, dorsal part.",
+   "soma": "MOs 35%, ACAd 32%, PL 12%",
+   "targets": "MOs 27%, ACAd 13%, CP 13%, PL 10%",
+   "axon_mm": 74.0
+  },
+  "30": {
+   "n": 25,
+   "name": "Anterior cingulate area, dorsal part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Anterior cingulate area, dorsal part, Secondary motor area.",
+   "soma": "ACAd 60%, ACAv 20%, MOs 20%",
+   "targets": "ACAd 20%, MOs 19%, ENTl 16%, CP 14%",
+   "axon_mm": 57.0
+  },
+  "29": {
+   "n": 131,
+   "name": "Anterior cingulate area, dorsal part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Caudoputamen, Secondary motor area.",
+   "soma": "ACAd 58%, MOs 26%, PL 15%",
+   "targets": "CP 29%, MOs 23%, ACAd 22%, PL 7%",
+   "axon_mm": 114.8
+  },
+  "43": {
+   "n": 72,
+   "name": "Prelimbic area corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Prelimbic area.",
+   "soma": "PL 90%, ACAd 7%, ACAv 1%",
+   "targets": "CP 37%, PL 33%, ACB 8%, ACAd 4%",
+   "axon_mm": 67.4
+  },
+  "49": {
+   "n": 116,
+   "name": "Secondary motor area corticothalamic cells",
+   "family": "to thalamus",
+   "desc": "Axons end mostly in thalamus: Mediodorsal nucleus of thalamus, Secondary motor area.",
+   "soma": "MOs 61%, ACAd 25%, FRP 7%",
+   "targets": "MD 30%, MOs 15%, VM 11%, VAL 6%",
+   "axon_mm": 48.9
+  },
+  "40": {
+   "n": 105,
+   "name": "Prelimbic area corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Prelimbic area.",
+   "soma": "PL 53%, ORBm 28%, ORBvl 13%",
+   "targets": "CP 34%, PL 16%, ACB 13%, ORBm 11%",
+   "axon_mm": 140.1
+  },
+  "55": {
+   "n": 143,
+   "name": "Anterior cingulate area, ventral part cells to Periaqueductal gray, Midbrain",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Anterior cingulate area, ventral part; axons end in Periaqueductal gray, Midbrain.",
+   "soma": "ACAv 52%, PL 29%, ILA 9%",
+   "targets": "PAG 22%, MB 10%, ACAv 9%, ZI 6%",
+   "axon_mm": 133.4
+  },
+  "53": {
+   "n": 168,
+   "name": "Anterior cingulate area, ventral part cells to Caudoputamen, Anterior cingulate area, ventral part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Anterior cingulate area, ventral part; axons end in Caudoputamen, Anterior cingulate area, ventral part.",
+   "soma": "ACAv 62%, ACAd 22%, MOs 15%",
+   "targets": "CP 12%, ACAv 11%, PAG 10%, ZI 9%",
+   "axon_mm": 130.4
+  },
+  "8": {
+   "n": 109,
+   "name": "Anterior cingulate area, ventral part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Anterior cingulate area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "ACAv 82%, ACAd 15%, MOs 4%",
+   "targets": "ACAv 38%, RSPd 16%, CP 14%, ACAd 12%",
+   "axon_mm": 37.0
+  },
+  "3": {
+   "n": 139,
+   "name": "Anterior cingulate area, dorsal part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Caudoputamen, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 58%, ACAv 32%, MOs 9%",
+   "targets": "CP 35%, ACAd 26%, ACAv 16%, MOs 7%",
+   "axon_mm": 60.7
+  },
+  "10": {
+   "n": 61,
+   "name": "Anterior cingulate area, ventral part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Anterior cingulate area, ventral part, Anterior cingulate area, dorsal part.",
+   "soma": "ACAv 54%, ACAd 34%, MOs 7%",
+   "targets": "ACAv 19%, ACAd 19%, CP 16%, RSPd 11%",
+   "axon_mm": 91.5
+  },
+  "11": {
+   "n": 98,
+   "name": "Anterior cingulate area, dorsal part cells to Caudoputamen, Anterior cingulate area, dorsal part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Anterior cingulate area, dorsal part; axons end in Caudoputamen, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 48%, ACAv 30%, MOs 20%",
+   "targets": "CP 25%, ACAd 16%, ACAv 11%, RSPd 10%",
+   "axon_mm": 114.6
+  },
+  "4": {
+   "n": 54,
+   "name": "Anterior cingulate area, ventral part corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Anterior cingulate area, ventral part.",
+   "soma": "ACAv 76%, ACAd 15%, PL 7%",
+   "targets": "CP 40%, ACAv 31%, ACAd 7%, PL 6%",
+   "axon_mm": 38.6
+  },
+  "5": {
+   "n": 61,
+   "name": "Anterior cingulate area, ventral part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Anterior cingulate area, ventral part, Caudoputamen.",
+   "soma": "ACAv 74%, ACAd 23%, MOs 3%",
+   "targets": "ACAv 43%, CP 31%, ACAd 13%, MOs 2%",
+   "axon_mm": 42.0
+  },
+  "63": {
+   "n": 20,
+   "name": "Anterior cingulate area, ventral part cells to Hypothalamus, Anterior cingulate area, ventral part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Anterior cingulate area, ventral part; axons end in Hypothalamus, Anterior cingulate area, ventral part.",
+   "soma": "ACAv 70%, PL 20%, ILA 10%",
+   "targets": "HY 15%, MS 12%, LSr 11%, ACAv 11%",
+   "axon_mm": 116.9
+  },
+  "9": {
+   "n": 81,
+   "name": "Secondary motor area cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Secondary motor area, Caudoputamen.",
+   "soma": "MOs 73%, ACAd 21%, ACAv 6%",
+   "targets": "MOs 39%, CP 16%, ACAd 12%, RSPd 4%",
+   "axon_mm": 80.4
+  },
+  "48": {
+   "n": 153,
+   "name": "Anterior cingulate area, ventral part cells to Anteromedial nucleus, dorsal part, Anteroventral nucleus of thalamus",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Anterior cingulate area, ventral part; axons end in Anteromedial nucleus, dorsal part, Anteroventral nucleus of thalamus.",
+   "soma": "ACAv 43%, ACAd 41%, MOs 15%",
+   "targets": "AMd 12%, AV 10%, MD 10%, LD 10%",
+   "axon_mm": 37.3
+  },
+  "1": {
+   "n": 50,
+   "name": "Anterior cingulate area, dorsal part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Anterior cingulate area, dorsal part, Secondary motor area.",
+   "soma": "ACAd 70%, MOs 20%, PL 6%",
+   "targets": "ACAd 38%, MOs 26%, PL 9%, CP 8%",
+   "axon_mm": 44.8
+  },
+  "58": {
+   "n": 75,
+   "name": "Agranular insular area, dorsal part cells to Agranular insular area, dorsal part, Midbrain reticular nucleus",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Agranular insular area, dorsal part; axons end in Agranular insular area, dorsal part, Midbrain reticular nucleus.",
+   "soma": "AId 75%, MOs 19%, AIv 5%",
+   "targets": "AId 14%, MRN 9%, CP 8%, MB 8%",
+   "axon_mm": 150.4
+  },
+  "36": {
+   "n": 36,
+   "name": "Agranular insular area, ventral part cortico-cortical cells",
+   "family": "to cortex",
+   "desc": "Axons end mostly in other cortical areas: Agranular insular area, ventral part, Caudoputamen.",
+   "soma": "AIv 53%, AId 39%, ORBl 8%",
+   "targets": "AIv 24%, CP 21%, AId 19%, ORBl 10%",
+   "axon_mm": 95.2
+  },
+  "25": {
+   "n": 137,
+   "name": "Agranular insular area, dorsal part corticostriatal cells",
+   "family": "to striatum",
+   "desc": "Axons end mostly in the striatum: Caudoputamen, Agranular insular area, dorsal part.",
+   "soma": "AId 63%, AIv 36%, ORBl 1%",
+   "targets": "CP 23%, AId 18%, ACB 12%, AIv 11%",
+   "axon_mm": 207.2
+  },
+  "12": {
+   "n": 35,
+   "name": "Agranular insular area, dorsal part cells to Agranular insular area, dorsal part, Agranular insular area, ventral part",
+   "family": "mixed",
+   "desc": "Cell bodies mostly in Agranular insular area, dorsal part; axons end in Agranular insular area, dorsal part, Agranular insular area, ventral part.",
+   "soma": "AId 54%, AIv 46%",
+   "targets": "AId 25%, AIv 21%, AIp 9%, PIR 8%",
+   "axon_mm": 55.5
+  }
+ },
+ "ION-HIPP": {
+  "39": {
+   "n": 789,
+   "name": "CA1 cells with local and septal axons",
+   "family": "CA1 local",
+   "desc": "CA1 cells whose axons stay largely within CA1, with a branch to the lateral septum.",
+   "soma": "CA1 71%, CA3 15%, SUB 3%",
+   "targets": "CA1 38%, LSr 10%, CA3 9%, SUB 8%",
+   "axon_mm": 50.9
+  },
+  "34": {
+   "n": 707,
+   "name": "CA3 pyramidal cells, Schaffer collaterals",
+   "family": "CA3 to CA1",
+   "desc": "The CA3 pyramidal cells (the thorny cells that receive the mossy fibres): axons to CA1 (the Schaffer collaterals) and back into CA3 (recurrent collaterals), the longest axons in the set.",
+   "soma": "CA3 86%, CA1 6%, CA2 3%",
+   "targets": "CA1 49%, CA3 31%, LSr 3%, alv 3%",
+   "axon_mm": 209.9
+  },
+  "19": {
+   "n": 46,
+   "name": "CA1 cells with local and septal axons",
+   "family": "CA1 local",
+   "desc": "CA1 cells whose axons stay largely within CA1, with a branch to the lateral septum.",
+   "soma": "CA1 91%, ProS 9%",
+   "targets": "CA1 27%, LSr 16%, ProS 9%, TR 7%",
+   "axon_mm": 111.6
+  },
+  "35": {
+   "n": 536,
+   "name": "Pre- and parasubiculum cells to medial entorhinal cortex",
+   "family": "to entorhinal",
+   "desc": "Cell bodies in the pre-, post- and parasubiculum; axons to the medial entorhinal cortex, the head-direction and grid-cell circuit.",
+   "soma": "PRE 43%, SUB 16%, PAR 12%",
+   "targets": "ENTm 59%, ENTl 7%, PAR 7%, SUB 6%",
+   "axon_mm": 35.1
+  },
+  "43": {
+   "n": 4379,
+   "name": "Dentate granule cells, mossy fibres",
+   "family": "mossy fibres",
+   "desc": "Cell bodies in the granule layer; the axons, the mossy fibres, end in the hilus and on the thorny excrescences of CA3 pyramidal cells. Short, a few millimetres.",
+   "soma": "DG-sg 58%, CA1 23%, DG-mo 6%",
+   "targets": "DG-po 34%, CA3 23%, CA1 19%, DG-sg 4%",
+   "axon_mm": 4.2
+  },
+  "2": {
+   "n": 214,
+   "name": "Ventral CA1 and subiculum cells to accumbens and septum",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells with axons to the nucleus accumbens and the lateral septum.",
+   "soma": "CA1 73%, ProS 20%, SUB 3%",
+   "targets": "CA1 19%, ACB 16%, LSr 16%, HY 5%",
+   "axon_mm": 108.8
+  },
+  "8": {
+   "n": 135,
+   "name": "Field CA1 cells to Nucleus accumbens, Field CA1",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Nucleus accumbens, Field CA1.",
+   "soma": "CA1 47%, SUB 27%, ProS 11%",
+   "targets": "ACB 16%, CA1 11%, RSPv 8%, LSr 7%",
+   "axon_mm": 91.3
+  },
+  "4": {
+   "n": 28,
+   "name": "Ventral CA1 and subiculum cells to accumbens and septum",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells with axons to the nucleus accumbens and the lateral septum.",
+   "soma": "CA1 54%, ProS 18%, SUB 18%",
+   "targets": "ACB 26%, CA1 15%, LSr 9%, SUB 5%",
+   "axon_mm": 152.0
+  },
+  "7": {
+   "n": 136,
+   "name": "Ventral CA1 and subiculum cells to accumbens and septum",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells with axons to the nucleus accumbens and the lateral septum.",
+   "soma": "CA1 74%, ProS 17%, SUB 4%",
+   "targets": "CA1 19%, LSr 15%, ACB 14%, HY 8%",
+   "axon_mm": 89.8
+  },
+  "21": {
+   "n": 41,
+   "name": "CA1 cells with local and septal axons",
+   "family": "CA1 local",
+   "desc": "CA1 cells whose axons stay largely within CA1, with a branch to the lateral septum.",
+   "soma": "CA1 90%, HATA 2%, ec 2%",
+   "targets": "CA1 33%, LSr 17%, ProS 7%, SUB 6%",
+   "axon_mm": 65.7
+  },
+  "15": {
+   "n": 69,
+   "name": "Field CA1 cells to Nucleus accumbens, Hypothalamus",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Nucleus accumbens, Hypothalamus.",
+   "soma": "CA1 71%, ProS 14%, SUB 10%",
+   "targets": "ACB 16%, HY 15%, CA1 13%, LSr 10%",
+   "axon_mm": 127.7
+  },
+  "5": {
+   "n": 493,
+   "name": "Ventral CA1 and subiculum cells to accumbens and septum",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells with axons to the nucleus accumbens and the lateral septum.",
+   "soma": "CA1 50%, ProS 19%, SUB 16%",
+   "targets": "ACB 19%, CA1 13%, LSr 13%, SUB 4%",
+   "axon_mm": 91.1
+  },
+  "22": {
+   "n": 102,
+   "name": "CA1 cells with local and septal axons",
+   "family": "CA1 local",
+   "desc": "CA1 cells whose axons stay largely within CA1, with a branch to the lateral septum.",
+   "soma": "CA1 93%, or 2%, alv 2%",
+   "targets": "CA1 32%, LSr 10%, SUB 10%, ProS 7%",
+   "axon_mm": 56.3
+  },
+  "37": {
+   "n": 232,
+   "name": "Subiculum cells to retrosplenial cortex",
+   "family": "to retrosplenial",
+   "desc": "Dorsal subiculum cells to the ventral retrosplenial cortex.",
+   "soma": "SUB 41%, CA1 25%, ProS 17%",
+   "targets": "RSPv 36%, SUB 9%, PAR 8%, ENTm 7%",
+   "axon_mm": 57.8
+  },
+  "18": {
+   "n": 41,
+   "name": "Ventral CA1 and subiculum cells to accumbens and septum",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells with axons to the nucleus accumbens and the lateral septum.",
+   "soma": "CA1 61%, SUB 15%, ProS 7%",
+   "targets": "LSr 27%, ACB 16%, AON 11%, SF 5%",
+   "axon_mm": 19.1
+  },
+  "10": {
+   "n": 121,
+   "name": "Ventral CA1 and subiculum cells to accumbens, septum and hypothalamus",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells: axons to the nucleus accumbens, the lateral septum and the hypothalamus, the emotional and endocrine side of the hippocampus.",
+   "soma": "CA1 60%, ProS 17%, SUB 13%",
+   "targets": "ACB 26%, LSr 19%, HY 9%, AHN 5%",
+   "axon_mm": 65.1
+  },
+  "36": {
+   "n": 96,
+   "name": "Subiculum cells to Medial mammillary nucleus, lateral part, Entorhinal area, medial part, dorsal zone",
+   "family": "other",
+   "desc": "Cell bodies mostly in Subiculum; axons end mostly in Medial mammillary nucleus, lateral part, Entorhinal area, medial part, dorsal zone.",
+   "soma": "SUB 46%, CA1 16%, ProS 15%",
+   "targets": "MMl 13%, ENTm 11%, SUB 10%, PAR 10%",
+   "axon_mm": 42.5
+  },
+  "31": {
+   "n": 178,
+   "name": "Field CA1 cells to Anteroventral nucleus of thalamus, Field CA1",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Anteroventral nucleus of thalamus, Field CA1.",
+   "soma": "CA1 29%, SUB 24%, ProS 14%",
+   "targets": "AV 26%, CA1 11%, AMd 9%, AMv 7%",
+   "axon_mm": 52.2
+  },
+  "32": {
+   "n": 11,
+   "name": "Subiculum cells to anterior thalamus",
+   "family": "to thalamus",
+   "desc": "Dorsal subiculum cells whose axons reach the anteroventral and anteromedial thalamic nuclei.",
+   "soma": "SUB 55%, CA1 27%, ec 9%",
+   "targets": "AV 14%, RSPv 11%, CA1 10%, AMv 8%",
+   "axon_mm": 71.7
+  },
+  "14": {
+   "n": 69,
+   "name": "Field CA1 cells to Field CA1, Hypothalamus",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Field CA1, Hypothalamus.",
+   "soma": "CA1 51%, ProS 33%, SUB 9%",
+   "targets": "HY 14%, CA1 14%, ACB 10%, LSr 10%",
+   "axon_mm": 98.7
+  },
+  "16": {
+   "n": 362,
+   "name": "Ventral CA1 and subiculum cells to accumbens and septum",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells with axons to the nucleus accumbens and the lateral septum.",
+   "soma": "CA1 41%, SUB 20%, ProS 19%",
+   "targets": "ACB 16%, LSr 11%, HY 8%, CA1 8%",
+   "axon_mm": 92.8
+  },
+  "12": {
+   "n": 44,
+   "name": "Ventral CA1 and subiculum cells to accumbens, septum and hypothalamus",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells: axons to the nucleus accumbens, the lateral septum and the hypothalamus, the emotional and endocrine side of the hippocampus.",
+   "soma": "CA1 80%, ProS 11%, SUB 9%",
+   "targets": "ACB 26%, HY 13%, CA1 11%, AHN 5%",
+   "axon_mm": 159.4
+  },
+  "40": {
+   "n": 110,
+   "name": "Field CA1 cells to Field CA3, Field CA1",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Field CA3, Field CA1.",
+   "soma": "CA1 41%, DG-sg 35%, PRE 5%",
+   "targets": "CA3 22%, CA1 17%, DG-po 13%, alv 7%",
+   "axon_mm": 2.1
+  },
+  "33": {
+   "n": 14,
+   "name": "Pre- and parasubiculum cells to medial entorhinal cortex",
+   "family": "to entorhinal",
+   "desc": "Cell bodies in the pre-, post- and parasubiculum; axons to the medial entorhinal cortex, the head-direction and grid-cell circuit.",
+   "soma": "PAR 21%, POST 21%, PRE 14%",
+   "targets": "ENTm 57%, CA3 10%, CA1 9%, ENTl 5%",
+   "axon_mm": 19.1
+  },
+  "3": {
+   "n": 44,
+   "name": "Ventral CA1 and subiculum cells to accumbens and septum",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells with axons to the nucleus accumbens and the lateral septum.",
+   "soma": "CA1 57%, ProS 23%, SUB 18%",
+   "targets": "ACB 25%, CA1 14%, LSr 9%, ENTl 5%",
+   "axon_mm": 151.5
+  },
+  "38": {
+   "n": 137,
+   "name": "CA1 cells to retrosplenial cortex",
+   "family": "to retrosplenial",
+   "desc": "Dorsal CA1 cells with axons to the retrosplenial cortex.",
+   "soma": "CA1 77%, SUB 7%, ProS 6%",
+   "targets": "CA1 30%, RSPv 18%, SUB 7%, ProS 6%",
+   "axon_mm": 37.8
+  },
+  "29": {
+   "n": 25,
+   "name": "Field CA1 cells to Anterior olfactory nucleus, Field CA1",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Anterior olfactory nucleus, Field CA1.",
+   "soma": "CA1 92%, ProS 8%",
+   "targets": "AON 19%, CA1 16%, ENTl 13%, ProS 6%",
+   "axon_mm": 132.4
+  },
+  "23": {
+   "n": 46,
+   "name": "CA1 cells with local and septal axons",
+   "family": "CA1 local",
+   "desc": "CA1 cells whose axons stay largely within CA1, with a branch to the lateral septum.",
+   "soma": "CA1 96%, SUB 2%, ProS 2%",
+   "targets": "CA1 26%, LSr 10%, AON 8%, ENTl 7%",
+   "axon_mm": 74.2
+  },
+  "1": {
+   "n": 104,
+   "name": "Ventral CA1 and subiculum cells to accumbens and septum",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells with axons to the nucleus accumbens and the lateral septum.",
+   "soma": "CA1 67%, ProS 16%, SUB 14%",
+   "targets": "ACB 20%, CA1 15%, LSr 11%, PA 6%",
+   "axon_mm": 134.5
+  },
+  "13": {
+   "n": 71,
+   "name": "Field CA1 cells to Nucleus accumbens, Field CA1",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Nucleus accumbens, Field CA1.",
+   "soma": "CA1 45%, SUB 30%, ProS 15%",
+   "targets": "ACB 16%, CA1 8%, LSr 7%, MMm 7%",
+   "axon_mm": 120.9
+  },
+  "others": {
+   "n": 245,
+   "name": "Field CA1 cells to Field CA1, Nucleus accumbens",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Field CA1, Nucleus accumbens.",
+   "soma": "CA1 58%, SUB 12%, ProS 10%",
+   "targets": "CA1 19%, ACB 8%, AON 6%, ENTl 6%",
+   "axon_mm": 100.2
+  },
+  "24": {
+   "n": 23,
+   "name": "CA1 cells with local and septal axons",
+   "family": "CA1 local",
+   "desc": "CA1 cells whose axons stay largely within CA1, with a branch to the lateral septum.",
+   "soma": "CA1 96%, ProS 4%",
+   "targets": "CA1 27%, LSr 12%, ProS 8%, ENTl 6%",
+   "axon_mm": 90.4
+  },
+  "6": {
+   "n": 14,
+   "name": "Ventral CA1 and subiculum cells to accumbens and septum",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells with axons to the nucleus accumbens and the lateral septum.",
+   "soma": "CA1 71%, ProS 14%, ec 7%",
+   "targets": "ACB 20%, CA1 16%, LSr 7%, HY 6%",
+   "axon_mm": 172.3
+  },
+  "41": {
+   "n": 16,
+   "name": "CA1 cells with local and septal axons",
+   "family": "CA1 local",
+   "desc": "CA1 cells whose axons stay largely within CA1, with a branch to the lateral septum.",
+   "soma": "CA1 81%, ProS 12%, SUB 6%",
+   "targets": "CA1 41%, ProS 12%, PA 7%, COApm 6%",
+   "axon_mm": 26.4
+  },
+  "28": {
+   "n": 19,
+   "name": "Field CA1 cells to Field CA1, Anterior olfactory nucleus",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Field CA1, Anterior olfactory nucleus.",
+   "soma": "CA1 95%, ProS 5%",
+   "targets": "CA1 18%, AON 16%, ENTl 13%, LSr 7%",
+   "axon_mm": 123.1
+  },
+  "27": {
+   "n": 20,
+   "name": "Field CA1 cells to Field CA1, Anterior olfactory nucleus",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Field CA1, Anterior olfactory nucleus.",
+   "soma": "CA1 95%, ProS 5%",
+   "targets": "CA1 20%, AON 15%, LSr 9%, ENTl 8%",
+   "axon_mm": 106.5
+  },
+  "20": {
+   "n": 49,
+   "name": "CA1 cells with local and septal axons",
+   "family": "CA1 local",
+   "desc": "CA1 cells whose axons stay largely within CA1, with a branch to the lateral septum.",
+   "soma": "CA1 82%, ProS 10%, SUB 6%",
+   "targets": "CA1 28%, LSr 14%, ProS 9%, ACB 7%",
+   "axon_mm": 80.0
+  },
+  "25": {
+   "n": 116,
+   "name": "CA1 cells with local and septal axons",
+   "family": "CA1 local",
+   "desc": "CA1 cells whose axons stay largely within CA1, with a branch to the lateral septum.",
+   "soma": "CA1 90%, SUB 5%, ProS 4%",
+   "targets": "CA1 29%, LSr 14%, ProS 7%, SUB 7%",
+   "axon_mm": 60.5
+  },
+  "17": {
+   "n": 11,
+   "name": "Ventral CA1 cells to olfactory and prefrontal cortex",
+   "family": "to prefrontal",
+   "desc": "Ventral CA1 cells with axons to the anterior olfactory nucleus and the medial prefrontal cortex.",
+   "soma": "CA1 91%, ProS 9%",
+   "targets": "AON 22%, LSr 15%, ORBm 9%, ACB 7%",
+   "axon_mm": 41.6
+  },
+  "26": {
+   "n": 18,
+   "name": "Field CA1 cells to Field CA1, Lateral septal nucleus, rostral (rostroventral) part",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Field CA1, Lateral septal nucleus, rostral (rostroventral) part.",
+   "soma": "CA1 94%, ProS 6%",
+   "targets": "CA1 19%, LSr 16%, AON 9%, TR 6%",
+   "axon_mm": 97.9
+  },
+  "11": {
+   "n": 58,
+   "name": "Ventral CA1 and subiculum cells to accumbens, septum and hypothalamus",
+   "family": "ventral outputs",
+   "desc": "Ventral hippocampal output cells: axons to the nucleus accumbens, the lateral septum and the hypothalamus, the emotional and endocrine side of the hippocampus.",
+   "soma": "CA1 53%, ProS 12%, ec 10%",
+   "targets": "ACB 22%, HY 13%, LSr 10%, AHN 8%",
+   "axon_mm": 89.8
+  },
+  "9": {
+   "n": 13,
+   "name": "Subiculum cells to the mammillary bodies",
+   "family": "to mammillary bodies",
+   "desc": "Subiculum cells whose axons run down the fornix to the mammillary bodies.",
+   "soma": "SUB 54%, CA1 23%, alv 8%",
+   "targets": "MMl 26%, MMm 12%, HY 9%, MMp 6%",
+   "axon_mm": 29.2
+  },
+  "30": {
+   "n": 11,
+   "name": "Field CA1 cells to Anteroventral nucleus of thalamus, Anteromedial nucleus, dorsal part",
+   "family": "other",
+   "desc": "Cell bodies mostly in Field CA1; axons end mostly in Anteroventral nucleus of thalamus, Anteromedial nucleus, dorsal part.",
+   "soma": "CA1 27%, ProS 18%, SUB 18%",
+   "targets": "AV 30%, AMd 16%, AMv 9%, LD 5%",
+   "axon_mm": 23.8
+  },
+  "42": {
+   "n": 30,
+   "name": "CA1 cells to entorhinal cortex",
+   "family": "to entorhinal",
+   "desc": "CA1 pyramidal cells with axons to the entorhinal cortex, closing the hippocampal loop.",
+   "soma": "CA1 77%, HATA 7%, SUB 3%",
+   "targets": "CA1 38%, ENTm 12%, ENTl 10%, BLAp 5%",
+   "axon_mm": 38.6
+  }
+ },
+ "ION-CTX": {
+  "IT-78": {
+   "n": 146,
+   "name": "IT-78",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 78 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Caudoputamen, Primary motor area.",
+   "soma": "MOp 52%, MOs 47%, GU 1%",
+   "targets": "CP 27%, MOp 26%, MOs 26%, SSp-m 6%",
+   "axon_mm": 206.9
+  },
+  "IT-102": {
+   "n": 145,
+   "name": "IT-102",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 102 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Primary motor area, Supplemental somatosensory area.",
+   "soma": "SSs 55%, GU 20%, VISC 19%",
+   "targets": "MOp 28%, SSs 26%, GU 10%, SSp-m 10%",
+   "axon_mm": 55.1
+  },
+  "IT-161": {
+   "n": 131,
+   "name": "IT-161",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 161 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 66%, RSPd 31%, RSPagl 2%",
+   "targets": "RSPv 55%, RSPd 32%, ACAd 3%, MOs 3%",
+   "axon_mm": 26.9
+  },
+  "IT-79": {
+   "n": 114,
+   "name": "IT-79",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 79 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Primary motor area.",
+   "soma": "MOs 64%, MOp 36%",
+   "targets": "MOs 47%, MOp 27%, CP 7%, SSp-m 5%",
+   "axon_mm": 75.4
+  },
+  "IT-134": {
+   "n": 109,
+   "name": "IT-134",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 134 of the whole-cortex projectome. Cell bodies mostly in Primary auditory area; axons end mostly in Temporal association areas, Caudoputamen.",
+   "soma": "AUDp 26%, AUDpo 18%, AUDd 17%",
+   "targets": "TEa 14%, CP 14%, AUDp 13%, AUDpo 9%",
+   "axon_mm": 105.5
+  },
+  "IT-183": {
+   "n": 105,
+   "name": "IT-183",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 183 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Secondary motor area.",
+   "soma": "SSp-bfd 86%, SSs 6%, SSp-ll 3%",
+   "targets": "SSp-bfd 41%, MOs 29%, SSs 5%, MOp 4%",
+   "axon_mm": 46.6
+  },
+  "PT-42": {
+   "n": 101,
+   "name": "PT-42",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 42 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Superior colliculus, superficial gray layer.",
+   "soma": "VISp 51%, RSPagl 22%, RSPd 21%",
+   "targets": "VISp 15%, SCsg 13%, SCig 12%, SCop 8%",
+   "axon_mm": 38.6
+  },
+  "IT-131": {
+   "n": 100,
+   "name": "IT-131",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 131 of the whole-cortex projectome. Cell bodies mostly in Primary auditory area; axons end mostly in Temporal association areas, Ventral auditory area.",
+   "soma": "AUDp 42%, AUDv 33%, TEa 21%",
+   "targets": "TEa 24%, AUDv 21%, AUDp 21%, CP 11%",
+   "axon_mm": 94.1
+  },
+  "IT-116": {
+   "n": 97,
+   "name": "IT-116",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 116 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Primary motor area.",
+   "soma": "SSs 71%, SSp-m 11%, VISC 9%",
+   "targets": "SSs 32%, MOp 27%, SSp-m 12%, MOs 10%",
+   "axon_mm": 70.0
+  },
+  "IT-75": {
+   "n": 96,
+   "name": "IT-75",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 75 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Primary motor area, Primary somatosensory area, mouth.",
+   "soma": "SSp-m 50%, MOp 45%, SSs 3%",
+   "targets": "MOp 28%, SSp-m 19%, CP 18%, MOs 13%",
+   "axon_mm": 144.9
+  },
+  "PT-44": {
+   "n": 92,
+   "name": "PT-44",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 44 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Superior colliculus, motor related, intermediate gray layer.",
+   "soma": "VISp 80%, RSPagl 11%, RSPd 7%",
+   "targets": "VISp 19%, SCig 11%, SCsg 10%, LGv 9%",
+   "axon_mm": 38.9
+  },
+  "IT-123": {
+   "n": 87,
+   "name": "IT-123",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 123 of the whole-cortex projectome. Cell bodies mostly in Dorsal auditory area; axons end mostly in Supplemental somatosensory area, Dorsal auditory area.",
+   "soma": "AUDd 43%, SSs 30%, AUDp 10%",
+   "targets": "SSs 21%, AUDd 17%, AUDv 9%, AUDp 9%",
+   "axon_mm": 73.3
+  },
+  "IT-101": {
+   "n": 86,
+   "name": "IT-101",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 101 of the whole-cortex projectome. Cell bodies mostly in Visceral area; axons end mostly in Visceral area, Agranular insular area, posterior part.",
+   "soma": "VISC 55%, AIp 28%, SSs 14%",
+   "targets": "VISC 25%, AIp 19%, AId 10%, SSs 9%",
+   "axon_mm": 61.7
+  },
+  "PT-39": {
+   "n": 84,
+   "name": "PT-39",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 39 of the whole-cortex projectome. Cell bodies mostly in Primary auditory area; axons end mostly in Inferior colliculus, external nucleus, Inferior colliculus, dorsal nucleus.",
+   "soma": "AUDp 35%, AUDv 26%, TEa 13%",
+   "targets": "ICe 24%, ICd 20%, MB 20%, CP 6%",
+   "axon_mm": 101.8
+  },
+  "IT-113": {
+   "n": 83,
+   "name": "IT-113",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 113 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Supplemental somatosensory area.",
+   "soma": "SSp-bfd 53%, SSs 33%, SSp-n 14%",
+   "targets": "SSp-bfd 41%, SSs 30%, SSp-n 13%, CP 4%",
+   "axon_mm": 38.2
+  },
+  "IT-157": {
+   "n": 82,
+   "name": "IT-157",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 157 of the whole-cortex projectome. Cell bodies mostly in Primary auditory area; axons end mostly in Primary auditory area, Ventral auditory area.",
+   "soma": "AUDp 59%, AUDd 23%, AUDv 15%",
+   "targets": "AUDp 37%, AUDv 19%, AUDd 12%, TEa 8%",
+   "axon_mm": 51.0
+  },
+  "IT-163": {
+   "n": 81,
+   "name": "IT-163",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 163 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 42%, ACAd 26%, RSPd 11%",
+   "targets": "RSPv 39%, RSPd 21%, ACAd 19%, MOs 10%",
+   "axon_mm": 20.3
+  },
+  "IT-110": {
+   "n": 80,
+   "name": "IT-110",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 110 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Caudoputamen.",
+   "soma": "SSs 60%, VISC 26%, SSp-m 8%",
+   "targets": "SSs 35%, CP 15%, VISC 12%, MOp 7%",
+   "axon_mm": 101.7
+  },
+  "IT-159": {
+   "n": 80,
+   "name": "IT-159",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 159 of the whole-cortex projectome. Cell bodies mostly in Primary auditory area; axons end mostly in Primary auditory area, Temporal association areas.",
+   "soma": "AUDp 46%, AUDpo 20%, AUDd 14%",
+   "targets": "AUDp 30%, TEa 11%, AUDpo 11%, AUDv 11%",
+   "axon_mm": 57.0
+  },
+  "IT-189": {
+   "n": 80,
+   "name": "IT-189",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 189 of the whole-cortex projectome. Cell bodies mostly in Anterior area; axons end mostly in Primary somatosensory area, trunk, Anterior area.",
+   "soma": "VISa 48%, SSp-tr 29%, RSPagl 18%",
+   "targets": "SSp-tr 29%, VISa 23%, RSPagl 14%, RSPd 5%",
+   "axon_mm": 40.6
+  },
+  "IT-105": {
+   "n": 79,
+   "name": "IT-105",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 105 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Caudoputamen, Primary somatosensory area, barrel field.",
+   "soma": "SSp-bfd 48%, SSs 41%, SSp-un 4%",
+   "targets": "CP 22%, SSp-bfd 20%, SSs 16%, MOs 12%",
+   "axon_mm": 155.0
+  },
+  "PT-30": {
+   "n": 79,
+   "name": "PT-30",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 30 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Caudoputamen, Parvicellular reticular nucleus.",
+   "soma": "AId 16%, VISC 16%, GU 16%",
+   "targets": "CP 9%, PARN 8%, NTS 6%, SSp-m 5%",
+   "axon_mm": 108.8
+  },
+  "IT-172": {
+   "n": 77,
+   "name": "IT-172",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 172 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Supplemental somatosensory area.",
+   "soma": "SSp-bfd 83%, VISrl 12%, SSs 5%",
+   "targets": "SSp-bfd 70%, SSs 12%, VISrl 9%, VISa 2%",
+   "axon_mm": 27.0
+  },
+  "IT-136": {
+   "n": 77,
+   "name": "IT-136",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 136 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Temporal association areas, Ventral auditory area.",
+   "soma": "TEa 57%, AUDp 9%, AUDv 9%",
+   "targets": "TEa 35%, AUDv 9%, VISpor 9%, AUDp 8%",
+   "axon_mm": 66.0
+  },
+  "IT-76": {
+   "n": 76,
+   "name": "IT-76",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 76 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Primary motor area, Primary somatosensory area, mouth.",
+   "soma": "SSp-m 61%, MOp 39%",
+   "targets": "MOp 38%, SSp-m 35%, MOs 10%, SSs 5%",
+   "axon_mm": 70.8
+  },
+  "IT-145": {
+   "n": 76,
+   "name": "IT-145",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 145 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Retrosplenial area, lateral agranular part.",
+   "soma": "VISp 84%, RSPagl 11%, RSPd 4%",
+   "targets": "VISp 58%, RSPagl 9%, VISl 9%, VISpm 5%",
+   "axon_mm": 31.6
+  },
+  "IT-142": {
+   "n": 75,
+   "name": "IT-142",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 142 of the whole-cortex projectome. Cell bodies mostly in Laterointermediate area; axons end mostly in Anterolateral visual area, Primary visual area.",
+   "soma": "VISli 27%, VISal 21%, VISl 19%",
+   "targets": "VISal 14%, VISp 11%, VISli 11%, TEa 11%",
+   "axon_mm": 46.8
+  },
+  "IT-83": {
+   "n": 75,
+   "name": "IT-83",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 83 of the whole-cortex projectome. Cell bodies mostly in Ectorhinal area; axons end mostly in Caudoputamen, Ectorhinal area.",
+   "soma": "ECT 35%, AIp 32%, PERI 16%",
+   "targets": "CP 16%, ECT 11%, ACB 10%, AIp 9%",
+   "axon_mm": 125.6
+  },
+  "IT-173": {
+   "n": 74,
+   "name": "IT-173",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 173 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Supplemental somatosensory area.",
+   "soma": "SSp-bfd 100%",
+   "targets": "SSp-bfd 66%, SSs 23%, SSp-un 5%, SSp-ul 3%",
+   "axon_mm": 35.0
+  },
+  "PT-19": {
+   "n": 74,
+   "name": "PT-19",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 19 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, Secondary motor area.",
+   "soma": "MOp 49%, MOs 43%, SSp-m 3%",
+   "targets": "MOp 15%, MOs 13%, MRN 8%, SCiw 6%",
+   "axon_mm": 104.3
+  },
+  "IT-77": {
+   "n": 72,
+   "name": "IT-77",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 77 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Caudoputamen, Secondary motor area.",
+   "soma": "MOs 56%, MOp 35%, AId 7%",
+   "targets": "CP 35%, MOs 23%, MOp 19%, AId 8%",
+   "axon_mm": 243.9
+  },
+  "IT-41": {
+   "n": 72,
+   "name": "IT-41",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 41 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, Secondary motor area.",
+   "soma": "MOp 67%, MOs 18%, SSp-m 11%",
+   "targets": "MOp 49%, MOs 21%, SSp-m 6%, CP 6%",
+   "axon_mm": 55.4
+  },
+  "IT-171": {
+   "n": 71,
+   "name": "IT-171",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 171 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Anterior cingulate area, ventral part, Retrosplenial area, ventral part.",
+   "soma": "RSPv 68%, RSPd 28%, RSPagl 4%",
+   "targets": "ACAv 24%, RSPv 24%, RSPd 22%, ACAd 12%",
+   "axon_mm": 48.6
+  },
+  "IT-74": {
+   "n": 71,
+   "name": "IT-74",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 74 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Primary somatosensory area, mouth, Primary motor area.",
+   "soma": "SSp-m 80%, MOp 14%, SSp-ul 6%",
+   "targets": "SSp-m 61%, MOp 21%, SSp-ul 6%, MOs 5%",
+   "axon_mm": 52.6
+  },
+  "IT-130": {
+   "n": 71,
+   "name": "IT-130",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 130 of the whole-cortex projectome. Cell bodies mostly in Primary auditory area; axons end mostly in Primary auditory area, Ventral auditory area.",
+   "soma": "AUDp 52%, AUDd 24%, AUDv 20%",
+   "targets": "AUDp 34%, AUDv 19%, AUDd 17%, SSs 9%",
+   "axon_mm": 75.7
+  },
+  "IT-174": {
+   "n": 70,
+   "name": "IT-174",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 174 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Primary somatosensory area, upper limb.",
+   "soma": "SSp-bfd 99%, SSp-un 1%",
+   "targets": "SSp-bfd 81%, SSp-ul 7%, SSp-un 6%, VISa 2%",
+   "axon_mm": 22.6
+  },
+  "IT-53": {
+   "n": 70,
+   "name": "IT-53",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 53 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Caudoputamen, Secondary motor area.",
+   "soma": "MOs 59%, PL 19%, FRP 10%",
+   "targets": "CP 56%, MOs 19%, FRP 3%, PL 3%",
+   "axon_mm": 281.6
+  },
+  "IT-112": {
+   "n": 69,
+   "name": "IT-112",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 112 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Primary somatosensory area, mouth, Primary motor area.",
+   "soma": "SSp-m 67%, SSp-ul 29%, MOp 4%",
+   "targets": "SSp-m 24%, MOp 20%, MOs 18%, CP 17%",
+   "axon_mm": 118.7
+  },
+  "IT-162": {
+   "n": 68,
+   "name": "IT-162",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 162 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Secondary motor area.",
+   "soma": "RSPv 63%, ACAd 16%, RSPd 12%",
+   "targets": "RSPv 27%, MOs 25%, ACAd 18%, RSPd 13%",
+   "axon_mm": 51.9
+  },
+  "IT-193": {
+   "n": 67,
+   "name": "IT-193",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 193 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, lower limb; axons end mostly in Primary somatosensory area, lower limb, Primary somatosensory area, trunk.",
+   "soma": "SSp-ll 52%, SSp-tr 24%, MOp 19%",
+   "targets": "SSp-ll 47%, SSp-tr 21%, MOp 15%, SSp-ul 7%",
+   "axon_mm": 31.0
+  },
+  "IT-170": {
+   "n": 65,
+   "name": "IT-170",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 170 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 86%, RSPd 6%, MOs 2%",
+   "targets": "RSPv 38%, RSPd 18%, ACAd 10%, ACAv 8%",
+   "axon_mm": 61.9
+  },
+  "IT-169": {
+   "n": 65,
+   "name": "IT-169",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 169 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 92%, RSPd 5%, ACAd 3%",
+   "targets": "RSPv 43%, RSPd 15%, MOs 11%, ACAv 9%",
+   "axon_mm": 63.6
+  },
+  "IT-129": {
+   "n": 64,
+   "name": "IT-129",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 129 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Temporal association areas, Caudoputamen.",
+   "soma": "TEa 36%, AUDv 16%, VISC 14%",
+   "targets": "TEa 19%, CP 15%, ECT 9%, SSs 8%",
+   "axon_mm": 132.3
+  },
+  "IT-115": {
+   "n": 63,
+   "name": "IT-115",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 115 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Primary motor area.",
+   "soma": "SSs 71%, AUDv 10%, VISC 6%",
+   "targets": "SSs 30%, MOp 17%, SSp-ll 9%, SSp-ul 9%",
+   "axon_mm": 69.8
+  },
+  "IT-175": {
+   "n": 63,
+   "name": "IT-175",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 175 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Anterior area.",
+   "soma": "SSp-bfd 68%, VISa 19%, SSp-tr 10%",
+   "targets": "SSp-bfd 55%, VISa 14%, SSp-tr 6%, SSs 6%",
+   "axon_mm": 32.0
+  },
+  "PT-70": {
+   "n": 63,
+   "name": "PT-70",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 70 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Pontine gray.",
+   "soma": "RSPv 67%, RSPd 19%, RSPagl 6%",
+   "targets": "RSPv 17%, PG 10%, CP 8%, ZI 7%",
+   "axon_mm": 104.3
+  },
+  "IT-158": {
+   "n": 62,
+   "name": "IT-158",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 158 of the whole-cortex projectome. Cell bodies mostly in Dorsal auditory area; axons end mostly in Primary auditory area, Dorsal auditory area.",
+   "soma": "AUDd 44%, AUDpo 31%, AUDp 18%",
+   "targets": "AUDp 26%, AUDd 25%, AUDpo 17%, SSs 8%",
+   "axon_mm": 45.2
+  },
+  "IT-16": {
+   "n": 62,
+   "name": "IT-16",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 16 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Primary motor area.",
+   "soma": "MOs 50%, MOp 29%, RSPd 8%",
+   "targets": "MOs 42%, MOp 18%, ACAd 10%, RSPd 9%",
+   "axon_mm": 55.7
+  },
+  "IT-199": {
+   "n": 62,
+   "name": "IT-199",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 199 of the whole-cortex projectome. Cell bodies mostly in Anterior area; axons end mostly in Caudoputamen, Retrosplenial area, lateral agranular part.",
+   "soma": "VISa 35%, RSPagl 26%, SSp-tr 15%",
+   "targets": "CP 21%, RSPagl 11%, VISa 9%, MOs 8%",
+   "axon_mm": 125.0
+  },
+  "IT-119": {
+   "n": 61,
+   "name": "IT-119",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 119 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Primary somatosensory area, mouth, Primary motor area.",
+   "soma": "SSp-m 54%, MOp 16%, SSp-ul 16%",
+   "targets": "SSp-m 38%, MOp 30%, SSp-ul 14%, MOs 6%",
+   "axon_mm": 41.2
+  },
+  "IT-186": {
+   "n": 61,
+   "name": "IT-186",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 186 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, lateral agranular part; axons end mostly in Retrosplenial area, lateral agranular part, Anterior cingulate area, dorsal part.",
+   "soma": "RSPagl 34%, VISa 34%, RSPd 15%",
+   "targets": "RSPagl 17%, ACAd 14%, VISa 13%, MOs 10%",
+   "axon_mm": 50.3
+  },
+  "PT-67": {
+   "n": 60,
+   "name": "PT-67",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 67 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, Secondary motor area.",
+   "soma": "MOp 55%, MOs 23%, ACAd 7%",
+   "targets": "MOp 22%, MOs 9%, CP 7%, MRN 7%",
+   "axon_mm": 105.6
+  },
+  "IT-122": {
+   "n": 60,
+   "name": "IT-122",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 122 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Supplemental somatosensory area.",
+   "soma": "SSp-bfd 83%, SSs 8%, SSp-tr 3%",
+   "targets": "SSp-bfd 59%, SSs 17%, VISrl 5%, CP 3%",
+   "axon_mm": 44.6
+  },
+  "IT-117": {
+   "n": 60,
+   "name": "IT-117",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 117 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, nose; axons end mostly in Primary somatosensory area, nose, Supplemental somatosensory area.",
+   "soma": "SSp-n 43%, SSs 35%, SSp-m 22%",
+   "targets": "SSp-n 36%, SSs 34%, SSp-m 17%, VISC 3%",
+   "axon_mm": 46.1
+  },
+  "IT-90": {
+   "n": 60,
+   "name": "IT-90",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 90 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Temporal association areas, Lateral amygdalar nucleus.",
+   "soma": "TEa 50%, ECT 30%, AUDv 15%",
+   "targets": "TEa 26%, LA 17%, ECT 16%, AUDv 8%",
+   "axon_mm": 50.2
+  },
+  "IT-95": {
+   "n": 60,
+   "name": "IT-95",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 95 of the whole-cortex projectome. Cell bodies mostly in Ectorhinal area; axons end mostly in Visceral area, Ectorhinal area.",
+   "soma": "ECT 35%, VISC 33%, TEa 12%",
+   "targets": "VISC 14%, ECT 13%, CP 12%, MOs 9%",
+   "axon_mm": 62.5
+  },
+  "IT-146": {
+   "n": 60,
+   "name": "IT-146",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 146 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Rostrolateral visual area.",
+   "soma": "VISp 80%, VISa 10%, VISpm 7%",
+   "targets": "VISp 53%, VISrl 17%, VISa 8%, SSp-bfd 7%",
+   "axon_mm": 33.3
+  },
+  "PT-78": {
+   "n": 59,
+   "name": "PT-78",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 78 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Superior colliculus, motor related, intermediate white layer.",
+   "soma": "RSPv 58%, RSPd 19%, RSPagl 17%",
+   "targets": "RSPv 13%, SCiw 9%, ZI 8%, SCig 6%",
+   "axon_mm": 95.5
+  },
+  "IT-103": {
+   "n": 59,
+   "name": "IT-103",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 103 of the whole-cortex projectome. Cell bodies mostly in Gustatory areas; axons end mostly in Agranular insular area, posterior part, Gustatory areas.",
+   "soma": "GU 42%, AId 29%, AIp 19%",
+   "targets": "AIp 18%, GU 18%, AId 18%, CP 15%",
+   "axon_mm": 42.0
+  },
+  "IT-111": {
+   "n": 59,
+   "name": "IT-111",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 111 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, nose; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "SSp-n 36%, SSp-m 34%, SSs 27%",
+   "targets": "MOs 25%, CP 15%, SSs 13%, SSp-m 11%",
+   "axon_mm": 138.8
+  },
+  "IT-166": {
+   "n": 59,
+   "name": "IT-166",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 166 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 71%, RSPd 24%, RSPagl 5%",
+   "targets": "RSPv 38%, RSPd 21%, PRE 6%, RSPagl 5%",
+   "axon_mm": 44.3
+  },
+  "IT-133": {
+   "n": 59,
+   "name": "IT-133",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 133 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Lateral visual area.",
+   "soma": "VISp 39%, VISl 17%, RSPagl 8%",
+   "targets": "VISp 31%, VISl 13%, VISpl 7%, RSPd 6%",
+   "axon_mm": 64.1
+  },
+  "IT-109": {
+   "n": 59,
+   "name": "IT-109",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 109 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, Caudoputamen.",
+   "soma": "MOp 80%, SSp-ul 12%, MOs 8%",
+   "targets": "MOp 39%, CP 18%, MOs 16%, SSp-ul 10%",
+   "axon_mm": 162.3
+  },
+  "IT-135": {
+   "n": 59,
+   "name": "IT-135",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 135 of the whole-cortex projectome. Cell bodies mostly in Primary auditory area; axons end mostly in Primary auditory area, Ventral auditory area.",
+   "soma": "AUDp 61%, AUDpo 17%, TEa 10%",
+   "targets": "AUDp 42%, AUDv 15%, TEa 14%, AUDpo 13%",
+   "axon_mm": 59.6
+  },
+  "IT-140": {
+   "n": 59,
+   "name": "IT-140",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 140 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Rostrolateral visual area.",
+   "soma": "VISp 86%, VISrl 12%, VISal 2%",
+   "targets": "VISp 63%, VISrl 12%, VISl 11%, VISal 6%",
+   "axon_mm": 29.2
+  },
+  "IT-153": {
+   "n": 58,
+   "name": "IT-153",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 153 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Temporal association areas, Ventral auditory area.",
+   "soma": "TEa 48%, AUDp 17%, AUDv 14%",
+   "targets": "TEa 36%, AUDv 15%, AUDp 10%, CP 8%",
+   "axon_mm": 51.1
+  },
+  "IT-197": {
+   "n": 58,
+   "name": "IT-197",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 197 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Caudoputamen, Primary motor area.",
+   "soma": "MOp 31%, SSp-tr 24%, SSp-ll 12%",
+   "targets": "CP 30%, MOp 16%, SSp-ll 10%, SSp-tr 7%",
+   "axon_mm": 145.5
+  },
+  "IT-81": {
+   "n": 57,
+   "name": "IT-81",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 81 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Primary motor area.",
+   "soma": "MOs 77%, MOp 14%, AId 9%",
+   "targets": "MOs 47%, MOp 22%, CP 12%, AId 11%",
+   "axon_mm": 86.1
+  },
+  "IT-93": {
+   "n": 56,
+   "name": "IT-93",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 93 of the whole-cortex projectome. Cell bodies mostly in Ectorhinal area; axons end mostly in Ectorhinal area, Visceral area.",
+   "soma": "ECT 38%, VISC 21%, TEa 20%",
+   "targets": "ECT 21%, VISC 14%, TEa 12%, PERI 11%",
+   "axon_mm": 55.8
+  },
+  "CT-34": {
+   "n": 56,
+   "name": "CT-34",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 34 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Ventral posteromedial nucleus of the thalamus.",
+   "soma": "SSp-bfd 98%, VISa 2%",
+   "targets": "SSp-bfd 44%, VPM 31%, RT 7%, int 6%",
+   "axon_mm": 17.6
+  },
+  "IT-59": {
+   "n": 56,
+   "name": "IT-59",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 59 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Caudoputamen, Secondary motor area.",
+   "soma": "MOs 45%, AId 29%, FRP 18%",
+   "targets": "CP 44%, MOs 22%, AId 15%, MOp 5%",
+   "axon_mm": 213.4
+  },
+  "IT-160": {
+   "n": 55,
+   "name": "IT-160",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 160 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 98%, VISa 2%",
+   "targets": "RSPv 53%, RSPd 10%, ACAv 8%, ACAd 7%",
+   "axon_mm": 46.6
+  },
+  "IT-96": {
+   "n": 55,
+   "name": "IT-96",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 96 of the whole-cortex projectome. Cell bodies mostly in Perirhinal area; axons end mostly in Entorhinal area, lateral part, Perirhinal area.",
+   "soma": "PERI 89%, ECT 7%, AIp 2%",
+   "targets": "ENTl 23%, PERI 17%, PIR 11%, ECT 8%",
+   "axon_mm": 88.1
+  },
+  "IT-177": {
+   "n": 54,
+   "name": "IT-177",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 177 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Primary somatosensory area, nose.",
+   "soma": "SSp-bfd 56%, SSp-n 22%, SSp-un 20%",
+   "targets": "SSp-bfd 46%, SSp-n 20%, SSp-un 19%, SSs 6%",
+   "axon_mm": 34.5
+  },
+  "IT-80": {
+   "n": 54,
+   "name": "IT-80",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 80 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "MOs 96%, FRP 2%, MOp 2%",
+   "targets": "MOs 57%, CP 16%, MOp 11%, AId 5%",
+   "axon_mm": 89.9
+  },
+  "IT-114": {
+   "n": 53,
+   "name": "IT-114",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 114 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Secondary motor area, Supplemental somatosensory area.",
+   "soma": "SSs 51%, SSp-n 28%, SSp-bfd 17%",
+   "targets": "MOs 25%, SSs 24%, SSp-n 14%, SSp-bfd 10%",
+   "axon_mm": 72.5
+  },
+  "IT-141": {
+   "n": 53,
+   "name": "IT-141",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 141 of the whole-cortex projectome. Cell bodies mostly in Anterolateral visual area; axons end mostly in Anterolateral visual area, Rostrolateral visual area.",
+   "soma": "VISal 42%, VISrl 15%, SSp-bfd 15%",
+   "targets": "VISal 17%, VISrl 13%, SSp-bfd 13%, VISp 10%",
+   "axon_mm": 47.6
+  },
+  "IT-107": {
+   "n": 52,
+   "name": "IT-107",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 107 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, nose; axons end mostly in Primary somatosensory area, nose, Supplemental somatosensory area.",
+   "soma": "SSp-n 58%, SSs 29%, SSp-m 6%",
+   "targets": "SSp-n 39%, SSs 24%, SSp-m 8%, MOs 8%",
+   "axon_mm": 62.6
+  },
+  "IT-194": {
+   "n": 52,
+   "name": "IT-194",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 194 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, lower limb; axons end mostly in Primary somatosensory area, lower limb, Primary motor area.",
+   "soma": "SSp-ll 46%, SSp-ul 27%, MOp 23%",
+   "targets": "SSp-ll 27%, MOp 25%, SSp-ul 16%, SSs 14%",
+   "axon_mm": 58.5
+  },
+  "IT-152": {
+   "n": 52,
+   "name": "IT-152",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 152 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Temporal association areas, Postrhinal area.",
+   "soma": "TEa 27%, VISl 23%, VISpor 15%",
+   "targets": "TEa 23%, VISpor 12%, VISl 11%, VISp 7%",
+   "axon_mm": 48.9
+  },
+  "IT-99": {
+   "n": 51,
+   "name": "IT-99",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 99 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Visceral area.",
+   "soma": "SSs 51%, VISC 37%, GU 10%",
+   "targets": "SSs 31%, VISC 31%, GU 11%, AIp 9%",
+   "axon_mm": 32.5
+  },
+  "IT-86": {
+   "n": 51,
+   "name": "IT-86",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 86 of the whole-cortex projectome. Cell bodies mostly in Gustatory areas; axons end mostly in Gustatory areas, Caudoputamen.",
+   "soma": "GU 61%, AId 22%, AIp 8%",
+   "targets": "GU 33%, CP 19%, AId 12%, SSp-m 9%",
+   "axon_mm": 78.2
+  },
+  "IT-1": {
+   "n": 51,
+   "name": "IT-1",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 1 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Caudoputamen, Secondary motor area.",
+   "soma": "MOs 71%, ACAd 20%, MOp 8%",
+   "targets": "CP 32%, MOs 27%, ACAd 8%, SSp-bfd 6%",
+   "axon_mm": 242.8
+  },
+  "IT-126": {
+   "n": 51,
+   "name": "IT-126",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 126 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Caudoputamen, Secondary motor area.",
+   "soma": "SSp-bfd 35%, VISrl 24%, VISa 16%",
+   "targets": "CP 29%, MOs 13%, SSp-bfd 11%, VISrl 7%",
+   "axon_mm": 128.0
+  },
+  "IT-201": {
+   "n": 50,
+   "name": "IT-201",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 201 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, lower limb; axons end mostly in Primary somatosensory area, lower limb, Caudoputamen.",
+   "soma": "SSp-ll 50%, SSp-tr 32%, RSPagl 10%",
+   "targets": "SSp-ll 27%, CP 27%, SSp-tr 15%, MOp 10%",
+   "axon_mm": 77.5
+  },
+  "IT-165": {
+   "n": 50,
+   "name": "IT-165",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 165 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 80%, RSPd 18%, RSPagl 2%",
+   "targets": "RSPv 67%, RSPd 28%, RSPagl 3%, VISa 1%",
+   "axon_mm": 21.1
+  },
+  "IT-127": {
+   "n": 50,
+   "name": "IT-127",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 127 of the whole-cortex projectome. Cell bodies mostly in Rostrolateral visual area; axons end mostly in Caudoputamen, Primary visual area.",
+   "soma": "VISrl 32%, VISl 16%, VISal 14%",
+   "targets": "CP 28%, VISp 15%, VISrl 10%, VISal 6%",
+   "axon_mm": 111.9
+  },
+  "IT-191": {
+   "n": 50,
+   "name": "IT-191",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 191 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, trunk; axons end mostly in Primary somatosensory area, trunk, Primary somatosensory area, lower limb.",
+   "soma": "SSp-tr 46%, SSp-ll 32%, VISa 16%",
+   "targets": "SSp-tr 25%, SSp-ll 23%, SSs 11%, AUDd 10%",
+   "axon_mm": 41.4
+  },
+  "IT-182": {
+   "n": 50,
+   "name": "IT-182",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 182 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Secondary motor area.",
+   "soma": "SSp-bfd 58%, SSp-ul 16%, SSp-un 14%",
+   "targets": "SSp-bfd 28%, MOs 22%, SSp-ul 15%, SSp-un 10%",
+   "axon_mm": 51.7
+  },
+  "IT-176": {
+   "n": 50,
+   "name": "IT-176",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 176 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Primary somatosensory area, unassigned.",
+   "soma": "SSp-bfd 96%, SSp-un 2%, SSp-ul 2%",
+   "targets": "SSp-bfd 75%, SSp-un 15%, SSp-ul 9%, MOs 1%",
+   "axon_mm": 15.6
+  },
+  "IT-15": {
+   "n": 49,
+   "name": "IT-15",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 15 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Anterior cingulate area, dorsal part.",
+   "soma": "MOs 47%, MOp 16%, RSPd 16%",
+   "targets": "MOs 37%, ACAd 19%, RSPd 9%, MOp 7%",
+   "axon_mm": 62.5
+  },
+  "IT-128": {
+   "n": 49,
+   "name": "IT-128",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 128 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Caudoputamen, Primary visual area.",
+   "soma": "VISp 27%, VISa 22%, VISrl 16%",
+   "targets": "CP 23%, VISp 11%, ACAd 9%, VISa 8%",
+   "axon_mm": 114.6
+  },
+  "IT-108": {
+   "n": 49,
+   "name": "IT-108",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 108 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, upper limb; axons end mostly in Caudoputamen, Primary somatosensory area, upper limb.",
+   "soma": "SSp-ul 53%, SSp-un 16%, MOp 16%",
+   "targets": "CP 20%, SSp-ul 18%, MOp 18%, MOs 12%",
+   "axon_mm": 127.3
+  },
+  "IT-178": {
+   "n": 48,
+   "name": "IT-178",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 178 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Caudoputamen.",
+   "soma": "SSp-bfd 54%, VISa 21%, SSp-tr 12%",
+   "targets": "SSp-bfd 29%, CP 29%, VISa 8%, SSs 6%",
+   "axon_mm": 50.8
+  },
+  "IT-155": {
+   "n": 47,
+   "name": "IT-155",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 155 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Primary somatosensory area, barrel field.",
+   "soma": "SSs 79%, SSp-bfd 17%, AUDd 2%",
+   "targets": "SSs 44%, SSp-bfd 26%, SSp-ul 6%, CP 4%",
+   "axon_mm": 52.1
+  },
+  "IT-196": {
+   "n": 46,
+   "name": "IT-196",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 196 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, upper limb; axons end mostly in Primary motor area, Primary somatosensory area, upper limb.",
+   "soma": "SSp-ul 43%, MOp 30%, SSp-ll 24%",
+   "targets": "MOp 38%, SSp-ul 36%, SSp-ll 13%, MOs 6%",
+   "axon_mm": 50.4
+  },
+  "IT-98": {
+   "n": 46,
+   "name": "IT-98",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 98 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, posterior part; axons end mostly in Agranular insular area, posterior part, Piriform area.",
+   "soma": "AIp 46%, PERI 28%, ECT 11%",
+   "targets": "AIp 16%, PIR 11%, ENTl 7%, ACB 7%",
+   "axon_mm": 94.6
+  },
+  "IT-18": {
+   "n": 46,
+   "name": "IT-18",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 18 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "MOs 87%, MOp 9%, ACAd 2%",
+   "targets": "MOs 48%, CP 18%, MOp 8%, ACAd 5%",
+   "axon_mm": 77.3
+  },
+  "IT-4": {
+   "n": 46,
+   "name": "IT-4",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 4 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Anterior cingulate area, dorsal part.",
+   "soma": "MOs 87%, ACAd 9%, ACAv 2%",
+   "targets": "MOs 54%, ACAd 8%, ENTl 8%, CP 6%",
+   "axon_mm": 80.5
+  },
+  "PT-63": {
+   "n": 45,
+   "name": "PT-63",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 63 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Supplemental somatosensory area.",
+   "soma": "SSp-bfd 56%, SSs 31%, SSp-n 4%",
+   "targets": "SSp-bfd 14%, SSs 12%, CP 6%, MB 6%",
+   "axon_mm": 103.2
+  },
+  "PT-65": {
+   "n": 45,
+   "name": "PT-65",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 65 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, upper limb; axons end mostly in Primary somatosensory area, upper limb, Primary motor area.",
+   "soma": "SSp-ul 53%, MOp 40%, SSp-un 4%",
+   "targets": "SSp-ul 22%, MOp 19%, CP 9%, PG 7%",
+   "axon_mm": 92.4
+  },
+  "PT-57": {
+   "n": 45,
+   "name": "PT-57",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 57 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, trunk; axons end mostly in Primary somatosensory area, lower limb, Caudoputamen.",
+   "soma": "SSp-tr 29%, SSp-ll 27%, VISa 20%",
+   "targets": "SSp-ll 10%, CP 9%, SCig 8%, SSp-tr 8%",
+   "axon_mm": 93.2
+  },
+  "IT-144": {
+   "n": 45,
+   "name": "IT-144",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 144 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, posteromedial visual area.",
+   "soma": "VISp 53%, VISpm 36%, RSPagl 7%",
+   "targets": "VISp 33%, VISpm 20%, VISl 11%, VISal 8%",
+   "axon_mm": 35.2
+  },
+  "CT-35": {
+   "n": 45,
+   "name": "CT-35",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 35 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Rostrolateral visual area.",
+   "soma": "SSp-bfd 58%, VISrl 29%, VISa 4%",
+   "targets": "SSp-bfd 20%, VISrl 18%, PO 12%, LP 9%",
+   "axon_mm": 28.9
+  },
+  "IT-40": {
+   "n": 44,
+   "name": "IT-40",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 40 of the whole-cortex projectome. Cell bodies mostly in Gustatory areas; axons end mostly in Primary motor area, Agranular insular area, dorsal part.",
+   "soma": "GU 34%, SSp-m 25%, AId 20%",
+   "targets": "MOp 21%, AId 18%, GU 18%, CP 12%",
+   "axon_mm": 53.2
+  },
+  "IT-73": {
+   "n": 44,
+   "name": "IT-73",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 73 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Anterior cingulate area, dorsal part.",
+   "soma": "MOs 86%, ACAd 9%, PL 2%",
+   "targets": "MOs 63%, ACAd 9%, PL 7%, CP 6%",
+   "axon_mm": 84.4
+  },
+  "PT-49": {
+   "n": 44,
+   "name": "PT-49",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 49 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Anterior cingulate area, dorsal part, Secondary motor area.",
+   "soma": "ACAd 50%, MOs 23%, RSPv 14%",
+   "targets": "ACAd 13%, MOs 12%, CP 11%, RSPv 8%",
+   "axon_mm": 103.8
+  },
+  "IT-148": {
+   "n": 44,
+   "name": "IT-148",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 148 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, posteromedial visual area.",
+   "soma": "VISp 43%, VISpm 30%, VISam 16%",
+   "targets": "VISp 36%, VISpm 18%, VISam 16%, VISa 12%",
+   "axon_mm": 33.0
+  },
+  "PT-64": {
+   "n": 44,
+   "name": "PT-64",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 64 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, lower limb; axons end mostly in Primary somatosensory area, lower limb, Anterior pretectal nucleus.",
+   "soma": "SSp-ll 43%, SSp-bfd 23%, SSp-ul 20%",
+   "targets": "SSp-ll 22%, APN 9%, CP 8%, SSp-ul 6%",
+   "axon_mm": 85.9
+  },
+  "IT-104": {
+   "n": 43,
+   "name": "IT-104",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 104 of the whole-cortex projectome. Cell bodies mostly in Gustatory areas; axons end mostly in Gustatory areas, Primary somatosensory area, mouth.",
+   "soma": "GU 44%, AId 19%, SSp-m 16%",
+   "targets": "GU 42%, SSp-m 16%, AId 10%, AIp 10%",
+   "axon_mm": 14.8
+  },
+  "IT-195": {
+   "n": 43,
+   "name": "IT-195",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 195 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, upper limb; axons end mostly in Primary motor area, Primary somatosensory area, upper limb.",
+   "soma": "SSp-ul 65%, MOp 28%, SSp-m 7%",
+   "targets": "MOp 36%, SSp-ul 34%, SSs 9%, MOs 7%",
+   "axon_mm": 59.7
+  },
+  "PT-34": {
+   "n": 43,
+   "name": "PT-34",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 34 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Caudoputamen, Posterior complex of the thalamus.",
+   "soma": "SSp-m 49%, SSs 21%, MOp 19%",
+   "targets": "CP 22%, PO 18%, SSp-m 13%, PG 11%",
+   "axon_mm": 33.2
+  },
+  "IT-188": {
+   "n": 43,
+   "name": "IT-188",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 188 of the whole-cortex projectome. Cell bodies mostly in Anteromedial visual area; axons end mostly in Primary visual area, Anteromedial visual area.",
+   "soma": "VISam 40%, VISpm 23%, VISp 16%",
+   "targets": "VISp 16%, VISam 14%, VISpm 12%, RSPagl 10%",
+   "axon_mm": 54.0
+  },
+  "IT-164": {
+   "n": 42,
+   "name": "IT-164",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 164 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, dorsal part; axons end mostly in Retrosplenial area, dorsal part, Retrosplenial area, ventral part.",
+   "soma": "RSPd 55%, RSPv 43%, RSPagl 2%",
+   "targets": "RSPd 50%, RSPv 37%, RSPagl 6%, VISam 3%",
+   "axon_mm": 28.5
+  },
+  "PT-72": {
+   "n": 42,
+   "name": "PT-72",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 72 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Superior colliculus, motor related, intermediate gray layer.",
+   "soma": "VISp 67%, VISrl 19%, VISa 10%",
+   "targets": "VISp 13%, SCig 12%, CP 12%, LP 6%",
+   "axon_mm": 54.1
+  },
+  "IT-85": {
+   "n": 42,
+   "name": "IT-85",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 85 of the whole-cortex projectome. Cell bodies mostly in Ectorhinal area; axons end mostly in Caudoputamen, Nucleus accumbens.",
+   "soma": "ECT 48%, TEa 14%, PERI 14%",
+   "targets": "CP 38%, ACB 10%, MOs 6%, SSs 5%",
+   "axon_mm": 232.4
+  },
+  "IT-97": {
+   "n": 42,
+   "name": "IT-97",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 97 of the whole-cortex projectome. Cell bodies mostly in Ectorhinal area; axons end mostly in Ectorhinal area, Temporal association areas.",
+   "soma": "ECT 62%, TEa 26%, PERI 7%",
+   "targets": "ECT 23%, TEa 15%, CP 12%, ACB 5%",
+   "axon_mm": 55.9
+  },
+  "PT-27": {
+   "n": 42,
+   "name": "PT-27",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 27 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Midbrain reticular nucleus.",
+   "soma": "MOs 74%, ACAd 26%",
+   "targets": "MOs 18%, MRN 11%, MB 8%, SCiw 8%",
+   "axon_mm": 137.8
+  },
+  "IT-121": {
+   "n": 42,
+   "name": "IT-121",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 121 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Primary somatosensory area, mouth, Primary motor area.",
+   "soma": "SSp-m 95%, MOp 5%",
+   "targets": "SSp-m 73%, MOp 16%, SSs 7%, GU 2%",
+   "axon_mm": 30.2
+  },
+  "CT-30": {
+   "n": 42,
+   "name": "CT-30",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 30 of the whole-cortex projectome. Cell bodies mostly in Primary auditory area; axons end mostly in Medial geniculate complex, ventral part, Primary auditory area.",
+   "soma": "AUDp 50%, AUDpo 36%, AUDd 10%",
+   "targets": "MGv 23%, AUDp 20%, MGd 9%, RT 9%",
+   "axon_mm": 22.7
+  },
+  "IT-154": {
+   "n": 41,
+   "name": "IT-154",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 154 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Supplemental somatosensory area.",
+   "soma": "SSp-bfd 41%, SSs 37%, AUDd 10%",
+   "targets": "SSp-bfd 26%, SSs 21%, SSp-tr 13%, VISa 8%",
+   "axon_mm": 46.2
+  },
+  "IT-8": {
+   "n": 41,
+   "name": "IT-8",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 8 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "MOs 95%, MOp 5%",
+   "targets": "MOs 45%, CP 15%, MOp 10%, SSp-bfd 9%",
+   "axon_mm": 159.2
+  },
+  "CT-29": {
+   "n": 41,
+   "name": "CT-29",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 29 of the whole-cortex projectome. Cell bodies mostly in Ventral auditory area; axons end mostly in Ventral auditory area, Medial geniculate complex, ventral part.",
+   "soma": "AUDv 46%, TEa 27%, AUDp 24%",
+   "targets": "AUDv 18%, MGv 13%, AUDp 11%, TEa 8%",
+   "axon_mm": 30.1
+  },
+  "IT-125": {
+   "n": 41,
+   "name": "IT-125",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 125 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Rostrolateral visual area.",
+   "soma": "VISp 41%, VISrl 29%, SSp-bfd 15%",
+   "targets": "VISp 39%, VISrl 28%, SSp-bfd 11%, VISa 7%",
+   "axon_mm": 41.7
+  },
+  "PT-38": {
+   "n": 40,
+   "name": "PT-38",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 38 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Temporal association areas, Superior colliculus, motor related, deep gray layer.",
+   "soma": "TEa 35%, VISpor 18%, AUDpo 12%",
+   "targets": "TEa 10%, SCdg 8%, MB 7%, SCig 6%",
+   "axon_mm": 78.0
+  },
+  "PT-28": {
+   "n": 40,
+   "name": "PT-28",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 28 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Midbrain reticular nucleus.",
+   "soma": "MOs 65%, ACAd 32%, PL 2%",
+   "targets": "MOs 21%, MRN 11%, ACAd 10%, PRNr 9%",
+   "axon_mm": 120.5
+  },
+  "CT-41": {
+   "n": 40,
+   "name": "CT-41",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 41 of the whole-cortex projectome. Cell bodies mostly in Anterolateral visual area; axons end mostly in Lateral posterior nucleus of the thalamus, Anterolateral visual area.",
+   "soma": "VISal 30%, TEa 20%, VISl 18%",
+   "targets": "LP 17%, VISal 10%, TEa 9%, RT 9%",
+   "axon_mm": 22.5
+  },
+  "IT-17": {
+   "n": 39,
+   "name": "IT-17",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 17 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, Caudoputamen.",
+   "soma": "MOp 41%, MOs 38%, ACAd 8%",
+   "targets": "MOp 23%, CP 19%, MOs 18%, SSp-ll 9%",
+   "axon_mm": 81.5
+  },
+  "IT-192": {
+   "n": 39,
+   "name": "IT-192",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 192 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, lower limb; axons end mostly in Primary somatosensory area, lower limb, Primary motor area.",
+   "soma": "SSp-ll 59%, MOp 21%, SSp-tr 8%",
+   "targets": "SSp-ll 47%, MOp 27%, SSp-tr 10%, RSPagl 7%",
+   "axon_mm": 47.3
+  },
+  "IT-100": {
+   "n": 39,
+   "name": "IT-100",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 100 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, posterior part; axons end mostly in Agranular insular area, posterior part, Caudoputamen.",
+   "soma": "AIp 69%, VISC 28%, PIR 3%",
+   "targets": "AIp 32%, CP 12%, VISC 11%, TR 5%",
+   "axon_mm": 44.5
+  },
+  "PT-48": {
+   "n": 39,
+   "name": "PT-48",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 48 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, dorsal part; axons end mostly in Primary visual area, Retrosplenial area, dorsal part.",
+   "soma": "RSPd 38%, RSPv 33%, VISp 21%",
+   "targets": "VISp 17%, RSPd 17%, RSPv 10%, LGv 5%",
+   "axon_mm": 41.6
+  },
+  "CT-51": {
+   "n": 38,
+   "name": "CT-51",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 51 of the whole-cortex projectome. Cell bodies mostly in Visceral area; axons end mostly in Visceral area, Supplemental somatosensory area.",
+   "soma": "VISC 50%, SSs 32%, AIp 11%",
+   "targets": "VISC 18%, SSs 11%, VPM 11%, MGm 8%",
+   "axon_mm": 31.5
+  },
+  "IT-7": {
+   "n": 38,
+   "name": "IT-7",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 7 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Caudoputamen, Secondary motor area.",
+   "soma": "MOs 84%, PL 8%, ACAd 5%",
+   "targets": "CP 37%, MOs 32%, ACAd 4%, ORBl 4%",
+   "axon_mm": 288.7
+  },
+  "CT-31": {
+   "n": 38,
+   "name": "CT-31",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 31 of the whole-cortex projectome. Cell bodies mostly in Primary auditory area; axons end mostly in Medial geniculate complex, ventral part, Medial geniculate complex, dorsal part.",
+   "soma": "AUDp 58%, AUDv 26%, TEa 8%",
+   "targets": "MGv 22%, MGd 15%, AUDp 13%, AUDv 11%",
+   "axon_mm": 19.7
+  },
+  "IT-151": {
+   "n": 38,
+   "name": "IT-151",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 151 of the whole-cortex projectome. Cell bodies mostly in Perirhinal area; axons end mostly in Entorhinal area, lateral part, Field CA1.",
+   "soma": "PERI 45%, VISpor 24%, VISpl 13%",
+   "targets": "ENTl 33%, CA1 11%, PERI 9%, VISpor 7%",
+   "axon_mm": 44.5
+  },
+  "IT-106": {
+   "n": 37,
+   "name": "IT-106",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 106 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Primary somatosensory area, barrel field.",
+   "soma": "SSs 100%",
+   "targets": "SSs 66%, SSp-bfd 6%, CP 5%, MOp 4%",
+   "axon_mm": 59.5
+  },
+  "IT-92": {
+   "n": 37,
+   "name": "IT-92",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 92 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Visceral area.",
+   "soma": "SSs 49%, VISC 22%, TEa 16%",
+   "targets": "SSs 32%, VISC 16%, CP 13%, TEa 12%",
+   "axon_mm": 51.1
+  },
+  "IT-2": {
+   "n": 37,
+   "name": "IT-2",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 2 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "MOs 84%, ACAd 11%, MOp 5%",
+   "targets": "MOs 35%, CP 19%, SSp-bfd 8%, MOp 8%",
+   "axon_mm": 181.9
+  },
+  "PT-45": {
+   "n": 37,
+   "name": "PT-45",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 45 of the whole-cortex projectome. Cell bodies mostly in Lateral visual area; axons end mostly in Primary visual area, Caudoputamen.",
+   "soma": "VISl 43%, VISp 43%, VISal 8%",
+   "targets": "VISp 20%, CP 16%, SCig 13%, VISl 9%",
+   "axon_mm": 63.8
+  },
+  "PT-36": {
+   "n": 36,
+   "name": "PT-36",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 36 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Caudoputamen, Supplemental somatosensory area.",
+   "soma": "SSs 61%, GU 17%, AIp 8%",
+   "targets": "CP 18%, SSs 17%, PG 7%, PO 6%",
+   "axon_mm": 44.3
+  },
+  "CT-60": {
+   "n": 36,
+   "name": "CT-60",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 60 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, internal capsule.",
+   "soma": "MOp 69%, SSp-ll 22%, MOs 8%",
+   "targets": "MOp 23%, int 18%, RT 11%, SSp-ll 11%",
+   "axon_mm": 29.9
+  },
+  "IT-6": {
+   "n": 36,
+   "name": "IT-6",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 6 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "MOs 53%, ACAd 25%, PL 11%",
+   "targets": "MOs 35%, CP 28%, ACAd 10%, PL 5%",
+   "axon_mm": 127.6
+  },
+  "PT-26": {
+   "n": 36,
+   "name": "PT-26",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 26 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Anterior cingulate area, dorsal part.",
+   "soma": "MOs 53%, ACAd 47%",
+   "targets": "MOs 17%, ACAd 10%, MB 10%, MRN 8%",
+   "axon_mm": 148.1
+  },
+  "IT-190": {
+   "n": 36,
+   "name": "IT-190",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 190 of the whole-cortex projectome. Cell bodies mostly in Anterior area; axons end mostly in Anterior area, Primary somatosensory area, trunk.",
+   "soma": "VISa 50%, SSp-tr 36%, VISam 14%",
+   "targets": "VISa 44%, SSp-tr 34%, VISam 10%, RSPagl 6%",
+   "axon_mm": 9.6
+  },
+  "PT-41": {
+   "n": 36,
+   "name": "PT-41",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 41 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Periaqueductal gray, Midbrain.",
+   "soma": "TEa 50%, ECT 44%, VISC 3%",
+   "targets": "PAG 21%, MB 16%, MRN 9%, TEa 7%",
+   "axon_mm": 126.2
+  },
+  "IT-137": {
+   "n": 36,
+   "name": "IT-137",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 137 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Posterolateral visual area.",
+   "soma": "VISp 42%, RSPagl 22%, RSPd 19%",
+   "targets": "VISp 36%, VISpl 16%, RSPagl 14%, RSPd 11%",
+   "axon_mm": 20.7
+  },
+  "IT-71": {
+   "n": 36,
+   "name": "IT-71",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 71 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Caudoputamen, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 42%, MOs 33%, PL 22%",
+   "targets": "CP 40%, ACAd 19%, MOs 17%, PL 13%",
+   "axon_mm": 111.4
+  },
+  "IT-31": {
+   "n": 36,
+   "name": "IT-31",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 31 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Orbital area, ventrolateral part, Orbital area, medial part.",
+   "soma": "ORBvl 50%, ORBm 31%, ACAv 11%",
+   "targets": "ORBvl 18%, ORBm 13%, RSPagl 10%, ACAv 10%",
+   "axon_mm": 74.4
+  },
+  "PT-69": {
+   "n": 35,
+   "name": "PT-69",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 69 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, dorsal part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPd 54%, ACAd 17%, RSPv 14%",
+   "targets": "RSPv 19%, RSPd 15%, ACAd 11%, ACAv 6%",
+   "axon_mm": 102.8
+  },
+  "IT-198": {
+   "n": 35,
+   "name": "IT-198",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 198 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Retrosplenial area, ventral part.",
+   "soma": "MOs 29%, ACAd 17%, RSPagl 14%",
+   "targets": "MOs 21%, RSPv 12%, CP 11%, RSPd 9%",
+   "axon_mm": 133.3
+  },
+  "IT-26": {
+   "n": 35,
+   "name": "IT-26",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 26 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Primary motor area.",
+   "soma": "MOs 63%, ACAd 11%, MOp 11%",
+   "targets": "MOs 56%, MOp 17%, ACAd 6%, PL 4%",
+   "axon_mm": 92.6
+  },
+  "CT-55": {
+   "n": 35,
+   "name": "CT-55",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 55 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Anteroventral nucleus of thalamus, Retrosplenial area, ventral part.",
+   "soma": "RSPv 60%, RSPd 40%",
+   "targets": "AV 30%, RSPv 25%, LD 20%, RSPd 7%",
+   "axon_mm": 21.4
+  },
+  "IT-167": {
+   "n": 35,
+   "name": "IT-167",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 167 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 66%, RSPagl 14%, VISpm 6%",
+   "targets": "RSPv 32%, RSPd 22%, RSPagl 12%, ENTm 5%",
+   "axon_mm": 41.1
+  },
+  "IT-181": {
+   "n": 35,
+   "name": "IT-181",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 181 of the whole-cortex projectome. Cell bodies mostly in Rostrolateral visual area; axons end mostly in Secondary motor area, Primary somatosensory area, barrel field.",
+   "soma": "VISrl 26%, SSp-bfd 23%, VISa 14%",
+   "targets": "MOs 26%, SSp-bfd 12%, VISrl 10%, VISa 8%",
+   "axon_mm": 56.1
+  },
+  "CT-50": {
+   "n": 34,
+   "name": "CT-50",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 50 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Medial geniculate complex, medial part.",
+   "soma": "SSs 100%",
+   "targets": "SSs 33%, MGm 15%, PO 8%, PoT 8%",
+   "axon_mm": 28.0
+  },
+  "IT-39": {
+   "n": 34,
+   "name": "IT-39",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 39 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Agranular insular area, dorsal part, Caudoputamen.",
+   "soma": "AIv 35%, AId 29%, GU 18%",
+   "targets": "AId 14%, CP 12%, AIv 11%, PL 7%",
+   "axon_mm": 103.7
+  },
+  "CT-64": {
+   "n": 34,
+   "name": "CT-64",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 64 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, upper limb; axons end mostly in Ventral posterolateral nucleus of the thalamus, Primary somatosensory area, upper limb.",
+   "soma": "SSp-ul 68%, SSp-m 26%, MOp 6%",
+   "targets": "VPL 23%, SSp-ul 22%, SSp-m 14%, PO 11%",
+   "axon_mm": 19.2
+  },
+  "CT-45": {
+   "n": 34,
+   "name": "CT-45",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 45 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Lateral dorsal nucleus of thalamus.",
+   "soma": "VISp 76%, RSPd 15%, RSPagl 6%",
+   "targets": "VISp 39%, LD 13%, LP 9%, LGd-co 8%",
+   "axon_mm": 25.8
+  },
+  "IT-82": {
+   "n": 33,
+   "name": "IT-82",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 82 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, Secondary motor area.",
+   "soma": "MOp 79%, MOs 21%",
+   "targets": "MOp 47%, MOs 33%, SSs 7%, CP 3%",
+   "axon_mm": 76.8
+  },
+  "CT-47": {
+   "n": 33,
+   "name": "CT-47",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 47 of the whole-cortex projectome. Cell bodies mostly in Gustatory areas; axons end mostly in Ventral posteromedial nucleus of the thalamus, Gustatory areas.",
+   "soma": "GU 48%, SSs 39%, SSp-m 9%",
+   "targets": "VPM 20%, GU 18%, SSs 16%, VPLpc 10%",
+   "axon_mm": 29.0
+  },
+  "PT-56": {
+   "n": 33,
+   "name": "PT-56",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 56 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Caudoputamen, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 39%, ACAv 27%, MOs 21%",
+   "targets": "CP 12%, ACAd 10%, MB 7%, ACAv 7%",
+   "axon_mm": 109.2
+  },
+  "IT-147": {
+   "n": 33,
+   "name": "IT-147",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 147 of the whole-cortex projectome. Cell bodies mostly in Anterior area; axons end mostly in Anterior area, Anteromedial visual area.",
+   "soma": "VISa 58%, VISam 21%, VISpm 15%",
+   "targets": "VISa 29%, VISam 10%, VISal 9%, SSp-bfd 7%",
+   "axon_mm": 40.9
+  },
+  "IT-87": {
+   "n": 33,
+   "name": "IT-87",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 87 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Caudoputamen, Agranular insular area, dorsal part.",
+   "soma": "AId 67%, GU 15%, MOp 6%",
+   "targets": "CP 42%, AId 14%, GU 10%, MOp 6%",
+   "axon_mm": 155.6
+  },
+  "IT-91": {
+   "n": 33,
+   "name": "IT-91",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 91 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Temporal association areas, Caudoputamen.",
+   "soma": "TEa 45%, ECT 27%, AUDv 24%",
+   "targets": "TEa 24%, CP 18%, ECT 11%, AUDv 9%",
+   "axon_mm": 71.9
+  },
+  "CT-46": {
+   "n": 33,
+   "name": "CT-46",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 46 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Ventral posteromedial nucleus of the thalamus, Primary somatosensory area, mouth.",
+   "soma": "SSp-m 97%, SSs 3%",
+   "targets": "VPM 39%, SSp-m 33%, int 10%, PO 8%",
+   "axon_mm": 25.7
+  },
+  "IT-138": {
+   "n": 33,
+   "name": "IT-138",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 138 of the whole-cortex projectome. Cell bodies mostly in Posterolateral visual area; axons end mostly in Primary visual area, Posterolateral visual area.",
+   "soma": "VISpl 39%, VISp 33%, VISpor 12%",
+   "targets": "VISp 22%, VISpl 14%, ENTm 12%, ENTl 10%",
+   "axon_mm": 41.0
+  },
+  "PT-37": {
+   "n": 33,
+   "name": "PT-37",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 37 of the whole-cortex projectome. Cell bodies mostly in Anterolateral visual area; axons end mostly in Superior colliculus, motor related, intermediate gray layer, Superior colliculus, motor related, intermediate white layer.",
+   "soma": "VISal 21%, SSp-bfd 21%, AUDp 15%",
+   "targets": "SCig 11%, SCiw 10%, MB 8%, ICd 8%",
+   "axon_mm": 90.3
+  },
+  "IT-150": {
+   "n": 33,
+   "name": "IT-150",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 150 of the whole-cortex projectome. Cell bodies mostly in Anterolateral visual area; axons end mostly in Caudoputamen, Postrhinal area.",
+   "soma": "VISal 27%, VISl 18%, VISpor 15%",
+   "targets": "CP 26%, VISpor 12%, VISl 11%, TEa 9%",
+   "axon_mm": 62.2
+  },
+  "PT-20": {
+   "n": 32,
+   "name": "PT-20",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 20 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, Secondary motor area.",
+   "soma": "MOp 59%, MOs 31%, SSp-ul 9%",
+   "targets": "MOp 20%, MOs 12%, CP 12%, SCig 7%",
+   "axon_mm": 91.7
+  },
+  "PT-31": {
+   "n": 32,
+   "name": "PT-31",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 31 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Central amygdalar nucleus, medial part, Substantia innominata.",
+   "soma": "AId 62%, AIp 28%, AIv 6%",
+   "targets": "CEAm 14%, SI 7%, AIp 6%, BMAa 6%",
+   "axon_mm": 115.1
+  },
+  "IT-94": {
+   "n": 32,
+   "name": "IT-94",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 94 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Caudoputamen.",
+   "soma": "SSs 25%, TEa 16%, AUDd 16%",
+   "targets": "SSs 16%, CP 13%, TEa 9%, MOs 7%",
+   "axon_mm": 84.8
+  },
+  "CT-36": {
+   "n": 32,
+   "name": "CT-36",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 36 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Rostrolateral visual area.",
+   "soma": "VISp 59%, VISrl 38%, VISl 3%",
+   "targets": "VISp 30%, VISrl 17%, LGd-co 12%, RT 8%",
+   "axon_mm": 24.4
+  },
+  "CT-63": {
+   "n": 31,
+   "name": "CT-63",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 63 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, upper limb; axons end mostly in Primary somatosensory area, upper limb, Ventral posterolateral nucleus of the thalamus.",
+   "soma": "SSp-ul 90%, SSp-ll 10%",
+   "targets": "SSp-ul 28%, VPL 16%, int 11%, PO 10%",
+   "axon_mm": 28.5
+  },
+  "PT-59": {
+   "n": 31,
+   "name": "PT-59",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 59 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, upper limb; axons end mostly in Posterior complex of the thalamus, Primary somatosensory area, upper limb.",
+   "soma": "SSp-ul 68%, SSp-n 10%, SSp-un 10%",
+   "targets": "PO 24%, SSp-ul 21%, PG 10%, CP 8%",
+   "axon_mm": 34.1
+  },
+  "IT-200": {
+   "n": 31,
+   "name": "IT-200",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 200 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, lower limb; axons end mostly in Primary somatosensory area, lower limb, Caudoputamen.",
+   "soma": "SSp-ll 58%, MOp 19%, SSp-ul 10%",
+   "targets": "SSp-ll 23%, CP 21%, MOp 18%, SSs 10%",
+   "axon_mm": 108.0
+  },
+  "CT-57": {
+   "n": 30,
+   "name": "CT-57",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 57 of the whole-cortex projectome. Cell bodies mostly in Anterior area; axons end mostly in Lateral posterior nucleus of the thalamus, Ventral posterolateral nucleus of the thalamus.",
+   "soma": "VISa 50%, RSPagl 23%, SSp-tr 20%",
+   "targets": "LP 15%, VPL 12%, LD 12%, RT 8%",
+   "axon_mm": 32.0
+  },
+  "CT-56": {
+   "n": 30,
+   "name": "CT-56",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 56 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, trunk; axons end mostly in Ventral posterolateral nucleus of the thalamus, Reticular nucleus of the thalamus.",
+   "soma": "SSp-tr 80%, SSp-ll 10%, SSp-ul 7%",
+   "targets": "VPL 22%, RT 20%, SSp-tr 15%, int 13%",
+   "axon_mm": 18.8
+  },
+  "PT-35": {
+   "n": 30,
+   "name": "PT-35",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 35 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, posterior part; axons end mostly in Caudoputamen, Agranular insular area, posterior part.",
+   "soma": "AIp 53%, VISC 33%, ECT 7%",
+   "targets": "CP 17%, AIp 10%, VISC 8%, PoT 5%",
+   "axon_mm": 77.3
+  },
+  "IT-143": {
+   "n": 30,
+   "name": "IT-143",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 143 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, dorsal part, Retrosplenial area, lateral agranular part.",
+   "soma": "RSPv 37%, RSPagl 23%, RSPd 17%",
+   "targets": "RSPd 23%, RSPagl 19%, VISp 17%, RSPv 15%",
+   "axon_mm": 33.0
+  },
+  "IT-139": {
+   "n": 30,
+   "name": "IT-139",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 139 of the whole-cortex projectome. Cell bodies mostly in Lateral visual area; axons end mostly in Lateral visual area, Primary visual area.",
+   "soma": "VISl 47%, VISp 37%, VISpor 13%",
+   "targets": "VISl 35%, VISp 33%, VISpor 8%, VISrl 5%",
+   "axon_mm": 34.3
+  },
+  "IT-132": {
+   "n": 30,
+   "name": "IT-132",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 132 of the whole-cortex projectome. Cell bodies mostly in Perirhinal area; axons end mostly in Entorhinal area, lateral part, Entorhinal area, medial part, dorsal zone.",
+   "soma": "PERI 37%, VISpor 33%, VISpl 20%",
+   "targets": "ENTl 32%, ENTm 16%, CA1 13%, VISpor 8%",
+   "axon_mm": 52.5
+  },
+  "IT-187": {
+   "n": 29,
+   "name": "IT-187",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 187 of the whole-cortex projectome. Cell bodies mostly in Anterior area; axons end mostly in Secondary motor area, Anterior area.",
+   "soma": "VISa 66%, VISam 14%, VISpm 10%",
+   "targets": "MOs 28%, VISa 27%, VISrl 7%, VISam 5%",
+   "axon_mm": 41.6
+  },
+  "CT-58": {
+   "n": 29,
+   "name": "CT-58",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 58 of the whole-cortex projectome. Cell bodies mostly in Anteromedial visual area; axons end mostly in Lateral dorsal nucleus of thalamus, Lateral posterior nucleus of the thalamus.",
+   "soma": "VISam 38%, RSPagl 28%, VISa 17%",
+   "targets": "LD 23%, LP 16%, RSPagl 11%, VISam 11%",
+   "axon_mm": 37.1
+  },
+  "PT-74": {
+   "n": 29,
+   "name": "PT-74",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 74 of the whole-cortex projectome. Cell bodies mostly in Anterior area; axons end mostly in Caudoputamen, Anterior area.",
+   "soma": "VISa 41%, SSp-bfd 24%, SSp-tr 10%",
+   "targets": "CP 16%, VISa 8%, SCig 7%, SSp-bfd 6%",
+   "axon_mm": 60.6
+  },
+  "PT-23": {
+   "n": 29,
+   "name": "PT-23",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 23 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Midbrain reticular nucleus, Secondary motor area.",
+   "soma": "MOs 66%, FRP 21%, PL 10%",
+   "targets": "MRN 15%, MOs 15%, SCiw 7%, IRN 6%",
+   "axon_mm": 153.5
+  },
+  "IT-25": {
+   "n": 29,
+   "name": "IT-25",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 25 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Caudoputamen, Secondary motor area.",
+   "soma": "ACAd 41%, MOs 38%, PL 14%",
+   "targets": "CP 25%, MOs 24%, ACAd 20%, ACAv 8%",
+   "axon_mm": 82.4
+  },
+  "IT-168": {
+   "n": 29,
+   "name": "IT-168",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 168 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 97%, RSPd 3%",
+   "targets": "RSPv 39%, RSPd 13%, ACAv 9%, ENTl 7%",
+   "axon_mm": 64.6
+  },
+  "PT-58": {
+   "n": 28,
+   "name": "PT-58",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 58 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, lower limb; axons end mostly in Primary somatosensory area, lower limb, Primary motor area.",
+   "soma": "SSp-ll 36%, MOp 21%, SSp-ul 21%",
+   "targets": "SSp-ll 12%, MOp 10%, CP 9%, PF 9%",
+   "axon_mm": 82.7
+  },
+  "IT-9": {
+   "n": 28,
+   "name": "IT-9",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 9 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "MOs 79%, PL 14%, ORBl 4%",
+   "targets": "MOs 33%, CP 31%, MOp 5%, SSs 5%",
+   "axon_mm": 190.1
+  },
+  "PT-51": {
+   "n": 28,
+   "name": "PT-51",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 51 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Anterior cingulate area, dorsal part, Caudoputamen.",
+   "soma": "ACAd 68%, MOs 25%, ACAv 7%",
+   "targets": "ACAd 14%, CP 12%, ZI 11%, MOs 9%",
+   "axon_mm": 137.8
+  },
+  "IT-180": {
+   "n": 28,
+   "name": "IT-180",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 180 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Temporal association areas.",
+   "soma": "SSp-bfd 86%, VISa 7%, SSp-un 4%",
+   "targets": "SSp-bfd 42%, TEa 15%, CP 10%, SSs 6%",
+   "axon_mm": 40.7
+  },
+  "IT-185": {
+   "n": 28,
+   "name": "IT-185",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 185 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Caudoputamen.",
+   "soma": "VISp 68%, RSPd 11%, VISpm 7%",
+   "targets": "VISp 24%, CP 22%, RSPd 15%, RSPagl 10%",
+   "axon_mm": 63.8
+  },
+  "CT-28": {
+   "n": 28,
+   "name": "CT-28",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 28 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Temporal association areas, Medial geniculate complex, dorsal part.",
+   "soma": "TEa 68%, AUDv 18%, ECT 14%",
+   "targets": "TEa 22%, MGd 16%, MGv 11%, ECT 9%",
+   "axon_mm": 28.3
+  },
+  "CT-40": {
+   "n": 28,
+   "name": "CT-40",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 40 of the whole-cortex projectome. Cell bodies mostly in Anterolateral visual area; axons end mostly in Lateral posterior nucleus of the thalamus, Anterolateral visual area.",
+   "soma": "VISal 46%, VISrl 14%, VISp 14%",
+   "targets": "LP 32%, VISal 16%, VISp 5%, VISrl 5%",
+   "axon_mm": 27.6
+  },
+  "PT-61": {
+   "n": 27,
+   "name": "PT-61",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 61 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, nose; axons end mostly in Caudoputamen, Primary somatosensory area, nose.",
+   "soma": "SSp-n 33%, SSp-ul 26%, SSp-un 15%",
+   "targets": "CP 21%, SSp-n 9%, PG 8%, SCig 8%",
+   "axon_mm": 85.0
+  },
+  "CT-5": {
+   "n": 27,
+   "name": "CT-5",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 5 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Posterior complex of the thalamus, Secondary motor area.",
+   "soma": "MOs 78%, MOp 19%, ACAd 4%",
+   "targets": "PO 25%, MOs 17%, VAL 10%, int 6%",
+   "axon_mm": 46.3
+  },
+  "CT-65": {
+   "n": 27,
+   "name": "CT-65",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 65 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, Posterior complex of the thalamus.",
+   "soma": "MOp 74%, SSp-ul 26%",
+   "targets": "MOp 31%, PO 22%, SSp-ul 12%, VPL 10%",
+   "axon_mm": 30.2
+  },
+  "IT-120": {
+   "n": 26,
+   "name": "IT-120",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 120 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Primary somatosensory area, mouth, Primary motor area.",
+   "soma": "SSp-m 65%, MOp 23%, SSs 8%",
+   "targets": "SSp-m 34%, MOp 20%, VISC 11%, AIp 9%",
+   "axon_mm": 49.7
+  },
+  "CT-48": {
+   "n": 26,
+   "name": "CT-48",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 48 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Mediodorsal nucleus of thalamus, Ventral posteromedial nucleus of the thalamus, parvicellular part.",
+   "soma": "AId 46%, GU 19%, MOp 19%",
+   "targets": "MD 15%, VPMpc 8%, MOp 8%, VPM 7%",
+   "axon_mm": 39.9
+  },
+  "IT-149": {
+   "n": 26,
+   "name": "IT-149",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 149 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Caudoputamen, Temporal association areas.",
+   "soma": "TEa 15%, ECT 12%, VISl 12%",
+   "targets": "CP 23%, TEa 10%, VISpor 6%, AUDp 5%",
+   "axon_mm": 101.4
+  },
+  "CT-49": {
+   "n": 26,
+   "name": "CT-49",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 49 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Visceral area.",
+   "soma": "SSs 65%, VISC 31%, AUDv 4%",
+   "targets": "SSs 27%, VISC 15%, MGm 11%, PO 10%",
+   "axon_mm": 26.6
+  },
+  "CT-33": {
+   "n": 26,
+   "name": "CT-33",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 33 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Ventral posteromedial nucleus of the thalamus.",
+   "soma": "SSp-bfd 81%, SSs 15%, AUDd 4%",
+   "targets": "SSp-bfd 40%, VPM 22%, SSs 10%, PO 7%",
+   "axon_mm": 26.8
+  },
+  "IT-32": {
+   "n": 25,
+   "name": "IT-32",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 32 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Agranular insular area, ventral part, Orbital area, lateral part.",
+   "soma": "AIv 68%, ORBl 24%, AId 4%",
+   "targets": "AIv 31%, ORBl 20%, ORBm 9%, ORBvl 9%",
+   "axon_mm": 61.8
+  },
+  "IT-118": {
+   "n": 25,
+   "name": "IT-118",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 118 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Primary motor area, Caudoputamen.",
+   "soma": "SSp-m 40%, SSp-ul 24%, MOp 20%",
+   "targets": "MOp 32%, CP 16%, SSp-m 14%, SSp-ul 12%",
+   "axon_mm": 67.1
+  },
+  "IT-23": {
+   "n": 25,
+   "name": "IT-23",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 23 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Anterior cingulate area, dorsal part.",
+   "soma": "MOs 84%, ACAv 8%, RSPagl 4%",
+   "targets": "MOs 54%, ACAd 11%, CP 10%, ACAv 4%",
+   "axon_mm": 71.6
+  },
+  "PT-76": {
+   "n": 25,
+   "name": "PT-76",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 76 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, lateral agranular part; axons end mostly in Periaqueductal gray, Midbrain.",
+   "soma": "RSPagl 44%, RSPd 28%, RSPv 12%",
+   "targets": "PAG 10%, MB 9%, SCiw 9%, RSPd 7%",
+   "axon_mm": 78.0
+  },
+  "PT-21": {
+   "n": 25,
+   "name": "PT-21",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 21 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, Caudoputamen.",
+   "soma": "MOp 76%, MOs 24%",
+   "targets": "MOp 20%, CP 15%, MOs 10%, MB 7%",
+   "axon_mm": 111.5
+  },
+  "IT-184": {
+   "n": 25,
+   "name": "IT-184",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 184 of the whole-cortex projectome. Cell bodies mostly in Anterior area; axons end mostly in Caudoputamen, Anterior area.",
+   "soma": "VISa 24%, VISam 20%, RSPagl 20%",
+   "targets": "CP 32%, VISa 12%, RSPagl 9%, VISam 8%",
+   "axon_mm": 47.4
+  },
+  "IT-156": {
+   "n": 25,
+   "name": "IT-156",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 156 of the whole-cortex projectome. Cell bodies mostly in Ventral auditory area; axons end mostly in Ventral auditory area, Primary auditory area.",
+   "soma": "AUDv 32%, AUDp 28%, AUDd 28%",
+   "targets": "AUDv 18%, AUDp 17%, AUDd 13%, SSs 11%",
+   "axon_mm": 62.0
+  },
+  "CT-61": {
+   "n": 25,
+   "name": "CT-61",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 61 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, lower limb; axons end mostly in Primary somatosensory area, lower limb, internal capsule.",
+   "soma": "SSp-ll 76%, MOp 24%",
+   "targets": "SSp-ll 26%, int 21%, RT 19%, VPL 11%",
+   "axon_mm": 20.6
+  },
+  "PT-68": {
+   "n": 25,
+   "name": "PT-68",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 68 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 64%, RSPd 36%",
+   "targets": "RSPv 33%, RSPd 19%, ACAv 10%, ZI 6%",
+   "axon_mm": 88.8
+  },
+  "CT-37": {
+   "n": 25,
+   "name": "CT-37",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 37 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Dorsal part of the lateral geniculate complex, core, Primary visual area.",
+   "soma": "VISp 40%, VISpm 36%, VISrl 12%",
+   "targets": "LGd-co 17%, VISp 13%, IGL 8%, VISpm 8%",
+   "axon_mm": 19.9
+  },
+  "CT-67": {
+   "n": 24,
+   "name": "CT-67",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 67 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, nose; axons end mostly in Ventral posteromedial nucleus of the thalamus, Primary somatosensory area, barrel field.",
+   "soma": "SSp-n 50%, SSp-bfd 42%, SSp-un 4%",
+   "targets": "VPM 31%, SSp-bfd 24%, SSp-n 18%, PO 9%",
+   "axon_mm": 31.0
+  },
+  "IT-14": {
+   "n": 24,
+   "name": "IT-14",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 14 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, ventral part; axons end mostly in Anterior cingulate area, ventral part, Anterior cingulate area, dorsal part.",
+   "soma": "ACAv 71%, ACAd 29%",
+   "targets": "ACAv 37%, ACAd 21%, CP 18%, RSPagl 5%",
+   "axon_mm": 74.1
+  },
+  "IT-10": {
+   "n": 24,
+   "name": "IT-10",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 10 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Anterior cingulate area, dorsal part, Caudoputamen.",
+   "soma": "ACAd 38%, ACAv 33%, MOs 17%",
+   "targets": "ACAd 23%, CP 21%, ACAv 20%, MOs 13%",
+   "axon_mm": 71.4
+  },
+  "IT-45": {
+   "n": 24,
+   "name": "IT-45",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 45 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Orbital area, medial part, Agranular insular area, ventral part.",
+   "soma": "AIv 38%, ORBm 29%, ORBvl 17%",
+   "targets": "ORBm 16%, AIv 13%, ENTl 10%, PIR 9%",
+   "axon_mm": 97.9
+  },
+  "PT-43": {
+   "n": 24,
+   "name": "PT-43",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 43 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Superior colliculus, motor related, intermediate gray layer.",
+   "soma": "VISp 46%, VISpl 29%, VISpor 8%",
+   "targets": "VISp 16%, SCig 12%, SCop 11%, VISpl 9%",
+   "axon_mm": 48.3
+  },
+  "IT-124": {
+   "n": 24,
+   "name": "IT-124",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 124 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Lateral visual area.",
+   "soma": "VISp 67%, VISam 12%, VISl 12%",
+   "targets": "VISp 42%, VISl 12%, VISam 8%, RSPagl 6%",
+   "axon_mm": 49.3
+  },
+  "IT-37": {
+   "n": 23,
+   "name": "IT-37",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 37 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Agranular insular area, dorsal part, Agranular insular area, ventral part.",
+   "soma": "AIv 48%, AId 39%, GU 4%",
+   "targets": "AId 27%, AIv 13%, CP 11%, SI 6%",
+   "axon_mm": 52.5
+  },
+  "IT-22": {
+   "n": 23,
+   "name": "IT-22",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 22 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "MOs 91%, MOp 9%",
+   "targets": "MOs 66%, CP 10%, MOp 9%, FRP 3%",
+   "axon_mm": 72.0
+  },
+  "PT-71": {
+   "n": 23,
+   "name": "PT-71",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 71 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Superior colliculus, motor related, intermediate gray layer.",
+   "soma": "VISp 70%, VISl 22%, VISal 4%",
+   "targets": "VISp 19%, SCig 14%, LD 13%, LGv 10%",
+   "axon_mm": 54.3
+  },
+  "IT-38": {
+   "n": 22,
+   "name": "IT-38",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 38 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Agranular insular area, ventral part, Agranular insular area, dorsal part.",
+   "soma": "AIv 41%, AIp 32%, AId 23%",
+   "targets": "AIv 23%, AId 19%, ENTl 11%, PIR 11%",
+   "axon_mm": 93.5
+  },
+  "PT-25": {
+   "n": 22,
+   "name": "PT-25",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 25 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Midbrain.",
+   "soma": "MOs 77%, ACAd 23%",
+   "targets": "MOs 17%, MB 10%, CP 10%, SCig 8%",
+   "axon_mm": 112.0
+  },
+  "CT-6": {
+   "n": 22,
+   "name": "CT-6",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 6 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Lateral dorsal nucleus of thalamus, Posterior complex of the thalamus.",
+   "soma": "MOs 50%, MOp 32%, ACAd 14%",
+   "targets": "LD 14%, PO 11%, RT 8%, MOs 8%",
+   "axon_mm": 45.8
+  },
+  "CT-43": {
+   "n": 22,
+   "name": "CT-43",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 43 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Lateral posterior nucleus of the thalamus.",
+   "soma": "VISp 45%, VISl 23%, VISpl 18%",
+   "targets": "VISp 23%, LP 17%, VISpl 8%, VISl 8%",
+   "axon_mm": 36.8
+  },
+  "IT-52": {
+   "n": 22,
+   "name": "IT-52",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 52 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Orbital area, lateral part, Secondary motor area.",
+   "soma": "ORBl 64%, AIv 27%, AId 9%",
+   "targets": "ORBl 31%, MOs 26%, AId 8%, FRP 8%",
+   "axon_mm": 84.2
+  },
+  "CT-59": {
+   "n": 22,
+   "name": "CT-59",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 59 of the whole-cortex projectome. Cell bodies mostly in Anteromedial visual area; axons end mostly in Anterior area, Lateral posterior nucleus of the thalamus.",
+   "soma": "VISam 41%, VISa 36%, VISpm 14%",
+   "targets": "VISa 19%, LP 13%, RT 12%, VISam 12%",
+   "axon_mm": 22.8
+  },
+  "IT-179": {
+   "n": 21,
+   "name": "IT-179",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 179 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Primary somatosensory area, upper limb.",
+   "soma": "SSp-bfd 100%",
+   "targets": "SSp-bfd 67%, SSp-ul 8%, SSp-un 7%, SSs 6%",
+   "axon_mm": 39.1
+  },
+  "IT-88": {
+   "n": 21,
+   "name": "IT-88",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 88 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Caudoputamen, Agranular insular area, dorsal part.",
+   "soma": "AId 67%, AIv 33%",
+   "targets": "CP 25%, AId 23%, AIv 10%, ACB 10%",
+   "axon_mm": 224.2
+  },
+  "PT-77": {
+   "n": 21,
+   "name": "PT-77",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 77 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, lateral agranular part; axons end mostly in Caudoputamen, Primary visual area.",
+   "soma": "RSPagl 48%, RSPd 43%, VISpm 5%",
+   "targets": "CP 12%, VISp 11%, SCiw 11%, SCig 8%",
+   "axon_mm": 101.6
+  },
+  "CT-3": {
+   "n": 21,
+   "name": "CT-3",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 3 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Posterior complex of the thalamus, Primary motor area.",
+   "soma": "MOp 71%, MOs 29%",
+   "targets": "PO 20%, MOp 17%, VAL 15%, VPM 11%",
+   "axon_mm": 43.0
+  },
+  "CT-54": {
+   "n": 21,
+   "name": "CT-54",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 54 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Retrosplenial area, ventral part, Lateral dorsal nucleus of thalamus.",
+   "soma": "MOs 38%, ACAd 24%, RSPv 24%",
+   "targets": "RSPv 36%, LD 18%, AV 9%, ACAd 4%",
+   "axon_mm": 33.0
+  },
+  "PT-75": {
+   "n": 21,
+   "name": "PT-75",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 75 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Primary somatosensory area, lower limb, Retrosplenial area, ventral part.",
+   "soma": "RSPv 24%, RSPd 19%, SSp-ll 14%",
+   "targets": "SSp-ll 11%, RSPv 6%, LD 6%, CP 5%",
+   "axon_mm": 63.7
+  },
+  "PT-32": {
+   "n": 21,
+   "name": "PT-32",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 32 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Parvicellular reticular nucleus, Midbrain reticular nucleus.",
+   "soma": "AId 48%, MOp 33%, MOs 10%",
+   "targets": "PARN 26%, MRN 10%, PG 9%, IRN 8%",
+   "axon_mm": 142.5
+  },
+  "PT-73": {
+   "n": 21,
+   "name": "PT-73",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 73 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Primary somatosensory area, barrel field, Caudoputamen.",
+   "soma": "SSp-bfd 90%, VISal 5%, SSs 5%",
+   "targets": "SSp-bfd 32%, CP 16%, PO 8%, VPM 7%",
+   "axon_mm": 43.3
+  },
+  "PT-60": {
+   "n": 21,
+   "name": "PT-60",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 60 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, barrel field; axons end mostly in Caudoputamen, Superior colliculus, motor related, intermediate gray layer.",
+   "soma": "SSp-bfd 62%, SSp-ul 19%, SSp-un 10%",
+   "targets": "CP 28%, SCig 15%, SSp-bfd 11%, MOs 8%",
+   "axon_mm": 78.7
+  },
+  "IT-24": {
+   "n": 21,
+   "name": "IT-24",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 24 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Anterior cingulate area, dorsal part, Caudoputamen.",
+   "soma": "ACAd 86%, MOs 5%, PL 5%",
+   "targets": "ACAd 42%, CP 23%, MOs 12%, PL 11%",
+   "axon_mm": 79.4
+  },
+  "CT-32": {
+   "n": 20,
+   "name": "CT-32",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 32 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Ventral posteromedial nucleus of the thalamus.",
+   "soma": "SSs 65%, SSp-bfd 25%, AUDd 5%",
+   "targets": "SSs 31%, VPM 20%, PO 14%, SSp-bfd 10%",
+   "axon_mm": 29.8
+  },
+  "PT-6": {
+   "n": 20,
+   "name": "PT-6",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 6 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Substantia innominata, Mediodorsal nucleus of thalamus.",
+   "soma": "AId 50%, AIv 45%, CLA 5%",
+   "targets": "SI 12%, MD 8%, AId 6%, AIv 6%",
+   "axon_mm": 111.6
+  },
+  "IT-35": {
+   "n": 20,
+   "name": "IT-35",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 35 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Agranular insular area, dorsal part, Orbital area, lateral part.",
+   "soma": "ORBl 45%, AId 35%, AIv 20%",
+   "targets": "AId 21%, ORBl 19%, MOs 16%, AIv 15%",
+   "axon_mm": 80.6
+  },
+  "CT-62": {
+   "n": 20,
+   "name": "CT-62",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 62 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Primary motor area, internal capsule.",
+   "soma": "MOp 60%, SSp-ul 30%, SSp-ll 10%",
+   "targets": "MOp 18%, int 15%, VPL 15%, SSp-ul 11%",
+   "axon_mm": 34.4
+  },
+  "CT-4": {
+   "n": 19,
+   "name": "CT-4",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 4 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Mediodorsal nucleus of thalamus.",
+   "soma": "MOs 84%, ACAd 16%",
+   "targets": "MOs 27%, MD 16%, PO 12%, VAL 10%",
+   "axon_mm": 53.3
+  },
+  "PT-66": {
+   "n": 19,
+   "name": "PT-66",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 66 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, lower limb; axons end mostly in Primary somatosensory area, lower limb, Primary motor area.",
+   "soma": "SSp-ll 37%, MOp 32%, SSp-tr 21%",
+   "targets": "SSp-ll 30%, MOp 20%, SSp-tr 11%, PG 10%",
+   "axon_mm": 39.5
+  },
+  "IT-12": {
+   "n": 19,
+   "name": "IT-12",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 12 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, ventral part; axons end mostly in Anterior cingulate area, dorsal part, Anterior cingulate area, ventral part.",
+   "soma": "ACAv 68%, ACAd 32%",
+   "targets": "ACAd 27%, ACAv 23%, RSPv 22%, RSPd 18%",
+   "axon_mm": 46.1
+  },
+  "CT-27": {
+   "n": 19,
+   "name": "CT-27",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 27 of the whole-cortex projectome. Cell bodies mostly in Temporal association areas; axons end mostly in Temporal association areas, Lateral posterior nucleus of the thalamus.",
+   "soma": "TEa 63%, VISpor 26%, ECT 11%",
+   "targets": "TEa 26%, LP 18%, MGd 10%, RT 7%",
+   "axon_mm": 18.7
+  },
+  "IT-30": {
+   "n": 19,
+   "name": "IT-30",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 30 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Orbital area, ventrolateral part, Orbital area, lateral part.",
+   "soma": "ORBvl 68%, ORBl 26%, ORBm 5%",
+   "targets": "ORBvl 28%, ORBl 16%, RSPagl 8%, VISp 7%",
+   "axon_mm": 68.2
+  },
+  "CT-42": {
+   "n": 19,
+   "name": "CT-42",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 42 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Dorsal part of the lateral geniculate complex, shell.",
+   "soma": "VISp 100%",
+   "targets": "VISp 46%, LGd-sh 12%, RT 10%, LGd-co 9%",
+   "axon_mm": 26.2
+  },
+  "IT-84": {
+   "n": 18,
+   "name": "IT-84",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 84 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Caudoputamen, Nucleus accumbens.",
+   "soma": "AIv 50%, AIp 28%, VISC 6%",
+   "targets": "CP 24%, ACB 15%, STR 8%, AIp 7%",
+   "axon_mm": 125.6
+  },
+  "PT-7": {
+   "n": 18,
+   "name": "PT-7",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 7 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Medial amygdalar nucleus, Cortical amygdalar area, anterior part.",
+   "soma": "AIv 89%, AId 6%, ORBl 6%",
+   "targets": "MEA 18%, COAa 13%, AIv 11%, OT 11%",
+   "axon_mm": 130.5
+  },
+  "IT-65": {
+   "n": 18,
+   "name": "IT-65",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 65 of the whole-cortex projectome. Cell bodies mostly in Frontal pole, cerebral cortex; axons end mostly in Caudoputamen, Secondary motor area.",
+   "soma": "FRP 33%, PL 28%, MOs 17%",
+   "targets": "CP 34%, MOs 19%, PL 12%, AIv 7%",
+   "axon_mm": 159.3
+  },
+  "IT-19": {
+   "n": 17,
+   "name": "IT-19",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 19 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, ventral part; axons end mostly in Anterior cingulate area, ventral part, Anterior cingulate area, dorsal part.",
+   "soma": "ACAv 59%, ACAd 29%, PL 6%",
+   "targets": "ACAv 44%, ACAd 21%, CP 16%, MOs 6%",
+   "axon_mm": 68.9
+  },
+  "CT-66": {
+   "n": 17,
+   "name": "CT-66",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 66 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, unassigned; axons end mostly in Ventral posteromedial nucleus of the thalamus, Primary somatosensory area, unassigned.",
+   "soma": "SSp-un 59%, SSp-n 12%, SSp-m 12%",
+   "targets": "VPM 19%, SSp-un 17%, PO 14%, SSp-n 12%",
+   "axon_mm": 35.3
+  },
+  "IT-69": {
+   "n": 17,
+   "name": "IT-69",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 69 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Prelimbic area, Caudoputamen.",
+   "soma": "PL 94%, ACAv 6%",
+   "targets": "PL 45%, CP 35%, ACAv 7%, ORBm 3%",
+   "axon_mm": 73.0
+  },
+  "CT-38": {
+   "n": 17,
+   "name": "CT-38",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 38 of the whole-cortex projectome. Cell bodies mostly in posteromedial visual area; axons end mostly in Lateral posterior nucleus of the thalamus, Lateral dorsal nucleus of thalamus.",
+   "soma": "VISpm 65%, VISp 12%, RSPagl 12%",
+   "targets": "LP 27%, LD 20%, VISpm 18%, VISp 7%",
+   "axon_mm": 31.2
+  },
+  "CT-23": {
+   "n": 16,
+   "name": "CT-23",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 23 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Ventral medial nucleus of the thalamus.",
+   "soma": "MOs 81%, AId 12%, MOp 6%",
+   "targets": "MOs 25%, VM 14%, VAL 13%, MD 10%",
+   "axon_mm": 64.3
+  },
+  "CT-18": {
+   "n": 16,
+   "name": "CT-18",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 18 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Mediodorsal nucleus of thalamus, Agranular insular area, dorsal part.",
+   "soma": "AId 62%, MOp 19%, AIv 19%",
+   "targets": "MD 37%, AId 11%, PAL 8%, MOp 6%",
+   "axon_mm": 51.6
+  },
+  "PT-62": {
+   "n": 16,
+   "name": "PT-62",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 62 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Inferior colliculus, external nucleus, Inferior colliculus, dorsal nucleus.",
+   "soma": "SSs 38%, AUDd 19%, AUDp 19%",
+   "targets": "ICe 33%, ICd 13%, MB 10%, SSs 8%",
+   "axon_mm": 148.2
+  },
+  "PT-52": {
+   "n": 16,
+   "name": "PT-52",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 52 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Caudoputamen, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 56%, MOs 25%, ACAv 19%",
+   "targets": "CP 15%, ACAd 13%, MB 9%, PAG 9%",
+   "axon_mm": 144.9
+  },
+  "IT-57": {
+   "n": 16,
+   "name": "IT-57",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 57 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Caudoputamen, Agranular insular area, ventral part.",
+   "soma": "AIv 75%, ORBl 19%, AId 6%",
+   "targets": "CP 25%, AIv 15%, ACB 8%, ORBl 8%",
+   "axon_mm": 103.7
+  },
+  "IT-36": {
+   "n": 16,
+   "name": "IT-36",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 36 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Agranular insular area, dorsal part.",
+   "soma": "MOs 50%, AId 31%, AIv 12%",
+   "targets": "MOs 33%, AId 21%, CP 13%, AIv 6%",
+   "axon_mm": 83.8
+  },
+  "IT-44": {
+   "n": 15,
+   "name": "IT-44",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 44 of the whole-cortex projectome. Cell bodies mostly in Orbital area, medial part; axons end mostly in Orbital area, medial part, Infralimbic area.",
+   "soma": "ORBm 47%, ILA 27%, ORBvl 20%",
+   "targets": "ORBm 24%, ILA 12%, ORBvl 10%, PL 7%",
+   "axon_mm": 90.8
+  },
+  "CT-2": {
+   "n": 15,
+   "name": "CT-2",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 2 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Mediodorsal nucleus of thalamus, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 53%, MOs 27%, PL 13%",
+   "targets": "MD 24%, ACAd 12%, VM 11%, PL 7%",
+   "axon_mm": 58.5
+  },
+  "CT-1": {
+   "n": 15,
+   "name": "CT-1",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 1 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Mediodorsal nucleus of thalamus, Secondary motor area.",
+   "soma": "MOs 87%, ACAd 13%",
+   "targets": "MD 17%, MOs 13%, VM 10%, VAL 9%",
+   "axon_mm": 53.3
+  },
+  "IT-64": {
+   "n": 15,
+   "name": "IT-64",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 64 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "MOs 53%, FRP 27%, ORBl 13%",
+   "targets": "MOs 35%, CP 18%, FRP 13%, ORBl 7%",
+   "axon_mm": 100.0
+  },
+  "IT-58": {
+   "n": 15,
+   "name": "IT-58",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 58 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Agranular insular area, dorsal part, Agranular insular area, ventral part.",
+   "soma": "AId 47%, AIv 47%, MOp 7%",
+   "targets": "AId 31%, AIv 22%, CP 20%, ACB 6%",
+   "axon_mm": 117.3
+  },
+  "CT-53": {
+   "n": 14,
+   "name": "CT-53",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 53 of the whole-cortex projectome. Cell bodies mostly in Primary somatosensory area, mouth; axons end mostly in Ventral posteromedial nucleus of the thalamus, Primary somatosensory area, mouth.",
+   "soma": "SSp-m 57%, SSp-n 29%, SSs 14%",
+   "targets": "VPM 24%, SSp-m 24%, SSp-n 18%, PO 11%",
+   "axon_mm": 42.1
+  },
+  "IT-28": {
+   "n": 14,
+   "name": "IT-28",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 28 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Prelimbic area, Orbital area, ventrolateral part.",
+   "soma": "PL 36%, ORBvl 36%, ACAd 21%",
+   "targets": "PL 26%, ORBvl 22%, MOs 17%, ACAd 10%",
+   "axon_mm": 36.0
+  },
+  "PT-24": {
+   "n": 14,
+   "name": "PT-24",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 24 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Periaqueductal gray, Midbrain.",
+   "soma": "ACAd 50%, PL 36%, MOs 14%",
+   "targets": "PAG 13%, MB 10%, MRN 10%, ACAd 8%",
+   "axon_mm": 173.2
+  },
+  "IT-63": {
+   "n": 14,
+   "name": "IT-63",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 63 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Prelimbic area, Orbital area, medial part.",
+   "soma": "PL 36%, ORBm 21%, ORBvl 21%",
+   "targets": "PL 19%, ORBm 16%, CP 12%, ORBvl 9%",
+   "axon_mm": 102.2
+  },
+  "IT-67": {
+   "n": 14,
+   "name": "IT-67",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 67 of the whole-cortex projectome. Cell bodies mostly in Orbital area, medial part; axons end mostly in Caudoputamen, Prelimbic area.",
+   "soma": "ORBm 36%, PL 36%, ORBvl 29%",
+   "targets": "CP 30%, PL 15%, ORBm 12%, ORBvl 9%",
+   "axon_mm": 119.6
+  },
+  "CT-39": {
+   "n": 14,
+   "name": "CT-39",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 39 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Lateral dorsal nucleus of thalamus.",
+   "soma": "VISp 93%, VISpm 7%",
+   "targets": "VISp 49%, LD 13%, LP 9%, RT 6%",
+   "axon_mm": 30.4
+  },
+  "IT-60": {
+   "n": 13,
+   "name": "IT-60",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 60 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Caudoputamen, Agranular insular area, dorsal part.",
+   "soma": "AId 69%, ORBl 23%, FRP 8%",
+   "targets": "CP 39%, AId 25%, ORBl 9%, AIv 7%",
+   "axon_mm": 157.3
+  },
+  "IT-72": {
+   "n": 13,
+   "name": "IT-72",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 72 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Anterior cingulate area, dorsal part.",
+   "soma": "MOs 62%, ACAd 31%, PL 8%",
+   "targets": "MOs 40%, ACAd 21%, PL 14%, AId 6%",
+   "axon_mm": 79.0
+  },
+  "IT-13": {
+   "n": 13,
+   "name": "IT-13",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 13 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, ventral part; axons end mostly in Anterior cingulate area, ventral part, Retrosplenial area, ventral part.",
+   "soma": "ACAv 31%, RSPv 31%, ACAd 23%",
+   "targets": "ACAv 19%, RSPv 19%, ACAd 16%, MOs 16%",
+   "axon_mm": 93.7
+  },
+  "PT-33": {
+   "n": 13,
+   "name": "PT-33",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 33 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Agranular insular area, dorsal part, Midbrain reticular nucleus.",
+   "soma": "AId 77%, MOp 15%, GU 8%",
+   "targets": "AId 12%, MRN 10%, CP 9%, PB 6%",
+   "axon_mm": 129.3
+  },
+  "IT-56": {
+   "n": 13,
+   "name": "IT-56",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 56 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Orbital area, lateral part, Agranular insular area, dorsal part.",
+   "soma": "AIv 38%, AId 31%, ORBl 23%",
+   "targets": "ORBl 20%, AId 20%, AIv 17%, CP 10%",
+   "axon_mm": 141.4
+  },
+  "IT-61": {
+   "n": 13,
+   "name": "IT-61",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 61 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Caudoputamen, Orbital area, lateral part.",
+   "soma": "PL 38%, ORBl 31%, MOs 8%",
+   "targets": "CP 30%, ORBl 8%, AIv 8%, PIR 7%",
+   "axon_mm": 214.2
+  },
+  "IT-21": {
+   "n": 13,
+   "name": "IT-21",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 21 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Caudoputamen, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 54%, ACAv 38%, MOs 8%",
+   "targets": "CP 39%, ACAd 26%, ACAv 15%, PL 5%",
+   "axon_mm": 114.4
+  },
+  "IT-34": {
+   "n": 13,
+   "name": "IT-34",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 34 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Orbital area, lateral part, Agranular insular area, dorsal part.",
+   "soma": "ORBl 46%, AId 31%, MOs 15%",
+   "targets": "ORBl 25%, AId 20%, MOs 19%, ORBvl 9%",
+   "axon_mm": 43.6
+  },
+  "IT-62": {
+   "n": 13,
+   "name": "IT-62",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 62 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Caudoputamen, Orbital area, medial part.",
+   "soma": "PL 46%, ORBm 38%, ILA 8%",
+   "targets": "CP 20%, ORBm 15%, PL 14%, ACB 8%",
+   "axon_mm": 80.4
+  },
+  "IT-27": {
+   "n": 13,
+   "name": "IT-27",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 27 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Secondary motor area, Orbital area, lateral part.",
+   "soma": "ORBl 77%, AIv 15%, AId 8%",
+   "targets": "MOs 44%, ORBl 28%, ACAd 5%, AId 5%",
+   "axon_mm": 65.4
+  },
+  "PT-18": {
+   "n": 12,
+   "name": "PT-18",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 18 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Midbrain reticular nucleus, Periaqueductal gray.",
+   "soma": "PL 58%, ORBvl 17%, FRP 17%",
+   "targets": "MRN 16%, PAG 14%, PL 10%, MB 10%",
+   "axon_mm": 159.1
+  },
+  "PT-12": {
+   "n": 12,
+   "name": "PT-12",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 12 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Striatum, Orbital area, ventrolateral part.",
+   "soma": "ORBvl 58%, ORBm 33%, ILA 8%",
+   "targets": "STR 12%, ORBvl 12%, PAG 9%, LHA 8%",
+   "axon_mm": 134.2
+  },
+  "IT-54": {
+   "n": 12,
+   "name": "IT-54",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 54 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Secondary motor area, Caudoputamen.",
+   "soma": "ORBl 67%, AIv 17%, FRP 8%",
+   "targets": "MOs 24%, CP 19%, ORBl 16%, AIv 10%",
+   "axon_mm": 176.5
+  },
+  "CT-52": {
+   "n": 11,
+   "name": "CT-52",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 52 of the whole-cortex projectome. Cell bodies mostly in Supplemental somatosensory area; axons end mostly in Supplemental somatosensory area, Ventral posteromedial nucleus of the thalamus.",
+   "soma": "SSs 100%",
+   "targets": "SSs 39%, VPM 19%, int 10%, PO 8%",
+   "axon_mm": 27.1
+  },
+  "IT-47": {
+   "n": 11,
+   "name": "IT-47",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 47 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Anterior cingulate area, dorsal part.",
+   "soma": "MOs 55%, ACAd 18%, FRP 18%",
+   "targets": "MOs 38%, ACAd 13%, FRP 11%, PL 9%",
+   "axon_mm": 84.4
+  },
+  "IT-3": {
+   "n": 11,
+   "name": "IT-3",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 3 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Anterior cingulate area, dorsal part.",
+   "soma": "MOs 64%, ACAd 36%",
+   "targets": "MOs 38%, ACAd 16%, CP 12%, VISrl 6%",
+   "axon_mm": 106.6
+  },
+  "PT-13": {
+   "n": 11,
+   "name": "PT-13",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 13 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Lateral hypothalamic area, Medial amygdalar nucleus.",
+   "soma": "ORBvl 45%, ILA 36%, ORBm 18%",
+   "targets": "LHA 12%, MEA 10%, SMT 8%, MB 7%",
+   "axon_mm": 93.5
+  },
+  "PT-16": {
+   "n": 11,
+   "name": "PT-16",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 16 of the whole-cortex projectome. Cell bodies mostly in Infralimbic area; axons end mostly in Lateral hypothalamic area, Periaqueductal gray.",
+   "soma": "ILA 64%, ORBvl 18%, ORBm 18%",
+   "targets": "LHA 15%, PAG 10%, HY 8%, CP 7%",
+   "axon_mm": 114.0
+  },
+  "IT-50": {
+   "n": 11,
+   "name": "IT-50",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 50 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Agranular insular area, dorsal part, Secondary motor area.",
+   "soma": "AId 27%, AIv 27%, ORBl 18%",
+   "targets": "AId 24%, MOs 22%, ORBl 19%, FRP 17%",
+   "axon_mm": 59.6
+  },
+  "IT-46": {
+   "n": 11,
+   "name": "IT-46",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 46 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Entorhinal area, lateral part.",
+   "soma": "MOs 55%, ACAv 18%, ACAd 9%",
+   "targets": "MOs 26%, ENTl 21%, ACAd 10%, ACAv 7%",
+   "axon_mm": 66.5
+  },
+  "IT-20": {
+   "n": 11,
+   "name": "IT-20",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 20 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, ventral part; axons end mostly in Anterior cingulate area, ventral part, Caudoputamen.",
+   "soma": "ACAv 91%, PL 9%",
+   "targets": "ACAv 44%, CP 33%, PL 13%, ORBm 2%",
+   "axon_mm": 71.6
+  },
+  "IT-29": {
+   "n": 11,
+   "name": "IT-29",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 29 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Orbital area, lateral part, Orbital area, ventrolateral part.",
+   "soma": "ORBl 55%, ORBvl 36%, ORBm 9%",
+   "targets": "ORBl 32%, ORBvl 24%, MOs 14%, ORBm 11%",
+   "axon_mm": 85.1
+  },
+  "PT-22": {
+   "n": 10,
+   "name": "PT-22",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 22 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Caudoputamen, Primary motor area.",
+   "soma": "MOp 50%, MOs 50%",
+   "targets": "CP 21%, MOp 17%, PF 15%, MOs 14%",
+   "axon_mm": 115.2
+  },
+  "IT-33": {
+   "n": 10,
+   "name": "IT-33",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 33 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Frontal pole, cerebral cortex.",
+   "soma": "MOs 50%, FRP 30%, PL 10%",
+   "targets": "MOs 30%, FRP 16%, CP 15%, AId 13%",
+   "axon_mm": 75.0
+  },
+  "IT-11": {
+   "n": 10,
+   "name": "IT-11",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 11 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, ventral part; axons end mostly in Anterior cingulate area, ventral part, corpus callosum, body.",
+   "soma": "ACAv 100%",
+   "targets": "ACAv 77%, ccb 6%, RSPv 6%, ACAd 4%",
+   "axon_mm": 17.1
+  },
+  "IT-89": {
+   "n": 10,
+   "name": "IT-89",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 89 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Caudoputamen, Agranular insular area, dorsal part.",
+   "soma": "AId 50%, MOs 30%, AIv 20%",
+   "targets": "CP 43%, AId 23%, MOs 11%, MOp 7%",
+   "axon_mm": 212.1
+  },
+  "CT-19": {
+   "n": 10,
+   "name": "CT-19",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 19 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Orbital area, lateral part, Mediodorsal nucleus of thalamus.",
+   "soma": "ORBl 70%, AIv 30%",
+   "targets": "ORBl 29%, MD 18%, AIv 13%, SMT 13%",
+   "axon_mm": 42.7
+  },
+  "IT-43": {
+   "n": 10,
+   "name": "IT-43",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 43 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Caudoputamen, Prelimbic area.",
+   "soma": "PL 40%, ILA 30%, ACAv 10%",
+   "targets": "CP 30%, PL 16%, ILA 16%, ORBm 9%",
+   "axon_mm": 47.2
+  },
+  "PT-46": {
+   "n": 10,
+   "name": "PT-46",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 46 of the whole-cortex projectome. Cell bodies mostly in Primary visual area; axons end mostly in Primary visual area, Posterolateral visual area.",
+   "soma": "VISp 40%, VISpl 40%, RSPd 10%",
+   "targets": "VISp 29%, VISpl 23%, ZI 5%, PG 4%",
+   "axon_mm": 29.5
+  },
+  "IT-51": {
+   "n": 9,
+   "name": "IT-51",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 51 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, ventral part; axons end mostly in Orbital area, ventrolateral part, Agranular insular area, dorsal part.",
+   "soma": "AIv 56%, ORBl 22%, ORBvl 22%",
+   "targets": "ORBvl 24%, AId 21%, ORBl 16%, AIv 13%",
+   "axon_mm": 73.3
+  },
+  "IT-70": {
+   "n": 9,
+   "name": "IT-70",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 70 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Prelimbic area, Orbital area, medial part.",
+   "soma": "PL 56%, ORBm 33%, ILA 11%",
+   "targets": "PL 37%, ORBm 18%, CP 15%, ILA 9%",
+   "axon_mm": 73.9
+  },
+  "CT-44": {
+   "n": 8,
+   "name": "CT-44",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 44 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, dorsal part; axons end mostly in Retrosplenial area, dorsal part, Primary visual area.",
+   "soma": "RSPd 38%, RSPagl 38%, RSPv 12%",
+   "targets": "RSPd 27%, VISp 18%, RSPagl 17%, RSPv 9%",
+   "axon_mm": 32.6
+  },
+  "IT-5": {
+   "n": 8,
+   "name": "IT-5",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 5 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Caudoputamen, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 75%, PL 12%, ACAv 12%",
+   "targets": "CP 27%, ACAd 21%, ACAv 9%, ORBvl 8%",
+   "axon_mm": 161.1
+  },
+  "PT-55": {
+   "n": 7,
+   "name": "PT-55",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 55 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, ventral part; axons end mostly in Anterior cingulate area, ventral part, Anterior cingulate area, dorsal part.",
+   "soma": "ACAv 57%, PL 14%, ACAd 14%",
+   "targets": "ACAv 25%, ACAd 10%, SCiw 8%, PAG 8%",
+   "axon_mm": 109.7
+  },
+  "PT-50": {
+   "n": 7,
+   "name": "PT-50",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 50 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, ventral part; axons end mostly in Zona incerta, Anterior cingulate area, ventral part.",
+   "soma": "ACAv 43%, ACAd 43%, RSPv 14%",
+   "targets": "ZI 16%, ACAv 12%, CP 9%, MB 9%",
+   "axon_mm": 129.8
+  },
+  "PT-14": {
+   "n": 7,
+   "name": "PT-14",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 14 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Caudoputamen, Laterodorsal tegmental nucleus.",
+   "soma": "ORBl 29%, PL 14%, ORBvl 14%",
+   "targets": "CP 15%, LDT 13%, LHA 10%, PAG 9%",
+   "axon_mm": 89.0
+  },
+  "PT-10": {
+   "n": 7,
+   "name": "PT-10",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 10 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Orbital area, lateral part, Caudoputamen.",
+   "soma": "ORBl 100%",
+   "targets": "ORBl 28%, CP 12%, MB 12%, MRN 6%",
+   "axon_mm": 101.0
+  },
+  "PT-29": {
+   "n": 6,
+   "name": "PT-29",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 29 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Midbrain reticular nucleus, Parvicellular reticular nucleus.",
+   "soma": "MOs 83%, AId 17%",
+   "targets": "MRN 13%, PARN 13%, PRNc 7%, PRNr 5%",
+   "axon_mm": 64.3
+  },
+  "IT-48": {
+   "n": 6,
+   "name": "IT-48",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 48 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Orbital area, lateral part, Caudoputamen.",
+   "soma": "ORBvl 33%, ORBl 33%, MOp 17%",
+   "targets": "ORBl 18%, CP 15%, MOp 10%, ORBvl 10%",
+   "axon_mm": 77.3
+  },
+  "PT-9": {
+   "n": 6,
+   "name": "PT-9",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 9 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Midbrain, Midbrain reticular nucleus.",
+   "soma": "ORBl 50%, AId 33%, MOs 17%",
+   "targets": "MB 12%, MRN 11%, CP 7%, AId 7%",
+   "axon_mm": 136.5
+  },
+  "PT-15": {
+   "n": 6,
+   "name": "PT-15",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 15 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Lateral hypothalamic area, Prelimbic area.",
+   "soma": "ORBvl 33%, PL 33%, ORBm 17%",
+   "targets": "LHA 12%, PL 10%, CP 7%, ILA 6%",
+   "axon_mm": 143.5
+  },
+  "PT-4": {
+   "n": 6,
+   "name": "PT-4",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 4 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Periaqueductal gray.",
+   "soma": "MOs 33%, ACAd 33%, ILA 17%",
+   "targets": "MOs 15%, PAG 12%, CP 9%, ACAd 8%",
+   "axon_mm": 125.7
+  },
+  "PT-3": {
+   "n": 6,
+   "name": "PT-3",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 3 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Periaqueductal gray, Midbrain.",
+   "soma": "ACAd 50%, PL 33%, ILA 17%",
+   "targets": "PAG 18%, MB 9%, CP 8%, PL 8%",
+   "axon_mm": 145.7
+  },
+  "IT-68": {
+   "n": 6,
+   "name": "IT-68",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 68 of the whole-cortex projectome. Cell bodies mostly in Orbital area, medial part; axons end mostly in Orbital area, medial part, Orbital area, ventrolateral part.",
+   "soma": "ORBm 67%, ORBl 17%, ORBvl 17%",
+   "targets": "ORBm 33%, ORBvl 22%, CP 17%, ORBl 6%",
+   "axon_mm": 42.6
+  },
+  "IT-66": {
+   "n": 6,
+   "name": "IT-66",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 66 of the whole-cortex projectome. Cell bodies mostly in Orbital area, medial part; axons end mostly in Caudoputamen, Prelimbic area.",
+   "soma": "ORBm 50%, MOs 33%, PL 17%",
+   "targets": "CP 42%, PL 13%, ORBm 11%, ACB 9%",
+   "axon_mm": 176.2
+  },
+  "CT-10": {
+   "n": 6,
+   "name": "CT-10",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 10 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Mediodorsal nucleus of thalamus, Prelimbic area.",
+   "soma": "PL 50%, ORBvl 33%, MOs 17%",
+   "targets": "MD 19%, PL 11%, ORBvl 8%, CM 7%",
+   "axon_mm": 62.2
+  },
+  "IT-49": {
+   "n": 5,
+   "name": "IT-49",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 49 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Orbital area, ventrolateral part, Caudoputamen.",
+   "soma": "ORBvl 60%, AIv 20%, ORBm 20%",
+   "targets": "ORBvl 20%, CP 17%, ORBm 12%, PL 7%",
+   "axon_mm": 121.2
+  },
+  "CT-17": {
+   "n": 5,
+   "name": "CT-17",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 17 of the whole-cortex projectome. Cell bodies mostly in Primary motor area; axons end mostly in Mediodorsal nucleus of thalamus, Agranular insular area, dorsal part.",
+   "soma": "MOp 40%, AId 40%, AIv 20%",
+   "targets": "MD 26%, AId 10%, AIv 10%, MOp 9%",
+   "axon_mm": 65.8
+  },
+  "PT-11": {
+   "n": 5,
+   "name": "PT-11",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 11 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Orbital area, lateral part, Midbrain.",
+   "soma": "ORBl 80%, AIv 20%",
+   "targets": "ORBl 19%, MB 14%, OT 9%, CP 7%",
+   "axon_mm": 129.5
+  },
+  "PT-5": {
+   "n": 5,
+   "name": "PT-5",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 5 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, ventral part; axons end mostly in Anterior cingulate area, ventral part, Retrosplenial area, ventral part.",
+   "soma": "ACAv 60%, RSPv 40%",
+   "targets": "ACAv 28%, RSPv 13%, PH 5%, HY 5%",
+   "axon_mm": 90.4
+  },
+  "CT-13": {
+   "n": 5,
+   "name": "CT-13",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 13 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Prelimbic area, Mediodorsal nucleus of thalamus.",
+   "soma": "PL 100%",
+   "targets": "PL 25%, MD 12%, RT 8%, PT 7%",
+   "axon_mm": 70.3
+  },
+  "IT-55": {
+   "n": 4,
+   "name": "IT-55",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 55 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Secondary motor area, Orbital area, lateral part.",
+   "soma": "ORBl 50%, MOs 25%, FRP 25%",
+   "targets": "MOs 26%, ORBl 18%, ACAd 11%, CP 10%",
+   "axon_mm": 149.5
+  },
+  "PT-8": {
+   "n": 4,
+   "name": "PT-8",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 8 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Laterodorsal tegmental nucleus, Orbital area, ventrolateral part.",
+   "soma": "ORBvl 100%",
+   "targets": "LDT 21%, ORBvl 15%, PCG 14%, LHA 8%",
+   "axon_mm": 82.3
+  },
+  "PT-53": {
+   "n": 4,
+   "name": "PT-53",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 53 of the whole-cortex projectome. Cell bodies mostly in Secondary motor area; axons end mostly in Secondary motor area, Midbrain.",
+   "soma": "MOs 50%, ACAd 25%, ORBvl 25%",
+   "targets": "MOs 15%, MB 13%, PAG 8%, CP 8%",
+   "axon_mm": 132.4
+  },
+  "PT-47": {
+   "n": 4,
+   "name": "PT-47",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 47 of the whole-cortex projectome. Cell bodies mostly in Retrosplenial area, ventral part; axons end mostly in Retrosplenial area, ventral part, Retrosplenial area, dorsal part.",
+   "soma": "RSPv 50%, RSPd 50%",
+   "targets": "RSPv 18%, RSPd 15%, ZI 12%, MB 9%",
+   "axon_mm": 54.9
+  },
+  "PT-1": {
+   "n": 4,
+   "name": "PT-1",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 1 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Midbrain, Prelimbic area.",
+   "soma": "PL 50%, ACAd 25%, ILA 25%",
+   "targets": "MB 11%, PL 10%, LHA 9%, HY 9%",
+   "axon_mm": 124.8
+  },
+  "PT-40": {
+   "n": 4,
+   "name": "PT-40",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 40 of the whole-cortex projectome. Cell bodies mostly in Perirhinal area; axons end mostly in Ectorhinal area, Medial amygdalar nucleus.",
+   "soma": "PERI 75%, ECT 25%",
+   "targets": "ECT 12%, MEA 12%, PERI 10%, root 9%",
+   "axon_mm": 118.0
+  },
+  "CT-24": {
+   "n": 4,
+   "name": "CT-24",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 24 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Mediodorsal nucleus of thalamus, Ventral medial nucleus of the thalamus.",
+   "soma": "ORBl 50%, MOs 25%, ORBvl 25%",
+   "targets": "MD 34%, VM 10%, ORBl 9%, MOs 8%",
+   "axon_mm": 63.0
+  },
+  "CT-12": {
+   "n": 4,
+   "name": "CT-12",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 12 of the whole-cortex projectome. Cell bodies mostly in Infralimbic area; axons end mostly in Anterior cingulate area, ventral part, Nucleus of reuniens.",
+   "soma": "ILA 50%, PL 25%, ACAv 25%",
+   "targets": "ACAv 17%, RE 11%, PR 11%, PT 10%",
+   "axon_mm": 75.0
+  },
+  "CT-7": {
+   "n": 3,
+   "name": "CT-7",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 7 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Lateral posterior nucleus of the thalamus, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 100%",
+   "targets": "LP 20%, ACAd 19%, LD 13%, MOs 10%",
+   "axon_mm": 38.5
+  },
+  "CT-9": {
+   "n": 3,
+   "name": "CT-9",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 9 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Anteromedial nucleus, dorsal part, Anteromedial nucleus, ventral part.",
+   "soma": "ACAd 100%",
+   "targets": "AMd 28%, AMv 22%, ACAd 19%, IAD 6%",
+   "axon_mm": 45.1
+  },
+  "PT-54": {
+   "n": 3,
+   "name": "PT-54",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 54 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Pontine central gray, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 67%, ORBvl 33%",
+   "targets": "PCG 12%, ACAd 11%, ACAv 8%, CP 7%",
+   "axon_mm": 115.2
+  },
+  "IT-42": {
+   "n": 3,
+   "name": "IT-42",
+   "family": "IT",
+   "desc": "IT (intratelencephalic) class 42 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Prelimbic area, Caudoputamen.",
+   "soma": "PL 67%, ORBm 33%",
+   "targets": "PL 33%, CP 13%, BLAa 10%, ORBm 9%",
+   "axon_mm": 39.8
+  },
+  "CT-11": {
+   "n": 3,
+   "name": "CT-11",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 11 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Prelimbic area, Mediodorsal nucleus of thalamus.",
+   "soma": "PL 67%, ORBvl 33%",
+   "targets": "PL 27%, MD 20%, IMD 9%, ORBvl 9%",
+   "axon_mm": 66.4
+  },
+  "CT-20": {
+   "n": 2,
+   "name": "CT-20",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 20 of the whole-cortex projectome. Cell bodies mostly in Agranular insular area, dorsal part; axons end mostly in Mediodorsal nucleus of thalamus, Caudoputamen.",
+   "soma": "AId 50%, AIv 50%",
+   "targets": "MD 44%, CP 15%, PAL 12%, AId 8%",
+   "axon_mm": 18.6
+  },
+  "PT-2": {
+   "n": 2,
+   "name": "PT-2",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 2 of the whole-cortex projectome. Cell bodies mostly in Prelimbic area; axons end mostly in Prelimbic area, Caudoputamen.",
+   "soma": "PL 100%",
+   "targets": "PL 19%, CP 15%, PAG 13%, SI 11%",
+   "axon_mm": 185.0
+  },
+  "CT-16": {
+   "n": 2,
+   "name": "CT-16",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 16 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Mediodorsal nucleus of thalamus, Orbital area, medial part.",
+   "soma": "ORBvl 100%",
+   "targets": "MD 28%, ORBm 15%, ORBvl 14%, PVT 13%",
+   "axon_mm": 68.9
+  },
+  "CT-21": {
+   "n": 2,
+   "name": "CT-21",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 21 of the whole-cortex projectome. Cell bodies mostly in Orbital area, ventrolateral part; axons end mostly in Nucleus of reuniens, Orbital area, ventrolateral part.",
+   "soma": "ORBvl 50%, ORBl 50%",
+   "targets": "RE 16%, ORBvl 14%, SMT 12%, MD 11%",
+   "axon_mm": 66.3
+  },
+  "PT-17": {
+   "n": 2,
+   "name": "PT-17",
+   "family": "PT",
+   "desc": "PT (pyramidal tract) class 17 of the whole-cortex projectome. Cell bodies mostly in Infralimbic area; axons end mostly in Prelimbic area, Infralimbic area.",
+   "soma": "ILA 50%, ACAd 50%",
+   "targets": "PL 34%, ILA 18%, CP 18%, ACAd 12%",
+   "axon_mm": 61.2
+  },
+  "CT-25": {
+   "n": 2,
+   "name": "CT-25",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 25 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Ventral medial nucleus of the thalamus, Mediodorsal nucleus of thalamus.",
+   "soma": "ORBl 50%, PL 50%",
+   "targets": "VM 25%, MD 18%, SMT 11%, PL 10%",
+   "axon_mm": 82.6
+  },
+  "CT-26": {
+   "n": 2,
+   "name": "CT-26",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 26 of the whole-cortex projectome. Cell bodies mostly in Orbital area, lateral part; axons end mostly in Orbital area, lateral part, Mediodorsal nucleus of thalamus.",
+   "soma": "ORBl 50%, ORBvl 50%",
+   "targets": "ORBl 31%, MD 20%, ORBvl 11%, VM 9%",
+   "axon_mm": 57.6
+  },
+  "CT-8": {
+   "n": 1,
+   "name": "CT-8",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 8 of the whole-cortex projectome. Cell bodies mostly in Anterior cingulate area, dorsal part; axons end mostly in Anteromedial nucleus, dorsal part, Anterior cingulate area, dorsal part.",
+   "soma": "ACAd 100%",
+   "targets": "AMd 57%, ACAd 10%, RT 8%, ACAv 7%",
+   "axon_mm": 51.7
+  },
+  "CT-14": {
+   "n": 1,
+   "name": "CT-14",
+   "family": "CT",
+   "desc": "CT (corticothalamic) class 14 of the whole-cortex projectome. Cell bodies mostly in Infralimbic area; axons end mostly in Infralimbic area, Paraventricular nucleus of the thalamus.",
+   "soma": "ILA 100%",
+   "targets": "ILA 35%, PVT 33%, MD 8%, RE 6%",
+   "axon_mm": 44.8
+  }
+ }
+}
