@@ -59,6 +59,27 @@
     background:rgba(9,11,16,.6); color:var(--dim); font-size:16px; line-height:1; cursor:pointer; }
   .fsicon:hover { color:var(--ink); border-color:var(--edge); }
   .box .view:fullscreen .canvas { height:100vh; min-height:0; }
+  /* fullscreen: the stage takes the screen, the picture behind, the controls
+     as a bar along the bottom and the HUD card top left; the panels button
+     hides both. --ctl-h is the bar's height, set by the script, so the
+     status line and the loading bar sit above it. */
+  .stage:fullscreen { display:block; background:var(--ground); margin:0; overflow:hidden; }
+  .stage:fullscreen .box { border:0; border-radius:0; background:var(--ground); }
+  .stage:fullscreen .canvas { height:100vh; min-height:0; }
+  .stage:fullscreen .ctl { position:fixed; left:0; right:0; bottom:0; z-index:4; max-height:44vh; overflow:auto;
+    background:rgba(9,11,16,.84); backdrop-filter:blur(10px); border-top:1px solid var(--line); }
+  .stage:fullscreen .status { bottom:calc(var(--ctl-h, 0px) + 10px); }
+  .stage:fullscreen .lbar { bottom:calc(var(--ctl-h, 0px) + 58px); }
+  .stage:fullscreen .panels { display:inline-block; }
+  .stage:fullscreen.panels-off .ctl, .stage:fullscreen.panels-off .side.hud { display:none; }
+  .stage:fullscreen.panels-off .status { bottom:10px; }
+  .stage:fullscreen.panels-off .lbar { bottom:58px; }
+  .panels { display:none; position:absolute; top:10px; right:50px; z-index:3; appearance:none; height:32px; padding:0 10px; border-radius:8px; border:1px solid rgba(239,244,251,.2);
+    background:rgba(9,11,16,.6); color:var(--dim); font:500 11px/1 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+  .panels:hover, .panels[aria-pressed="true"] { color:var(--ink); border-color:var(--edge); }
+  /* the pause button's symbol */
+  .pz { display:inline-block; font-size:12px; line-height:1; letter-spacing:-.05em; }
+  .pz-turn { font-size:16px; }
   .box .canvas { height:min(68vh,640px); min-height:360px; width:100%; }
   .status { position:absolute; left:12px; bottom:10px; right:12px; font:500 11px/1.4 ui-monospace,Consolas,monospace;
     letter-spacing:.06em; color:#9fd0ff; opacity:.85; pointer-events:none; text-shadow:0 1px 8px #000; }
@@ -71,6 +92,7 @@
   .tabs button, .btn { appearance:none; background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:999px;
     padding:5px 13px; font:inherit; font-size:13px; cursor:pointer; transition:color .15s,border-color .15s,background .15s; }
   .tabs button:hover, .btn:hover { color:var(--ink); border-color:var(--edge); }
+  .btn[aria-pressed="true"] { background:rgba(255,255,255,.07); box-shadow:inset 0 0 0 1px currentColor; }
   .tabs button[aria-selected="true"] { color:#cfe6ff; border-color:rgba(111,208,255,.55); background:rgba(111,208,255,.10); }
   .tog { display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--dim); cursor:pointer; }
   .tog input { accent-color:#6fd0ff; }
@@ -117,7 +139,27 @@
   .legend .lg s { width:9px; height:9px; border-radius:2px; text-decoration:none; display:inline-block; }
   .legend .lg.dim { color:var(--faint); }
 
-  .side { background:#090B10; border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .side:not(.hud) { background:#090B10; border:1px solid var(--line); border-radius:12px; padding:16px; }
+  /* ---- the HUD card: the cell's name and its numbers sit over the picture,
+     top left, on scifi-ui's panel surface (vendor/scifi-ui/panel-surface.css) */
+  .stage { display:block; }
+  .side.hud { position:absolute; top:12px; left:12px; z-index:3; width:min(320px, calc(100% - 24px)); max-height:calc(100% - 92px); overflow:auto; padding:14px 16px; }
+  .side.hud.holopanel { background:linear-gradient(158deg, rgb(15 18 24 / .80) 0%, rgb(6 10 18 / .88) 100%); }
+  @media (max-width:640px){ .side.hud { position:static; width:auto; max-height:none; border-radius:0; border-left:0; border-right:0; border-top:1px solid var(--line); } }
+  /* ---- the loading bar: a lit tube that fills with the bytes actually
+     received, a bead at its head, ticks every tenth, the file named beneath.
+     It only moves while something is loading and fades once it lands. */
+  .lbar { position:absolute; left:14px; right:14px; bottom:58px; z-index:3; pointer-events:none; transition:opacity .6s; }
+  .lbar.is-off { opacity:0; }
+  .lbar-track { position:relative; height:4px; border-radius:2px; background:rgb(111 208 255 / .10);
+    background-image:repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), rgb(111 208 255 / .3) calc(10% - 1px) 10%); box-shadow:inset 0 0 0 1px rgb(111 208 255 / .12); }
+  .lbar-fill { position:absolute; left:0; top:0; bottom:0; width:0; border-radius:2px; background:linear-gradient(90deg, rgb(111 208 255 / .15), rgb(111 208 255 / .95));
+    box-shadow:0 0 10px rgb(111 208 255 / .6), 0 0 24px rgb(111 208 255 / .3); transition:width .15s linear; }
+  .lbar-head { position:absolute; left:0; top:50%; width:10px; height:10px; margin:-5px 0 0 -5px; border-radius:50%; transition:left .15s linear;
+    background:radial-gradient(circle at 35% 30%, #fff 0%, #6fd0ff 45%, rgb(111 208 255 / .9) 100%); box-shadow:0 0 10px #6fd0ff, 0 0 26px rgb(111 208 255 / .6); }
+  .lbar-txt { margin-top:7px; display:flex; justify-content:space-between; gap:12px; font:500 10.5px/1.3 ui-monospace,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; color:#9fd0ff; text-shadow:0 1px 8px #000; }
+  .lbar-txt .u { text-transform:none; }
+
   .side h3 { margin:0 0 4px; font-size:14px; font-weight:500; color:var(--ink); display:flex; align-items:center; gap:8px; }
   .side h3 s { width:11px; height:11px; border-radius:3px; flex:none; text-decoration:none; display:inline-block; }
   .side p { font-size:12.5px; color:var(--dim); margin:8px 0 0; }
@@ -172,7 +214,18 @@
       <div class="canvas" data-mount></div>
       <div class="rlabels" data-rlabels></div>
       <button class="fsicon" data-fullscreen-icon title="Fullscreen" aria-label="Fullscreen">&#x26F6;</button>
+      <button class="panels" data-panels aria-pressed="true" title="Hide the controls">Panels</button>
       <div class="status" data-status>Loading the brain…</div>
+      <div class="lbar is-off" data-lbar aria-hidden="true"><div class="lbar-track"><div class="lbar-fill" data-lbar-fill></div><div class="lbar-head" data-lbar-head></div></div><div class="lbar-txt" data-lbar-txt></div></div>
+      <aside class="side hud holopanel" data-hud>
+      <div data-card>
+        <h3>One neuron</h3>
+        <p>Pick a mode on the left. Each neuron is one cell, reconstructed from a
+          whole-brain image stack, with its cell body, its dendrites and the entire
+          length of its axon.</p>
+      </div>
+      <div class="trail"><span data-trailcount></span><button class="btn" data-clear>Clear the traces</button></div>
+      </aside>
       </div>
       <div class="ctl">
         <div class="row">
@@ -222,15 +275,6 @@
         <div class="legend" data-legend hidden></div>
       </div>
     </div>
-    <aside class="side">
-      <div data-card>
-        <h3>One neuron</h3>
-        <p>Pick a mode on the left. Each neuron is one cell, reconstructed from a
-          whole-brain image stack, with its cell body, its dendrites and the entire
-          length of its axon.</p>
-      </div>
-      <div class="trail"><span data-trailcount></span><button class="btn" data-clear>Clear the traces</button></div>
-    </aside>
   </section>
 </div>
 
@@ -354,7 +398,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "./js/mouse.js?v=53";
+  import { mountMouse } from "./js/mouse.js?v=55";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");

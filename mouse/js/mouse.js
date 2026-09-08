@@ -57,6 +57,7 @@ const T = ZH ? {
   reading: "读取中…", couldNot: "无法读取这个神经元。", clickAny: "点击任意一个胞体。",
   neurons: " 个神经元", oneAtATime: "逐个随机点亮。", bodiesShown: " 个胞体已显示。点击一个。",
   readingAll: "正在读取全部轴突：", drawn: " 个神经元已绘制", segs: " 条轴突线段",
+  loadShell: "脑外壳", loadIndex: "神经元索引", loadCells: "每一个细胞", loadShard: "神经元数据块",
   allDone: (n, s) => `${n} 个神经元，${s} 条轴突线段，每一条都是实测的。此比例下省略了短于 0.3 mm 的末梢。`,
   cellsDone: (k, e, t) => `已绘制 ${k} 个细胞，即这只小鼠脑中已定位的 ${t} 个细胞的十二分之一。`,
   moreClasses: (n) => `另有 ${n} 个细胞类别`, traced: (n) => `已描出 ${n} 个`,
@@ -72,6 +73,7 @@ const T = ZH ? {
   reading: "reading…", couldNot: "Could not read that neuron. ", clickAny: "Click any cell body.",
   neurons: " neurons", oneAtATime: "One at a time, at random.", bodiesShown: " cell bodies shown. Click one.",
   readingAll: "Reading every axon: ", drawn: " neurons drawn", segs: " axon segments",
+  loadShell: "the brain shell", loadIndex: "the neuron index", loadCells: "every cell", loadShard: "a neuron shard",
   allDone: (n, s) => `${n} neurons, ${s} axon segments, every one of them measured. Twigs under 0.3 mm are left out at this scale.`,
   cellsDone: (k, e, t) => `${k} cells drawn, 1 in ${e} of the ${t} mapped in this brain.`,
   moreClasses: (n) => `and ${n} more classes`, traced: (n) => `${n} traced so far`,
@@ -93,6 +95,33 @@ const TRAIL_MAX = 80;             /* finished neurons kept as faint traces */
 export async function mountMouse(el) {
   const mount = el.querySelector("[data-mount]");
   const status = el.querySelector("[data-status]");
+  /* ---- the loading bar: fed by the bytes each fetch actually receives */
+  const lbar = el.querySelector("[data-lbar]"), lbarFill = el.querySelector("[data-lbar-fill]"), lbarHead = el.querySelector("[data-lbar-head]"), lbarTxt = el.querySelector("[data-lbar-txt]");
+  const fmtMB = (b) => b >= 1e6 ? (b / 1e6).toFixed(1) + " MB" : Math.round(b / 1e3) + " kB";
+  let lbarHide = 0;
+  const bar = {
+    set(got, total, label) {
+      if (!lbar) return; clearTimeout(lbarHide); lbar.classList.remove("is-off");
+      const f = total ? Math.min(0.99, got / total) : 0, pct = (f * 100).toFixed(1) + "%";
+      lbarFill.style.width = pct; lbarHead.style.left = pct;
+      lbarTxt.innerHTML = `<span>${label}</span><span class="u">${total ? `${fmtMB(got)} / ${fmtMB(total)}` : fmtMB(got)}</span>`;
+    },
+    done() { if (!lbar) return; lbarFill.style.width = "100%"; lbarHead.style.left = "100%"; lbarHide = setTimeout(() => lbar.classList.add("is-off"), 900); },
+  };
+  /* fetch with the bar: a stream read so the bar moves with the bytes; a
+     gzipped answer over-counts against its compressed length, so the fill
+     stops at 99 until the last byte lands */
+  async function fetchProgress(path, label) {
+    const r = await fetch(R(path));
+    if (!r.ok) throw new Error(`${r.status} ${path}`);
+    const total = +r.headers.get("content-length") || 0;
+    if (!r.body) { bar.set(0, 0, label); const b = await r.arrayBuffer(); bar.done(); return b; }
+    const reader = r.body.getReader(); const chunks = []; let got = 0;
+    bar.set(0, total, label);
+    for (;;) { const { done, value } = await reader.read(); if (done) break; chunks.push(value); got += value.length; bar.set(got, total, label); }
+    const out = new Uint8Array(got); let o = 0; for (const c of chunks) { out.set(c, o); o += c.length; }
+    bar.done(); return out.buffer;
+  }
   const card = el.querySelector("[data-card]");
   const legend = el.querySelector("[data-legend]");
   const q = (s) => el.querySelector(s);
@@ -140,10 +169,10 @@ export async function mountMouse(el) {
   micronsG.visible = true;
 
   const loader = new GLTFLoader();
-  function loadGlb(url) {
+  function loadGlb(url, label) {
     return new Promise((res, rej) => loader.load(R(url), (g) => {
-      let m = null; g.scene.traverse((o) => { if (o.isMesh && !m) m = o; }); res(m);
-    }, undefined, rej));
+      let m = null; g.scene.traverse((o) => { if (o.isMesh && !m) m = o; }); if (label) bar.done(); res(m);
+    }, label ? (x) => { if (x.total) bar.set(x.loaded, x.total, label); } : undefined, rej));
   }
 
   const REGION_A = 0.06, REGION_A_LIT = 0.022, SHELL_A = 0.07, SHELL_A_LIT = 0.04;
@@ -151,7 +180,7 @@ export async function mountMouse(el) {
   let surfaceGain = 1, divisionGain = 1;
   let shellSolid = null;
   /* the shell: front faces only, no depth write, so the neurons inside show */
-  const shellMesh = await loadGlb("meshes/root.glb");
+  const shellMesh = await loadGlb("meshes/root.glb", T.loadShell);
   shellSolid = shellMaterials(shellMesh, { color: SHELL, emissive: SHELL_EM, emissiveIntensity: 0.25,
     opacity: SHELL_A, side: "front", depthWrite: false, wire: SHELL_WIRE, wireOpacity: 0.012 }).solid;
   shellMesh.renderOrder = 5;
@@ -359,10 +388,11 @@ export async function mountMouse(el) {
     packG.clear(); pk.group.position.copy(cu.centre); packG.add(pk.group);
     renderCubeCard(cu, pk);
     if (h1 && cu.population) h1.textContent = ZH ? `${cu.name}：${fmt(pk.cells.length)} / ${fmt(cu.population.n)} ${cu.population.what}` : `${fmt(pk.cells.length)} of ${fmt(cu.population.n)} cells in ${cu.name}`;
+    syncCubeBtns();
     status.textContent = (ZH ? `${cu.name}：${fmt(pk.cells.length)} 个细胞，${fmt(pk.synCount)} 个真实突触。滚轮靠近或拉远到整个脑。` : `${cu.name}: ${fmt(pk.cells.length)} reconstructed cells, ${fmt(pk.synCount)} real synapses as white dots. Scroll in to come closer, out to see it in the whole brain.`);
   }
   function leaveCube() {
-    inside = null; packG.clear(); syncStatus(); if (h1) h1.textContent = h1Home;
+    inside = null; packG.clear(); syncStatus(); if (h1) h1.textContent = h1Home; syncCubeBtns();
     if (mode === "wire") { autoNext = true; const r = pickRandom(); if (r) focusOn(r); }
   }
   function renderCubeCard(cu, pk) {
@@ -484,7 +514,7 @@ export async function mountMouse(el) {
   }
 
   /* ---- the neuron index -------------------------------------------------- */
-  const meta = await (await fetch(R("data/neurons.json"))).json();
+  const meta = JSON.parse(new TextDecoder().decode(await fetchProgress("data/neurons.json", T.loadIndex)));
   const N = meta.neurons;
   /* the named regions an axon can land in: acronym -> {name, major, file} */
   fetch(R("data/regions.json")).then((r) => r.json()).then((j) => { RINFO = j; }).catch(() => {});
@@ -500,7 +530,7 @@ export async function mountMouse(el) {
     if (shardWhole[file]) return shardWhole[file].slice(rec.offset, rec.offset + rec.bytes);
     const r = await fetch(file, { headers: { Range: `bytes=${rec.offset}-${rec.offset + rec.bytes - 1}` } });
     if (r.status === 206) return await r.arrayBuffer();
-    shardWhole[file] = await r.arrayBuffer();
+    shardWhole[file] = r.body ? await (async () => { const total = +r.headers.get("content-length") || 0, rd = r.body.getReader(), ch = []; let got = 0; bar.set(0, total, T.loadShard); for (;;) { const { done, value } = await rd.read(); if (done) break; ch.push(value); got += value.length; bar.set(got, total, T.loadShard); } const o = new Uint8Array(got); let k = 0; for (const c of ch) { o.set(c, k); k += c.length; } bar.done(); return o.buffer; })() : await r.arrayBuffer();
     return shardWhole[file].slice(rec.offset, rec.offset + rec.bytes);
   }
   /* packed polylines -> segment pairs for LineSegments. Layout in
@@ -725,7 +755,7 @@ export async function mountMouse(el) {
     const files = meta.coarse_files || ["axons-coarse.bin"];
     const file = files.find((f) => f.replace(/^axons-coarse-?/, "").replace(/\.bin$/, "") === src) || files[0];
     status.textContent = T.readingAll + (T.sources[src] || src || "all") + "…";
-    const buf = await (await fetch(R("data/" + file))).arrayBuffer();
+    const buf = await fetchProgress("data/" + file, T.readingAll + (T.sources[src] || src || "all"));
     /* block offsets per record, so a subset can be read without a full pass */
     let off = 0;
     for (const r of (bySrc[src] || N)) { r._coff = off; off += r.cbytes || 0; }
@@ -906,7 +936,7 @@ export async function mountMouse(el) {
     if (cellsLoaded) return; cellsLoaded = true;
     status.textContent = "Reading the cells…";
     const [info, buf] = await Promise.all([
-      (await fetch(R("data/cells.json"))).json(), (await fetch(R("data/cells.bin"))).arrayBuffer()]);
+      (await fetch(R("data/cells.json"))).json(), fetchProgress("data/cells.bin", T.loadCells)]);
     cellInfo = info;
     const K = info.kept;
     const q16 = new Int16Array(buf, 0, K * 3), cls = new Uint8Array(buf, K * 6, K);
@@ -1120,8 +1150,13 @@ export async function mountMouse(el) {
     if (mode === "pick") status.textContent = `${fmt(candidates().length)}${T.bodiesShown}`;
   }
   el.querySelectorAll("[data-mode]").forEach((b) => b.addEventListener("click", () => { setMode(b.dataset.mode); writeUrl(); }));
-  el.querySelectorAll("[data-cube]").forEach((b) => b.addEventListener("click", () => {
+  /* the jump buttons toggle: click one to dive in, click it again to leave;
+     the lit one is the cube you are in */
+  const cubeBtns = [...el.querySelectorAll("[data-cube]")];
+  function syncCubeBtns() { cubeBtns.forEach((b) => b.setAttribute("aria-pressed", String(!!inside && inside.id === b.dataset.cube))); }
+  cubeBtns.forEach((b) => b.addEventListener("click", () => {
     const cu = CUBES.find((c) => c.id === b.dataset.cube); if (!cu) return;
+    if (inside === cu) { leaveCube(); writeUrl(); return; }
     if (!micronsG.visible) { micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true; }
     const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); writeUrl();
   }));
@@ -1131,14 +1166,23 @@ export async function mountMouse(el) {
   onToggle("[data-t-cells]", (on) => { cellG.visible = on; if (on) loadCells(); });
   onToggle("[data-t-microns]", (on) => { micronsG.visible = on; });
   const turnBox = onToggle("[data-t-turn]", (on) => { idleTurn = on; syncPause(); });
-  /* fullscreen takes the picture with its tags and status; the controls stay
-     on the page behind it, and Esc brings it back */
+  /* fullscreen takes the whole stage: the picture fills the screen, the
+     controls become a bar along the bottom and the card a panel on the
+     right, and the panels button hides both for a clean picture. Esc brings
+     the page back. */
   const viewEl = el.querySelector(".view") || mount;
   const fsBtn = q("[data-fullscreen]");
-  const goFull = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (viewEl.requestFullscreen) viewEl.requestFullscreen(); };
+  const goFull = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (el.requestFullscreen) el.requestFullscreen(); };
   if (fsBtn) fsBtn.addEventListener("click", goFull);
   const fsIcon = q("[data-fullscreen-icon]"); if (fsIcon) fsIcon.addEventListener("click", goFull);
-  document.addEventListener("fullscreenchange", () => { fitAll(); if (fsBtn) fsBtn.textContent = document.fullscreenElement ? (ZH ? "退出全屏" : "Exit fullscreen") : (ZH ? "全屏" : "Fullscreen"); });
+  const panelsBtn = q("[data-panels]");
+  const syncPanels = () => { const off = el.classList.contains("panels-off"); if (panelsBtn) { panelsBtn.setAttribute("aria-pressed", String(!off)); panelsBtn.title = off ? (ZH ? "显示控件" : "Show the controls") : (ZH ? "隐藏控件" : "Hide the controls"); } };
+  if (panelsBtn) panelsBtn.addEventListener("click", () => { el.classList.toggle("panels-off"); syncPanels(); syncCtlH(); fitAll(); loop.once(); });
+  syncPanels();
+  const ctlEl = el.querySelector(".ctl");
+  const syncCtlH = () => { el.style.setProperty("--ctl-h", (document.fullscreenElement && ctlEl && !el.classList.contains("panels-off") ? ctlEl.offsetHeight : 0) + "px"); };
+  if (ctlEl && window.ResizeObserver) new ResizeObserver(syncCtlH).observe(ctlEl);
+  document.addEventListener("fullscreenchange", () => { fitAll(); syncCtlH(); if (fsBtn) fsBtn.textContent = document.fullscreenElement ? (ZH ? "退出全屏" : "Exit fullscreen") : (ZH ? "全屏" : "Fullscreen"); });
   /* share: the address bar already holds the view; copy it */
   /* save an image: the frame as drawn, with a caption band naming the cell,
      its region, the source and the page, so the picture travels with its
@@ -1169,9 +1213,16 @@ export async function mountMouse(el) {
     const blob = await new Promise((res) => c.toBlob(res, "image/png"));
     const name = `whatisabrain-mouse-${rec ? rec.id : "view"}.png`;
     const file = new File([blob], name, { type: "image/png" });
-    if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: line1 }); return; } catch (e) {} }
-    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
-    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+    /* a phone gets the share sheet (so the picture can go straight to a
+       message); a desktop gets a download, since its share dialog is a
+       detour that often ends nowhere */
+    const mobile = (navigator.userAgentData && navigator.userAgentData.mobile) || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (mobile && navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: line1 }); return; } catch (e) {} }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = name; a.rel = "noopener"; document.body.appendChild(a); a.click();
+    const was = imgBtn.textContent; imgBtn.textContent = ZH ? `已保存 ${name}` : `Saved ${name}`;
+    setTimeout(() => { imgBtn.textContent = was; }, 2600);
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 4000);
   });
   const shareBtn = q("[data-share]");
   if (shareBtn) shareBtn.addEventListener("click", async () => {
@@ -1194,7 +1245,14 @@ export async function mountMouse(el) {
     reqBtn.href = issue.toString();
   });
   const pauseBtn = q("[data-pause]");
-  function syncPause() { if (pauseBtn) pauseBtn.textContent = idleTurn ? (ZH ? "暂停旋转" : "Pause turning") : (ZH ? "继续旋转" : "Resume turning"); }
+  /* the button is a symbol: two bars while it turns, a turning arrow while
+     it is paused; the words live in the title and the label */
+  function syncPause() {
+    if (!pauseBtn) return;
+    pauseBtn.innerHTML = idleTurn ? '<span class="pz">&#10074;&#10074;</span>' : '<span class="pz pz-turn">&#8635;</span>';
+    const words = idleTurn ? (ZH ? "暂停旋转" : "Pause turning") : (ZH ? "继续旋转" : "Resume turning");
+    pauseBtn.title = words; pauseBtn.setAttribute("aria-label", words);
+  }
   if (pauseBtn) { pauseBtn.addEventListener("click", () => { idleTurn = !idleTurn; if (turnBox) turnBox.checked = idleTurn; syncPause(); writeUrl(); }); syncPause(); }
   onToggle("[data-t-zoom]", (on) => { zoomIn = on; retarget(); });
   const sl = q("[data-surface]");
