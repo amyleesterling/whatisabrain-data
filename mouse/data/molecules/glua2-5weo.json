@@ -1,0 +1,284 @@
+{
+ "pdb": "5WEO",
+ "title": "Activated GluA2 complex bound to glutamate, cyclothiazide, and STZ in digitonin",
+ "method": "EM",
+ "resolution_A": [
+  4.2
+ ],
+ "citation": {
+  "journal": "Nature",
+  "year": 2017,
+  "title": "Channel opening and gating mechanism in AMPA-subtype glutamate receptors.",
+  "doi": null,
+  "authors": [
+   "Twomey, E.C.",
+   "Yelshanskaya, M.V.",
+   "Grassucci, R.A.",
+   "Frank, J.",
+   "Sobolevsky, A.I."
+  ]
+ },
+ "polymers": [
+  {
+   "description": "Glutamate receptor 2,Voltage-dependent calcium channel gamma-2 subunit chimera",
+   "organisms": [
+    "Mus musculus",
+    "Rattus norvegicus"
+   ],
+   "chains": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ]
+  }
+ ],
+ "chains": [
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "chainColours": {
+  "A": "#6fd0ff",
+  "B": "#ffb24d",
+  "C": "#ff5cc0",
+  "D": "#9fe3b0"
+ },
+ "ligand": {
+  "residue": "GLU",
+  "atoms": 40,
+  "centres_nm": [
+   [
+    16.187,
+    13.42,
+    16.684
+   ],
+   [
+    16.075,
+    13.504,
+    16.726
+   ],
+   [
+    16.031,
+    13.46,
+    16.864
+   ],
+   [
+    16.049,
+    13.344,
+    16.901
+   ],
+   [
+    15.961,
+    13.497,
+    16.625
+   ],
+   [
+    15.838,
+    13.581,
+    16.656
+   ],
+   [
+    15.864,
+    13.73,
+    16.648
+   ],
+   [
+    15.956,
+    13.771,
+    16.574
+   ],
+   [
+    15.791,
+    13.806,
+    16.713
+   ],
+   [
+    15.979,
+    13.539,
+    16.943
+   ],
+   [
+    13.523,
+    18.068,
+    16.505
+   ],
+   [
+    13.414,
+    18.147,
+    16.449
+   ],
+   [
+    13.322,
+    18.19,
+    16.562
+   ],
+   [
+    13.256,
+    18.294,
+    16.556
+   ],
+   [
+    13.339,
+    18.068,
+    16.342
+   ],
+   [
+    13.223,
+    18.14,
+    16.274
+   ],
+   [
+    13.267,
+    18.256,
+    16.188
+   ],
+   [
+    13.382,
+    18.255,
+    16.14
+   ],
+   [
+    13.186,
+    18.347,
+    16.166
+   ],
+   [
+    13.314,
+    18.121,
+    16.664
+   ],
+   [
+    16.204,
+    18.974,
+    16.701
+   ],
+   [
+    16.314,
+    18.888,
+    16.743
+   ],
+   [
+    16.359,
+    18.931,
+    16.882
+   ],
+   [
+    16.342,
+    19.047,
+    16.919
+   ],
+   [
+    16.429,
+    18.896,
+    16.642
+   ],
+   [
+    16.551,
+    18.81,
+    16.673
+   ],
+   [
+    16.524,
+    18.662,
+    16.663
+   ],
+   [
+    16.432,
+    18.622,
+    16.589
+   ],
+   [
+    16.596,
+    18.584,
+    16.728
+   ],
+   [
+    16.41,
+    18.851,
+    16.96
+   ],
+   [
+    18.867,
+    14.326,
+    16.508
+   ],
+   [
+    18.976,
+    14.246,
+    16.453
+   ],
+   [
+    19.067,
+    14.203,
+    16.567
+   ],
+   [
+    19.132,
+    14.099,
+    16.561
+   ],
+   [
+    19.052,
+    14.325,
+    16.347
+   ],
+   [
+    19.168,
+    14.254,
+    16.28
+   ],
+   [
+    19.125,
+    14.138,
+    16.192
+   ],
+   [
+    19.01,
+    14.14,
+    16.144
+   ],
+   [
+    19.206,
+    14.046,
+    16.171
+   ],
+   [
+    19.074,
+    14.271,
+    16.669
+   ]
+  ]
+ },
+ "atoms": 31168,
+ "unit": "GLB unit = 10 nm (MolecularNodes world scale 0.01 per Angstrom); the _nm fields are in nanometres",
+ "surfaceFaces": 125372,
+ "bbox_nm": [
+  [
+   10.8,
+   8.1,
+   6.54
+  ],
+  [
+   21.61,
+   24.24,
+   25.65
+  ]
+ ],
+ "centre_nm": [
+  16.200000762939453,
+  16.170000076293945,
+  16.100000381469727
+ ],
+ "extent_nm": [
+  10.8100004196167,
+  16.139999389648438,
+  19.110000610351562
+ ],
+ "source": "RCSB PDB via ProteinBlender 1.1.0 (Animation Lab, University of Utah) and MolecularNodes in Blender 5.0.1; solvent removed; surface = MolecularNodes solvent accessible surface, decimated",
+ "files": {
+  "surface": "meshes/molecules/glua2-5weo.glb",
+  "ligand": "meshes/molecules/glua2-5weo-ligand.glb"
+ }
+}

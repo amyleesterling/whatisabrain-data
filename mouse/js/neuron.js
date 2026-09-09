@@ -378,6 +378,63 @@ export async function mountNeuron(el) {
       },
     };
   }
+  /* ---- the receptor: a molecule from its deposited coordinates ------
+     The third frame. mouse/data/molecules/<slug>.json (written by
+     tools/build-molecules.py from the RCSB record) names the entry; the
+     GLBs are MolecularNodes' surface of the atoms coloured by chain and the
+     ligand as spheres, in units of 10 nm, scaled to nanometres here. */
+  let molecule = null;
+  const frameC = bubbleEl && bubbleEl.querySelector('[data-frame="c"]');
+  async function makeMolecule(slug) {
+    const rec = await (await fetch(R(`data/molecules/${slug}.json`))).json();
+    const ld = new GLTFLoader();
+    const load = (url) => new Promise((res, rej) => ld.load(R(url), (g) => res(g.scene), undefined, rej));
+    const [surfS, ligS] = await Promise.all([load(rec.files.surface), rec.files.ligand ? load(rec.files.ligand) : Promise.resolve(null)]);
+    const mountC = bubbleEl.querySelector("[data-bmount-c]");
+    const sc = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(30, 1, 0.5, 400);
+    const rd = makeRenderer(mountC); fitRenderer(rd, cam, mountC);
+    sc.add(new THREE.AmbientLight(0xffffff, 0.5));
+    const k1 = new THREE.DirectionalLight(0xffffff, 1.1); k1.position.set(2, 3, 2); sc.add(k1);
+    const k2 = new THREE.DirectionalLight(0x9fd0ff, 0.45); k2.position.set(-2, -1, -2); sc.add(k2);
+    const piv = new THREE.Group(); sc.add(piv);
+    const inner = new THREE.Group(); inner.scale.setScalar(10); piv.add(inner);   /* GLB units are 10 nm */
+    const matS = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.62, metalness: 0.04 });
+    surfS.traverse((o) => { if (o.isMesh) { o.material = matS; inner.add(o.clone()); } });
+    if (ligS) { const matL = new THREE.MeshStandardMaterial({ color: new THREE.Color(PARTS.soma.color), emissive: new THREE.Color(PARTS.soma.color), emissiveIntensity: 0.35, roughness: 0.4 }); ligS.traverse((o) => { if (o.isMesh) { o.material = matL; inner.add(o.clone()); } }); }
+    /* centre the molecule on its own bounding box and frame it by its extent */
+    const box = new THREE.Box3().setFromObject(inner); const c = new THREE.Vector3(); box.getCenter(c); inner.position.sub(c);
+    const size = new THREE.Vector3(); box.getSize(size); const dist = Math.max(size.x, size.y, size.z) * 1.55;
+    /* the long axis (the pore) stands up */
+    if (size.z > size.y) piv.rotation.x = -Math.PI / 2;
+    const dir = new THREE.Vector3(0.7, 0.35, 1).normalize();
+    cam.position.copy(dir).multiplyScalar(dist); cam.lookAt(0, 0, 0);
+    let bdrag = false, bx = 0, bvel = 0;
+    const cv = rd.domElement; cv.style.cursor = "grab";
+    cv.addEventListener("pointerdown", (ev) => { bdrag = true; bx = ev.clientX; bvel = 0; try { cv.setPointerCapture(ev.pointerId); } catch (e) {} });
+    cv.addEventListener("pointermove", (ev) => { if (!bdrag) return; const dx = ev.clientX - bx; piv.rotation.y += dx * 0.01; bvel = dx * 0.3; bx = ev.clientX; });
+    cv.addEventListener("pointerup", () => { bdrag = false; });
+    cv.addEventListener("wheel", (ev) => { ev.preventDefault(); cam.position.multiplyScalar(Math.exp(ev.deltaY * 0.001)); const l = cam.position.length(); if (l < dist * 0.25) cam.position.setLength(dist * 0.25); if (l > dist * 3) cam.position.setLength(dist * 3); }, { passive: false });
+    new ResizeObserver(() => fitRenderer(rd, cam, mountC)).observe(mountC);
+    const st = bubbleEl.querySelector("[data-cstatus]");
+    if (st) st.textContent = ZH ? ` ${fmt(rec.atoms)} 个原子，${rec.chains.length} 条链，${rec.ligand.atoms / 10 | 0} 个谷氨酸。` : ` ${fmt(rec.atoms)} atoms, ${rec.chains.length} chains, ${rec.ligand.atoms / 10 | 0} glutamates.`;
+    const leaders = el.querySelector("[data-leaders]");
+    return {
+      on: true,
+      frame(dt) {
+        if (!bdrag) { piv.rotation.y += bvel * dt + (REDUCED ? 0 : dt * 0.18); bvel *= Math.pow(0.002, dt); }
+        rd.render(sc, cam);
+        /* a third leader: from the contact in frame B down to frame C */
+        if (!leaders || stage !== "receptor" || frameC.hidden) return;
+        const vw = el.querySelector(".view") || mount; const vr = vw.getBoundingClientRect();
+        const fb = bubbleEl.querySelector('[data-frame="b"] .fm').getBoundingClientRect();
+        const fc = frameC.querySelector(".fm").getBoundingClientRect();
+        const x0 = fb.left - vr.left + fb.width * 0.5, y0 = fb.top - vr.top + fb.height * 0.5;
+        const x1 = fc.left - vr.left, y1 = fc.top - vr.top + 14;
+        leaders.innerHTML += `<circle cx="${x0.toFixed(1)}" cy="${y0.toFixed(1)}" r="3"/><path d="M${x0.toFixed(1)},${y0.toFixed(1)} L${x0.toFixed(1)},${(fb.bottom - vr.top + 7).toFixed(1)} L${x1.toFixed(1)},${y1.toFixed(1)}"/>`;
+      },
+    };
+  }
   function setStage(st) {
     stage = st;
     el.querySelectorAll("[data-stage]").forEach((b) => b.setAttribute("aria-selected", b.dataset.stage === st ? "true" : "false"));
@@ -385,10 +442,17 @@ export async function mountNeuron(el) {
     if (st === "whole") { zHome = zWhole; setFocus(null); focusLocked = false; }
     else { zHome = Math.max(1.4, Math.min(3.2, 0.9 + 0.35 * (rec.dend_mm || 4))); setFocus("dendrite"); focusLocked = true; }
     { const lm = el.querySelector("[data-mk]"), ld = el.querySelector("[data-leaders]");
-      if (lm) lm.hidden = st !== "synapse"; if (ld) ld.innerHTML = ""; }
+      if (lm) lm.hidden = !(st === "synapse" || st === "receptor"); if (ld) ld.innerHTML = ""; }
     if (bubbleEl) {
-      bubbleEl.hidden = st !== "synapse";
-      if (st === "synapse" && !bubble) {
+      const deep = st === "synapse" || st === "receptor";
+      bubbleEl.hidden = !deep;
+      bubbleEl.classList.toggle("receptor", st === "receptor");
+      if (frameC) frameC.hidden = st !== "receptor";
+      if (st === "receptor" && !molecule) {
+        molecule = { on: false, frame() {} };
+        makeMolecule("glua2-5weo").then((m) => { molecule = m; }).catch((e) => { const st3 = bubbleEl.querySelector("[data-cstatus]"); if (st3) st3.textContent = " The receptor did not load. " + e.message; });
+      }
+      if (deep && !bubble) {
         bubble = { on: false, frame() {} };
         makeBubble().then((b) => { bubble = b; }).catch((e) => { const st2 = bubbleEl.querySelector("[data-bstatus]"); if (st2) st2.textContent = "The synapse did not load. " + e.message; });
       }
@@ -435,6 +499,7 @@ export async function mountNeuron(el) {
     const back = Math.max(1, 1.4 / camera.aspect) * zoomNow;
     camera.position.set(0, zNow * 0.12 * back, zNow * back); camera.lookAt(0, 0, 0);
     if (bubble && bubble.on) bubble.frame(dt);
+    if (molecule && molecule.on && stage === "receptor") molecule.frame(dt);
     placeTargetLabels();
     if (signalT >= 0) {
       signalT += dt; mat.uniforms.uGrow.value = signalT * SPEED;
@@ -446,7 +511,7 @@ export async function mountNeuron(el) {
   new ResizeObserver(fitAll).observe(mount);
   loop.run();
   const st0 = new URLSearchParams(location.search).get("stage");
-  if (st0 === "closeup" || st0 === "synapse") setStage(st0); else setStage("whole");
+  if (st0 === "closeup" || st0 === "synapse" || st0 === "receptor") setStage(st0); else setStage("whole");
   if (status) status.textContent = ZH ? `${rec.id}，${rec.region_name || rec.region}` : `${rec.id}, ${rec.region_name || rec.region}`;
   return { scene, camera, renderer, loop, rec, setFocus, pivot, fire: () => { signalT = 0; mat.uniforms.uHead.value = 1; } };
 }

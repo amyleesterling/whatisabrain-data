@@ -39,6 +39,17 @@ those datasets' licences. Each is credited on the page.
                           CCN20230722, CC BY-NC 4.0. Cite Yao Z. et al.,
                           Nature 624, 317 (2023).
 
+  meshes/molecules/*      Molecular structures from the RCSB Protein Data Bank
+  data/molecules/*        (rcsb.org), public domain under the wwPDB policy; each
+                          record names its entry, method, resolution, organisms
+                          and primary citation (5WEO: Twomey E.C. et al., Nature
+                          549, 60, 2017). Surfaces built with MolecularNodes
+                          (Brady Johnston, MIT) inside ProteinBlender (Animation
+                          Lab, University of Utah, GPL-3.0-or-later) in Blender
+                          5.0, decimated; ligand spheres at the deposited atom
+                          positions with van der Waals radii. Build:
+                          tools/build-molecules.py.
+
 No dataset here may be used commercially without the permission of its owner.
 The build that produced these files is tools/build-mouse.py. The data/ folder is
 hosted in the public repository github.com/amyleesterling/whatisabrain-data.

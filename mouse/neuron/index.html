@@ -71,6 +71,12 @@
   @media (max-height:760px){ .hud { top:auto; bottom:12px; width:auto; flex-direction:row; align-items:flex-end; }
     .frame { width:min(150px,28vw); } .frame .fnote { display:none; } }
   .hud[hidden] { display:none; }
+  .frame[hidden] { display:none; }
+  /* the receptor stage: three frames in the column, the EM pair smaller
+     with their notes folded so the molecule gets the room */
+  .hud.receptor .frame[data-frame="a"], .hud.receptor .frame[data-frame="b"] { width:64%; }
+  .hud.receptor .frame[data-frame="a"] .fnote, .hud.receptor .frame[data-frame="b"] .fnote { display:none; }
+  @media (max-height:760px){ .hud.receptor .frame[data-frame="a"], .hud.receptor .frame[data-frame="b"] { width:min(110px,20vw); } }
   .frame { position:relative; pointer-events:auto; }
   .frame .fm { width:100%; aspect-ratio:1; overflow:hidden; background:radial-gradient(circle at 45% 40%, #0d1420 0%, #05070b 80%); border:1px solid rgba(159,208,255,.14); }
   .frame .fm canvas { display:block; width:100% !important; height:100% !important; }
@@ -155,12 +161,19 @@
           <div class="fcap"><span data-en>The synapse</span><span data-zh>突触</span></div>
           <div class="fnote"><span data-en>Where they touch: one synapse, reconstructed from electron microscopy at a few nanometres. A different mouse from the cell on the left, the same cortex and the same cell class.</span><span data-zh>它们相触的地方：一个突触，由几纳米分辨率的电镜重建。与左侧细胞不是同一只小鼠，但来自同一皮层、同一类细胞。</span><span class="bstatus" data-bstatus></span></div>
         </div>
+        <div class="frame" data-frame="c" hidden>
+          <b class="k tl"></b><b class="k tr"></b><b class="k bl"></b><b class="k br"></b>
+          <div class="fm" data-bmount-c></div>
+          <div class="fcap"><span data-en>The receptor, atom by atom</span><span data-zh>受体，逐个原子</span></div>
+          <div class="fnote"><span data-en>An <b>AMPA receptor</b> with <b>glutamate</b> bound (the cream spheres), the molecule a synapse like the one above opens with. Deposited structure PDB 5WEO: cryo-EM at 4.2 Å, rat GluA2 fused to mouse stargazin, Twomey et al., Nature 2017. Four chains, four colours, about 19 nm tall. Drag to turn, scroll to zoom.</span><span data-zh>一个结合了<b>谷氨酸</b>（奶白色小球）的 <b>AMPA 受体</b>，上面那样的突触正是靠这种分子打开的。PDB 5WEO 沉积结构：冷冻电镜 4.2 Å，大鼠 GluA2 与小鼠 stargazin 融合蛋白，Twomey 等，Nature 2017。四条链，四种颜色，约 19 nm 高。拖动转动，滚轮缩放。</span><span class="bstatus" data-cstatus></span></div>
+        </div>
       </div>
       <div class="ctl">
         <div class="stages" role="tablist">
           <button class="btn" data-stage="whole" role="tab"><span data-en>Whole cell</span><span data-zh>整个细胞</span></button>
           <button class="btn" data-stage="closeup" role="tab"><span data-en>Cell body and dendrites</span><span data-zh>胞体与树突</span></button>
           <button class="btn" data-stage="synapse" role="tab"><span data-en>Closer: a synapse</span><span data-zh>再近一点：一个突触</span></button>
+          <button class="btn" data-stage="receptor" role="tab"><span data-en>Closer still: a receptor</span><span data-zh>再近一点：一个受体</span></button>
         </div>
         <button class="btn fire" data-fire><span data-en>Fire a signal</span><span data-zh>发出一个信号</span></button>
         <button class="btn" data-turn><span data-en>Pause turning</span><span data-zh>暂停旋转</span></button>
@@ -196,6 +209,10 @@
         <p data-en>The frames on the right show a real synapse reconstructed from electron microscopy in the MICrONS volume: one cubic millimetre of primary visual cortex, imaged at a few nanometres. The orange surface is the dendrite of Aura, a layer 5 pyramidal cell, the same class as the cell drawn here and from the same cortex, though a different mouse. The blue surface is Tendril, an inhibitory axon, and the pale dot is where they touch. <a href="https://amyleesterling.github.io/microns/">The cubic millimetre</a> has the rest of that cell.</p>
         <p data-zh>右侧的两个画面是 MICrONS 数据里由电子显微镜重建的一个真实突触：一立方毫米的初级视觉皮层，以几纳米的分辨率成像。橙色表面是 Aura 的树突，它是一个第 5 层锥体细胞，与这里画出的细胞同类、来自同一皮层，但来自另一只小鼠。蓝色表面是 Tendril，一根抑制性轴突，浅色的点是它们相触的地方。<a href="https://amyleesterling.github.io/microns/">一立方毫米</a>页面有那个细胞的其余部分。</p>
       </div>
+      <div data-stagecopy="receptor" hidden>
+        <p data-en>The third frame goes a thousand times closer than the synapse: one receptor molecule, drawn from its deposited atomic coordinates. This is an AMPA-type glutamate receptor, the protein that turns the glutamate released at a synapse like the one above into an electrical signal in the dendrite. It is about 19 nanometres tall, and a synapse holds dozens of them. The structure is PDB entry 5WEO, solved by cryo-electron microscopy at 4.2 ångström resolution (Twomey et al., Nature 2017): rat GluA2 fused to mouse stargazin, its auxiliary subunit, caught with glutamate bound and the channel open. The surface is the solvent-accessible surface of the atoms, coloured by chain and built with MolecularNodes through the Animation Lab's ProteinBlender; the cream spheres are the four glutamates at their measured positions. It is not placed inside the EM synapse: where the receptors sit in that particular synapse was not measured.</p>
+        <p data-zh>第三个画面比突触又近了一千倍：一个受体分子，按它沉积的原子坐标画出。这是 AMPA 型谷氨酸受体，正是它把上面那样的突触释放的谷氨酸变成树突里的电信号。它约 19 纳米高，一个突触里有几十个。结构来自 PDB 条目 5WEO，冷冻电子显微镜解析，分辨率 4.2 埃（Twomey 等，Nature 2017）：大鼠 GluA2 与它的辅助亚基、小鼠 stargazin 的融合蛋白，在结合谷氨酸、通道打开的状态下被捕获。表面是原子的溶剂可及表面，按链着色，用 MolecularNodes 经 Animation Lab 的 ProteinBlender 生成；奶白色小球是四个谷氨酸，在它们实测的位置上。它没有被放进电镜突触里：那个突触里受体的位置并没有被测量。</p>
+      </div>
       <div data-card></div>
       <p class="side"><span data-en>Other featured cells, by the region their cell body sits in:</span><span data-zh>其他精选细胞，按胞体所在脑区：</span></p>
       <div class="others" data-others></div>
@@ -228,7 +245,7 @@
 </main>
 
 <script type="module">
-  import { mountNeuron } from "../js/neuron.js?v=11";
+  import { mountNeuron } from "../js/neuron.js?v=12";
   const el = document.getElementById("neuron");
   mountNeuron(el).then((h) => { window.__neuron = h; }).catch((e) => {
     const s = el.querySelector("[data-status]"); if (s) s.textContent = "The neuron did not load. " + e.message; throw e;
