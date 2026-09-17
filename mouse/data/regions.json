@@ -2530,5 +2530,15 @@
 "name": "Preparasubthalamic nucleus",
 "major": "Hypothalamus",
 "file": "PST.glb"
+},
+"AOBgr": {
+"id": 196,
+"name": "Accessory olfactory bulb, granular layer",
+"major": "Olfactory areas"
+},
+"onl": {
+"id": 1016,
+"name": "olfactory nerve layer of main olfactory bulb",
+"major": "fibre tracts"
 }
 }

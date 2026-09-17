@@ -4072,5 +4072,42 @@
    "targets": "ILA 35%, PVT 33%, MD 8%, RE 6%",
    "axon_mm": 44.8
   }
+ },
+ "LC-NE": {
+  "CTX": {
+   "name": "Forebrain-projecting",
+   "family": "ascending",
+   "desc": "Most of this cell's axon tips are in the forebrain: isocortex, olfactory areas, hippocampus, cortical subplate or striatum. The paper finds these cell bodies in dorsal locus coeruleus.",
+   "n": 75,
+   "axon_mm": 378.3
+  },
+  "THMB": {
+   "name": "Thalamus and midbrain-projecting",
+   "family": "ascending",
+   "desc": "Most of this cell's axon tips are in the thalamus, hypothalamus or midbrain.",
+   "n": 7,
+   "axon_mm": 225.7
+  },
+  "CB": {
+   "name": "Cerebellum-projecting",
+   "family": "cerebellar",
+   "desc": "Most of this cell's axon tips are in the cerebellum. The paper finds these cell bodies between the dorsal and ventral groups.",
+   "n": 22,
+   "axon_mm": 176.7
+  },
+  "BS": {
+   "name": "Brainstem-projecting",
+   "family": "descending",
+   "desc": "Most of this cell's axon tips are in the pons or medulla. The paper finds these cell bodies in ventral locus coeruleus.",
+   "n": 18,
+   "axon_mm": 152.0
+  },
+  "SC": {
+   "name": "Spinal cord-projecting",
+   "family": "descending",
+   "desc": "Most of this cell's axon leaves the atlas through its caudal face toward the spinal cord, which the reference brain does not include. The paper finds these cell bodies in ventral locus coeruleus.",
+   "n": 10,
+   "axon_mm": 57.0
+  }
  }
 }
