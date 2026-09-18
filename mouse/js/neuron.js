@@ -13,7 +13,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { REDUCED, makeRenderer, fitRenderer, makeLoop, shellMaterials, fmt } from "./holo3d.js";
+import { REDUCED, makeRenderer, fitRenderer, makeLoop, shellMaterials, fmt, fixNormals } from "./holo3d.js";
 
 const ROOT = new URL("../", import.meta.url).href;
 /* the neuron data (data/) is too large for the site's own repository, so on
@@ -321,8 +321,8 @@ export async function mountNeuron(el) {
     const matD = new THREE.MeshStandardMaterial({ color: new THREE.Color(PARTS.dendrite.color), roughness: 0.55, metalness: 0.05 });
     const matA = new THREE.MeshStandardMaterial({ color: new THREE.Color(PARTS.axon.color), roughness: 0.5, metalness: 0.05 });
     const geos = [];
-    aura.traverse((o) => { if (o.isMesh) geos.push([o.geometry, matD]); });
-    tendril.traverse((o) => { if (o.isMesh) geos.push([o.geometry, matA]); });
+    aura.traverse((o) => { if (o.isMesh) { fixNormals(o.geometry); geos.push([o.geometry, matD]); } });
+    tendril.traverse((o) => { if (o.isMesh) { fixNormals(o.geometry); geos.push([o.geometry, matA]); } });
     function view(mountB, dist, spin) {
       const sc = new THREE.Scene();
       const cam = new THREE.PerspectiveCamera(34, 1, 0.01, 50);
@@ -383,13 +383,56 @@ export async function mountNeuron(el) {
      tools/build-molecules.py from the RCSB record) names the entry; the
      GLBs are MolecularNodes' surface of the atoms coloured by chain and the
      ligand as spheres, in units of 10 nm, scaled to nanometres here. */
-  let molecule = null;
+  let molecule = null, moleculeSlug = "glua2-5weo";
   const frameC = bubbleEl && bubbleEl.querySelector('[data-frame="c"]');
-  async function makeMolecule(slug) {
-    const rec = await (await fetch(R(`data/molecules/${slug}.json`))).json();
-    const ld = new GLTFLoader();
-    const load = (url) => new Promise((res, rej) => ld.load(R(url), (g) => res(g.scene), undefined, rej));
-    const [surfS, ligS] = await Promise.all([load(rec.files.surface), rec.files.ligand ? load(rec.files.ligand) : Promise.resolve(null)]);
+  const MOLECULES = [
+    { slug: "glua2-5weo", chip: ZH ? "AMPA 受体" : "AMPA receptor",
+      cap: ZH ? "受体，逐个原子" : "The receptor, atom by atom",
+      what: ZH ? "AMPA 型谷氨酸受体，结合了谷氨酸（奶白色小球）。正是它把上面那样的突触释放的谷氨酸变成树突里的电信号：谷氨酸一结合，通道打开，几毫秒内电流流入。这个结构在通道打开的状态下被捕获，是大鼠 GluA2 与小鼠 stargazin（它的辅助亚基）的融合蛋白。四条链，四种颜色。"
+              : "The AMPA-type glutamate receptor with glutamate bound (the cream spheres). This is the protein that turns the glutamate released at a synapse like the one above into an electrical signal in the dendrite: glutamate binds, the channel opens, and current flows within a millisecond. The structure was caught with the channel open; it is rat GluA2 fused to mouse stargazin, its auxiliary subunit. Four chains, four colours.",
+      scale: ZH ? "约 19 纳米高；一个突触里有几十个。" : "About 19 nanometres tall; a synapse holds dozens." },
+    { slug: "nmda-4pe5", chip: ZH ? "NMDA 受体" : "NMDA receptor",
+      cap: ZH ? "NMDA 受体，逐个原子" : "The NMDA receptor, atom by atom",
+      what: ZH ? "同一个突触上的另一种谷氨酸受体。它要同时结合谷氨酸和甘氨酸（两种都画成奶白色小球），而且只有在树突已经去极化时才打开：突触正是靠它察觉“两边同时活动”，并据此变强。这就是学习在分子层面的开关。结构来自大鼠 GluN1（蓝）与 GluN2B（橙）。"
+              : "The other glutamate receptor at the same synapse. It needs glutamate and glycine bound together (both drawn as cream spheres) and opens only when the dendrite is already depolarised: this is how a synapse notices that both sides were active at once, and strengthens. At the level of molecules, it is the switch that learning turns. Rat GluN1 (blue) with GluN2B (orange).",
+      scale: ZH ? "约 16 纳米高。" : "About 16 nanometres tall." },
+    { slug: "snare-1sfc", chip: ZH ? "SNARE 复合体" : "SNARE complex",
+      cap: ZH ? "把囊泡拉向膜的机器" : "The machine that fuses the vesicle",
+      what: ZH ? "轴突末梢一侧。囊泡上的 synaptobrevin（蓝）与膜上的 syntaxin（橙）和 SNAP-25（粉，两条螺旋）拧成一束四螺旋，把装满谷氨酸的囊泡拉到膜上并与之融合，谷氨酸由此被释放到突触间隙。这是第一个被解出的 SNARE 结构，来自大鼠。"
+              : "The axon terminal's side. Synaptobrevin from the vesicle (blue) twists together with syntaxin (orange) and SNAP-25 (pink, two helices) from the terminal's membrane into a four-helix bundle that pulls a glutamate-filled vesicle onto the membrane and fuses it, which is how the glutamate reaches the cleft. The first SNARE structure ever solved, from rat.",
+      scale: ZH ? "约 10 纳米长。" : "About 10 nanometres long." },
+    { slug: "nlgn-nrxn-3biw", chip: ZH ? "神经连接蛋白" : "Neuroligin, neurexin",
+      cap: ZH ? "把两侧扣在一起的分子" : "The pair that holds the two sides",
+      what: ZH ? "跨过突触间隙的握手。树突一侧的 neuroligin-1（蓝，一对）与轴突一侧的 neurexin-1β（橙，两个）相互结合，把突触的两侧扣在一起，并帮助决定它是哪一种突触。两种蛋白的基因变异都与自闭症谱系相关。结构来自大鼠。"
+              : "The handshake across the cleft. Neuroligin-1 from the dendrite's side (blue, a pair) binds neurexin-1β from the axon's side (orange, two of them), holding the two halves of the synapse together and helping decide what kind of synapse it becomes. Variants in both genes are linked to autism. From rat.",
+      scale: ZH ? "约 13 纳米宽。" : "About 13 nanometres across." },
+  ];
+  const molCache = {};
+  /* the PDB's entity names, readable: "PROTEIN (SYNTAXIN 1A)" becomes
+     "Syntaxin 1A", the NMDA subunits their short names, "-beta" the letter */
+  function prettyName(d) {
+    let n = String(d || "").replace(/^PROTEIN \((.*)\)$/i, "$1").replace(/Glutamate receptor ionotropic, NMDA (\w+)/, "GluN$1").replace(/-beta/i, "β");
+    if (n === n.toUpperCase()) n = n.split(" ").map((w) => /\d/.test(w) ? w : w.charAt(0) + w.slice(1).toLowerCase()).join(" ");
+    return n;
+  }
+  function moleculeCopy(mol, rec) {
+    const cite = rec.citation || {}; const first = (cite.authors && cite.authors[0]) ? cite.authors[0].split(",")[0] : "";
+    const ref = `${first ? first + (ZH ? " 等" : " et al.") + ", " : ""}${cite.journal || ""} ${(rec.citationFull || {}).volume || ""}, ${(rec.citationFull || {}).page || ""} (${cite.year || ""})`;
+    const method = rec.method === "EM" ? (ZH ? "冷冻电镜" : "cryo-EM") : rec.method === "X-ray" ? (ZH ? "X 射线晶体学" : "X-ray crystallography") : rec.method;
+    const res = rec.resolution_A && rec.resolution_A[0] ? `${rec.resolution_A[0]} Å` : "";
+    const orgs = [...new Set(rec.polymers.flatMap((p) => p.organisms || []))].map((o) => ({ "Rattus norvegicus": ZH ? "大鼠" : "rat", "Mus musculus": ZH ? "小鼠" : "mouse" }[o] || o)).join(ZH ? "、" : " and ");
+    const legend = rec.colouredBy === "entity"
+      ? `<span class="mleg">${[...new Map(rec.polymers.filter((p) => p.chains && p.chains.length).map((p) => [p.colour, p])).values()].map((p) => `<span><s style="background:${p.colour}"></s>${prettyName(p.description)}</span>`).join("")}</span>`
+      : "";
+    return {
+      note: `${legend}<span>${ZH ? `PDB ${rec.pdb}：${method}${res ? "，" + res : ""}，${orgs}。${ref}。${fmt(rec.atoms)} 个原子${rec.ligand.atoms ? `，${rec.ligand.residues.map((r) => `${rec.ligand.counts[r] / (r === "GLY" ? 5 : 10) | 0} 个${{ GLU: "谷氨酸", GLY: "甘氨酸" }[r] || r}`).join("、")}` : ""}。拖动转动，滚轮缩放。` : `PDB ${rec.pdb}: ${method}${res ? " at " + res : ""}, ${orgs}. ${ref}. ${fmt(rec.atoms)} atoms${rec.ligand.atoms ? `, ${rec.ligand.residues.map((r) => `${rec.ligand.counts[r] / (r === "GLY" ? 5 : 10) | 0} ${{ GLU: "glutamate", GLY: "glycine" }[r] || r}${rec.ligand.counts[r] / (r === "GLY" ? 5 : 10) > 1 ? "s" : ""}`).join(", ")}` : ""}. Drag to turn, scroll to zoom.`}</span>`,
+      copy: ZH ? `<p>${mol.what} ${mol.scale}</p><p>结构来自 PDB 条目 ${rec.pdb}（${method}，${res}；${ref}），按沉积的原子坐标画出：表面是原子的溶剂可及表面，用 MolecularNodes 经 Animation Lab 的 ProteinBlender 生成；小球在它们实测的位置上。它没有被放进电镜突触里：那个突触里这些分子的位置并没有被测量。</p>`
+               : `<p>${mol.what} ${mol.scale}</p><p>The structure is PDB entry ${rec.pdb} (${method} at ${res}; ${ref}), drawn from its deposited atomic coordinates: the surface is the solvent-accessible surface of the atoms, built with MolecularNodes through the Animation Lab's ProteinBlender; the spheres sit at their measured positions. It is not placed inside the EM synapse: where these molecules sit in that particular synapse was not measured.</p>`,
+    };
+  }
+  let molView = null;
+  function moleculeView() {
+    if (molView) return molView;
     const mountC = bubbleEl.querySelector("[data-bmount-c]");
     const sc = new THREE.Scene();
     const cam = new THREE.PerspectiveCamera(30, 1, 0.5, 400);
@@ -398,33 +441,56 @@ export async function mountNeuron(el) {
     const k1 = new THREE.DirectionalLight(0xffffff, 1.1); k1.position.set(2, 3, 2); sc.add(k1);
     const k2 = new THREE.DirectionalLight(0x9fd0ff, 0.45); k2.position.set(-2, -1, -2); sc.add(k2);
     const piv = new THREE.Group(); sc.add(piv);
-    const inner = new THREE.Group(); inner.scale.setScalar(10); piv.add(inner);   /* GLB units are 10 nm */
-    const matS = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.62, metalness: 0.04 });
-    surfS.traverse((o) => { if (o.isMesh) { o.material = matS; inner.add(o.clone()); } });
-    if (ligS) { const matL = new THREE.MeshStandardMaterial({ color: new THREE.Color(PARTS.soma.color), emissive: new THREE.Color(PARTS.soma.color), emissiveIntensity: 0.35, roughness: 0.4 }); ligS.traverse((o) => { if (o.isMesh) { o.material = matL; inner.add(o.clone()); } }); }
-    /* centre the molecule on its own bounding box and frame it by its extent */
-    const box = new THREE.Box3().setFromObject(inner); const c = new THREE.Vector3(); box.getCenter(c); inner.position.sub(c);
-    const size = new THREE.Vector3(); box.getSize(size); const dist = Math.max(size.x, size.y, size.z) * 1.55;
-    /* the long axis (the pore) stands up */
-    if (size.z > size.y) piv.rotation.x = -Math.PI / 2;
-    const dir = new THREE.Vector3(0.7, 0.35, 1).normalize();
-    cam.position.copy(dir).multiplyScalar(dist); cam.lookAt(0, 0, 0);
-    let bdrag = false, bx = 0, bvel = 0;
+    const v = { sc, cam, rd, piv, dist: 30, bdrag: false, bx: 0, bvel: 0 };
     const cv = rd.domElement; cv.style.cursor = "grab";
-    cv.addEventListener("pointerdown", (ev) => { bdrag = true; bx = ev.clientX; bvel = 0; try { cv.setPointerCapture(ev.pointerId); } catch (e) {} });
-    cv.addEventListener("pointermove", (ev) => { if (!bdrag) return; const dx = ev.clientX - bx; piv.rotation.y += dx * 0.01; bvel = dx * 0.3; bx = ev.clientX; });
-    cv.addEventListener("pointerup", () => { bdrag = false; });
-    cv.addEventListener("wheel", (ev) => { ev.preventDefault(); cam.position.multiplyScalar(Math.exp(ev.deltaY * 0.001)); const l = cam.position.length(); if (l < dist * 0.25) cam.position.setLength(dist * 0.25); if (l > dist * 3) cam.position.setLength(dist * 3); }, { passive: false });
+    cv.addEventListener("pointerdown", (ev) => { v.bdrag = true; v.bx = ev.clientX; v.bvel = 0; try { cv.setPointerCapture(ev.pointerId); } catch (e) {} });
+    cv.addEventListener("pointermove", (ev) => { if (!v.bdrag) return; const dx = ev.clientX - v.bx; piv.rotation.y += dx * 0.01; v.bvel = dx * 0.3; v.bx = ev.clientX; });
+    cv.addEventListener("pointerup", () => { v.bdrag = false; });
+    cv.addEventListener("wheel", (ev) => { ev.preventDefault(); cam.position.multiplyScalar(Math.exp(ev.deltaY * 0.001)); const l = cam.position.length(); if (l < v.dist * 0.25) cam.position.setLength(v.dist * 0.25); if (l > v.dist * 3) cam.position.setLength(v.dist * 3); }, { passive: false });
     new ResizeObserver(() => fitRenderer(rd, cam, mountC)).observe(mountC);
-    const st = bubbleEl.querySelector("[data-cstatus]");
-    if (st) st.textContent = ZH ? ` ${fmt(rec.atoms)} 个原子，${rec.chains.length} 条链，${rec.ligand.atoms / 10 | 0} 个谷氨酸。` : ` ${fmt(rec.atoms)} atoms, ${rec.chains.length} chains, ${rec.ligand.atoms / 10 | 0} glutamates.`;
-    const leaders = el.querySelector("[data-leaders]");
-    return {
+    molView = v; return v;
+  }
+  async function loadMolecule(slug) {
+    if (molCache[slug]) return molCache[slug];
+    const rec = await (await fetch(R(`data/molecules/${slug}.json`))).json();
+    const ld = new GLTFLoader();
+    const load = (url) => new Promise((res, rej) => ld.load(R(url), (g) => res(g.scene), undefined, rej));
+    const [surfS, ligS] = await Promise.all([load(rec.files.surface), rec.files.ligand ? load(rec.files.ligand) : Promise.resolve(null)]);
+    const inner = new THREE.Group(); inner.scale.setScalar(10);   /* GLB units are 10 nm */
+    const matS = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.62, metalness: 0.04 });
+    surfS.traverse((o) => { if (o.isMesh) { fixNormals(o.geometry); o.material = matS; inner.add(o.clone()); } });
+    if (ligS) { const matL = new THREE.MeshStandardMaterial({ color: new THREE.Color(PARTS.soma.color), emissive: new THREE.Color(PARTS.soma.color), emissiveIntensity: 0.35, roughness: 0.4 }); ligS.traverse((o) => { if (o.isMesh) { o.material = matL; inner.add(o.clone()); } }); }
+    /* centred on its own bounding box, the long axis standing up */
+    const holder = new THREE.Group(); holder.add(inner);
+    const box = new THREE.Box3().setFromObject(inner); const c = new THREE.Vector3(); box.getCenter(c); inner.position.sub(c);
+    const size = new THREE.Vector3(); box.getSize(size);
+    if (size.z > size.y && size.z > size.x) holder.rotation.x = -Math.PI / 2;
+    else if (size.x > size.y && size.x > size.z) holder.rotation.z = Math.PI / 2;
+    const dist = Math.max(size.x, size.y, size.z) * 1.55;
+    molCache[slug] = { rec, holder, dist }; return molCache[slug];
+  }
+  async function showMolecule(slug) {
+    moleculeSlug = slug;
+    const mol = MOLECULES.find((x) => x.slug === slug) || MOLECULES[0];
+    const chips = bubbleEl.querySelector("[data-mchips]");
+    if (chips) chips.querySelectorAll("button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.mol === slug)));
+    const cap = bubbleEl.querySelector("[data-ccap]"); if (cap) cap.textContent = mol.cap;
+    const note = bubbleEl.querySelector("[data-cnote]"); if (note) note.innerHTML = `<span>${ZH ? "读取中…" : "Loading…"}</span>`;
+    const v = moleculeView();
+    let m; try { m = await loadMolecule(slug); } catch (e) { if (note) note.textContent = (ZH ? "这个分子没有加载。" : "The molecule did not load. ") + e.message; return; }
+    if (moleculeSlug !== slug) return;
+    v.piv.clear(); v.piv.add(m.holder); v.dist = m.dist;
+    const dir = new THREE.Vector3(0.7, 0.35, 1).normalize();
+    v.cam.position.copy(dir).multiplyScalar(m.dist); v.cam.lookAt(0, 0, 0);
+    const text = moleculeCopy(mol, m.rec);
+    if (note) note.innerHTML = text.note;
+    const copy = el.querySelector("[data-mcopy]"); if (copy) copy.innerHTML = text.copy;
+    molecule = {
       on: true,
       frame(dt) {
-        if (!bdrag) { piv.rotation.y += bvel * dt + (REDUCED ? 0 : dt * 0.18); bvel *= Math.pow(0.002, dt); }
-        rd.render(sc, cam);
-        /* a third leader: from the contact in frame B down to frame C */
+        if (!v.bdrag) { v.piv.rotation.y += v.bvel * dt + (REDUCED ? 0 : dt * 0.18); v.bvel *= Math.pow(0.002, dt); }
+        v.rd.render(v.sc, v.cam);
+        const leaders = el.querySelector("[data-leaders]");
         if (!leaders || stage !== "receptor" || frameC.hidden) return;
         const vw = el.querySelector(".view") || mount; const vr = vw.getBoundingClientRect();
         const fb = bubbleEl.querySelector('[data-frame="b"] .fm').getBoundingClientRect();
@@ -435,6 +501,9 @@ export async function mountNeuron(el) {
       },
     };
   }
+  { const chips = bubbleEl && bubbleEl.querySelector("[data-mchips]");
+    if (chips) { chips.innerHTML = MOLECULES.map((x) => `<button type="button" role="tab" data-mol="${x.slug}" aria-selected="${x.slug === moleculeSlug}">${x.chip}</button>`).join("");
+      chips.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { showMolecule(b.dataset.mol); const u = new URL(location.href); u.searchParams.set("mol", b.dataset.mol); history.replaceState(null, "", u); })); } }
   function setStage(st) {
     stage = st;
     el.querySelectorAll("[data-stage]").forEach((b) => b.setAttribute("aria-selected", b.dataset.stage === st ? "true" : "false"));
@@ -450,7 +519,8 @@ export async function mountNeuron(el) {
       if (frameC) frameC.hidden = st !== "receptor";
       if (st === "receptor" && !molecule) {
         molecule = { on: false, frame() {} };
-        makeMolecule("glua2-5weo").then((m) => { molecule = m; }).catch((e) => { const st3 = bubbleEl.querySelector("[data-cstatus]"); if (st3) st3.textContent = " The receptor did not load. " + e.message; });
+        const want = new URLSearchParams(location.search).get("mol");
+        showMolecule(MOLECULES.some((x) => x.slug === want) ? want : moleculeSlug);
       }
       if (deep && !bubble) {
         bubble = { on: false, frame() {} };

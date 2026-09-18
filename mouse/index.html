@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="/js/analytics.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>30,000 neurons of 70 million | what is a brain</title>
@@ -328,7 +329,7 @@
           <span class="lab">Region</span>
           <input type="search" data-region-q list="regionlist" placeholder="hippocampus, CA3, thalamus…" style="background:#0F1218;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font:inherit;font-size:13px;width:230px">
           <datalist id="regionlist"></datalist>
-          <select data-region-colour><option value="direction">colour by direction</option><option value="subtype">colour by subtype</option><option value="division">colour by division</option></select>
+          <select data-region-colour><option value="direction">colour by direction</option><option value="subtype">colour by subtype</option><option value="division">colour by division</option><option value="depth">colour by depth in the locus coeruleus</option></select>
           <div class="rlegend" data-region-legend hidden title="Click a colour to see it alone"></div>
         </div>
         <div class="row">
@@ -353,6 +354,7 @@
             <option value="ION-PFC">ION prefrontal cortex</option>
             <option value="ION-HIPP">ION hippocampus</option>
             <option value="ION-CTX">ION whole cortex</option>
+            <option value="LC-NE">Locus coeruleus (Allen Neural Dynamics)</option>
           </select>
           <input type="search" data-f-region placeholder="cell body region, e.g. CA3" style="background:#0F1218;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font:inherit;font-size:13px;width:190px">
           <select data-f-div><option value="all">every division</option></select>
@@ -374,12 +376,22 @@
   <p>Each neuron was filled with a fluorescent protein, the whole brain was
     imaged at sub-micron resolution, and a person or an algorithm followed
     every branch of the axon through the stack, sometimes for centimetres.
-    Five collections are drawn: the Janelia <b>MouseLight</b> project, the
+    Six collections are drawn: the Janelia <b>MouseLight</b> project, the
     <b>SEU-ALLEN</b> collaboration between Southeast University and the Allen
-    Institute, and three projectome atlases from the Institute of Neuroscience in
+    Institute, three projectome atlases from the Institute of Neuroscience in
     Shanghai, of the <b>prefrontal cortex</b>, the <b>hippocampus</b> and the
-    <b>whole cortex</b>. The counts on the card are what loaded, not a number
+    <b>whole cortex</b>, and the 132 <b>locus coeruleus</b> noradrenaline neurons
+    of Su et al. 2026 from the Allen Institute for Neural Dynamics, the longest
+    mouse neurons ever traced. The counts on the card are what loaded, not a number
     typed in.</p>
+  <p class="note"><b>The locus coeruleus, one way in.</b> A speck of about 1,500 cells in the pons
+    is the brain's main source of noradrenaline, and each of its cells reaches a wide but
+    particular set of regions. Su et al. 2026 traced 132 of them whole, and found that a cell
+    body's depth in the nucleus decides where its axon goes: the dorsal cells to the cortex,
+    the ventral ones to the brainstem and spinal cord. <a href="?m=match&amp;src=LC-NE&amp;col=depth">See
+    all 132 at once, coloured by depth</a>, or pick the dataset below and light them one at a time.
+    Axon lengths on their cards are measured on the released trees; the paper reports a mean of
+    34 cm and a longest of 70 cm.</p>
   <p class="note"><b>A sample, not the population.</b> A mouse brain has about
     70 million neurons and this page draws about thirty-two thousand. It shows where these
     neurons go. It says nothing about how many neurons go there, and the
@@ -431,6 +443,16 @@
     <li><b>Reference brain.</b> Allen Mouse Brain Common Coordinate Framework, version 3, 2017
       annotation and structure meshes. Wang Q. et al., Cell 181, 936 (2020).
       Allen Institute terms of use.</li>
+    <li><b>Locus coeruleus.</b> Su Z., Kosillo P., Jung K. et al., Topographic structure and function of
+      locus coeruleus noradrenaline neurons, Nature (2026),
+      <a href="https://doi.org/10.1038/s41586-026-11026-0">10.1038/s41586-026-11026-0</a>, CC BY 4.0.
+      132 whole-brain reconstructions from 4 Dbh-Cre mice, imaged by ExA-SPIM and traced in HortaCloud at the
+      Allen Institute for Neural Dynamics, read from the public
+      <a href="https://registry.opendata.aws/allen-nd-open-data/">aind-open-data</a> bucket in CCF v3 coordinates,
+      with the authors' locus coeruleus surface (the densest 67% of Dbh+ cell bodies pooled from 8 brains).
+      Each cell's class here is its primary projection target and its depth is its cell body's rank along the
+      dorsal to ventral axis, both computed from the released trees; the spinal cord is outside the reference
+      brain, so a spinal projection shows as axon leaving through its caudal face.</li>
     <li><b>MouseLight.</b> Winnubst J. et al., Reconstruction of 1,000 projection neurons reveals
       new cell types and organization of long-range connectivity in the mouse brain,
       Cell 179, 268 (2019). Data from the
@@ -484,7 +506,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "./js/mouse.js?v=59";
+  import { mountMouse } from "./js/mouse.js?v=60";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");

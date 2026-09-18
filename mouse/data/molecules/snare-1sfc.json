@@ -1,0 +1,115 @@
+{
+ "pdb": "1SFC",
+ "title": "NEURONAL SYNAPTIC FUSION COMPLEX",
+ "method": "X-ray",
+ "resolution_A": [
+  2.4
+ ],
+ "citation": {
+  "journal": "Nature",
+  "year": 1998,
+  "title": "Crystal structure of a SNARE complex involved in synaptic exocytosis at 2.4 A resolution.",
+  "doi": null,
+  "authors": [
+   "Sutton, R.B.",
+   "Fasshauer, D.",
+   "Jahn, R.",
+   "Brunger, A.T."
+  ]
+ },
+ "citationFull": {
+  "volume": "395",
+  "page": "347"
+ },
+ "polymers": [
+  {
+   "description": "PROTEIN (SYNAPTOBREVIN 2)",
+   "organisms": [
+    "Rattus norvegicus"
+   ],
+   "chains": [
+    "A"
+   ],
+   "colour": "#6fd0ff"
+  },
+  {
+   "description": "PROTEIN (SYNTAXIN 1A)",
+   "organisms": [
+    "Rattus norvegicus"
+   ],
+   "chains": [
+    "B"
+   ],
+   "colour": "#ffb24d"
+  },
+  {
+   "description": "PROTEIN (SNAP-25B)",
+   "organisms": [
+    "Rattus norvegicus"
+   ],
+   "chains": [
+    "C"
+   ],
+   "colour": "#ff5cc0"
+  },
+  {
+   "description": "PROTEIN (SNAP-25B)",
+   "organisms": [
+    "Rattus norvegicus"
+   ],
+   "chains": [
+    "D"
+   ],
+   "colour": "#ff5cc0"
+  }
+ ],
+ "chains": [
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "chainColours": {
+  "A": "#6fd0ff",
+  "B": "#ffb24d",
+  "C": "#ff5cc0",
+  "D": "#ff5cc0"
+ },
+ "colouredBy": "entity",
+ "ligand": {
+  "residues": [],
+  "atoms": 0,
+  "counts": {},
+  "centres_nm": []
+ },
+ "atoms": 2361,
+ "unit": "GLB unit = 10 nm (MolecularNodes world scale 0.01 per Angstrom); the _nm fields are in nanometres",
+ "surfaceFaces": 66426,
+ "bbox_nm": [
+  [
+   -2.34,
+   -0.68,
+   -4.48
+  ],
+  [
+   5.53,
+   5.44,
+   5.75
+  ]
+ ],
+ "centre_nm": [
+  1.590000033378601,
+  2.380000114440918,
+  0.6299999952316284
+ ],
+ "extent_nm": [
+  7.869999885559082,
+  6.119999885559082,
+  10.229999542236328
+ ],
+ "source": "RCSB PDB via ProteinBlender 1.1.0 (Animation Lab, University of Utah) and MolecularNodes in Blender 5.0.1; solvent removed; surface = MolecularNodes solvent accessible surface, decimated",
+ "files": {
+  "surface": "meshes/molecules/snare-1sfc.glb",
+  "ligand": null
+ }
+}

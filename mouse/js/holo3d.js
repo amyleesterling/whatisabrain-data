@@ -11,6 +11,39 @@
  */
 import * as THREE from "three";
 
+import { LuminosityHighPassShader } from "three/addons/shaders/LuminosityHighPassShader.js";
+
+/* The bloom's high pass is guarded against NaN. One NaN pixel in the scene
+   (a zero-length normal on a sliver triangle, seen for a single frame as
+   the camera moves) goes into the blur and comes out as a whole black
+   frame: the flicker seen diving into the cubes. The texel is made finite
+   here, before the threshold, so a bad pixel stays a bad pixel. Patched on
+   the shared shader object once, before any pass is built from it. */
+export function guardBloomInput() {
+  const F = LuminosityHighPassShader;
+  if (F.fragmentShader.includes("texel.r == texel.r")) return;
+  F.fragmentShader = F.fragmentShader.replace(
+    "vec4 texel = texture2D( tDiffuse, vUv );",
+    "vec4 texel = texture2D( tDiffuse, vUv ); texel = vec4( texel.r == texel.r ? min( texel.r, 256.0 ) : 0.0, texel.g == texel.g ? min( texel.g, 256.0 ) : 0.0, texel.b == texel.b ? min( texel.b, 256.0 ) : 0.0, 1.0 );");
+}
+guardBloomInput();
+
+/* Normals with no length shade to NaN in every three.js material. A decimated
+   mesh has a few (a vertex whose faces all collapsed); they are pointed up
+   instead, once, when the mesh arrives. Returns how many were fixed. */
+export function fixNormals(geo) {
+  if (!geo) return 0;
+  const n = geo.attributes.normal;
+  if (!n) { geo.computeVertexNormals(); return fixNormals(geo); }
+  const a = n.array; let bad = 0;
+  for (let i = 0; i < a.length; i += 3) {
+    const l = a[i] * a[i] + a[i + 1] * a[i + 1] + a[i + 2] * a[i + 2];
+    if (!(l > 1e-12)) { a[i] = 0; a[i + 1] = 1; a[i + 2] = 0; bad++; }
+  }
+  if (bad) n.needsUpdate = true;
+  return bad;
+}
+
 export const REDUCED =
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

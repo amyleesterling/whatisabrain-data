@@ -1,0 +1,252 @@
+{
+ "pdb": "4PE5",
+ "title": "Crystal Structure of GluN1a/GluN2B NMDA Receptor Ion Channel",
+ "method": "X-ray",
+ "resolution_A": [
+  3.96
+ ],
+ "citation": {
+  "journal": "Science",
+  "year": 2014,
+  "title": "Crystal structure of a heterotetrameric NMDA receptor ion channel.",
+  "doi": null,
+  "authors": [
+   "Karakas, E.",
+   "Furukawa, H."
+  ]
+ },
+ "citationFull": {
+  "volume": "344",
+  "page": "992"
+ },
+ "polymers": [
+  {
+   "description": "Glutamate receptor ionotropic, NMDA 1",
+   "organisms": [
+    "Rattus norvegicus"
+   ],
+   "chains": [
+    "A",
+    "C"
+   ],
+   "colour": "#6fd0ff"
+  },
+  {
+   "description": "Glutamate receptor ionotropic, NMDA 2B",
+   "organisms": [
+    "Rattus norvegicus"
+   ],
+   "chains": [
+    "B",
+    "D"
+   ],
+   "colour": "#ffb24d"
+  }
+ ],
+ "chains": [
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "chainColours": {
+  "A": "#6fd0ff",
+  "C": "#6fd0ff",
+  "B": "#ffb24d",
+  "D": "#ffb24d"
+ },
+ "colouredBy": "entity",
+ "ligand": {
+  "residues": [
+   "GLU",
+   "GLY"
+  ],
+  "atoms": 30,
+  "counts": {
+   "GLU": 20,
+   "GLY": 10
+  },
+  "centres_nm": [
+   [
+    -0.553,
+    4.446,
+    -3.846
+   ],
+   [
+    -0.445,
+    4.37,
+    -3.787
+   ],
+   [
+    -0.431,
+    4.397,
+    -3.638
+   ],
+   [
+    -0.47,
+    4.502,
+    -3.589
+   ],
+   [
+    -0.38,
+    4.313,
+    -3.564
+   ],
+   [
+    -2.901,
+    0.378,
+    -4.052
+   ],
+   [
+    -2.88,
+    0.234,
+    -4.058
+   ],
+   [
+    -2.905,
+    0.168,
+    -3.923
+   ],
+   [
+    -2.917,
+    0.046,
+    -3.914
+   ],
+   [
+    -2.738,
+    0.203,
+    -4.106
+   ],
+   [
+    -2.705,
+    0.259,
+    -4.243
+   ],
+   [
+    -2.785,
+    0.195,
+    -4.354
+   ],
+   [
+    -2.809,
+    0.261,
+    -4.457
+   ],
+   [
+    -2.825,
+    0.077,
+    -4.338
+   ],
+   [
+    -2.914,
+    0.235,
+    -3.821
+   ],
+   [
+    -5.074,
+    2.0,
+    -3.869
+   ],
+   [
+    -5.143,
+    2.1,
+    -3.79
+   ],
+   [
+    -5.144,
+    2.067,
+    -3.643
+   ],
+   [
+    -5.111,
+    1.955,
+    -3.603
+   ],
+   [
+    -5.177,
+    2.151,
+    -3.559
+   ],
+   [
+    -2.665,
+    6.106,
+    -4.084
+   ],
+   [
+    -2.703,
+    6.247,
+    -4.085
+   ],
+   [
+    -2.687,
+    6.309,
+    -3.946
+   ],
+   [
+    -2.704,
+    6.43,
+    -3.929
+   ],
+   [
+    -2.847,
+    6.263,
+    -4.134
+   ],
+   [
+    -2.872,
+    6.208,
+    -4.273
+   ],
+   [
+    -2.797,
+    6.284,
+    -4.381
+   ],
+   [
+    -2.77,
+    6.225,
+    -4.487
+   ],
+   [
+    -2.764,
+    6.402,
+    -4.359
+   ],
+   [
+    -2.657,
+    6.241,
+    -3.849
+   ]
+  ]
+ },
+ "atoms": 19680,
+ "unit": "GLB unit = 10 nm (MolecularNodes world scale 0.01 per Angstrom); the _nm fields are in nanometres",
+ "surfaceFaces": 127868,
+ "bbox_nm": [
+  [
+   -9.55,
+   -2.17,
+   -11.38
+  ],
+  [
+   4.69,
+   8.4,
+   4.15
+  ]
+ ],
+ "centre_nm": [
+  -2.430000066757202,
+  3.109999895095825,
+  -3.619999885559082
+ ],
+ "extent_nm": [
+  14.239999771118164,
+  10.569999694824219,
+  15.529999732971191
+ ],
+ "source": "RCSB PDB via ProteinBlender 1.1.0 (Animation Lab, University of Utah) and MolecularNodes in Blender 5.0.1; solvent removed; surface = MolecularNodes solvent accessible surface, decimated",
+ "files": {
+  "surface": "meshes/molecules/nmda-4pe5.glb",
+  "ligand": "meshes/molecules/nmda-4pe5-ligand.glb"
+ }
+}

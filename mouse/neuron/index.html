@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="/js/analytics.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>One neuron, labelled | what is a brain</title>
@@ -41,6 +42,9 @@
   @media (max-width:900px){ .stage { grid-template-columns:minmax(0,1fr); } }
   .box { background:#090B10; border:1px solid var(--line); border-radius:6px; overflow:hidden; position:relative; }
   .box .canvas { height:min(68vh,640px); min-height:360px; width:100%; }
+  /* every overlay (labels, status, leaders, marker, the HUD frames) sits
+     inside the picture, never over the controls beneath it */
+  .box .view { position:relative; }
   .status { position:absolute; left:12px; bottom:10px; right:12px; font:500 11px/1.4 ui-monospace,Consolas,monospace;
     letter-spacing:.06em; color:#9fd0ff; opacity:.85; pointer-events:none; text-shadow:0 1px 8px #000; }
   .labels { position:absolute; inset:0; pointer-events:none; }
@@ -72,6 +76,15 @@
     .frame { width:min(150px,28vw); } .frame .fnote { display:none; } }
   .hud[hidden] { display:none; }
   .frame[hidden] { display:none; }
+  /* the molecule chips: one per structure, under the third frame */
+  .mchips { display:flex; flex-wrap:wrap; gap:4px; margin:6px 0 0; pointer-events:auto; }
+  .mchips button { appearance:none; background:rgba(9,11,16,.6); color:var(--dim); border:1px solid rgba(196,228,255,.18); border-radius:999px; padding:2px 8px; font:500 9.5px/1.4 ui-monospace,Consolas,monospace; letter-spacing:.06em; cursor:pointer; }
+  .mchips button:hover { color:var(--ink); border-color:rgba(196,228,255,.5); }
+  .mchips button[aria-selected="true"] { color:#cfe6ff; border-color:rgba(111,208,255,.6); background:rgba(111,208,255,.12); }
+  .fnote .mleg { display:flex; flex-wrap:wrap; gap:3px 10px; margin:4px 0 2px; }
+  .fnote .mleg span { display:inline-flex; align-items:center; gap:5px; }
+  .fnote .mleg s { width:8px; height:8px; border-radius:2px; text-decoration:none; display:inline-block; flex:none; }
+  @media (max-height:760px){ .hud.receptor .frame[data-frame="c"] .fnote { display:none; } .mchips { display:none; } }
   /* the receptor stage: three frames in the column, the EM pair smaller
      with their notes folded so the molecule gets the room */
   .hud.receptor .frame[data-frame="a"], .hud.receptor .frame[data-frame="b"] { width:64%; }
@@ -136,6 +149,7 @@
 <div class="wide">
   <section class="stage" id="neuron">
     <div class="box">
+      <div class="view">
       <div class="canvas" data-mount></div>
       <div class="labels" data-labels>
         <svg aria-hidden="true"></svg>
@@ -164,16 +178,18 @@
         <div class="frame" data-frame="c" hidden>
           <b class="k tl"></b><b class="k tr"></b><b class="k bl"></b><b class="k br"></b>
           <div class="fm" data-bmount-c></div>
-          <div class="fcap"><span data-en>The receptor, atom by atom</span><span data-zh>受体，逐个原子</span></div>
-          <div class="fnote"><span data-en>An <b>AMPA receptor</b> with <b>glutamate</b> bound (the cream spheres), the molecule a synapse like the one above opens with. Deposited structure PDB 5WEO: cryo-EM at 4.2 Å, rat GluA2 fused to mouse stargazin, Twomey et al., Nature 2017. Four chains, four colours, about 19 nm tall. Drag to turn, scroll to zoom.</span><span data-zh>一个结合了<b>谷氨酸</b>（奶白色小球）的 <b>AMPA 受体</b>，上面那样的突触正是靠这种分子打开的。PDB 5WEO 沉积结构：冷冻电镜 4.2 Å，大鼠 GluA2 与小鼠 stargazin 融合蛋白，Twomey 等，Nature 2017。四条链，四种颜色，约 19 nm 高。拖动转动，滚轮缩放。</span><span class="bstatus" data-cstatus></span></div>
+          <div class="fcap" data-ccap><span data-en>The receptor, atom by atom</span><span data-zh>受体，逐个原子</span></div>
+          <div class="mchips" data-mchips role="tablist"></div>
+          <div class="fnote" data-cnote></div>
         </div>
+      </div>
       </div>
       <div class="ctl">
         <div class="stages" role="tablist">
           <button class="btn" data-stage="whole" role="tab"><span data-en>Whole cell</span><span data-zh>整个细胞</span></button>
           <button class="btn" data-stage="closeup" role="tab"><span data-en>Cell body and dendrites</span><span data-zh>胞体与树突</span></button>
           <button class="btn" data-stage="synapse" role="tab"><span data-en>Closer: a synapse</span><span data-zh>再近一点：一个突触</span></button>
-          <button class="btn" data-stage="receptor" role="tab"><span data-en>Closer still: a receptor</span><span data-zh>再近一点：一个受体</span></button>
+          <button class="btn" data-stage="receptor" role="tab"><span data-en>Closer still: the molecules</span><span data-zh>再近一点：分子</span></button>
         </div>
         <button class="btn fire" data-fire><span data-en>Fire a signal</span><span data-zh>发出一个信号</span></button>
         <button class="btn" data-turn><span data-en>Pause turning</span><span data-zh>暂停旋转</span></button>
@@ -209,10 +225,7 @@
         <p data-en>The frames on the right show a real synapse reconstructed from electron microscopy in the MICrONS volume: one cubic millimetre of primary visual cortex, imaged at a few nanometres. The orange surface is the dendrite of Aura, a layer 5 pyramidal cell, the same class as the cell drawn here and from the same cortex, though a different mouse. The blue surface is Tendril, an inhibitory axon, and the pale dot is where they touch. <a href="https://amyleesterling.github.io/microns/">The cubic millimetre</a> has the rest of that cell.</p>
         <p data-zh>右侧的两个画面是 MICrONS 数据里由电子显微镜重建的一个真实突触：一立方毫米的初级视觉皮层，以几纳米的分辨率成像。橙色表面是 Aura 的树突，它是一个第 5 层锥体细胞，与这里画出的细胞同类、来自同一皮层，但来自另一只小鼠。蓝色表面是 Tendril，一根抑制性轴突，浅色的点是它们相触的地方。<a href="https://amyleesterling.github.io/microns/">一立方毫米</a>页面有那个细胞的其余部分。</p>
       </div>
-      <div data-stagecopy="receptor" hidden>
-        <p data-en>The third frame goes a thousand times closer than the synapse: one receptor molecule, drawn from its deposited atomic coordinates. This is an AMPA-type glutamate receptor, the protein that turns the glutamate released at a synapse like the one above into an electrical signal in the dendrite. It is about 19 nanometres tall, and a synapse holds dozens of them. The structure is PDB entry 5WEO, solved by cryo-electron microscopy at 4.2 ångström resolution (Twomey et al., Nature 2017): rat GluA2 fused to mouse stargazin, its auxiliary subunit, caught with glutamate bound and the channel open. The surface is the solvent-accessible surface of the atoms, coloured by chain and built with MolecularNodes through the Animation Lab's ProteinBlender; the cream spheres are the four glutamates at their measured positions. It is not placed inside the EM synapse: where the receptors sit in that particular synapse was not measured.</p>
-        <p data-zh>第三个画面比突触又近了一千倍：一个受体分子，按它沉积的原子坐标画出。这是 AMPA 型谷氨酸受体，正是它把上面那样的突触释放的谷氨酸变成树突里的电信号。它约 19 纳米高，一个突触里有几十个。结构来自 PDB 条目 5WEO，冷冻电子显微镜解析，分辨率 4.2 埃（Twomey 等，Nature 2017）：大鼠 GluA2 与它的辅助亚基、小鼠 stargazin 的融合蛋白，在结合谷氨酸、通道打开的状态下被捕获。表面是原子的溶剂可及表面，按链着色，用 MolecularNodes 经 Animation Lab 的 ProteinBlender 生成；奶白色小球是四个谷氨酸，在它们实测的位置上。它没有被放进电镜突触里：那个突触里受体的位置并没有被测量。</p>
-      </div>
+      <div data-stagecopy="receptor" hidden data-mcopy></div>
       <div data-card></div>
       <p class="side"><span data-en>Other featured cells, by the region their cell body sits in:</span><span data-zh>其他精选细胞，按胞体所在脑区：</span></p>
       <div class="others" data-others></div>
@@ -245,7 +258,7 @@
 </main>
 
 <script type="module">
-  import { mountNeuron } from "../js/neuron.js?v=12";
+  import { mountNeuron } from "../js/neuron.js?v=14";
   const el = document.getElementById("neuron");
   mountNeuron(el).then((h) => { window.__neuron = h; }).catch((e) => {
     const s = el.querySelector("[data-status]"); if (s) s.textContent = "The neuron did not load. " + e.message; throw e;

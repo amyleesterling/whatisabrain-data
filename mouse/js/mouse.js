@@ -19,7 +19,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { REDUCED, makeRenderer, fitRenderer, makeLoop, shellMaterials, fmt } from "./holo3d.js";
+import { REDUCED, makeRenderer, fitRenderer, makeLoop, shellMaterials, fmt, fixNormals } from "./holo3d.js";
 
 /* one colour per major division, used for somata, axons and the faint
    region shells alike, so a colour means one thing everywhere on the page */
@@ -69,7 +69,7 @@ const T = ZH ? {
   everyDivision: "所有脑区", unlabelled: "未标注位置",
   whereTips: "轴突末梢落在哪里（按末梢占比）",
   spike: (ms, slow) => `以 1 m/s 传导的动作电位约 <b>${ms} ms</b> 便可跑完这条轴突。这里的信号放慢了 ${slow} 倍，以便观看。`,
-  sources: { "MouseLight": "MouseLight（Janelia）", "SEU-ALLEN": "SEU-ALLEN", "ION-PFC": "中科院神经所 前额叶", "ION-HIPP": "中科院神经所 海马", "ION-CTX": "中科院神经所 全皮层" },
+  sources: { "MouseLight": "MouseLight（Janelia）", "SEU-ALLEN": "SEU-ALLEN", "ION-PFC": "中科院神经所 前额叶", "ION-HIPP": "中科院神经所 海马", "ION-CTX": "中科院神经所 全皮层", "LC-NE": "蓝斑去甲肾上腺素神经元（艾伦神经动力学研究所）" },
   divisions: { "Isocortex": "新皮层", "Olfactory areas": "嗅觉区", "Hippocampal formation": "海马结构",
     "Cortical subplate": "皮层下板", "Striatum": "纹状体", "Pallidum": "苍白球", "Thalamus": "丘脑",
     "Hypothalamus": "下丘脑", "Midbrain": "中脑", "Pons": "脑桥", "Medulla": "延髓", "Cerebellum": "小脑",
@@ -347,6 +347,17 @@ export async function mountMouse(el) {
       opacity: SHELL_A, side: "front", depthWrite: false, wire: SHELL_WIRE, wireOpacity: 0.012 }); shellSolid = sm.solid; shellWire = sm.wire; }
   shellMesh.renderOrder = 5;
   shellG.add(shellMesh);
+  /* the locus coeruleus itself: the authors' core surface (the densest 67%
+     of Dbh+ cell bodies from 8 brains, Su et al. 2026), both sides, shown
+     while the page is looking at a locus coeruleus cell or at that
+     dataset, since at whole-brain scale the nucleus is a speck */
+  const lcG = new THREE.Group(); lcG.visible = false; pivot.add(lcG);
+  for (const side of ["lh", "rh"]) {
+    loadGlb(`meshes/locus-coeruleus-${side}.glb`).then((m) => {
+      m.material = new THREE.MeshBasicMaterial({ color: "#7ea6ff", transparent: true, opacity: 0.22, depthWrite: false, side: THREE.FrontSide });
+      m.renderOrder = 4; lcG.add(m);
+    }).catch(() => {});
+  }
 
   /* ---- a look from the hologram maker ---------------------------------
      The Shader button opens scifi-ui's hologram maker with this view's URL
@@ -552,6 +563,7 @@ export async function mountMouse(el) {
       if (!cell.type && cell.role) cell.type = cell.role;
       const file = cell.file.startsWith("meshes/") || cell.file.startsWith("data/") ? cell.file : cu.dir + cell.file;
       let m; try { m = await loadGlb(file); } catch (e) { continue; }
+      fixNormals(m.geometry);
       if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals();
       /* the neighbours each get a colour of their own from a warm palette,
          so packed cells can be told apart; the featured cell stays cream,
@@ -1465,6 +1477,7 @@ export async function mountMouse(el) {
     return { head, sub, id: r.id };
   }
   const PORTAL = {
+    "LC-NE": "https://morphology.allenneuraldynamics.org/",
     "MouseLight": "https://ml-neuronbrowser.janelia.org/",
     "SEU-ALLEN": "https://doi.org/10.35077/g.25",
     "ION-PFC": "https://mouse.digital-brain.cn/projectome/pfc",
@@ -1474,17 +1487,27 @@ export async function mountMouse(el) {
   /* a categorical palette for up to 64 classes: golden-angle hues at one
      lightness, so no class is brighter than another by accident */
   const classColour = (i) => new THREE.Color().setHSL(((i * 137.508) % 360) / 360, 0.72, 0.62);
+  /* depth in the locus coeruleus, for the LC-NE source: the paper's finding
+     is that where a cell body sits along the dorsal to ventral axis of the
+     nucleus decides where its axon goes, forebrain from the top, spinal
+     cord from the bottom. dv is the soma's rank among the 132, 0 dorsal to
+     1 ventral; ten bands, gold at the top through white to violet at the
+     bottom, the same ramp as the paper's figure 2. */
+  const DEPTH_BANDS = 10;
+  const depthColour = (t) => { const c = new THREE.Color(); return t < 0.5 ? c.setHSL(0.11, 0.9, 0.5 + 0.45 * (t / 0.5)) : c.setHSL(0.75, 0.85, 0.95 - 0.45 * ((t - 0.5) / 0.5)); };
   function colourKeyFor(recs) {
     /* the classes present, most numerous first, with a colour each */
     const counts = {};
     for (const r of recs) { const k = keyOf(r); counts[k] = (counts[k] || 0) + 1; }
-    const keys = Object.keys(counts).sort((x, y) => counts[y] - counts[x]);
+    const keys = Object.keys(counts).sort((x, y) => matchColour === "depth" ? (x === "?" ? 1 : y === "?" ? -1 : +x.slice(1) - +y.slice(1)) : counts[y] - counts[x]);
     const colours = {};
-    keys.forEach((k, i) => { colours[k] = matchColour === "division" ? new THREE.Color(DIVISION[k] || "#9aa2b1") : classColour(i); });
+    keys.forEach((k, i) => { colours[k] = matchColour === "division" ? new THREE.Color(DIVISION[k] || "#9aa2b1")
+      : matchColour === "depth" ? (k === "?" ? new THREE.Color("#4a5568") : depthColour((+k.slice(1) + 0.5) / DEPTH_BANDS)) : classColour(i); });
     return { keys, counts, colours };
   }
   const keyOf = (r) => matchColour === "subtype" ? (r.st ? `${r.src}:${r.st}` : "?")
     : matchColour === "family" ? ((nameOf(r) && nameOf(r).family) || (r.st ? "other" : "?"))
+    : matchColour === "depth" ? (typeof r.dv === "number" ? `d${Math.min(DEPTH_BANDS - 1, Math.floor(r.dv * DEPTH_BANDS))}` : "?")
     : matchColour === "region" ? (r.rf || r.region || "?") : (r.major || "?");
   async function drawMatching() {
     const my = ++matchSeq;
@@ -1578,12 +1601,22 @@ export async function mountMouse(el) {
           return `<b>${k}</b>`;
         }
         if (matchColour === "region") return `<b>${k}</b> <span class="kd">${(meta.regions || {})[k] || ""}</span>`;
+        if (matchColour === "depth") {
+          if (k === "?") return `<b>${ZH ? "无深度（非蓝斑细胞）" : "no depth (not a locus coeruleus cell)"}</b>`;
+          const b = +k.slice(1);
+          const word = b === 0 ? (ZH ? "最背侧" : "most dorsal") : b === DEPTH_BANDS - 1 ? (ZH ? "最腹侧" : "most ventral") : "";
+          return `<b>${ZH ? "深度" : "depth"} ${b + 1} / ${DEPTH_BANDS}</b>${word ? ` <span class="kd">${word}</span>` : ""}`;
+        }
         return `<b>${DIV(k)}</b>`;
       };
-      html += `<p class="side">${matchColour === "subtype" ? (ZH ? "按投射亚型着色（Qiu 等 2024 / Gao 等 2022 的分类）。名称是从数据读出的：胞体在哪、轴突落在哪；门户本身只给编号。点击一项只看它。" : "Coloured by projection subtype, the portal's own classes (Qiu 2024, Gao 2022). The names are read off the data, where the cell bodies sit and where the axons end; the portal itself gives only numbers. Click one to see it alone.") : matchColour === "family" ? (ZH ? "按通路家族着色：把亚型按胞体与靶区的模式归并。点击一项只看它。" : "Coloured by pathway family: the subtypes folded together by where their cells sit and where they project. Click one to see it alone.") : matchColour === "region" ? (ZH ? "按胞体所在区域着色" : "Coloured by the cell body's region") : (ZH ? "按脑区着色" : "Coloured by division")}</p>`;
+      html += `<p class="side">${matchColour === "subtype" ? (ZH ? "按投射亚型着色（Qiu 等 2024 / Gao 等 2022 的分类）。名称是从数据读出的：胞体在哪、轴突落在哪；门户本身只给编号。点击一项只看它。" : "Coloured by projection subtype, the portal's own classes (Qiu 2024, Gao 2022). The names are read off the data, where the cell bodies sit and where the axons end; the portal itself gives only numbers. Click one to see it alone.") : matchColour === "family" ? (ZH ? "按通路家族着色：把亚型按胞体与靶区的模式归并。点击一项只看它。" : "Coloured by pathway family: the subtypes folded together by where their cells sit and where they project. Click one to see it alone.") : matchColour === "region" ? (ZH ? "按胞体所在区域着色" : "Coloured by the cell body's region") : matchColour === "depth" ? (ZH ? "按胞体在蓝斑中的深度着色：132 个细胞按背腹位置排序，金色最背侧，紫色最腹侧。Su 等 2026 的发现是：靠背侧的细胞投射到前脑，靠腹侧的投射到脑干和脊髓。点击一档只看它。" : "Coloured by the cell body's depth in the locus coeruleus: the 132 cells ranked from dorsal, gold, to ventral, violet. The finding of Su et al. 2026 is that the dorsal cells send their axons to the forebrain and the ventral cells to the brainstem and spinal cord. Click a band to see it alone.") : (ZH ? "按脑区着色" : "Coloured by division")}</p>`;
       const titleOf = (k) => { if (matchColour !== "subtype") return ""; const [src, st] = k.split(":"); const nm = NAMES[src] && NAMES[src][st]; return nm ? ` title="${(nm.desc || "").replace(/"/g, "&quot;")} Cell bodies: ${nm.soma}. Axon tips: ${nm.targets}."` : ""; };
       html += `<div class="klist">` + key.keys.slice(0, 40).map((k) => `<button class="kk${isolated === k ? " is-on" : ""}" data-k="${k}"${titleOf(k)}><s style="background:${key.colours[k].getStyle()}"></s>${label(k)}<span class="kn">${fmt(key.counts[k])}</span></button>`).join("") + `</div>`;
       if (key.keys.length > 40) html += `<p class="side">${ZH ? `另有 ${key.keys.length - 40} 类` : `and ${key.keys.length - 40} more`}</p>`;
+    }
+    if (key && filterSrc === "LC-NE") {
+      const outN = recs.filter((r) => r.out >= 0.2).length, scN = recs.filter((r) => r.sc >= 0.2).length;
+      html += `<p class="side">${ZH ? `轴突从脑的尾端伸出是真实的：参考脑不含脊髓，${scN} 个细胞有大量末梢在那里离开。${outN ? `另有 ${outN} 个细胞（同一只小鼠）的树大部分配准在脑的腹侧表面以下，按发布原样绘制。` : ""}` : `The axon leaving the back of the brain is real: the reference brain has no spinal cord, and ${scN} of these cells send much of their axon out that way. ${outN ? `${outN} cells, all from one mouse, have most of their tree registered below the brain's ventral surface and are drawn as released.` : ""}`}</p>`;
     }
     if (key) html += `<p class="badge">${sampled
       ? (ZH ? "神经元太多，一次画不清：这里随机抽取了约 220 个，各类别按比例，点击一类可看它的全部。这是一个样本：它显示各类去往何处，不显示密度。" : "Too many to draw at once, so about 220 are drawn at random, every class in proportion; click a class to see all of it. A sample shows where each class goes and how they differ, not how dense they are.")
@@ -1636,12 +1669,17 @@ export async function mountMouse(el) {
     return `<h3 title="${rec.id} · ${T.sources[rec.src] || rec.src}"><s style="background:${col}"></s><span class="nm">${d.head}</span></h3>` +
       (d.sub ? `<p class="side nm-sub">${d.sub}</p>` : "") +
       `<p class="side nm-id"><code>${rec.id}</code> <button type="button" class="lnk" data-copy-id="${rec.id}" title="${ZH ? "复制编号" : "Copy the id"}">${ZH ? "复制" : "copy"}</button>` +
-      (PORTAL[rec.src] ? ` · <a href="${PORTAL[rec.src]}" target="_blank" rel="noopener" title="${ZH ? "在原始数据门户中打开（用编号查找）" : "Open the source portal; find it there by this id"}">${ZH ? "在门户中打开" : "open in its portal"}</a>` : "") + `</p>`;
+      (PORTAL[rec.src] ? ` · <a href="${PORTAL[rec.src]}" target="_blank" rel="noopener" title="${ZH ? "在原始数据门户中打开（用编号查找）" : "Open the source portal; find it there by this id"}">${ZH ? "在门户中打开" : "open in its portal"}</a>` : "") + `</p>` +
+      /* a released tree that lies mostly outside the reference brain is drawn
+         as released and says so, rather than being trimmed to fit */
+      (rec.out >= 0.2 ? `<p class="side">${ZH ? `注意：这棵树有 ${Math.round(rec.out * 100)}% 的节点配准在参考脑之外（脑的腹侧表面以下），按发布的原样绘制。` : `Note: ${Math.round(rec.out * 100)}% of this tree is registered outside the reference brain, below its ventral surface, and is drawn as released.`}</p>` : "") +
+      (rec.sc >= 0.2 ? `<p class="side">${ZH ? `约 ${Math.round(rec.sc * 100)}% 的轴突末梢从参考脑尾端离开：参考脑不含脊髓。` : `About ${Math.round(rec.sc * 100)}% of the axon tips leave the reference brain at its caudal end: the atlas has no spinal cord.`}</p>` : "");
   }
   function renderCard(rec, loading) {
     if (!card) return;
     const col = DIVISION[rec.major] || "#9aa2b1";
     const SRC = {
+      "LC-NE": `<a href="https://doi.org/10.1038/s41586-026-11026-0" target="_blank" rel="noopener">Locus coeruleus, Su et al. 2026</a>, Allen Institute for Neural Dynamics`,
       "MouseLight": `<a href="https://ml-neuronbrowser.janelia.org/" target="_blank" rel="noopener">MouseLight</a>, Janelia`,
       "SEU-ALLEN": `<a href="https://doi.org/10.35077/g.25" target="_blank" rel="noopener">SEU-ALLEN</a>, Brain Image Library`,
       "ION-PFC": `<a href="https://mouse.digital-brain.cn/projectome/pfc" target="_blank" rel="noopener">ION prefrontal projectome</a>, Shanghai`,
@@ -1888,7 +1926,7 @@ export async function mountMouse(el) {
                           : (ZH ? "七千万个神经元中的三万个" : "30,000 neurons of 70 million"));
     g.fillText(line1, Math.round(W * 0.03), H + Math.round(band * 0.42));
     g.fillStyle = "#9AA2B1"; g.font = `400 ${fs2}px ui-sans-serif, -apple-system, Segoe UI, sans-serif`;
-    const srcName = rec ? ({ "MouseLight": "MouseLight, Janelia", "SEU-ALLEN": "SEU-ALLEN, Brain Image Library", "ION-PFC": "ION prefrontal projectome, Shanghai", "ION-HIPP": "ION hippocampus projectome, Shanghai", "ION-CTX": "ION whole-cortex projectome, Shanghai" }[rec.src] || rec.src) : "MouseLight · SEU-ALLEN · ION Shanghai";
+    const srcName = rec ? ({ "LC-NE": "Locus coeruleus, Su et al. 2026, Allen Neural Dynamics", "MouseLight": "MouseLight, Janelia", "SEU-ALLEN": "SEU-ALLEN, Brain Image Library", "ION-PFC": "ION prefrontal projectome, Shanghai", "ION-HIPP": "ION hippocampus projectome, Shanghai", "ION-CTX": "ION whole-cortex projectome, Shanghai" }[rec.src] || rec.src) : "MouseLight · SEU-ALLEN · ION Shanghai · Allen Neural Dynamics";
     const line2 = (rec ? `${ZH ? "轴突" : "axon"} ${fmt(rec.axon_mm, 1)} mm · ${srcName} · ` : `${srcName} · `) + "Allen CCF · whatisabrain.com/mouse";
     g.fillText(line2, Math.round(W * 0.03), H + Math.round(band * 0.78));
     const blob = await new Promise((res) => c.toBlob(res, "image/png"));
@@ -1979,6 +2017,7 @@ export async function mountMouse(el) {
 
   /* ---- the loop --------------------------------------------------------- */
   const loop = makeLoop(el, (dt) => {
+    lcG.visible = (current && current.rec.src === "LC-NE") || (mode === "match" && filterSrc === "LC-NE") || (mode === "pick" && filterSrc === "LC-NE");
     if (!dragging) {
       pivot.rotation.y += vel * dt; vel *= Math.pow(0.002, dt);
       if (idleTurn && !dragging) pivot.rotation.y += dt * 0.07;

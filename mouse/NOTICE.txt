@@ -12,6 +12,13 @@ those datasets' licences. Each is credited on the page.
                           terms of use (https://alleninstitute.org/terms-of-use/).
                           Cite Wang Q. et al., Cell 181, 936 (2020).
 
+  data/neurons-9.bin      Locus coeruleus noradrenaline neurons: Su Z. et al.,
+  data/axons-coarse-LC-NE.bin  Nature (2026), doi 10.1038/s41586-026-11026-0,
+  meshes/locus-coeruleus-*.glb  Allen Institute for Neural Dynamics, CC BY 4.0,
+                          from the aind-open-data bucket (exaSPIM reconstructions
+                          of 2026-05-06 and LC_percentile_meshes core_mesh.obj).
+                          Built by tools/build-lc.py.
+
   data/neurons.*          MouseLight neurons: Janelia Research Campus,
   data/axons-coarse.bin   ml-neuronbrowser.janelia.org, CC BY-NC 4.0.
                           Cite Winnubst J. et al., Cell 179, 268 (2019).
@@ -42,8 +49,11 @@ those datasets' licences. Each is credited on the page.
   meshes/molecules/*      Molecular structures from the RCSB Protein Data Bank
   data/molecules/*        (rcsb.org), public domain under the wwPDB policy; each
                           record names its entry, method, resolution, organisms
-                          and primary citation (5WEO: Twomey E.C. et al., Nature
-                          549, 60, 2017). Surfaces built with MolecularNodes
+                          and primary citation: 5WEO (Twomey E.C. et al., Nature
+                          549, 60, 2017), 4PE5 (Karakas E. and Furukawa H.,
+                          Science 344, 992, 2014), 1SFC (Sutton R.B. et al.,
+                          Nature 395, 347, 1998), 3BIW (Arac D. et al., Neuron
+                          56, 992, 2007). Surfaces built with MolecularNodes
                           (Brady Johnston, MIT) inside ProteinBlender (Animation
                           Lab, University of Utah, GPL-3.0-or-later) in Blender
                           5.0, decimated; ligand spheres at the deposited atom

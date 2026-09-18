@@ -18,6 +18,10 @@
    "Sobolevsky, A.I."
   ]
  },
+ "citationFull": {
+  "volume": "549",
+  "page": "60"
+ },
  "polymers": [
   {
    "description": "Glutamate receptor 2,Voltage-dependent calcium channel gamma-2 subunit chimera",
@@ -30,7 +34,8 @@
     "B",
     "C",
     "D"
-   ]
+   ],
+   "colour": "by chain"
   }
  ],
  "chains": [
@@ -45,9 +50,15 @@
   "C": "#ff5cc0",
   "D": "#9fe3b0"
  },
+ "colouredBy": "chain",
  "ligand": {
-  "residue": "GLU",
+  "residues": [
+   "GLU"
+  ],
   "atoms": 40,
+  "counts": {
+   "GLU": 40
+  },
   "centres_nm": [
    [
     16.187,
@@ -251,9 +262,9 @@
    ]
   ]
  },
- "atoms": 31168,
+ "atoms": 31072,
  "unit": "GLB unit = 10 nm (MolecularNodes world scale 0.01 per Angstrom); the _nm fields are in nanometres",
- "surfaceFaces": 125372,
+ "surfaceFaces": 125331,
  "bbox_nm": [
   [
    10.8,

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="zh-Hans">
 <head>
+<script src="/js/analytics.js"></script>
 <meta charset="utf-8">
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -350,10 +351,11 @@
             <option value="ION-PFC">中科院神经所 前额叶皮层</option>
             <option value="ION-HIPP">中科院神经所 海马</option>
             <option value="ION-CTX">中科院神经所 全皮层</option>
+            <option value="LC-NE">蓝斑（艾伦神经动力学研究所）</option>
           </select>
           <input type="search" data-f-region placeholder="胞体所在脑区，如 CA3" style="background:#0F1218;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font:inherit;font-size:13px;width:190px">
           <select data-f-div><option value="all">所有脑区</option></select>
-          <select data-colour title="“符合筛选的全部”视图的着色方式"><option value="subtype">按投射亚型着色</option><option value="family">按通路家族着色</option><option value="region">按胞体区域着色</option><option value="division">按脑区着色</option></select>
+          <select data-colour title="“符合筛选的全部”视图的着色方式"><option value="subtype">按投射亚型着色</option><option value="family">按通路家族着色</option><option value="region">按胞体区域着色</option><option value="division">按脑区着色</option><option value="depth">按蓝斑中的深度着色</option></select>
         </div>
         <div class="legend" data-legend hidden></div>
       </div>
@@ -368,10 +370,15 @@
     这个共用的框架就是全部的诀窍：不同实验室、不同年份、不同显微镜追踪出的神经元，
     落在同一个脑里，于是可以画在一起。</p>
   <p>每个神经元先被荧光蛋白填充，然后整个脑以亚微米分辨率成像，再由人或算法沿着图像堆栈
-    追踪轴突的每一根分支，有时长达几厘米。这里画出了五个数据集：Janelia 的 <b>MouseLight</b> 计划，
-    东南大学与艾伦研究所合作的 <b>SEU-ALLEN</b>，以及中国科学院脑科学与智能技术卓越创新中心
-    （神经科学研究所）在上海完成的三个单神经元投射组图谱：<b>前额叶皮层</b>、<b>海马</b>和<b>全皮层</b>。
+    追踪轴突的每一根分支，有时长达几厘米。这里画出了六个数据集：Janelia 的 <b>MouseLight</b> 计划，
+    东南大学与艾伦研究所合作的 <b>SEU-ALLEN</b>，中国科学院脑科学与智能技术卓越创新中心
+    （神经科学研究所）在上海完成的三个单神经元投射组图谱：<b>前额叶皮层</b>、<b>海马</b>和<b>全皮层</b>，
+    以及艾伦神经动力学研究所 Su 等 2026 年的 132 个<b>蓝斑</b>去甲肾上腺素神经元，迄今追踪过的最长的小鼠神经元。
     卡片上的数字是实际加载的数量，而不是事先写好的。</p>
+  <p class="note"><b>蓝斑，一条入口。</b> 脑桥里约 1,500 个细胞组成的一个小点是全脑去甲肾上腺素的主要来源，
+    每个细胞都投射到一组范围很广但各自特定的脑区。Su 等 2026 年完整追踪了其中 132 个，发现胞体在核团里的深度
+    决定了轴突去向：背侧的细胞投向皮层，腹侧的投向脑干和脊髓。<a href="?m=match&amp;src=LC-NE&amp;col=depth">一次看全部 132 个，按深度着色</a>，
+    或在下面选择该数据集，逐个点亮。卡片上的轴突长度按发布的重建测得；论文报告平均 34 厘米，最长 70 厘米。</p>
   <p class="note"><b>这是样本，不是全体。</b> 一只小鼠的脑大约有七千万个神经元，这个页面画了三万两千个左右。
     它能告诉你这些神经元去了哪里，但不能告诉你有多少神经元去了那里。这里细胞最多的脑区，
     是这几个项目选择标记的脑区，而不是神经元最多的脑区。</p>
@@ -408,6 +415,12 @@
       brains，PNAS 103, 12138 (2006)：用各向同性分离法计数，整个小鼠脑约有 7,100 万个神经元。标题取了两个数的整数。</li>
     <li><b>参考脑。</b> 艾伦小鼠脑通用坐标框架第三版，2017 年标注与结构网格。Wang Q. 等，Cell 181, 936 (2020)。
       艾伦研究所使用条款。</li>
+    <li><b>蓝斑。</b> Su Z.、Kosillo P.、Jung K. 等，Topographic structure and function of locus coeruleus
+      noradrenaline neurons，Nature (2026)，<a href="https://doi.org/10.1038/s41586-026-11026-0">10.1038/s41586-026-11026-0</a>，CC BY 4.0。
+      来自 4 只 Dbh-Cre 小鼠的 132 个全脑重建，由艾伦神经动力学研究所以 ExA-SPIM 成像并在 HortaCloud 中追踪，
+      从公开的 <a href="https://registry.opendata.aws/allen-nd-open-data/">aind-open-data</a> 存储桶读取，CCF v3 坐标，
+      并附作者的蓝斑表面（8 个脑合并后最致密的 67% Dbh+ 胞体）。这里每个细胞的类别是其主要投射靶区，深度是胞体沿背腹轴的排序，
+      都从发布的重建计算；脊髓不在参考脑内，所以投向脊髓的轴突表现为从尾端离开参考脑。</li>
     <li><b>MouseLight。</b> Winnubst J. 等，Reconstruction of 1,000 projection neurons reveals new cell types and
       organization of long-range connectivity in the mouse brain，Cell 179, 268 (2019)。数据来自 Janelia 研究园区的
       <a href="https://ml-neuronbrowser.janelia.org/">MouseLight NeuronBrowser</a>，CC BY-NC 4.0，CCF v3.0 坐标。</li>
@@ -452,7 +465,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "../js/mouse.js?v=59";
+  import { mountMouse } from "../js/mouse.js?v=60";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");

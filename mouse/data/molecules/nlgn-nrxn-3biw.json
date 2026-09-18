@@ -1,0 +1,99 @@
+{
+ "pdb": "3BIW",
+ "title": "Crystal structure of the Neuroligin-1/Neurexin-1beta synaptic adhesion complex",
+ "method": "X-ray",
+ "resolution_A": [
+  3.5
+ ],
+ "citation": {
+  "journal": "Neuron",
+  "year": 2007,
+  "title": "Structures of Neuroligin-1 and the Neuroligin-1/Neurexin-1beta Complex Reveal Specific Protein-Protein and Protein-Ca(2+) Interactions.",
+  "doi": null,
+  "authors": [
+   "Arac, D.",
+   "Boucard, A.A.",
+   "Ozkan, E.",
+   "Strop, P.",
+   "Newell, E.",
+   "Sudhof, T.C."
+  ]
+ },
+ "citationFull": {
+  "volume": "56",
+  "page": "992"
+ },
+ "polymers": [
+  {
+   "description": "Neuroligin-1",
+   "organisms": [
+    "Rattus norvegicus"
+   ],
+   "chains": [
+    "A",
+    "D"
+   ],
+   "colour": "#6fd0ff"
+  },
+  {
+   "description": "Neurexin-1-beta",
+   "organisms": [
+    "Rattus norvegicus"
+   ],
+   "chains": [
+    "E",
+    "H"
+   ],
+   "colour": "#ffb24d"
+  }
+ ],
+ "chains": [
+  "A",
+  "D",
+  "E",
+  "H"
+ ],
+ "chainColours": {
+  "A": "#6fd0ff",
+  "D": "#6fd0ff",
+  "E": "#ffb24d",
+  "H": "#ffb24d"
+ },
+ "colouredBy": "entity",
+ "ligand": {
+  "residues": [],
+  "atoms": 0,
+  "counts": {},
+  "centres_nm": []
+ },
+ "atoms": 11090,
+ "unit": "GLB unit = 10 nm (MolecularNodes world scale 0.01 per Angstrom); the _nm fields are in nanometres",
+ "surfaceFaces": 132107,
+ "bbox_nm": [
+  [
+   -12.58,
+   4.17,
+   -1.08
+  ],
+  [
+   0.66,
+   12.8,
+   6.72
+  ]
+ ],
+ "centre_nm": [
+  -5.960000038146973,
+  8.479999542236328,
+  2.819999933242798
+ ],
+ "extent_nm": [
+  13.239999771118164,
+  8.630000114440918,
+  7.800000190734863
+ ],
+ "source": "RCSB PDB via ProteinBlender 1.1.0 (Animation Lab, University of Utah) and MolecularNodes in Blender 5.0.1; solvent removed; surface = MolecularNodes solvent accessible surface, decimated",
+ "files": {
+  "surface": "meshes/molecules/nlgn-nrxn-3biw.glb",
+  "ligand": null
+ }
+}
