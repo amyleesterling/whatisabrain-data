@@ -60,6 +60,16 @@ those datasets' licences. Each is credited on the page.
                           positions with van der Waals radii. Build:
                           tools/build-molecules.py.
 
+  meshes/cryoet/*         A cryo-electron tomogram of a synapse: EMDB entry
+  data/cryoet/*           EMD-44176, Matsui A., Spangler C. et al. (Gouaux lab),
+                          eLife 13:RP98458 (2024), mouse hippocampus CA1 tissue,
+                          10 A voxels. EMDB data are distributed without
+                          restriction (wwPDB CC0 1.0); the raw tilt series is
+                          EMPIAR-11984 (CC0). The slices are the map's own
+                          values, a three voxel mean through z and one
+                          contrast stretch, no denoising and no segmentation.
+                          Build: tools/build-cryoet.py.
+
 No dataset here may be used commercially without the permission of its owner.
 The build that produced these files is tools/build-mouse.py. The data/ folder is
 hosted in the public repository github.com/amyleesterling/whatisabrain-data.

@@ -76,6 +76,23 @@
     .frame { width:min(150px,28vw); } .frame .fnote { display:none; } }
   .hud[hidden] { display:none; }
   .frame[hidden] { display:none; }
+  /* the tomogram frame: the slice fills the square, a scale bar rides its
+     bottom left, and a thin slider under the caption moves through z */
+  .frame .fm.tomo { position:relative; background:#111; }
+  .frame .fm.tomo img { display:block; width:100%; height:100%; object-fit:cover; image-rendering:auto; }
+  .frame .sbar { position:absolute; left:8px; bottom:8px; display:flex; flex-direction:column; align-items:flex-start; gap:2px; pointer-events:none; }
+  .frame .sbar i { display:block; height:2px; background:rgba(239,244,251,.92); box-shadow:0 0 4px #000; }
+  .frame .sbar em { font:500 9px/1 ui-monospace,Consolas,monospace; letter-spacing:.1em; color:rgba(239,244,251,.9); text-shadow:0 1px 4px #000; font-style:normal; }
+  .zrow { display:flex; align-items:center; gap:8px; margin:6px 2px 0; pointer-events:auto; }
+  .zrow input { flex:1; height:4px; accent-color:#6fd0ff; margin:0; }
+  .zrow .zlab { font:500 9px/1 ui-monospace,Consolas,monospace; letter-spacing:.08em; color:var(--faint); white-space:nowrap; }
+  /* the cleft stage: the EM pair small, the tomogram large; the molecules
+     stage keeps the tomogram as a small third step on the way down */
+  .hud.cleft .frame[data-frame="a"], .hud.cleft .frame[data-frame="b"] { width:64%; }
+  .hud.cleft .frame[data-frame="a"] .fnote, .hud.cleft .frame[data-frame="b"] .fnote { display:none; }
+  .hud.receptor .frame[data-frame="d"] { width:64%; }
+  .hud.receptor .frame[data-frame="d"] .fnote, .hud.receptor .frame[data-frame="d"] .zrow, .hud.receptor .frame[data-frame="d"] .sbar { display:none; }
+  @media (max-height:760px){ .hud.cleft .frame[data-frame="a"], .hud.cleft .frame[data-frame="b"], .hud.receptor .frame[data-frame="d"] { width:min(110px,20vw); } .hud.cleft .frame[data-frame="d"] .fnote { display:none; } }
   /* the molecule chips: one per structure, under the third frame */
   .mchips { display:flex; flex-wrap:wrap; gap:4px; margin:6px 0 0; pointer-events:auto; }
   .mchips button { appearance:none; background:rgba(9,11,16,.6); color:var(--dim); border:1px solid rgba(196,228,255,.18); border-radius:999px; padding:2px 8px; font:500 9.5px/1.4 ui-monospace,Consolas,monospace; letter-spacing:.06em; cursor:pointer; }
@@ -175,6 +192,13 @@
           <div class="fcap"><span data-en>The synapse</span><span data-zh>突触</span></div>
           <div class="fnote"><span data-en>Where they touch: one synapse, reconstructed from electron microscopy at a few nanometres. A different mouse from the cell on the left, the same cortex and the same cell class.</span><span data-zh>它们相触的地方：一个突触，由几纳米分辨率的电镜重建。与左侧细胞不是同一只小鼠，但来自同一皮层、同一类细胞。</span><span class="bstatus" data-bstatus></span></div>
         </div>
+        <div class="frame" data-frame="d" hidden>
+          <b class="k tl"></b><b class="k tr"></b><b class="k bl"></b><b class="k br"></b>
+          <div class="fm tomo" data-bmount-d><img data-tomo alt=""><span class="sbar" data-sbar><i></i><em>100 nm</em></span></div>
+          <div class="fcap"><span data-en>The cleft, in cryo-ET</span><span data-zh>冷冻电镜断层下的突触间隙</span></div>
+          <div class="zrow"><input type="range" data-zslider min="0" max="0" value="0" step="1" aria-label="slice"><span class="zlab" data-zlab></span></div>
+          <div class="fnote"><span data-en>A real cryo-electron tomogram of a synapse in mouse hippocampal tissue, one slice at a time. Above, the axon terminal with its vesicles (the 40 nm circles); below, the cleft and the receiving cell. The dark dots with bright halos are 3 nm gold particles on antibody fragments against the AMPA receptor GluA2, marking where those receptors sit. Scroll or drag the slider to move through the volume.</span><span data-zh>小鼠海马组织中一个真实突触的冷冻电子断层图，一次一个切片。上方是带囊泡（40 纳米的小圆）的轴突末梢，下方是突触间隙和接收信号的细胞。带亮晕的黑点是接在抗 AMPA 受体 GluA2 抗体片段上的 3 纳米金颗粒，标出这些受体所在的位置。滚轮或拖动滑块可穿过整个体积。</span><span class="bstatus" data-dstatus></span></div>
+        </div>
         <div class="frame" data-frame="c" hidden>
           <b class="k tl"></b><b class="k tr"></b><b class="k bl"></b><b class="k br"></b>
           <div class="fm" data-bmount-c></div>
@@ -189,6 +213,7 @@
           <button class="btn" data-stage="whole" role="tab"><span data-en>Whole cell</span><span data-zh>整个细胞</span></button>
           <button class="btn" data-stage="closeup" role="tab"><span data-en>Cell body and dendrites</span><span data-zh>胞体与树突</span></button>
           <button class="btn" data-stage="synapse" role="tab"><span data-en>Closer: a synapse</span><span data-zh>再近一点：一个突触</span></button>
+          <button class="btn" data-stage="cleft" role="tab"><span data-en>Closer: the cleft</span><span data-zh>再近一点：突触间隙</span></button>
           <button class="btn" data-stage="receptor" role="tab"><span data-en>Closer still: the molecules</span><span data-zh>再近一点：分子</span></button>
         </div>
         <button class="btn fire" data-fire><span data-en>Fire a signal</span><span data-zh>发出一个信号</span></button>
@@ -225,6 +250,11 @@
         <p data-en>The frames on the right show a real synapse reconstructed from electron microscopy in the MICrONS volume: one cubic millimetre of primary visual cortex, imaged at a few nanometres. The orange surface is the dendrite of Aura, a layer 5 pyramidal cell, the same class as the cell drawn here and from the same cortex, though a different mouse. The blue surface is Tendril, an inhibitory axon, and the pale dot is where they touch. <a href="https://amyleesterling.github.io/microns/">The cubic millimetre</a> has the rest of that cell.</p>
         <p data-zh>右侧的两个画面是 MICrONS 数据里由电子显微镜重建的一个真实突触：一立方毫米的初级视觉皮层，以几纳米的分辨率成像。橙色表面是 Aura 的树突，它是一个第 5 层锥体细胞，与这里画出的细胞同类、来自同一皮层，但来自另一只小鼠。蓝色表面是 Tendril，一根抑制性轴突，浅色的点是它们相触的地方。<a href="https://amyleesterling.github.io/microns/">一立方毫米</a>页面有那个细胞的其余部分。</p>
       </div>
+      <div data-stagecopy="cleft" hidden>
+        <p data-en>The third frame is a real cryo-electron tomogram: slices one nanometre apart through a synapse in a piece of mouse hippocampus, frozen so fast that the water never formed ice crystals, thinned to about 200 nanometres with an ion beam, and imaged in an electron microscope while still frozen. Nothing is stained and nothing is drawn: the grey is the density of the tissue itself, reconstructed from a tilt series. Scroll through the slices. The axon terminal at the top is packed with synaptic vesicles, each about 40 nanometres across and holding a few thousand glutamate molecules; below it lies the cleft and the cell that receives the signal. The dark dots with bright halos are 3 nanometre gold particles that the authors attached to antibody fragments against GluA2, the AMPA receptor drawn in the next stage, so each dot marks where a receptor sits. This is where the two scales meet: a receptor is about 19 nanometres tall, a fifth of one vesicle.</p>
+        <p data-zh>第三个画面是一张真实的冷冻电子断层图：穿过一块小鼠海马组织中一个突触的切片，相邻切片相距一纳米。组织被极快冷冻，水来不及结晶，再用离子束削薄到约 200 纳米，并在冷冻状态下用电子显微镜成像。没有染色，也没有任何绘制：灰度就是组织本身的密度，由倾斜序列重建而成。滚动切片看一看。上方的轴突末梢挤满了突触囊泡，每个约 40 纳米，装着几千个谷氨酸分子；下方是突触间隙和接收信号的细胞。带亮晕的黑点是作者接在抗 GluA2 抗体片段上的 3 纳米金颗粒，GluA2 正是下一步画出的 AMPA 受体，所以每个点都标出一个受体所在的位置。两种尺度在这里相遇：一个受体约 19 纳米高，是一个囊泡的五分之一。</p>
+        <p class="side" data-tomocite></p>
+      </div>
       <div data-stagecopy="receptor" hidden data-mcopy></div>
       <div data-card></div>
       <p class="side"><span data-en>Other featured cells, by the region their cell body sits in:</span><span data-zh>其他精选细胞，按胞体所在脑区：</span></p>
@@ -258,7 +288,7 @@
 </main>
 
 <script type="module">
-  import { mountNeuron } from "../js/neuron.js?v=14";
+  import { mountNeuron } from "../js/neuron.js?v=15";
   const el = document.getElementById("neuron");
   mountNeuron(el).then((h) => { window.__neuron = h; }).catch((e) => {
     const s = el.querySelector("[data-status]"); if (s) s.textContent = "The neuron did not load. " + e.message; throw e;

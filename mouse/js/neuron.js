@@ -504,6 +504,55 @@ export async function mountNeuron(el) {
   { const chips = bubbleEl && bubbleEl.querySelector("[data-mchips]");
     if (chips) { chips.innerHTML = MOLECULES.map((x) => `<button type="button" role="tab" data-mol="${x.slug}" aria-selected="${x.slug === moleculeSlug}">${x.chip}</button>`).join("");
       chips.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { showMolecule(b.dataset.mol); const u = new URL(location.href); u.searchParams.set("mol", b.dataset.mol); history.replaceState(null, "", u); })); } }
+  /* ---- the cleft: a cryo-electron tomogram, slice by slice ------------
+     mouse/data/cryoet/emd44176.json names the entry and the window;
+     the slices are JPEGs written by tools/build-cryoet.py straight from
+     the deposited map, one contrast stretch for the whole stack. */
+  let tomo = null;
+  const frameD = bubbleEl && bubbleEl.querySelector('[data-frame="d"]');
+  async function makeTomo() {
+    const rec = await (await fetch(R("data/cryoet/emd44176.json"))).json();
+    const img = frameD.querySelector("[data-tomo]"), slider = frameD.querySelector("[data-zslider]"), lab = frameD.querySelector("[data-zlab]");
+    const sbar = frameD.querySelector("[data-sbar]"), st = frameD.querySelector("[data-dstatus]");
+    const n = rec.slices.length; let z = Math.floor(n / 2); let loaded = 0;
+    const urls = rec.slices.map((f) => R(rec.dir + f));
+    const cache = new Array(n);
+    const show = () => {
+      img.src = urls[z]; slider.value = z;
+      const depth = (z * rec.window.every + rec.window.z0 - rec.mapShape_zyx[0] / 2) * rec.voxel_A / 10;
+      lab.textContent = ZH ? `切片 ${z + 1} / ${n} · ${depth >= 0 ? "+" : ""}${depth.toFixed(0)} nm` : `slice ${z + 1} of ${n} · ${depth >= 0 ? "+" : ""}${depth.toFixed(0)} nm`;
+    };
+    slider.max = n - 1; slider.value = z;
+    slider.addEventListener("input", () => { z = +slider.value; show(); });
+    const fm = frameD.querySelector(".fm");
+    fm.addEventListener("wheel", (ev) => { ev.preventDefault(); z = Math.max(0, Math.min(n - 1, z + (ev.deltaY > 0 ? 1 : -1))); show(); }, { passive: false });
+    let drag = null;
+    fm.addEventListener("pointerdown", (ev) => { drag = { y: ev.clientY, z }; try { fm.setPointerCapture(ev.pointerId); } catch (e) {} });
+    fm.addEventListener("pointermove", (ev) => { if (!drag) return; z = Math.max(0, Math.min(n - 1, drag.z + Math.round((drag.y - ev.clientY) / 4))); show(); });
+    fm.addEventListener("pointerup", () => { drag = null; }); fm.style.cursor = "ns-resize";
+    /* the scale bar: 100 nm at the frame's width */
+    const bar = () => { const px = fm.clientWidth * (100 / rec.window_nm.w); sbar.querySelector("i").style.width = px + "px"; };
+    new ResizeObserver(bar).observe(fm); bar();
+    /* the whole stack in the background, middle first, so the scrub is instant once it lands */
+    const order = []; for (let d = 0; d < n; d++) { if (z + d < n) order.push(z + d); if (d && z - d >= 0) order.push(z - d); }
+    (async () => { for (const i of order) { await new Promise((res) => { const im = new Image(); im.onload = im.onerror = () => { cache[i] = im; loaded++; if (st) st.textContent = loaded < n ? ` ${ZH ? "读取切片" : "Loading slices"} ${loaded}/${n}` : ""; res(); }; im.src = urls[i]; }); } })();
+    show();
+    const cite = el.querySelector("[data-tomocite]");
+    if (cite) cite.textContent = (ZH ? `来源：EMDB ${rec.emdb}，${rec.title}。${rec.citation}。体素 ${rec.voxel_A / 10} nm；这里显示 ${rec.window_nm.w} × ${rec.window_nm.h} nm 的窗口，${n} 个切片，间隔 ${rec.window_nm.sliceStep} nm。${rec.processing}。` : `Source: EMDB ${rec.emdb}, ${rec.title}. ${rec.citation}. Voxel ${rec.voxel_A / 10} nm; shown here a ${rec.window_nm.w} by ${rec.window_nm.h} nm window, ${n} slices ${rec.window_nm.sliceStep} nm apart. ${rec.processing}.`);
+    const leaders = el.querySelector("[data-leaders]");
+    return {
+      on: true,
+      frame() {
+        if (!leaders || stage !== "cleft" || frameD.hidden) return;
+        const vw = el.querySelector(".view") || mount; const vr = vw.getBoundingClientRect();
+        const fb = bubbleEl.querySelector('[data-frame="b"] .fm').getBoundingClientRect();
+        const fd = frameD.querySelector(".fm").getBoundingClientRect();
+        const x0 = fb.left - vr.left + fb.width * 0.5, y0 = fb.top - vr.top + fb.height * 0.5;
+        const x1 = fd.left - vr.left, y1 = fd.top - vr.top + 14;
+        leaders.innerHTML += `<circle cx="${x0.toFixed(1)}" cy="${y0.toFixed(1)}" r="3"/><path d="M${x0.toFixed(1)},${y0.toFixed(1)} L${x0.toFixed(1)},${(fb.bottom - vr.top + 7).toFixed(1)} L${x1.toFixed(1)},${y1.toFixed(1)}"/>`;
+      },
+    };
+  }
   function setStage(st) {
     stage = st;
     el.querySelectorAll("[data-stage]").forEach((b) => b.setAttribute("aria-selected", b.dataset.stage === st ? "true" : "false"));
@@ -511,12 +560,18 @@ export async function mountNeuron(el) {
     if (st === "whole") { zHome = zWhole; setFocus(null); focusLocked = false; }
     else { zHome = Math.max(1.4, Math.min(3.2, 0.9 + 0.35 * (rec.dend_mm || 4))); setFocus("dendrite"); focusLocked = true; }
     { const lm = el.querySelector("[data-mk]"), ld = el.querySelector("[data-leaders]");
-      if (lm) lm.hidden = !(st === "synapse" || st === "receptor"); if (ld) ld.innerHTML = ""; }
+      if (lm) lm.hidden = !(st === "synapse" || st === "cleft" || st === "receptor"); if (ld) ld.innerHTML = ""; }
     if (bubbleEl) {
-      const deep = st === "synapse" || st === "receptor";
+      const deep = st === "synapse" || st === "cleft" || st === "receptor";
       bubbleEl.hidden = !deep;
       bubbleEl.classList.toggle("receptor", st === "receptor");
+      bubbleEl.classList.toggle("cleft", st === "cleft");
       if (frameC) frameC.hidden = st !== "receptor";
+      if (frameD) frameD.hidden = !(st === "cleft" || st === "receptor");
+      if ((st === "cleft" || st === "receptor") && !tomo) {
+        tomo = { on: false, frame() {} };
+        makeTomo().then((t) => { tomo = t; }).catch((e) => { const sd = frameD && frameD.querySelector("[data-dstatus]"); if (sd) sd.textContent = (ZH ? " 断层图没有加载。" : " The tomogram did not load. ") + e.message; });
+      }
       if (st === "receptor" && !molecule) {
         molecule = { on: false, frame() {} };
         const want = new URLSearchParams(location.search).get("mol");
@@ -570,6 +625,7 @@ export async function mountNeuron(el) {
     camera.position.set(0, zNow * 0.12 * back, zNow * back); camera.lookAt(0, 0, 0);
     if (bubble && bubble.on) bubble.frame(dt);
     if (molecule && molecule.on && stage === "receptor") molecule.frame(dt);
+    if (tomo && tomo.on && stage === "cleft") tomo.frame(dt);
     placeTargetLabels();
     if (signalT >= 0) {
       signalT += dt; mat.uniforms.uGrow.value = signalT * SPEED;
@@ -581,7 +637,7 @@ export async function mountNeuron(el) {
   new ResizeObserver(fitAll).observe(mount);
   loop.run();
   const st0 = new URLSearchParams(location.search).get("stage");
-  if (st0 === "closeup" || st0 === "synapse" || st0 === "receptor") setStage(st0); else setStage("whole");
+  if (st0 === "closeup" || st0 === "synapse" || st0 === "cleft" || st0 === "receptor") setStage(st0); else setStage("whole");
   if (status) status.textContent = ZH ? `${rec.id}，${rec.region_name || rec.region}` : `${rec.id}, ${rec.region_name || rec.region}`;
   return { scene, camera, renderer, loop, rec, setFocus, pivot, fire: () => { signalT = 0; mat.uniforms.uHead.value = 1; } };
 }
