@@ -50,6 +50,11 @@ const ROOT = new URL("../", import.meta.url).href;
 const DATA_HOST = "https://amyleesterling.github.io/whatisabrain-data/mouse/";
 const DATA = /(^|\.)whatisabrain\.com$/.test(location.hostname) ? DATA_HOST : ROOT;
 const R = (p) => (p.startsWith("data/") ? DATA : ROOT) + p;
+/* a pack record is fetched with the script's own version on its URL, so a
+   changed record is never served from a browser's ten minute cache of the
+   old one after a deploy (the MEC block moved and a cached record kept the
+   camera at the old place) */
+const PACK_V = "?v=" + (new URL(import.meta.url).searchParams.get("v") || "0");
 
 /* ---- the words. English is the source; the Chinese page sets lang="zh"
    on <html> and every string the script writes comes from here. */
@@ -485,7 +490,7 @@ export async function mountMouse(el) {
       if (!m) continue;
       /* the volume's true extent, read from its pack before the box is drawn */
       let ext = [1, 1, 1];
-      try { const pk = await (await fetch(R(cu.pack))).json(); ext = pk.tissueExtent_mm || pk.size_mm || ext; cu.packMeta = pk; if (!cu.basis && pk.basis) cu.basis = pk.basis; } catch (e) {}
+      try { const pk = await (await fetch(R(cu.pack) + PACK_V)).json(); ext = pk.tissueExtent_mm || pk.size_mm || ext; cu.packMeta = pk; if (!cu.basis && pk.basis) cu.basis = pk.basis; } catch (e) {}
       cu.ext = ext;
       const centre = cu.dorsal ? dorsalCentroid(m.geometry) : leftCentroid(m.geometry);
       if (cu.packMeta && Array.isArray(cu.packMeta.centreOffset_mm)) centre.add(new THREE.Vector3(...cu.packMeta.centreOffset_mm));
@@ -527,7 +532,7 @@ export async function mountMouse(el) {
   const packCache = {};
   async function loadPack(cu) {
     if (packCache[cu.id]) return packCache[cu.id];
-    const pack = await (await fetch(R(cu.pack))).json();
+    const pack = await (await fetch(R(cu.pack) + PACK_V)).json();
     const group = new THREE.Group();
     /* the pack frame is millimetres about the volume centre with Y up; the
        group takes the cube's orientation (a half turn about x for MICrONS,
