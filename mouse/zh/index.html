@@ -21,6 +21,23 @@
 <link rel="alternate" hreflang="en" href="https://whatisabrain.com/mouse/">
 <link rel="alternate" hreflang="zh-Hans" href="https://whatisabrain.com/mouse/zh/">
 <link rel="icon" href="/brain-favicon.png">
+<script>
+  /* ?embed=1: only the 3D brain, filling the frame, for other sites to show
+     inside an iframe (connectome.quest/symposium). Drag turns it, scroll
+     zooms, a click on a box dives in; the header, the controls and the cards
+     stay hidden. show=mec,ca3 turns those volumes on without diving. */
+  if (/[?&]embed=1(&|$)/.test(location.search)) document.documentElement.classList.add("embed");
+</script>
+<style>
+  html.embed, html.embed body { margin: 0; height: 100%; overflow: hidden; background: #07080B; color-scheme: dark; }
+  html.embed body > * { display: none !important; }
+  html.embed body > .wide:has(#mouse) { display: block !important; width: 100%; height: 100%; max-width: none; margin: 0; padding: 0 !important; }
+  html.embed #mouse { display: block; width: 100%; height: 100%; margin: 0; }
+  html.embed #mouse .ctl, html.embed #mouse .side.hud, html.embed #mouse .nameplate, html.embed #mouse .status,
+  html.embed #mouse .fsicon, html.embed #mouse .panels, html.embed #mouse .lbar, html.embed #mouse .rlabels { display: none !important; }
+  html.embed #mouse .box, html.embed #mouse .view { width: 100%; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 0; background: #07080B; box-shadow: none; }
+  html.embed #mouse .canvas { width: 100% !important; height: 100% !important; min-height: 0 !important; max-height: none !important; }
+</style>
 <link rel="stylesheet" href="../vendor/scifi-ui/panel-surface.css">
 <script type="importmap">
 {"imports":{"three":"../vendor/three/three.module.min.js","three/addons/":"../vendor/three/addons/"}}
@@ -484,7 +501,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "../js/mouse.js?v=66";
+  import { mountMouse } from "../js/mouse.js?v=68";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");

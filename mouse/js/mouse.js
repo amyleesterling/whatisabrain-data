@@ -504,6 +504,10 @@ export async function mountMouse(el) {
       const edges = new THREE.LineSegments(new THREE.EdgesGeometry(cube.geometry), new THREE.LineBasicMaterial({ color: cu.colour, transparent: true, opacity: 0.9 }));
       cube.add(edges); micronsG.add(cube); cubeMeshes.push(cube); cu.box = cube;
       m.material = new THREE.MeshBasicMaterial({ color: cu.colour, transparent: true, opacity: 0.06, blending: THREE.AdditiveBlending, depthWrite: false });
+      /* the region's outline, so the volume is seen against the part of the
+         brain it came from and not only as a box */
+      const wire = new THREE.Mesh(m.geometry, new THREE.MeshBasicMaterial({ color: cu.colour, wireframe: true, transparent: true, opacity: 0.16, blending: THREE.AdditiveBlending, depthWrite: false }));
+      wire.renderOrder = 4; m.add(wire);
       micronsG.add(m); cu.regionMesh = m;
       if (cu.hidden) { cube.visible = false; m.visible = false; }
     }
@@ -1929,6 +1933,7 @@ export async function mountMouse(el) {
     if (holoRaw) u.set("holo", holoRaw);
     if (inside) u.set("cube", inside.id);
     const hid = CUBES.filter((c) => c.hidden).map((c) => c.id); if (hid.length) u.set("hide", hid.join(","));
+    if (document.documentElement.classList.contains("embed")) u.set("embed", "1");
     if (mode === "story" && story) { u.set("story", story.id); u.set("stop", String(storyIdx + 1)); u.delete("n"); }
     return u;
   }
@@ -2299,6 +2304,11 @@ export async function mountMouse(el) {
   if (fr && fr.value) syncSomata();
   { const hid = (new URLSearchParams(location.search).get("hide") || "").split(",").filter(Boolean);
     for (const id of hid) { const cu = CUBES.find((c) => c.id === id); if (cu) setCubeHidden(cu, true); } }
+  { const show = (new URLSearchParams(location.search).get("show") || "").split(",").filter(Boolean);
+    if (show.length) {
+      micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true;
+      CUBES.forEach((c) => setCubeHidden(c, !show.includes(c.id)));
+    } }
   const wantCube = new URLSearchParams(location.search).get("cube");
   if (view.story) { openStory(view.story, Math.max(0, (parseInt(view.stop, 10) || 1) - 1)); }
   else if (wantCube) { const cu = CUBES.find((c) => c.id === wantCube); if (cu) { setMode("pick"); if (!micronsG.visible) { micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true; CUBES.forEach((c) => { if (c !== cu) setCubeHidden(c, true); }); } setCubeHidden(cu, false); const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); } }
