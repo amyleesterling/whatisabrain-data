@@ -70,6 +70,16 @@ those datasets' licences. Each is credited on the page.
                           contrast stretch, no denoising and no segmentation.
                           Build: tools/build-cryoet.py.
 
+  meshes/mec/*            The MEC volume: Princeton medial entorhinal cortex EM
+  data/mec/*              dataset (Eric Hammerschmith with Zhihao Zheng, Seung
+                          Lab), datastack pni_mec on hc.himc-cave.com. Seven
+                          gallery cells from connectome.quest/mec (seunglabdata
+                          assets/mec/gallery), decimated; nucleus counts by
+                          layer from the dataset's nucleus annotations. Shared
+                          for research and education with attribution; ask the
+                          Seung Lab before any other use. Build:
+                          tools/build-mec-cube.py.
+
 No dataset here may be used commercially without the permission of its owner.
 The build that produced these files is tools/build-mouse.py. The data/ folder is
 hosted in the public repository github.com/amyleesterling/whatisabrain-data.

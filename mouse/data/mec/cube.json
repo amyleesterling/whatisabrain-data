@@ -1,0 +1,405 @@
+{
+ "frame": {
+  "units": "mm",
+  "origin": "centre of the segmentation volume's bounding box",
+  "origin_nm": [
+   2243392.0,
+   1712000.0,
+   223830.0
+  ],
+  "axes": "the dataset's own axes: x and y lie in the section plane, z is the sectioning axis",
+  "piaDirection_dataset_unit": [
+   -0.2395,
+   0.9699,
+   -0.0445
+  ],
+  "layerAxis_dataset_unit_I_to_VI": [
+   0.2395,
+   -0.9699,
+   0.0445
+  ],
+  "layerMeans_um": {
+   "I": {
+    "n": 42,
+    "mean_um": [
+     2346.3,
+     2240.1,
+     181.0
+    ]
+   },
+   "II": {
+    "n": 192,
+    "mean_um": [
+     2381.1,
+     2111.3,
+     226.9
+    ]
+   },
+   "III": {
+    "n": 206,
+    "mean_um": [
+     2486.1,
+     1980.0,
+     222.5
+    ]
+   },
+   "IV": {
+    "n": 55,
+    "mean_um": [
+     2507.3,
+     1854.1,
+     237.9
+    ]
+   },
+   "V": {
+    "n": 172,
+    "mean_um": [
+     2484.6,
+     1750.0,
+     216.5
+    ]
+   },
+   "VI": {
+    "n": 115,
+    "mean_um": [
+     2482.9,
+     1621.8,
+     220.6
+    ]
+   }
+  },
+  "layerFitSingularValues": [
+   529.9,
+   84.3,
+   29.4
+  ],
+  "layerAxisFrom": "782 reconstructed cells with a layer call, seunglabdata assets/mec/cells/cells.json"
+ },
+ "size_mm": [
+  2.0315,
+  1.3379,
+  0.4469
+ ],
+ "tissueExtent_mm": [
+  2.0315,
+  1.3379,
+  0.4469
+ ],
+ "basis": [
+  [
+   0.3468,
+   -0.2597,
+   -0.9013
+  ],
+  [
+   0.9369,
+   0.0518,
+   0.3455
+  ],
+  [
+   -0.043,
+   -0.9643,
+   0.2613
+  ]
+ ],
+ "basisNote": "columns: the dataset x, y, z axes in atlas (page) coordinates, chosen so the measured pia direction (layer VI to layer I) equals the outward normal of the brain surface nearest the left ENTm centroid, read from the page's own atlas meshes, and the dataset x stays as close to the atlas x as that allows",
+ "basisWhere": {
+  "entmLeftCentroid_mm": [
+   3.017,
+   0.725,
+   -3.521
+  ],
+  "nearestSurfacePoint_mm": [
+   3.415,
+   0.8,
+   -3.261
+  ],
+  "distance_mm": 0.481
+ },
+ "segmentationBounds_nm": {
+  "voxel_offset": [
+   76728,
+   65192,
+   8
+  ],
+  "size_vx": [
+   126968,
+   83616,
+   9932
+  ],
+  "resolution_nm": [
+   16,
+   16,
+   45
+  ],
+  "min_nm": [
+   1227648,
+   1043072,
+   360
+  ],
+  "max_nm": [
+   3259136,
+   2380928,
+   447300
+  ]
+ },
+ "population": {
+  "nuclei_marked": 62631,
+  "by_layer": {
+   "I": 7871,
+   "II": 10463,
+   "III": 14203,
+   "IV": 4200,
+   "V": 16215,
+   "VI": 9679
+  },
+  "presumed_pyramidal": 12742,
+  "presumed_stellate": 1370,
+  "stellate_in_layer_II": 1085,
+  "untyped": 48519,
+  "note": "Cell types are PRESUMED: called from nucleus size, then checked against the cell's layer. The number of neurons is not known. At least 14,112 nuclei carry a neuron type name; the rest sit in unnamed clusters mixing interneurons with glia and vasculature.",
+  "src": "nucleus annotations carrying layer and nucleus-size cluster, read 2026-09-22"
+ },
+ "synapses": null,
+ "synapseNote": "No synapse table: the volume's CAVE annotation and materialization services were still being provisioned when this was built (annotation 404, materialize 503), so the cells are drawn without synapses.",
+ "placement": "Drawn at the centroid of the left atlas ENTm mesh at the block's true size, turned so the block's layer axis follows the brain surface there. The EM block is NOT registered to the atlas; the rotation about the layer axis and the hemisphere were not recorded.",
+ "mesh": {
+  "source": "connectome.quest/mec gallery web tier (seunglabdata assets/mec/gallery), built from the pni_mec meshing service, nuclei resolved to the live chunkedgraph on 2026-09-29",
+  "decimatedTo": 40000,
+  "glb": "float32 positions, trimesh export; the page computes normals"
+ },
+ "cellsNote": "Seven cells, one per type the connectome.quest gallery shows. Four were named by eye by Amy Sterling and matched to the live segmentation; three are automatic calls from nucleus size, marked predicted. Glia subtypes from nucleus size are unreliable in this volume (two of them were swapped on inspection), which is why the predicted ones say so.",
+ "provenance": {
+  "segmentation": "gs://princeton-eric-mec-prod-east1/ws/seg_20260713164845",
+  "image": "https://c10s.pni.princeton.edu/mec_alignment_2025-09/alignment/img/v2",
+  "cave": "pni_mec on hc.himc-cave.com",
+  "built_by": "Eric Hammerschmith with Zhihao Zheng, Seung Lab, Princeton",
+  "project_page": "https://connectome.quest/mec/"
+ },
+ "cells": [
+  {
+   "slug": "astrocyte-01",
+   "name": "Astrocyte",
+   "name_zh": "星形胶质细胞",
+   "type": "Astrocyte",
+   "typeKey": "astrocyte",
+   "category": "glia",
+   "colour": "#b06fe0",
+   "layer": "II",
+   "root_id": "720575947505391325",
+   "segmentation": "seg_20260713164845 (pni_mec chunkedgraph)",
+   "nucleus_um": [
+    2535.2,
+    2125.3,
+    221.6
+   ],
+   "soma_mm": [
+    0.2918,
+    0.4133,
+    -0.0022
+   ],
+   "verified": false,
+   "chosenBy": "automatic, from a nucleus-size prediction",
+   "confidence": "unconfirmed",
+   "note": "kept: Amy identified the cell previously labelled oligodendrocyte as an astrocyte, and this slot already held a good one",
+   "file": "meshes/mec/astrocyte-01.glb",
+   "faces": 40000,
+   "vertices": 20498,
+   "bytes": 726776,
+   "sourceTier": "astrocyte-01.web.glb",
+   "sourceFaces": 109998
+  },
+  {
+   "slug": "bipolar-01",
+   "name": "Bipolar cell",
+   "name_zh": "双极细胞",
+   "type": "Bipolar cell",
+   "typeKey": "bipolar",
+   "category": "neuron",
+   "colour": "#F5B84A",
+   "layer": "II",
+   "root_id": "720575947496304424",
+   "segmentation": "seg_20260713164845 (pni_mec chunkedgraph)",
+   "nucleus_um": [
+    3052.3,
+    2255.4,
+    265.5
+   ],
+   "soma_mm": [
+    0.8089,
+    0.5434,
+    0.0417
+   ],
+   "verified": false,
+   "chosenBy": "automatic, from a nucleus-size prediction",
+   "confidence": "unconfirmed",
+   "note": "",
+   "file": "meshes/mec/bipolar-01.glb",
+   "faces": 39999,
+   "vertices": 20064,
+   "bytes": 721552,
+   "sourceTier": "bipolar-01.web.glb",
+   "sourceFaces": 43595
+  },
+  {
+   "slug": "inhibitory-01",
+   "name": "Inhibitory interneuron",
+   "name_zh": "抑制性中间神经元",
+   "type": "Inhibitory interneuron",
+   "typeKey": "inhibitory",
+   "category": "inhibitory",
+   "colour": "#ff5fb0",
+   "layer": "II",
+   "root_id": "720575947567168828",
+   "segmentation": "seg_20260713164845 (pni_mec chunkedgraph)",
+   "nucleus_um": [
+    1893.1,
+    2111.5,
+    223.4
+   ],
+   "soma_mm": [
+    -0.3503,
+    0.3995,
+    -0.0004
+   ],
+   "verified": false,
+   "chosenBy": "automatic, from a nucleus-size prediction",
+   "confidence": "unconfirmed",
+   "note": "",
+   "file": "meshes/mec/inhibitory-01.glb",
+   "faces": 40000,
+   "vertices": 27025,
+   "bytes": 805100,
+   "sourceTier": "inhibitory-01.web.glb",
+   "sourceFaces": 109998
+  },
+  {
+   "slug": "microglia-01",
+   "name": "Microglia",
+   "name_zh": "小胶质细胞",
+   "type": "Microglia",
+   "typeKey": "microglia",
+   "category": "glia",
+   "colour": "#E8823C",
+   "layer": "II",
+   "root_id": "720575947495909088",
+   "segmentation": "seg_20260713164845 (pni_mec chunkedgraph)",
+   "nucleus_um": [
+    2105.0,
+    2062.3,
+    368.6
+   ],
+   "soma_mm": [
+    -0.1384,
+    0.3503,
+    0.1448
+   ],
+   "verified": true,
+   "chosenBy": "Amy Sterling, 2026-09-23",
+   "confidence": "named by eye and matched to the live segmentation",
+   "note": "chosen by Amy Sterling; good microglia are hard to find because they merge easily with neighbours, and this one carries a minor axon merge in the segmentation she inspected",
+   "file": "meshes/mec/microglia-01.glb",
+   "faces": 40000,
+   "vertices": 20144,
+   "bytes": 722528,
+   "sourceTier": "microglia-01.web.glb",
+   "sourceFaces": 49408
+  },
+  {
+   "slug": "oligodendrocyte-01",
+   "name": "Oligodendrocyte",
+   "name_zh": "少突胶质细胞",
+   "type": "Oligodendrocyte",
+   "typeKey": "oligodendrocyte",
+   "category": "glia",
+   "colour": "#3fd8ff",
+   "layer": "II",
+   "root_id": "720575947480485108",
+   "segmentation": "seg_20260713164845 (pni_mec chunkedgraph)",
+   "nucleus_um": [
+    2050.2,
+    2089.0,
+    189.6
+   ],
+   "soma_mm": [
+    -0.1932,
+    0.377,
+    -0.0342
+   ],
+   "verified": true,
+   "chosenBy": "Amy Sterling, 2026-09-23",
+   "confidence": "named by eye and matched to the live segmentation",
+   "note": "chosen by Amy Sterling; several processes show the loop where the cell wraps a myelinated axon",
+   "file": "meshes/mec/oligodendrocyte-01.glb",
+   "faces": 24546,
+   "vertices": 12473,
+   "bytes": 445028,
+   "sourceTier": "oligodendrocyte-01.web.glb",
+   "sourceFaces": 24546
+  },
+  {
+   "slug": "pyramidal-01",
+   "name": "Pyramidal cell",
+   "name_zh": "锥体细胞",
+   "type": "Pyramidal cell",
+   "typeKey": "pyramidal",
+   "category": "excitatory",
+   "colour": "#3E96F0",
+   "layer": "II",
+   "root_id": "720575947422955241",
+   "segmentation": "seg_20260713164845 (pni_mec chunkedgraph)",
+   "nucleus_um": [
+    2502.9,
+    2052.5,
+    242.9
+   ],
+   "soma_mm": [
+    0.2595,
+    0.3405,
+    0.0191
+   ],
+   "verified": true,
+   "chosenBy": "Amy Sterling, 2026-09-23",
+   "confidence": "named by eye and matched to the live segmentation",
+   "note": "chosen by Amy Sterling as a clearly pyramidal example; MEC pyramidal and stellate form a continuum and the previous pick sat on the border",
+   "file": "meshes/mec/pyramidal-01.glb",
+   "faces": 40000,
+   "vertices": 22620,
+   "bytes": 752240,
+   "sourceTier": "pyramidal-01.web.glb",
+   "sourceFaces": 110000
+  },
+  {
+   "slug": "stellate-01",
+   "name": "Stellate cell",
+   "name_zh": "星形细胞",
+   "type": "Stellate cell",
+   "typeKey": "stellate",
+   "category": "excitatory",
+   "colour": "#67f5cb",
+   "layer": "II",
+   "root_id": "720575947520731264",
+   "segmentation": "seg_20260713164845 (pni_mec chunkedgraph)",
+   "nucleus_um": [
+    2281.7,
+    2089.7,
+    229.1
+   ],
+   "soma_mm": [
+    0.0383,
+    0.3777,
+    0.0053
+   ],
+   "verified": false,
+   "chosenBy": "automatic, from a nucleus-size prediction",
+   "confidence": "unconfirmed",
+   "note": "",
+   "file": "meshes/mec/stellate-01.glb",
+   "faces": 40000,
+   "vertices": 24011,
+   "bytes": 768932,
+   "sourceTier": "stellate-01.web.glb",
+   "sourceFaces": 110000
+  }
+ ]
+}

@@ -265,6 +265,14 @@
   .src b { color:var(--ink); font-weight:500; }
   footer { margin-top:56px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--faint); }
   footer a { color:var(--dim); }
+  /* stories: the evidence badge on a station's heading, and its footer */
+  .ev { display:inline-block; vertical-align:middle; margin-left:6px; padding:1px 7px; border-radius:999px; font:600 10px/1.6 ui-monospace,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; border:1px solid; cursor:help; }
+  .ev-measured { color:#8fe3b5; border-color:rgba(143,227,181,.5); }
+  .ev-atlas { color:#9ec2ff; border-color:rgba(158,194,255,.5); }
+  .ev-schematic { color:#ffcf7a; border-color:rgba(255,207,122,.5); }
+  .st-kicker { letter-spacing:.06em; text-transform:uppercase; font-size:10.5px; }
+  .st-nav { display:flex; flex-wrap:wrap; gap:6px; }
+  .btn[disabled] { opacity:.35; cursor:default; }
 </style>
 </head>
 <body>
@@ -310,12 +318,14 @@
             <button data-mode="all" role="tab">全部轴突</button>
             <button data-mode="match" role="tab">符合筛选的全部</button>
             <button data-mode="region" role="tab">某脑区的往来投射</button>
+            <button data-mode="story" role="tab">故事</button>
           </div>
           <button class="btn" data-next>换一个</button>
           <button class="btn" data-pause>暂停旋转</button>
           <span class="lab" style="min-width:0">跳到</span>
           <button class="btn" data-cube="microns" style="color:#ffc24a;border-color:rgba(255,194,74,.45)">MICrONS V1</button>
           <button class="btn" data-cube="ca3" style="color:#3fe3b0;border-color:rgba(63,227,176,.45)">CA3</button>
+          <button class="btn" data-cube="mec" style="color:#b48cff;border-color:rgba(180,140,255,.45)">MEC</button>
           <button class="btn" data-fullscreen>全屏</button>
           <button class="btn" data-share>分享这个视图</button>
           <button class="btn" data-image>保存图片</button>
@@ -334,7 +344,7 @@
           <label class="tog"><input type="checkbox" data-t-shell checked> 脑</label>
           <label class="tog"><input type="checkbox" data-t-regions checked> 脑区</label>
           <label class="tog"><input type="checkbox" data-t-cells> 每一个细胞</label>
-          <label class="tog"><input type="checkbox" data-t-microns checked> 连接组立方体</label>
+          <label class="tog"><input type="checkbox" data-t-microns> 连接组立方体</label>
           <label class="tog"><input type="checkbox" data-t-turn checked> 旋转</label>
           <label class="surf">外壳 <input type="range" data-surface min="0" max="100" value="50"></label>
           <label class="surf">脑区 <input type="range" data-divisions min="0" max="100" value="50"></label>
@@ -375,6 +385,11 @@
     （神经科学研究所）在上海完成的三个单神经元投射组图谱：<b>前额叶皮层</b>、<b>海马</b>和<b>全皮层</b>，
     以及艾伦神经动力学研究所 Su 等 2026 年的 132 个<b>蓝斑</b>去甲肾上腺素神经元，迄今追踪过的最长的小鼠神经元。
     卡片上的数字是实际加载的数量，而不是事先写好的。</p>
+  <p class="note"><b>两个可以走一遍的故事。</b>同样的神经元，按顺序讲。
+    <a href="?story=alzheimers">阿尔茨海默病从哪里开始</a>沿 Braak 分期从蓝斑走过内嗅皮层和海马，
+    直到 2023 与 2024 年的药物；<a href="?story=hand">让你的手动起来的那根线</a>跟着一次触碰从前肢皮层
+    走到伸向脊髓的细胞，再到正在重建这条路的人们。每一站点亮一个真实重建的细胞，并带一个标记，
+    说明画布在这一步能显示什么：实测、图谱或示意。</p>
   <p class="note"><b>蓝斑，一条入口。</b> 脑桥里约 1,500 个细胞组成的一个小点是全脑去甲肾上腺素的主要来源，
     每个细胞都投射到一组范围很广但各自特定的脑区。Su 等 2026 年完整追踪了其中 132 个，发现胞体在核团里的深度
     决定了轴突去向：背侧的细胞投向皮层，腹侧的投向脑干和脊髓。<a href="?m=match&amp;src=LC-NE&amp;col=depth">一次看全部 132 个，按深度着色</a>，

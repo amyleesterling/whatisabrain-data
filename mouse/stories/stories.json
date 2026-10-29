@@ -1,0 +1,173 @@
+{
+  "note": "Two step-through stories told on the mouse page. Every neuron named here is a real reconstructed cell from one of the six collections; the evidence badge says what the canvas can and cannot show at each step. No copy carries an em or en dash.",
+  "stories": [
+    {
+      "id": "alzheimers",
+      "title": { "en": "Where Alzheimer's begins", "zh": "阿尔茨海默病从哪里开始" },
+      "blurb": { "en": "The disease walks a known path through the brain, and a mouse brain shows the wires it walks on.", "zh": "这种病沿着一条已知的路线穿过大脑，小鼠脑让我们看见它走的那些线。" },
+      "stations": [
+        {
+          "kicker": { "en": "Braak and Braak, 1991", "zh": "Braak 与 Braak，1991" },
+          "evidence": "atlas",
+          "wide": true,
+          "text": {
+            "en": "In 1906 Alois Alzheimer described plaques and tangles in the brain of a patient who had lost her memory. In 1991 Heiko and Eva Braak read eighty-three post-mortem brains and found that the tangles do not appear everywhere at once. They begin in one small patch of the temporal lobe, spread into the hippocampus, and only late reach the rest of the cortex. Six stages, always in the same order. The order is a map, and the map follows the wiring. This story walks that map on real mouse neurons, one station at a time.",
+            "zh": "1906 年，Alois Alzheimer 在一位失去记忆的病人脑中描述了斑块和缠结。1991 年，Heiko 与 Eva Braak 阅读了八十三个死后脑，发现缠结并非同时出现在各处：它们从颞叶的一小块开始，蔓延进海马，很晚才到达其余皮层。六个分期，顺序总是相同。这个顺序就是一张地图，而地图沿着神经连线展开。这个故事在真实的小鼠神经元上逐站走完这张图。"
+          }
+        },
+        {
+          "title": { "en": "The first tangles, in a speck of the pons", "zh": "最早的缠结，在脑桥的一个小点里" },
+          "kicker": { "en": "Braak et al. 2011; Su et al. 2026", "zh": "Braak 等 2011；Su 等 2026" },
+          "evidence": "measured",
+          "neuron": "N001-685222",
+          "lc": true,
+          "text": {
+            "en": "Twenty years after the staging, Braak's group found tau, the tangle protein, in a place earlier than stage one: the locus coeruleus, a speck of noradrenaline cells in the pons, and in some people before the age of thirty. Why there? One idea is in front of you. This is one locus coeruleus cell from a mouse, traced whole by Su et al. in 2026. Its axon runs 700 millimetres and reaches many areas of the cortex. A cell that has to keep that much cable alive is a cell under strain, and a cell that touches so much of the brain can carry trouble a long way.",
+            "zh": "分期提出二十年后，Braak 的团队在一个比一期更早的地方发现了 tau（缠结蛋白）：蓝斑，脑桥里的一小团去甲肾上腺素细胞，有些人不到三十岁就已出现。为什么是那里？一个想法就在你眼前。这是一只小鼠的一个蓝斑细胞，由 Su 等人在 2026 年完整追踪。它的轴突长 700 毫米，抵达皮层的许多区域。一个要维持这么多线缆的细胞，是一个负担很重的细胞；一个触及这么多脑区的细胞，也能把麻烦带到很远。"
+          }
+        },
+        {
+          "title": { "en": "Stage one: the entorhinal gate", "zh": "一期：内嗅皮层的大门" },
+          "kicker": { "en": "Hyman et al. 1984", "zh": "Hyman 等 1984" },
+          "evidence": "measured",
+          "neuron": "AA1002",
+          "regions": ["ENTl", "ENTm", "CA3", "CA1"],
+          "text": {
+            "en": "Braak stage one is the entorhinal cortex, the gateway between the neocortex and the hippocampus. In 1984 Bradley Hyman and colleagues showed that Alzheimer's picks out one layer of it, layer two, whose cells send the perforant path into the hippocampus, and that losing those cells cuts the hippocampus off from the rest of the brain. This is one of those cells, from the Janelia MouseLight collection. Its cell body is in lateral entorhinal layer two, and its axon ends in the dentate gyrus, CA3 and CA1. When these die, the memory system loses its input.",
+            "zh": "Braak 一期在内嗅皮层，新皮层与海马之间的大门。1984 年 Bradley Hyman 及同事证明，阿尔茨海默病专挑其中一层，第二层，这层细胞发出穿通通路进入海马；失去它们，海马就与大脑其余部分断开。这是其中一个细胞，来自 Janelia 的 MouseLight 数据集。它的胞体在外侧内嗅皮层第二层，轴突终止于齿状回、CA3 和 CA1。这些细胞死去时，记忆系统失去了它的输入。"
+          }
+        },
+        {
+          "title": { "en": "Stage three: into the hippocampus", "zh": "三期：进入海马" },
+          "kicker": { "en": "ION hippocampus projectome", "zh": "中科院神经所 海马投射组" },
+          "evidence": "measured",
+          "neuron": "210013_001",
+          "regions": ["CA3", "CA1", "SUB"],
+          "text": {
+            "en": "Next the tangles reach the hippocampus proper, and the first symptom appears: new memories stop being kept. This is a CA3 pyramidal cell from the Shanghai hippocampus projectome. About a third of its axon tips end in CA1, the Schaffer collateral connection that the textbooks draw as one arrow. Watch it and you can see that the one arrow is hundreds of millimetres of branching cable inside a structure a few millimetres long.",
+            "zh": "接着缠结到达海马本体，第一个症状出现：新的记忆留不住了。这是上海海马投射组中的一个 CA3 锥体细胞。它约三分之一的轴突末梢终止于 CA1，也就是教科书里画成一个箭头的 Schaffer 侧支连接。看着它，你会发现那一个箭头是几百毫米的分支线缆，装在一个只有几毫米长的结构里。"
+          }
+        },
+        {
+          "title": { "en": "The way out", "zh": "出路" },
+          "kicker": { "en": "ION hippocampus projectome", "zh": "中科院神经所 海马投射组" },
+          "evidence": "measured",
+          "neuron": "202415_127",
+          "regions": ["SUB", "ACB", "ENTl"],
+          "text": {
+            "en": "The hippocampus talks back to the brain through the subiculum. This subiculum cell sends its axon forward to the nucleus accumbens and back to the entorhinal cortex, closing the loop the disease entered by. A loop is a road in both directions, and the tangles use it.",
+            "zh": "海马通过下托与大脑对话。这个下托细胞把轴突向前送到伏隔核，向后送回内嗅皮层，闭合了疾病进入时的那个环路。环路是一条双向的路，缠结也在用它。"
+          }
+        },
+        {
+          "title": { "en": "The tangles travel along the wires", "zh": "缠结沿着连线传播" },
+          "kicker": { "en": "de Calignon et al. 2012; Liu et al. 2012", "zh": "de Calignon 等 2012；Liu 等 2012" },
+          "evidence": "schematic",
+          "neuron": "AA1047",
+          "set": { "rf": ["ENTl", "ENTm"], "tf": ["DG", "CA1", "CA3", "SUB"], "min": 0.1 },
+          "regions": ["ENTl", "ENTm", "CA1"],
+          "text": {
+            "en": "Why the same order in every brain? In 2012 two groups made mice whose entorhinal cells alone produced human tau. Months later the tau was in the dentate gyrus and the CA fields, in cells that had never made it, exactly where the entorhinal axons end. The protein had crossed synapses and moved down the wires. Drawn faint here are every entorhinal cell in these six collections whose axon ends in the hippocampus; the count is on the card. The spread itself is not something these data can show, so this station is marked schematic: the cells are real, the arrows of the argument are not drawn.",
+            "zh": "为什么每个脑都是同一顺序？2012 年，两个研究组制造了只有内嗅细胞产生人类 tau 的小鼠。几个月后，tau 出现在齿状回和 CA 区，出现在从未制造它的细胞里，恰好是内嗅轴突终止的地方。这种蛋白穿过了突触，顺着连线向下走。这里以淡色画出六个数据集中所有轴突终止于海马的内嗅细胞，数量写在卡片上。传播本身不是这些数据能显示的，所以这一站标为示意：细胞是真实的，论证中的箭头没有画出来。"
+          }
+        },
+        {
+          "title": { "en": "Stage five: the cortex, and the first drugs that slow it", "zh": "五期：皮层，以及第一批能减缓它的药" },
+          "kicker": { "en": "Tau PET 2020; lecanemab 2023; donanemab 2024", "zh": "tau PET 2020；仑卡奈单抗 2023；多奈单抗 2024" },
+          "evidence": "measured",
+          "neuron": "202270_055",
+          "regions": ["ENTm", "RSPv", "SUB"],
+          "text": {
+            "en": "Late in the disease the tangles fill the association cortex, and the person is lost to it. This entorhinal cell projects to the retrosplenial cortex, one of the areas that goes early on the way out. Since 2020 a PET tracer for tau lets doctors watch the Braak stages in a living person instead of at autopsy. And since 2023 two antibodies, lecanemab and donanemab, clear the amyloid plaques and slow the decline by roughly a quarter to a third over eighteen months. Not a cure, and they do not touch the tangles. The next drugs are aimed at tau, and at the path you just walked.",
+            "zh": "疾病晚期，缠结布满联合皮层，人便失去在其中。这个内嗅细胞投射到压后皮层，也是出路上较早受累的区域之一。自 2020 年起，一种 tau 的 PET 示踪剂让医生能在活人身上观察 Braak 分期，而不必等到尸检。自 2023 年起，两种抗体，仑卡奈单抗和多奈单抗，能清除淀粉样斑块，在十八个月里把衰退减缓约四分之一到三分之一。不是治愈，也不触及缠结。下一代药物瞄准的是 tau，以及你刚走过的这条路。"
+          }
+        },
+        {
+          "title": { "en": "The same circuit in a human", "zh": "同一环路，在人脑中" },
+          "kicker": { "en": "Shen et al. 2026", "zh": "Shen 等 2026" },
+          "evidence": "atlas",
+          "wide": true,
+          "link": { "href": "/human/hippocampus/", "en": "Open the human hippocampus", "zh": "打开人类海马" },
+          "text": {
+            "en": "Everything you saw was a mouse. The human hippocampus is about the size of a thumb, and in 2026 Shen and colleagues imaged one at fifty microns with diffusion MR microscopy, close enough to trace the same trisynaptic circuit, entorhinal to dentate to CA3 to CA1, through the tissue that Alzheimer's takes first. That page is the other half of this story.",
+            "zh": "你看到的一切都是小鼠。人类的海马大约拇指大小；2026 年，Shen 及同事用弥散磁共振显微成像以五十微米分辨率拍下了一个，足以在阿尔茨海默病最先夺走的组织中追踪同一条三突触环路：内嗅到齿状回到 CA3 到 CA1。那个页面是这个故事的另一半。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hand",
+      "title": { "en": "The wire that moves your hand", "zh": "让你的手动起来的那根线" },
+      "blurb": { "en": "From a touch on the skin to the neurons that reach for the spinal cord, and to the people learning to rebuild that path.", "zh": "从皮肤上的一次触碰，到伸向脊髓的神经元，再到正在重建这条路的人们。" },
+      "stations": [
+        {
+          "title": { "en": "A map of the body on the brain", "zh": "画在脑上的身体地图" },
+          "kicker": { "en": "Fritsch and Hitzig 1870; Penfield 1937", "zh": "Fritsch 与 Hitzig 1870；Penfield 1937" },
+          "evidence": "atlas",
+          "wide": true,
+          "regions": ["MOp", "SSp-ul"],
+          "text": {
+            "en": "In 1870 Gustav Fritsch and Eduard Hitzig passed a current through the cortex of a dog and a paw moved. Movement had an address. In the 1930s Wilder Penfield stimulated the cortex of awake patients during surgery and drew the address book: a body laid along the motor strip, with the hand taking more room than the leg. The two regions lit here are the mouse's primary motor cortex and the forelimb part of its touch cortex. The story runs from the second to the first, and then down.",
+            "zh": "1870 年，Gustav Fritsch 和 Eduard Hitzig 给一只狗的皮层通上电流，一只爪子动了。运动有了地址。1930 年代，Wilder Penfield 在手术中刺激清醒病人的皮层，画出了那本地址簿：一个身体沿运动带铺开，手占的地方比腿多。这里点亮的两个区域是小鼠的初级运动皮层和触觉皮层的前肢部分。故事从后者走到前者，然后向下。"
+          }
+        },
+        {
+          "title": { "en": "A touch comes in", "zh": "一次触碰进来" },
+          "kicker": { "en": "ION whole-cortex projectome", "zh": "中科院神经所 全皮层投射组" },
+          "evidence": "measured",
+          "neuron": "221531_027",
+          "regions": ["SSp-ul", "MOp", "MOs", "CP"],
+          "text": {
+            "en": "The skin of the forelimb reports to this patch of cortex. This cell lives in layer four of it, the layer that receives touch from the thalamus, and its axon does what touch cortex does with the news: a third of its tips go to the striatum, a sixth stay home, and a fifth reach the two motor areas next door. Feeling and moving are neighbours that talk constantly.",
+            "zh": "前肢皮肤向这块皮层报告。这个细胞住在它的第四层，接收来自丘脑触觉的那一层；它的轴突做的正是触觉皮层对消息该做的事：三分之一的末梢去纹状体，六分之一留在本地，五分之一到达隔壁的两个运动区。感觉和运动是不停交谈的邻居。"
+          }
+        },
+        {
+          "title": { "en": "The thalamus wakes the motor cortex", "zh": "丘脑唤醒运动皮层" },
+          "kicker": { "en": "MouseLight", "zh": "MouseLight" },
+          "evidence": "measured",
+          "neuron": "AA0176",
+          "regions": ["VM", "MOp", "SSp-ul"],
+          "text": {
+            "en": "Before a movement, motor cortex is driven from below. This is a cell of the ventral medial thalamus, the nucleus that carries the basal ganglia's verdict and the cerebellum's timing up to the cortex. Almost half of its axon tips land in primary motor cortex and another quarter in the forelimb touch area. One thalamic cell, spread across the whole of the hand's cortex.",
+            "zh": "运动之前，运动皮层由下方驱动。这是丘脑腹内侧核的一个细胞，这个核把基底神经节的裁决和小脑的时序送上皮层。它近一半的轴突末梢落在初级运动皮层，另有四分之一落在前肢触觉区。一个丘脑细胞，铺满了手在皮层上的整片地盘。"
+          }
+        },
+        {
+          "title": { "en": "The cortex talks to the striatum", "zh": "皮层对纹状体说话" },
+          "kicker": { "en": "ION whole-cortex projectome; Benabid 1993", "zh": "中科院神经所 全皮层投射组；Benabid 1993" },
+          "evidence": "measured",
+          "neuron": "221090_038",
+          "regions": ["MOp", "CP", "GPe", "STN", "SNr"],
+          "text": {
+            "en": "Motor cortex has two kinds of output cell. This one, in layer five, is the kind that stays in the forebrain: six tenths of its tips are in the striatum. The striatum, pallidum, subthalamic nucleus and substantia nigra, lifted here as tinted shells, form the loop that chooses which movement to release. In Parkinson's disease the loop jams, and since 1993 an electrode in the subthalamic nucleus has been used to unjam it. The loop is drawn from the atlas; the cell is measured.",
+            "zh": "运动皮层有两种输出细胞。这一个在第五层，属于留在前脑的那种：十分之六的末梢在纹状体。纹状体、苍白球、丘脑底核和黑质，在这里以淡色外壳托起，构成选择释放哪个动作的环路。帕金森病中这个环路会卡住，自 1993 年起，人们把电极放进丘脑底核来解开它。环路取自图谱，细胞是实测的。"
+          }
+        },
+        {
+          "title": { "en": "The cells that reach for the spinal cord", "zh": "伸向脊髓的细胞" },
+          "kicker": { "en": "ION whole-cortex projectome", "zh": "中科院神经所 全皮层投射组" },
+          "evidence": "measured",
+          "neuron": "221085_162",
+          "set": { "rf": ["MOp", "MOs"], "tf": ["MY", "GRN", "IRN", "PARN", "MDRN", "SPVC", "MRN", "PRNr", "PRNc", "PG"], "min": 0.1 },
+          "regions": ["MOs", "MRN", "PARN", "GRN"],
+          "text": {
+            "en": "The other output cell is the pyramidal tract neuron. This one leaves motor cortex, drops through the midbrain and ends in the reticular nuclei of the brainstem, the last stop the atlas can show: the reference brain ends at the medulla, and the tract's run into the spinal cord is off the edge of the map. Faint around it are every motor cortex cell in the six collections whose axon reaches the brainstem; the count is on the card. In a mouse these axons mostly stop on spinal interneurons. In a human, some of them synapse straight onto the motor neurons of the hand, which is part of why our fingers do what a mouse's cannot.",
+            "zh": "另一种输出细胞是锥体束神经元。这一个离开运动皮层，穿过中脑，终止于脑干的网状核，也是图谱能显示的最后一站：参考脑到延髓为止，锥体束进入脊髓的那段在地图边缘之外。它周围的淡色是六个数据集中所有轴突到达脑干的运动皮层细胞，数量写在卡片上。在小鼠中这些轴突多半止于脊髓中间神经元。在人类中，有一部分直接与手的运动神经元形成突触，这也是我们的手指能做到小鼠做不到的事的部分原因。"
+          }
+        },
+        {
+          "title": { "en": "Rebuilding the wire", "zh": "重建这根线" },
+          "kicker": { "en": "Hochberg et al. 2012; Wagner et al. 2018; Lorach et al. 2023", "zh": "Hochberg 等 2012；Wagner 等 2018；Lorach 等 2023" },
+          "evidence": "atlas",
+          "wide": true,
+          "link": { "href": "/tracks/", "en": "Open the human white matter", "zh": "打开人类白质" },
+          "text": {
+            "en": "In a human the pyramidal tract is about a million axons a side, crossing to the other side at the base of the medulla. A stroke in the internal capsule or a break in the spinal cord cuts it, and the hand goes still while the cortex above keeps planning. That gap is where the work is now. In 2012 a woman paralysed for fifteen years used a BrainGate implant in her motor cortex to lift a coffee to her mouth with a robot arm. In 2018 Grégoire Courtine's group timed electrical pulses to the spinal cord below an injury and three men walked again with support. In 2023 they joined the two ends, reading the cortex and writing to the cord, so that the thought of a step became a step. The neurons you just watched are the mouse version of that wire.",
+            "zh": "在人类，锥体束每侧约一百万根轴突，在延髓底部交叉到对侧。内囊的一次中风或脊髓的一处断裂会切断它，手静止了，而上方的皮层仍在计划。这个断口正是现在的工作所在。2012 年，一位瘫痪十五年的女性用植入运动皮层的 BrainGate，借机械臂把咖啡送到嘴边。2018 年，Grégoire Courtine 的团队在损伤下方给脊髓施加定时电脉冲，三名男性在支撑下重新行走。2023 年他们把两端接上，读取皮层、写入脊髓，让迈步的念头成为一步。你刚看到的神经元，就是这根线的小鼠版本。"
+          }
+        }
+      ]
+    }
+  ]
+}

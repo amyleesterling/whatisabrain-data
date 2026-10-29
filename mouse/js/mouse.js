@@ -328,7 +328,11 @@ export async function mountMouse(el) {
         somaG = new THREE.Group(), micronsG = new THREE.Group(), targetG = new THREE.Group();
   for (const g of [regionG, shellG, cellG, axonG, trailG, focusG, somaG, micronsG, targetG]) world.add(g);
   regionG.visible = true; cellG.visible = false; axonG.visible = false; somaG.visible = false;
-  micronsG.visible = true;
+  /* the connectome cubes start off: the page opens on the whole brain and its
+     wires, and two bright boxes floating in it are a second subject. The Jump
+     to buttons and a ?cube= link switch them back on, and viewParams already
+     treats off as the default, so the address stays clean. */
+  micronsG.visible = false;
 
   const loader = new GLTFLoader();
   function loadGlb(url, label) {
@@ -438,6 +442,16 @@ export async function mountMouse(el) {
       basis: [[0, 0, 1], [0, -1, 0], [1, 0, 0]],
       note: ZH ? "Zheng 等，bioRxiv 2025（doi:10.1101/2025.07.09.663979）：海马 CA3 的电镜重建，苔藓纤维输入。" : "Zheng et al., bioRxiv 2025 (doi:10.1101/2025.07.09.663979): an electron-microscopy reconstruction of hippocampal CA3, the mossy fibre inputs.",
       link: "https://amyleesterling.github.io/ca3/" },
+    { id: "mec", region: "ENTm", regionAcr: "ENTm", side: "left", pack: "data/mec/cube.json", dir: "meshes/mec/",
+      name: ZH ? "MEC 体积" : "the MEC volume", colour: "#b48cff", short: "MEC", layered: true,
+      population: { n: 62631, what: ZH ? "个标记的细胞核" : "cells with a marked nucleus", src: "nucleus annotations, read 2026-09-22" },
+      /* Drawn at the centroid of the left atlas ENTm mesh at the block's true
+         2.03 x 1.34 x 0.45 mm, turned so its measured layer axis follows the
+         brain surface there (the pack carries that basis). The block is NOT
+         registered to the atlas: the rotation about the layer axis and the
+         hemisphere were not recorded, and the card says so. */
+      note: ZH ? "普林斯顿内嗅皮质内侧部（Eric Hammerschmith 与 Zhihao Zheng，Seung 实验室），16 × 16 × 45 纳米：网格细胞的所在，也是向 EyeWire 公民科学家开放的最新体积。" : "Princeton medial entorhinal cortex (Eric Hammerschmith with Zhihao Zheng, Seung Lab), 16 by 16 by 45 nm: grid cell territory, and the newest volume open to EyeWire citizen scientists.",
+      link: "https://connectome.quest/mec/" },
   ];
   const cubeMeshes = [];
   let RINFO = {};
@@ -469,7 +483,7 @@ export async function mountMouse(el) {
       if (!m) continue;
       /* the volume's true extent, read from its pack before the box is drawn */
       let ext = [1, 1, 1];
-      try { const pk = await (await fetch(R(cu.pack))).json(); ext = pk.tissueExtent_mm || pk.size_mm || ext; cu.packMeta = pk; } catch (e) {}
+      try { const pk = await (await fetch(R(cu.pack))).json(); ext = pk.tissueExtent_mm || pk.size_mm || ext; cu.packMeta = pk; if (!cu.basis && pk.basis) cu.basis = pk.basis; } catch (e) {}
       cu.ext = ext;
       const centre = cu.dorsal ? dorsalCentroid(m.geometry) : leftCentroid(m.geometry);
       cu.centre = centre; cu.size = Math.max(...ext);
@@ -617,7 +631,9 @@ export async function mountMouse(el) {
     renderCubeCard(cu, pk);
     if (h1 && cu.population) h1.textContent = ZH ? `${cu.name}：${fmt(pk.cells.length)} / ${fmt(cu.population.n)} ${cu.population.what}` : `${fmt(pk.cells.length)} of ${fmt(cu.population.n)} cells in ${cu.name}`;
     syncCubeBtns();
-    status.textContent = (ZH ? `${cu.name}：${fmt(pk.cells.length)} 个细胞，${fmt(pk.synCount)} 个真实突触。滚轮靠近或拉远到整个脑。` : `${cu.name}: ${fmt(pk.cells.length)} reconstructed cells, ${fmt(pk.synCount)} real synapses as white dots. Scroll in to come closer, out to see it in the whole brain.`);
+    status.textContent = pk.synCount
+      ? (ZH ? `${cu.name}：${fmt(pk.cells.length)} 个细胞，${fmt(pk.synCount)} 个真实突触。滚轮靠近或拉远到整个脑。` : `${cu.name}: ${fmt(pk.cells.length)} reconstructed cells, ${fmt(pk.synCount)} real synapses as white dots. Scroll in to come closer, out to see it in the whole brain.`)
+      : (ZH ? `${cu.name}：${fmt(pk.cells.length)} 个重建的细胞，暂无突触表。滚轮靠近或拉远到整个脑。` : `${cu.name}: ${fmt(pk.cells.length)} reconstructed cells, no synapse table yet. Scroll in to come closer, out to see it in the whole brain.`);
   }
   function leaveCube() {
     inside = null; packG.clear(); syncStatus(); if (h1) h1.textContent = h1Home; syncCubeBtns();
@@ -631,15 +647,15 @@ export async function mountMouse(el) {
       "Layer 5 Thick-Tufted Pyramidal": "第 5 层厚簇锥体细胞", "Chandelier Cell": "吊灯细胞", "Parvalbumin Basket Cell": "小清蛋白篮状细胞", "Layer 2/3 Pyramidal": "第 2/3 层锥体细胞", "Layer 4 Cell": "第 4 层细胞",
       "Protoplasmic Astrocyte": "原浆型星形胶质细胞", "Martinotti Cell": "Martinotti 细胞", "Bipolar Interneuron": "双极中间神经元", "Pyramidal Neuron": "锥体神经元", "Long-range Axon": "长程轴突", "Microglia": "小胶质细胞" };
     const cn = (t) => (ZH && t && CN[t]) || t || "";
-    const rows = pk.cells.map((c, i) => `<button class="kk" data-cell="${i}"><s style="background:${c.colour.getStyle()}"></s><b>${cn(c.cell.name) || c.cell.slug}</b><span class="kd">${cn(c.cell.type)}</span><span class="kn">${c.cell.synCount ? fmt(c.cell.synCount) : (c.cell.category === "glia" ? (ZH ? "胶质" : "glia") : "")}</span></button>`).join("");
+    const rows = pk.cells.map((c, i) => `<button class="kk" data-cell="${i}"><s style="background:${c.colour.getStyle()}"></s><b>${(ZH && c.cell.name_zh) || cn(c.cell.name) || c.cell.slug}</b><span class="kd">${c.cell.verified === false ? (ZH ? "预测" : "predicted") : (c.cell.layer ? (ZH ? `第 ${c.cell.layer} 层` : `layer ${c.cell.layer}`) : cn(c.cell.type))}</span><span class="kn">${c.cell.synCount ? fmt(c.cell.synCount) : (c.cell.category === "glia" ? (ZH ? "胶质" : "glia") : "")}</span></button>`).join("");
     const ext = pk.pack.tissueExtent_mm || pk.pack.size_mm;
     const extNote = ext ? (ZH ? `实际组织范围 ${ext.map((v) => v.toFixed(2)).join(" × ")} mm。` : `The imaged tissue is ${ext.map((v) => v.toFixed(2)).join(" by ")} mm.`) : "";
     card.innerHTML = `<h3><s style="background:${cu.colour}"></s>${cu.name}</h3>` +
       `<p class="side">${cu.note} <a href="${cu.link}" target="_blank" rel="noopener">${ZH ? "查看该项目" : "See the project"}</a></p>` +
-      (cu.population ? `<p class="side">${ZH ? `整个体积含 ${fmt(cu.population.n)} ${cu.population.what}（${cu.population.src}）；这里画出 ${fmt(pk.cells.length)} 个。` : `The whole volume holds ${fmt(cu.population.n)} ${cu.population.what} (${cu.population.src}); ${fmt(pk.cells.length)} are drawn here.`}</p>` : "") +
-      `<p>${ZH ? `${cu.dorsal ? `这个体积放在参考脑中背侧 ${cu.regionAcr} 的位置，按切片方向摆放（冠状切面，顶树突向上）。` : `这个体积放在参考脑中 ${cu.regionAcr} 的中心。`}位置是近似的：这些数据没有配准到图谱，切面内的旋转和左右半球都未记录。体积内的细胞和突触是真实的，尺度是真实的。${extNote}` : `${cu.dorsal ? `The volume sits in dorsal ${cu.regionAcr} of the reference brain, turned the way it was cut: coronal sections, apical dendrites up.` : `The volume sits at the centre of ${cu.regionAcr} in the reference brain.`} The place is approximate: it is not registered to the atlas, and the in-plane rotation and the hemisphere were not recorded. What is inside is real and at true scale, and every white dot is a synapse from the reconstruction's own table, incoming and outgoing. ${extNote}${pk.cells.some((c) => c.cell.category === "glia") ? (ZH ? " 胶质细胞不画突触点：表里那些是自动检测，不是突触。" : " The glia carry no dots: the detections attached to them are not synapses.") : ""}`}</p>` +
+      (cu.population ? `<p class="side">${ZH ? `整个体积含 ${fmt(cu.population.n)} ${cu.population.what}（${cu.population.src}）。${pk.cells && pk.cells.length ? `这里画出 ${fmt(pk.cells.length)} 个。` : ``}` : `The whole volume holds ${fmt(cu.population.n)} ${cu.population.what} (${cu.population.src}).${pk.cells && pk.cells.length ? ` ${fmt(pk.cells.length)} are drawn here.` : ``}`}</p>` : "") +
+      `<p>${ZH ? `${cu.dorsal ? `这个体积放在参考脑中背侧 ${cu.regionAcr} 的位置，按切片方向摆放（冠状切面，顶树突向上）。` : cu.layered ? `这个体积放在参考脑中 ${cu.regionAcr} 的中心，并按它实测的皮层分层轴转向脑表面：这个方向来自体积内 782 个已重建细胞各层胞核的平均位置。` : `这个体积放在参考脑中 ${cu.regionAcr} 的中心。`}位置是近似的：这些数据没有配准到图谱，${cu.layered ? "绕分层轴的旋转" : "切面内的旋转"}和左右半球都未记录。${pk.cells && pk.cells.length ? (pk.synCount ? `体积内的细胞和突触是真实的，尺度是真实的。` : `体积内的细胞是真实的，尺度是真实的。这个体积还没有突触表（它的 CAVE 服务仍在搭建中），所以细胞不带突触点。`) : `盒子按体积的真实尺寸绘制。`}${extNote}${pk.pack && pk.pack.cellsNote ? " 七个细胞，各代表 connectome.quest 图库中的一种类型。其中四个由 Amy Sterling 肉眼判定并匹配到当前分割，三个仍是按胞核大小的自动预测，标为“预测”。" : ""}` : `${cu.dorsal ? `The volume sits in dorsal ${cu.regionAcr} of the reference brain, turned the way it was cut: coronal sections, apical dendrites up.` : cu.layered ? `The volume sits at the centre of ${cu.regionAcr} in the reference brain, turned so its cortical layers face the brain surface there: that axis is measured from the mean nucleus position of each layer among the volume's 782 reconstructed cells.` : `The volume sits at the centre of ${cu.regionAcr} in the reference brain.`} The place is approximate: it is not registered to the atlas, and the ${cu.layered ? "rotation about the layer axis" : "in-plane rotation"} and the hemisphere were not recorded. ${pk.cells && pk.cells.length ? (pk.synCount ? `What is inside is real and at true scale, and every white dot is a synapse from the reconstruction's own table, incoming and outgoing. ` : `What is inside is real and at true scale. This volume has no synapse table yet (its CAVE services are still being set up), so the cells are drawn without their synapses. `) : `The box is drawn at the volume's true size. `}${extNote}${pk.synCount && pk.cells && pk.cells.some((c) => c.cell.category === "glia") ? (ZH ? " 胶质细胞不画突触点：表里那些是自动检测，不是突触。" : " The glia carry no dots: the detections attached to them are not synapses.") : ""}${pk.pack && pk.pack.cellsNote ? ` ${ZH ? "七个细胞，各代表 connectome.quest 图库中的一种类型。其中四个由 Amy Sterling 肉眼判定并匹配到当前分割，三个仍是按胞核大小的自动预测，标为“预测”。" : pk.pack.cellsNote}` : ""}`}</p>` +
       `<div class="klist">${rows}</div>` +
-      `<p class="badge">${ZH ? "点击一个细胞可高亮。" : "Click a cell to lift it."} <button class="btn" data-leave>${ZH ? "退出立方体" : "Leave the cube"}</button></p>`;
+      `<p class="badge">${pk.cells && pk.cells.length ? (ZH ? "点击一个细胞可高亮。" : "Click a cell to lift it.") : ""} <button class="btn" data-leave>${ZH ? "退出立方体" : "Leave the cube"}</button></p>`;
     card.querySelectorAll("[data-cell]").forEach((b) => b.addEventListener("click", () => {
       const i = +b.dataset.cell;
       pk.cells.forEach((c, j) => { c.mesh.material.emissiveIntensity = j === i ? 0.6 : 0.05; c.mesh.material.opacity = 1; });
@@ -674,25 +690,33 @@ export async function mountMouse(el) {
     });
     return regionCache[acr];
   }
+  let targetSeq = 0;
   function clearTargets() {
+    targetSeq++;
     for (const t of shown) { targetG.remove(t.mesh); t.mat.dispose(); if (t.label) t.label.remove(); }
     shown = [];
   }
-  async function showTargets(rec) {
+  /* rec: the lit neuron, whose home and top targets are shown. acrs: a
+     story station's own list, shown instead (with the neuron's home if it
+     is lit), so a station can lift the regions its text talks about */
+  async function showTargets(rec, acrs) {
     clearTargets();
-    if (!rec) return;
+    const my = targetSeq;
+    if (!rec && !acrs) return;
     /* the cell body's region first, then the targets; a target that is also
        the home region is one entry carrying both notes */
     const want = [];
-    if (rec.rf) want.push({ acr: rec.rf, share: 0, soma: true });
-    for (const [acr, share] of (rec.tf || [])) {
+    if (rec && rec.rf) want.push({ acr: rec.rf, share: 0, soma: true });
+    if (acrs) { for (const acr of acrs) if (!want.find((w) => w.acr === acr)) want.push({ acr, share: 0 }); }
+    else for (const [acr, share] of (rec.tf || [])) {
       if (share < 0.12 || acr === "root") continue;
       const same = want.find((w) => w.acr === acr);
       if (same) same.share = share; else want.push({ acr, share });
     }
-    for (const w of want.slice(0, 4)) {
+    if (acrs && rec) for (const [acr, share] of (rec.tf || [])) { const same = want.find((w) => w.acr === acr); if (same) same.share = share; }
+    for (const w of want.slice(0, acrs ? 6 : 4)) {
       const p = regionMesh(w.acr); if (!p) continue;
-      const src = await p; if (!current || current.rec !== rec) return;
+      const src = await p; if (my !== targetSeq) return;
       const info = RINFO[w.acr] || {};
       const col = new THREE.Color(DIVISION[info.major] || "#9aa2b1");
       /* normal blending, not additive: an additive shell under bloom turned
@@ -876,7 +900,7 @@ export async function mountMouse(el) {
       tmpV.copy(inside.centre).applyQuaternion(world.quaternion);
       frameTarget.copy(tmpV).negate(); zTarget = 3.2; return;
     }
-    if (current && zoomIn && mode !== "all" && mode !== "match") {
+    if (current && zoomIn && mode !== "all" && mode !== "match" && !(mode === "story" && storyStation && storyStation.wide)) {
       /* the soma through world's rotation only (the flip), which gives its
          place in pivot space before any offset; localToWorld would fold the
          current offset back in and the frame would settle half way */
@@ -932,7 +956,7 @@ export async function mountMouse(el) {
     focusG.add(soma);
     current = { rec, mesh, mat, soma, t: 0, done: false, manual: !!manual };
     holdT = 0; retarget();
-    showTargets(rec);
+    showTargets(rec, mode === "story" && storyStation && storyStation.regions ? storyStation.regions : undefined);
     renderCard(rec, false);
     setUrl(rec);
     card.querySelectorAll("[data-tb]").forEach((b) => b.addEventListener("click", async () => {
@@ -1675,8 +1699,131 @@ export async function mountMouse(el) {
       (rec.out >= 0.2 ? `<p class="side">${ZH ? `注意：这棵树有 ${Math.round(rec.out * 100)}% 的节点配准在参考脑之外（脑的腹侧表面以下），按发布的原样绘制。` : `Note: ${Math.round(rec.out * 100)}% of this tree is registered outside the reference brain, below its ventral surface, and is drawn as released.`}</p>` : "") +
       (rec.sc >= 0.2 ? `<p class="side">${ZH ? `约 ${Math.round(rec.sc * 100)}% 的轴突末梢从参考脑尾端离开：参考脑不含脊髓。` : `About ${Math.round(rec.sc * 100)}% of the axon tips leave the reference brain at its caudal end: the atlas has no spinal cord.`}</p>` : "");
   }
+  /* ---- stories ---------------------------------------------------------
+     A story is a short walk through the brain, one station at a time: a
+     real neuron lit with the signal, the regions its text talks about
+     lifted as shells, sometimes a faint set of every cell that fits a
+     rule, and a badge that says what the canvas is showing at this step:
+     measured (the drawn cells are reconstructions), atlas (only reference
+     regions are shown), schematic (the argument is drawn on real cells but
+     the thing argued, a protein moving, is not in the data). The text
+     lives in stories/stories.json. */
+  const storyG = new THREE.Group(); world.add(storyG); storyG.visible = false;
+  let STORIES = null, story = null, storyIdx = 0, storyStation = null, storySeq = 0;
+  async function loadStories() {
+    if (STORIES) return STORIES;
+    const r = await fetch(ROOT + "stories/stories.json"); if (!r.ok) throw new Error(`${r.status} stories.json`);
+    STORIES = (await r.json()).stories; return STORIES;
+  }
+  const L = (o) => (o && (ZH ? (o.zh || o.en) : o.en)) || "";
+  /* the cells a station's rule picks: home region starts with one of rf,
+     and at least min of the axon tips land in a region starting with one
+     of tf. The count on the card is this filter's, run live. */
+  function storySet(sel) {
+    if (!sel) return [];
+    const rf = sel.rf || [], tf = sel.tf || [], min = sel.min || 0;
+    return N.filter((r) => r.cbytes && (!rf.length || rf.some((a) => (r.rf || "").startsWith(a))) &&
+      (!tf.length || (r.tf || []).some(([a, s]) => s >= min && tf.some((t) => a === t || a.startsWith(t + "-") || (t.length >= 3 && a.startsWith(t))))));
+  }
+  function clearStorySet() {
+    for (const m of storyG.children) { m.geometry.dispose(); m.material.dispose(); }
+    storyG.clear();
+  }
+  async function openStory(id, idx) {
+    let list; try { list = await loadStories(); } catch (e) { status.textContent = T.couldNot + e.message; return; }
+    const st = list.find((x) => x.id === id); if (!st) { renderStoryMenu(); return; }
+    story = st; if (inside) leaveCube();
+    if (mode !== "story") setMode("story");
+    goStation(Math.min(Math.max(0, idx || 0), st.stations.length - 1));
+  }
+  async function goStation(i) {
+    if (!story) return;
+    const my = ++storySeq;
+    storyIdx = i; storyStation = story.stations[i];
+    const st = storyStation;
+    clearStorySet(); zoomUser = 1; pivot.position.set(0, 0, 0);
+    const rec = st.neuron ? N.find((r) => r.id === st.neuron) : null;
+    if (rec) { autoNext = false; focusOn(rec, true); }
+    else {
+      seq++; if (current) { retire(current); current = null; } clearTrails();
+      retarget(); showTargets(null, st.regions || null); renderStoryCard(null, false);
+    }
+    writeUrl();
+    if (st.set) {
+      const recs = storySet(st.set);
+      const srcs = [...new Set(recs.map((r) => r.src))];
+      for (const src of srcs) {
+        let buf; try { buf = await ensureCoarse(src); } catch (e) { continue; }
+        if (my !== storySeq) return;
+        const { mesh } = axonMesh(recs.filter((r) => r.src === src), buf, colourOfDivision);
+        mesh.material.opacity = 0.14; mesh.renderOrder = 7; storyG.add(mesh);
+      }
+      if (my === storySeq) renderStoryCard(current ? current.rec : null, false);
+    }
+  }
+  function leaveStory(toPick) {
+    story = null; storyStation = null; storySeq++; clearStorySet(); clearTrails();
+    if (toPick) {
+      setMode("pick");
+      if (current) renderCard(current.rec, false);
+      else if (card) card.innerHTML = `<h3>${ZH ? "一个神经元" : "One neuron"}</h3><p>${T.clickAny}</p>`;
+      writeUrl();
+    }
+  }
+  const EV = ZH ? { measured: "实测", atlas: "图谱", schematic: "示意" } : { measured: "measured", atlas: "atlas", schematic: "schematic" };
+  const EVT = ZH ? { measured: "画出的每个细胞都是真实重建的神经元", atlas: "只显示参考图谱的脑区，没有画出神经元", schematic: "细胞是真实的，但这一站讲的过程不在数据里" }
+                 : { measured: "every cell drawn is a real reconstructed neuron", atlas: "only reference atlas regions are shown, no neuron is drawn", schematic: "the cells are real, but the process this step describes is not in the data" };
+  function renderStoryMenu() {
+    if (!card) return;
+    card.innerHTML = `<h3>${ZH ? "故事" : "Stories"}</h3><p class="side">${ZH ? "沿着真实的神经元，一站一站地走一段科学史。" : "A walk through a piece of science, one real neuron at a time."}</p><div class="klist" data-storylist></div>`;
+    loadStories().then((list) => {
+      const box = card.querySelector("[data-storylist]"); if (!box) return;
+      box.innerHTML = list.map((s) => `<button class="kk" data-story="${s.id}"><b>${L(s.title)}</b><span class="kd">${L(s.blurb)}</span><span class="kn">${s.stations.length} ${ZH ? "站" : "stops"}</span></button>`).join("");
+      box.querySelectorAll("[data-story]").forEach((b) => b.addEventListener("click", () => openStory(b.dataset.story, 0)));
+    }).catch((e) => { status.textContent = T.couldNot + e.message; });
+  }
+  function renderStoryCard(rec, loading) {
+    if (!card || !story || !storyStation) return;
+    const st = storyStation, n = story.stations.length, ev = st.evidence || "measured";
+    const col = rec ? (DIVISION[rec.major] || "#9aa2b1") : "#9aa2b1";
+    const setN = st.set ? storySet(st.set).length : 0;
+    const neuronLine = rec
+      ? (ZH ? `<p class="side">点亮的细胞：<b>${rec.region_name || rec.region || T.unlabelled}</b>${rec.region ? `（${rec.region}）` : ""}，轴突 ${fmt(rec.axon_mm, 1)} mm，${fmt(rec.tips)} 个末梢。<code>${rec.id}</code>${loading ? " · " + T.reading : ""} <button type="button" class="lnk" data-story-open>查看这个神经元</button></p>`
+            : `<p class="side">Lit: <b>${rec.region_name || rec.region || T.unlabelled}</b>${rec.region_name && rec.region ? ` (${rec.region})` : ""}, ${fmt(rec.axon_mm, 1)} mm of axon, ${fmt(rec.tips)} tips. <code>${rec.id}</code>${loading ? " · " + T.reading : ""} <button type="button" class="lnk" data-story-open>open this neuron</button></p>`)
+      : "";
+    const setLine = st.set ? `<p class="side">${ZH ? `淡色画出 ${fmt(setN)} 个符合规则的细胞。` : `${fmt(setN)} cells drawn faint, every one that fits the rule.`}</p>` : "";
+    /* A station that has nothing of its own to name carries no heading: the
+       story's title and the stop count are already the line above it, and an
+       invented phrase in that slot reads as a caption for something that is
+       not there. The evidence badge moves up to the kicker line so the mark
+       that says what the canvas can show survives either way. Without an h3
+       the name plate stays hidden, which is syncPlate's own rule. */
+    const title = L(st.title);
+    const evBadge = `<span class="ev ev-${ev}" title="${EVT[ev]}">${EV[ev]}</span>`;
+    card.innerHTML =
+      `<p class="side st-kicker">${L(story.title)} · ${storyIdx + 1} / ${n}${title ? "" : " " + evBadge}</p>` +
+      (title ? `<h3><s style="background:${col}"></s>${title} ${evBadge}</h3>` : "") +
+      `<p class="side">${L(st.kicker)}</p>` +
+      `<p>${L(st.text)}</p>` + neuronLine + setLine +
+      (st.link ? `<p><a class="btn" href="${st.link.href}">${L(st.link)}</a></p>` : "") +
+      `<p class="badge st-nav"><button class="btn" data-story-prev ${storyIdx === 0 ? "disabled" : ""}>${ZH ? "上一站" : "Back"}</button> ` +
+      `<button class="btn" data-story-next ${storyIdx === n - 1 ? "disabled" : ""}>${ZH ? "下一站" : "Next"}</button> ` +
+      `<button class="btn" data-story-leave>${ZH ? "离开故事" : "Leave the story"}</button></p>`;
+    const on = (sel, f) => { const b = card.querySelector(sel); if (b) b.addEventListener("click", f); };
+    on("[data-story-prev]", () => goStation(storyIdx - 1));
+    on("[data-story-next]", () => goStation(storyIdx + 1));
+    on("[data-story-leave]", () => leaveStory(true));
+    on("[data-story-open]", () => { const r = rec; leaveStory(false); setMode("pick"); focusOn(r, true); writeUrl(); });
+  }
+  /* the arrow keys walk a story */
+  window.addEventListener("keydown", (ev) => {
+    if (mode !== "story" || !story || ev.target && /input|textarea|select/i.test(ev.target.tagName)) return;
+    if (ev.key === "ArrowRight" && storyIdx < story.stations.length - 1) { goStation(storyIdx + 1); ev.preventDefault(); }
+    if (ev.key === "ArrowLeft" && storyIdx > 0) { goStation(storyIdx - 1); ev.preventDefault(); }
+  });
   function renderCard(rec, loading) {
     if (!card) return;
+    if (mode === "story" && story) { renderStoryCard(rec, loading); return; }
     const col = DIVISION[rec.major] || "#9aa2b1";
     const SRC = {
       "LC-NE": `<a href="https://doi.org/10.1038/s41586-026-11026-0" target="_blank" rel="noopener">Locus coeruleus, Su et al. 2026</a>, Allen Institute for Neural Dynamics`,
@@ -1739,6 +1886,7 @@ export async function mountMouse(el) {
     if (isolated) u.set("only", isolated);
     if (holoRaw) u.set("holo", holoRaw);
     if (inside) u.set("cube", inside.id);
+    if (mode === "story" && story) { u.set("story", story.id); u.set("stop", String(storyIdx + 1)); u.delete("n"); }
     return u;
   }
   let urlTimer = 0;
@@ -1772,7 +1920,7 @@ export async function mountMouse(el) {
     const fdEl = q("[data-f-div]"); if (fdEl && u.get("div")) { fdEl.value = u.get("div"); filterDiv = fdEl.value === u.get("div") ? u.get("div") : "all"; }
     const mcEl = q("[data-colour]"); if (mcEl && u.get("col")) { mcEl.value = u.get("col"); matchColour = mcEl.value; }
     if (u.get("only")) isolated = u.get("only");
-    return { mode: u.get("m"), n: u.get("n") };
+    return { mode: u.get("m"), n: u.get("n"), story: u.get("story"), stop: u.get("stop") };
   }
 
   /* ---- picking -------------------------------------------------------------- */
@@ -1844,11 +1992,14 @@ export async function mountMouse(el) {
     targetG.visible = m !== "all";
     if (rlabels) rlabels.hidden = (m === "all");
     if (regionLegend) regionLegend.hidden = (m !== "region");
-    if (m !== "match" && current) showTargets(current.rec); else if (m !== "match") clearTargets();
+    if (m !== "match" && m !== "story" && current) showTargets(current.rec); else if (m !== "match" && m !== "story") clearTargets();
     projG.visible = (m === "region");
+    storyG.visible = (m === "story");
+    if (m !== "story" && story) leaveStory(false);
     if (m === "all") { loadAllAxons(); axonG.visible = true; focusG.visible = false; trailG.visible = false; somaG.visible = false; }
     else if (m === "region") { axonG.visible = false; focusG.visible = false; trailG.visible = false; somaG.visible = false; drawRegion(); }
     else if (m === "match") { axonG.visible = false; focusG.visible = false; trailG.visible = false; somaG.visible = false; if (!keepIsolated) isolated = null; keepIsolated = false; drawMatching(); }
+    else if (m === "story") { axonG.visible = false; focusG.visible = true; trailG.visible = false; somaG.visible = false; autoNext = false; if (!story) renderStoryMenu(); }
     else { axonG.visible = false; focusG.visible = true; trailG.visible = true; somaG.visible = (m === "pick"); }
     if (inside && m !== "all" && m !== "match") { /* stay inside */ }
     else if (inside) leaveCube();
@@ -1978,7 +2129,7 @@ export async function mountMouse(el) {
   if (sl) sl.addEventListener("input", () => { surfaceGain = sl.value <= 0 ? 0 : Math.pow(2, (sl.value - 50) / 50 * 2.5); writeUrl(); });
   const sd = q("[data-divisions]");
   if (sd) sd.addEventListener("input", () => { divisionGain = sd.value <= 0 ? 0 : Math.pow(2, (sd.value - 50) / 50 * 1.5); writeUrl(); });
-  const next = q("[data-next]"); if (next) next.addEventListener("click", () => { const r = pickRandom(); if (r) focusOn(r, true); });
+  const next = q("[data-next]"); if (next) next.addEventListener("click", () => { if (mode === "story" && story) { goStation(Math.min(storyIdx + 1, story.stations.length - 1)); return; } const r = pickRandom(); if (r) focusOn(r, true); });
   const clr = q("[data-clear]"); if (clr) clr.addEventListener("click", clearTrails);
   const fs = q("[data-f-src]"); if (fs) fs.addEventListener("change", () => { filterSrc = fs.value; syncStatus(); syncSomata(); if (mode === "wire" || mode === "pick") { const r0 = pickRandom(); if (r0 && (!current || !candidates().includes(current.rec))) focusOn(r0, mode === "pick"); } if (mode === "match") { isolated = null; drawMatching(); } writeUrl(); });
   const fr = q("[data-f-region]");
@@ -2017,7 +2168,7 @@ export async function mountMouse(el) {
 
   /* ---- the loop --------------------------------------------------------- */
   const loop = makeLoop(el, (dt) => {
-    lcG.visible = (current && current.rec.src === "LC-NE") || (mode === "match" && filterSrc === "LC-NE") || (mode === "pick" && filterSrc === "LC-NE");
+    lcG.visible = (current && current.rec.src === "LC-NE") || (mode === "match" && filterSrc === "LC-NE") || (mode === "pick" && filterSrc === "LC-NE") || (mode === "story" && !!(storyStation && storyStation.lc));
     if (!dragging) {
       pivot.rotation.y += vel * dt; vel *= Math.pow(0.002, dt);
       if (idleTurn && !dragging) pivot.rotation.y += dt * 0.07;
@@ -2073,7 +2224,7 @@ export async function mountMouse(el) {
   /* a shared link lands on its view: neuron, mode, camera, sliders, filters */
   /* a handle for a headless check: the page's own clock can be stepped
      where requestAnimationFrame never fires */
-  el.__mouse = { loop, setMode, drawRegion, loadAllAxons, hud, streamCoarse,
+  el.__mouse = { loop, setMode, drawRegion, loadAllAxons, hud, streamCoarse, openStory, get story() { return story; }, get station() { return storyIdx; },
     get all() { return allLive; }, get region() { return regionLive; }, get mode() { return mode; },
     setRegion(q2) { regionQuery = q2; regionIso = null; if (regionIn) regionIn.value = q2; }, N,
     scene, world, packG, cubeMeshes, CUBES, get inside() { return inside; }, camera, THREE };
@@ -2082,7 +2233,8 @@ export async function mountMouse(el) {
   const wantRec = view.n && N.find((r) => r.id === view.n);
   if (fr && fr.value) syncSomata();
   const wantCube = new URLSearchParams(location.search).get("cube");
-  if (wantCube) { const cu = CUBES.find((c) => c.id === wantCube); if (cu) { setMode("pick"); const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); } }
+  if (view.story) { openStory(view.story, Math.max(0, (parseInt(view.stop, 10) || 1) - 1)); }
+  else if (wantCube) { const cu = CUBES.find((c) => c.id === wantCube); if (cu) { setMode("pick"); const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); } }
   else if (view.mode === "match") { keepIsolated = !!isolated; setMode("match"); if (wantRec) focusOn(wantRec, true); }
   else if (view.mode === "all") { setMode("all"); }
   else if (view.mode === "region") { setMode("region"); }

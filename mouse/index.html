@@ -265,6 +265,14 @@
   .src b { color:var(--ink); font-weight:500; }
   footer { margin-top:56px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--faint); }
   footer a { color:var(--dim); }
+  /* stories: the evidence badge on a station's heading, and its footer */
+  .ev { display:inline-block; vertical-align:middle; margin-left:6px; padding:1px 7px; border-radius:999px; font:600 10px/1.6 ui-monospace,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; border:1px solid; cursor:help; }
+  .ev-measured { color:#8fe3b5; border-color:rgba(143,227,181,.5); }
+  .ev-atlas { color:#9ec2ff; border-color:rgba(158,194,255,.5); }
+  .ev-schematic { color:#ffcf7a; border-color:rgba(255,207,122,.5); }
+  .st-kicker { letter-spacing:.06em; text-transform:uppercase; font-size:10.5px; }
+  .st-nav { display:flex; flex-wrap:wrap; gap:6px; }
+  .btn[disabled] { opacity:.35; cursor:default; }
 </style>
 </head>
 <body>
@@ -313,12 +321,14 @@
             <button data-mode="all" role="tab">Every axon at once</button>
             <button data-mode="match" role="tab">All that match</button>
             <button data-mode="region" role="tab">To and from a region</button>
+            <button data-mode="story" role="tab">Stories</button>
           </div>
           <button class="btn" data-next>Another</button>
           <button class="btn" data-pause>Pause turning</button>
           <span class="lab" style="min-width:0">Jump to</span>
           <button class="btn" data-cube="microns" style="color:#ffc24a;border-color:rgba(255,194,74,.45)">MICrONS V1</button>
           <button class="btn" data-cube="ca3" style="color:#3fe3b0;border-color:rgba(63,227,176,.45)">CA3</button>
+          <button class="btn" data-cube="mec" style="color:#b48cff;border-color:rgba(180,140,255,.45)">MEC</button>
           <button class="btn" data-fullscreen>Fullscreen</button>
           <button class="btn" data-share>Share this view</button>
           <button class="btn" data-image>Save an image</button>
@@ -337,7 +347,7 @@
           <label class="tog"><input type="checkbox" data-t-shell checked> brain</label>
           <label class="tog"><input type="checkbox" data-t-regions checked> divisions</label>
           <label class="tog"><input type="checkbox" data-t-cells> every cell</label>
-          <label class="tog"><input type="checkbox" data-t-microns checked> the connectome cubes</label>
+          <label class="tog"><input type="checkbox" data-t-microns> the connectome cubes</label>
           <label class="tog"><input type="checkbox" data-t-turn checked> turn</label>
           <label class="surf">shell <input type="range" data-surface min="0" max="100" value="50"></label>
           <label class="surf">divisions <input type="range" data-divisions min="0" max="100" value="50"></label>
@@ -384,6 +394,13 @@
     of Su et al. 2026 from the Allen Institute for Neural Dynamics, the longest
     mouse neurons ever traced. The counts on the card are what loaded, not a number
     typed in.</p>
+  <p class="note"><b>Two stories to walk.</b> The same neurons, told in order.
+    <a href="?story=alzheimers">Where Alzheimer's begins</a> follows the Braak stages from
+    the locus coeruleus through the entorhinal cortex and the hippocampus to the drugs of
+    2023 and 2024, and <a href="?story=hand">The wire that moves your hand</a> follows a
+    touch from the forelimb cortex to the cells that reach for the spinal cord, and to the
+    people rebuilding that path. Each stop lights one real reconstructed cell and carries a
+    badge saying what the canvas can show at that step: measured, atlas, or schematic.</p>
   <p class="note"><b>The locus coeruleus, one way in.</b> A speck of about 1,500 cells in the pons
     is the brain's main source of noradrenaline, and each of its cells reaches a wide but
     particular set of regions. Su et al. 2026 traced 132 of them whole, and found that a cell
