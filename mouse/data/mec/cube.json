@@ -87,35 +87,57 @@
  ],
  "basis": [
   [
-   0.3468,
-   -0.2597,
-   -0.9013
+   -0.7068,
+   -0.0392,
+   0.7063
   ],
   [
-   0.9369,
-   0.0518,
-   0.3455
+   0.6863,
+   0.2039,
+   0.6981
   ],
   [
-   -0.043,
-   -0.9643,
-   0.2613
+   -0.1714,
+   0.9782,
+   -0.1173
   ]
  ],
- "basisNote": "columns: the dataset x, y, z axes in atlas (page) coordinates, chosen so the measured pia direction (layer VI to layer I) equals the outward normal of the brain surface nearest the left ENTm centroid, read from the page's own atlas meshes, and the dataset x stays as close to the atlas x as that allows",
+ "basisNote": "columns: the dataset x, y, z axes in atlas (page) coordinates, chosen so the measured pia direction (layer VI to layer I) equals the outward normal of the brain surface nearest the placed centre, read from the page's own atlas meshes, and the sectioning axis is as close to dorsoventral as that allows (horizontal sections)",
  "basisWhere": {
   "entmLeftCentroid_mm": [
    3.017,
    0.725,
    -3.521
   ],
+  "dorsalShift_mm": 0.7,
   "nearestSurfacePoint_mm": [
-   3.415,
-   0.8,
-   -3.261
+   3.511,
+   0.121,
+   -3.22
   ],
-  "distance_mm": 0.481
+  "surfaceNormal": [
+   0.8425,
+   0.1636,
+   0.5132
+  ],
+  "centre_mm": [
+   2.947,
+   0.012,
+   -3.563
+  ],
+  "centreOffset_mm": [
+   -0.0694,
+   -0.7135,
+   -0.0423
+  ],
+  "sectioningAxisFromVertical_deg": 9.4
  },
+ "centreOffset_mm": [
+  -0.0694,
+  -0.7135,
+  -0.0423
+ ],
+ "centreNote": "offset from the page's left ENTm centroid: nudged 0.7 mm dorsal on the builders' advice (they went for as dorsal a piece of MEC as they could get), then pulled inward so the block's pia face lies on the atlas brain surface",
  "segmentationBounds_nm": {
   "voxel_offset": [
    76728,
@@ -162,7 +184,7 @@
  },
  "synapses": null,
  "synapseNote": "No synapse table: the volume's CAVE annotation and materialization services were still being provisioned when this was built (annotation 404, materialize 503), so the cells are drawn without synapses.",
- "placement": "Drawn at the centroid of the left atlas ENTm mesh at the block's true size, turned so the block's layer axis follows the brain surface there. The EM block is NOT registered to the atlas; the rotation about the layer axis and the hemisphere were not recorded.",
+ "placement": "Drawn in the left atlas ENTm at the block's true size, a little dorsal of the region's centroid with its pia face on the brain surface, turned so the block's measured layer axis follows the surface and its sections lie horizontal. The EM block is NOT registered to the atlas; the hemisphere was not recorded, and the dorsal nudge and the horizontal cut come from the builders' description, not a measurement.",
  "mesh": {
   "source": "connectome.quest/mec gallery web tier (seunglabdata assets/mec/gallery), built from the pni_mec meshing service, nuclei resolved to the live chunkedgraph on 2026-09-29",
   "decimatedTo": 40000,
