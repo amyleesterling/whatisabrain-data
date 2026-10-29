@@ -423,5 +423,39 @@
    "sourceTier": "stellate-01.web.glb",
    "sourceFaces": 110000
   }
- ]
+ ],
+ "population_mesh": {
+  "file": "meshes/mec/every-cell.glb",
+  "cells": 782,
+  "faces": 2603053,
+  "vertices": 2542444,
+  "facesPerCell": 1500,
+  "sourceFaces": 25766255,
+  "bytes": 5740300,
+  "classes": {
+   "pyramidal": {
+    "n": 377,
+    "colour": "#3E96F0"
+   },
+   "glia": {
+    "n": 276,
+    "colour": "#b06fe0"
+   },
+   "stellate": {
+    "n": 81,
+    "colour": "#67f5cb"
+   },
+   "inhibitory": {
+    "n": 44,
+    "colour": "#ff5fb0"
+   },
+   "bipolar": {
+    "n": 4,
+    "colour": "#F5B84A"
+   }
+  },
+  "source": "connectome.quest/mec card tier (seunglabdata assets/mec/cells), the cells reconstructed so far, each cut to about 1,500 faces; types presumed from nucleus size and checked against the layer, the three glial types drawn as one class because those calls are unreliable",
+  "note": "782 reconstructed of 62,631 cells with a marked nucleus",
+  "compression": "Draco (KHR_draco_mesh_compression) via Blender 5.0.1, position quantization 14 bits, colour 8 bits; tools/draco-glb.py"
+ }
 }

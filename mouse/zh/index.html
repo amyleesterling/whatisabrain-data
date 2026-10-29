@@ -159,6 +159,9 @@
   .btn[aria-pressed="true"] { background:rgba(255,255,255,.07); box-shadow:inset 0 0 0 1px currentColor; }
   .tabs button[aria-selected="true"] { color:#cfe6ff; border-color:rgba(111,208,255,.55); background:rgba(111,208,255,.10); }
   .tog { display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--dim); cursor:pointer; }
+  .cubetogs { display:inline-flex; flex-wrap:wrap; gap:4px 10px; }
+  .cubetog s { width:9px; height:9px; border-radius:2px; text-decoration:none; display:inline-block; }
+  .cubetog input { accent-color:var(--c); }
   .tog input { accent-color:#6fd0ff; }
   select { background:#0F1218; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:4px 8px; font:inherit; font-size:13px; }
   .rlabels { position:absolute; inset:0; pointer-events:none; }
@@ -345,6 +348,7 @@
           <label class="tog"><input type="checkbox" data-t-regions checked> 脑区</label>
           <label class="tog"><input type="checkbox" data-t-cells> 每一个细胞</label>
           <label class="tog"><input type="checkbox" data-t-microns> 连接组立方体</label>
+          <span class="cubetogs" data-cube-toggles></span>
           <label class="tog"><input type="checkbox" data-t-turn checked> 旋转</label>
           <label class="surf">外壳 <input type="range" data-surface min="0" max="100" value="50"></label>
           <label class="surf">脑区 <input type="range" data-divisions min="0" max="100" value="50"></label>
@@ -480,7 +484,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "../js/mouse.js?v=62";
+  import { mountMouse } from "../js/mouse.js?v=65";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");

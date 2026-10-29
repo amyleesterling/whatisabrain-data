@@ -15,6 +15,7 @@
  */
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
@@ -335,6 +336,7 @@ export async function mountMouse(el) {
   micronsG.visible = false;
 
   const loader = new GLTFLoader();
+  { const draco = new DRACOLoader(); draco.setDecoderPath(R("vendor/three/addons/libs/draco/gltf/")); loader.setDRACOLoader(draco); }
   function loadGlb(url, label) {
     return new Promise((res, rej) => loader.load(R(url), (g) => {
       let m = null; g.scene.traverse((o) => { if (o.isMesh && !m) m = o; }); if (label) bar.done(); res(m);
@@ -495,9 +497,10 @@ export async function mountMouse(el) {
         new THREE.MeshBasicMaterial({ color: cu.colour, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false }));
       cube.position.copy(centre); cube.quaternion.copy(cu.quat); cube.userData.cube = cu;
       const edges = new THREE.LineSegments(new THREE.EdgesGeometry(cube.geometry), new THREE.LineBasicMaterial({ color: cu.colour, transparent: true, opacity: 0.9 }));
-      cube.add(edges); micronsG.add(cube); cubeMeshes.push(cube);
+      cube.add(edges); micronsG.add(cube); cubeMeshes.push(cube); cu.box = cube;
       m.material = new THREE.MeshBasicMaterial({ color: cu.colour, transparent: true, opacity: 0.06, blending: THREE.AdditiveBlending, depthWrite: false });
-      micronsG.add(m);
+      micronsG.add(m); cu.regionMesh = m;
+      if (cu.hidden) { cube.visible = false; m.visible = false; }
     }
   }
   placeCubes().catch(() => {});
@@ -573,11 +576,13 @@ export async function mountMouse(el) {
       pts.renderOrder = 13; return { pts, n, fl };
     }
     const featuredSlug = pack.featured && pack.featured.slug;
-    for (const cell of (pack.cells || pack.meshes || [])) {
+    const packCells = pack.cells || pack.meshes || []; let ci = 0;
+    for (const cell of packCells) {
+      ci++;
       if (!cell.category && cell.role) cell.category = cell.role;
       if (!cell.type && cell.role) cell.type = cell.role;
       const file = cell.file.startsWith("meshes/") || cell.file.startsWith("data/") ? cell.file : cu.dir + cell.file;
-      let m; try { m = await loadGlb(file); } catch (e) { continue; }
+      let m; try { m = await loadGlb(file, ZH ? `${cu.name}：细胞 ${ci} / ${packCells.length}` : `${cu.name}: cell ${ci} of ${packCells.length}`); } catch (e) { continue; }
       fixNormals(m.geometry);
       if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals();
       /* the neighbours each get a colour of their own from a warm palette,
@@ -618,7 +623,7 @@ export async function mountMouse(el) {
   const h1 = document.querySelector("h1"); const h1Home = h1 ? h1.textContent : "";
   async function dive(cu) {
     if (!cu.centre) return;
-    inside = cu; zoomUser = 1;
+    inside = cu; zoomUser = 1; syncCubeBtns();
     if (h1 && cu.population) h1.textContent = ZH ? `${cu.name}：${fmt(cu.population.n)} ${cu.population.what}` : `${cu.name}: ${fmt(cu.population.n)} ${cu.population.what}`;
     if (current) { retire(current); current = null; }
     autoNext = false;
@@ -641,12 +646,25 @@ export async function mountMouse(el) {
     for (const c of cubeMeshes) c.material.opacity = 0.22;
     if (mode === "wire") { autoNext = true; const r = pickRandom(); if (r) focusOn(r); }
   }
+  /* every reconstructed cell of a volume, one Draco mesh coloured by class,
+     fetched the first time it is asked for and kept with the pack */
+  async function loadPopulation(cu, pk) {
+    if (pk.population) return pk.population;
+    const pm = pk.pack.population_mesh; if (!pm) return null;
+    const m = await loadGlb(pm.file, ZH ? `${cu.name}：全部已重建的细胞` : `${cu.name}: every reconstructed cell`);
+    fixNormals(m.geometry);
+    const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, metalness: 0, emissive: new THREE.Color("#ffffff"), emissiveIntensity: 0.06, transparent: true, opacity: 0.85 });
+    m.material = mat; m.renderOrder = 11; m.visible = false;
+    pk.group.add(m); pk.population = m;
+    return m;
+  }
   function renderCubeCard(cu, pk) {
     if (!card) return;
     /* the packs name their cells in English; the Chinese page says them in Chinese */
     const CN = { "CA3 pyramidal cell (thorny)": "CA3 锥体细胞（有棘）", "CA3 pyramidal cell (thorny), neighbour": "CA3 锥体细胞（有棘），邻近", "mossy fibre": "苔藓纤维", "pyramidal cell": "锥体细胞",
       "Layer 5 Thick-Tufted Pyramidal": "第 5 层厚簇锥体细胞", "Chandelier Cell": "吊灯细胞", "Parvalbumin Basket Cell": "小清蛋白篮状细胞", "Layer 2/3 Pyramidal": "第 2/3 层锥体细胞", "Layer 4 Cell": "第 4 层细胞",
-      "Protoplasmic Astrocyte": "原浆型星形胶质细胞", "Martinotti Cell": "Martinotti 细胞", "Bipolar Interneuron": "双极中间神经元", "Pyramidal Neuron": "锥体神经元", "Long-range Axon": "长程轴突", "Microglia": "小胶质细胞" };
+      "Protoplasmic Astrocyte": "原浆型星形胶质细胞", "Martinotti Cell": "Martinotti 细胞", "Bipolar Interneuron": "双极中间神经元", "Pyramidal Neuron": "锥体神经元", "Long-range Axon": "长程轴突", "Microglia": "小胶质细胞",
+      "Pyramidal": "锥体细胞", "Glia": "胶质细胞", "Stellate": "星形细胞", "Inhibitory": "抑制性中间神经元", "Bipolar": "双极细胞" };
     const cn = (t) => (ZH && t && CN[t]) || t || "";
     const rows = pk.cells.map((c, i) => `<button class="kk" data-cell="${i}"><s style="background:${c.colour.getStyle()}"></s><b>${(ZH && c.cell.name_zh) || cn(c.cell.name) || c.cell.slug}</b><span class="kd">${c.cell.verified === false ? (ZH ? "预测" : "predicted") : (c.cell.layer ? (ZH ? `第 ${c.cell.layer} 层` : `layer ${c.cell.layer}`) : cn(c.cell.type))}</span><span class="kn">${c.cell.synCount ? fmt(c.cell.synCount) : (c.cell.category === "glia" ? (ZH ? "胶质" : "glia") : "")}</span></button>`).join("");
     const ext = pk.pack.tissueExtent_mm || pk.pack.size_mm;
@@ -656,7 +674,18 @@ export async function mountMouse(el) {
       (cu.population ? `<p class="side">${ZH ? `整个体积含 ${fmt(cu.population.n)} ${cu.population.what}（${cu.population.src}）。${pk.cells && pk.cells.length ? `这里画出 ${fmt(pk.cells.length)} 个。` : ``}` : `The whole volume holds ${fmt(cu.population.n)} ${cu.population.what} (${cu.population.src}).${pk.cells && pk.cells.length ? ` ${fmt(pk.cells.length)} are drawn here.` : ``}`}</p>` : "") +
       `<p>${ZH ? `${cu.dorsal ? `这个体积放在参考脑中背侧 ${cu.regionAcr} 的位置，按切片方向摆放（冠状切面，顶树突向上）。` : cu.layered ? `这个体积放在参考脑中左侧 ${cu.regionAcr} 偏背侧的位置，贴着脑表面，并按它实测的皮层分层轴转向表面（这个方向来自体积内 782 个已重建细胞各层胞核的平均位置），切片取水平方向。偏背侧的位置和水平切片来自制作者的描述，不是测量。` : `这个体积放在参考脑中 ${cu.regionAcr} 的中心。`}位置是近似的：这些数据没有配准到图谱，${cu.layered ? "左右半球未记录" : "切面内的旋转和左右半球都未记录"}。${pk.cells && pk.cells.length ? (pk.synCount ? `体积内的细胞和突触是真实的，尺度是真实的。` : `体积内的细胞是真实的，尺度是真实的。这个体积还没有突触表（它的 CAVE 服务仍在搭建中），所以细胞不带突触点。`) : `盒子按体积的真实尺寸绘制。`}${extNote}${pk.pack && pk.pack.cellsNote ? " 七个细胞，各代表 connectome.quest 图库中的一种类型。其中四个由 Amy Sterling 肉眼判定并匹配到当前分割，三个仍是按胞核大小的自动预测，标为“预测”。" : ""}` : `${cu.dorsal ? `The volume sits in dorsal ${cu.regionAcr} of the reference brain, turned the way it was cut: coronal sections, apical dendrites up.` : cu.layered ? `The volume sits in the dorsal part of left ${cu.regionAcr} in the reference brain with its pia face on the brain surface, turned so its cortical layers face that surface (an axis measured from the mean nucleus position of each layer among the volume's 782 reconstructed cells) and its sections lie horizontal. The dorsal placement and the horizontal cut come from the people who made it, not from a measurement.` : `The volume sits at the centre of ${cu.regionAcr} in the reference brain.`} The place is approximate: it is not registered to the atlas, and the ${cu.layered ? "hemisphere was not recorded" : "in-plane rotation and the hemisphere were not recorded"}. ${pk.cells && pk.cells.length ? (pk.synCount ? `What is inside is real and at true scale, and every white dot is a synapse from the reconstruction's own table, incoming and outgoing. ` : `What is inside is real and at true scale. This volume has no synapse table yet (its CAVE services are still being set up), so the cells are drawn without their synapses. `) : `The box is drawn at the volume's true size. `}${extNote}${pk.synCount && pk.cells && pk.cells.some((c) => c.cell.category === "glia") ? (ZH ? " 胶质细胞不画突触点：表里那些是自动检测，不是突触。" : " The glia carry no dots: the detections attached to them are not synapses.") : ""}${pk.pack && pk.pack.cellsNote ? ` ${ZH ? "七个细胞，各代表 connectome.quest 图库中的一种类型。其中四个由 Amy Sterling 肉眼判定并匹配到当前分割，三个仍是按胞核大小的自动预测，标为“预测”。" : pk.pack.cellsNote}` : ""}`}</p>` +
       `<div class="klist">${rows}</div>` +
+      (pk.pack.population_mesh ? `<p class="side" style="margin-top:10px"><button class="btn" data-population aria-pressed="${pk.population && pk.population.visible ? "true" : "false"}">${ZH ? `全部已重建的细胞（${fmt(pk.pack.population_mesh.cells)} 个）` : `Every reconstructed cell (${fmt(pk.pack.population_mesh.cells)})`}</button> <span data-population-note>${ZH ? `${fmt(pk.pack.population_mesh.cells)} 个已重建的细胞，共 ${fmt(cu.population ? cu.population.n : 0)} 个有标记细胞核。` : `${fmt(pk.pack.population_mesh.cells)} reconstructed so far of ${fmt(cu.population ? cu.population.n : 0)} with a marked nucleus.`}</span></p>` +
+        `<div class="legend" data-population-legend hidden>${Object.entries(pk.pack.population_mesh.classes).map(([k, v]) => `<span class="lg"><s style="background:${v.colour}"></s>${cn(k.charAt(0).toUpperCase() + k.slice(1))} ${fmt(v.n)}</span>`).join("")}<span class="lg dim">${ZH ? "类型按胞核大小推测；三种胶质细胞合为一类。" : "types presumed from nucleus size; the three glial types drawn as one"}</span></div>` : "") +
       `<p class="badge">${pk.cells && pk.cells.length ? (ZH ? "点击一个细胞可高亮。" : "Click a cell to lift it.") : ""} <button class="btn" data-leave>${ZH ? "退出立方体" : "Leave the cube"}</button></p>`;
+    const popBtn = card.querySelector("[data-population]");
+    if (popBtn) popBtn.addEventListener("click", async () => {
+      const legend = card.querySelector("[data-population-legend]");
+      if (pk.population && pk.population.visible) { pk.population.visible = false; popBtn.setAttribute("aria-pressed", "false"); if (legend) legend.hidden = true; return; }
+      popBtn.disabled = true;
+      try { const m = await loadPopulation(cu, pk); if (m) { m.visible = true; popBtn.setAttribute("aria-pressed", "true"); if (legend) legend.hidden = false; } }
+      catch (e) { const note = card.querySelector("[data-population-note]"); if (note) note.textContent = (ZH ? "没有加载：" : "Did not load: ") + e.message; }
+      popBtn.disabled = false;
+    });
     card.querySelectorAll("[data-cell]").forEach((b) => b.addEventListener("click", () => {
       const i = +b.dataset.cell;
       pk.cells.forEach((c, j) => { c.mesh.material.emissiveIntensity = j === i ? 0.6 : 0.05; c.mesh.material.opacity = 1; });
@@ -1329,7 +1358,8 @@ export async function mountMouse(el) {
     ONT = await (await fetch(R("data/ontology.json"))).json();
     const dl = q("#regionlist");
     if (dl && !dl.children.length) {
-      const opts = Object.keys(ONT).map((k) => `<option value="${k}">${ONT[k].name}</option>`);
+      const opts = ALIAS_OPTIONS.filter(([, acr]) => ONT[acr]).map(([alias, acr, what]) => `<option value="${alias}">${what}: ${ONT[acr].name} (${acr})</option>`)
+        .concat(Object.keys(ONT).map((k) => `<option value="${k}">${ONT[k].name}</option>`));
       dl.innerHTML = opts.join("");
     }
     return ONT;
@@ -1343,7 +1373,13 @@ export async function mountMouse(el) {
   const SYNONYM = { hippocampus: "HPF", "hippocampal formation": "HPF", cortex: "Isocortex", neocortex: "Isocortex",
     "olfactory bulb": "MOB", cerebellum: "CB", striatum: "STR", thalamus: "TH", hypothalamus: "HY",
     midbrain: "MB", pons: "P", medulla: "MY", "dentate gyrus": "DG", amygdala: "BLA", "visual cortex": "VIS",
-    "motor cortex": "MO", "somatosensory cortex": "SS", "prefrontal": "PL", subiculum: "SUB", "entorhinal": "ENT" };
+    "motor cortex": "MO", "somatosensory cortex": "SS", "prefrontal": "PL", subiculum: "SUB", "entorhinal": "ENT",
+    mec: "ENTm", "medial entorhinal": "ENTm", "medial entorhinal cortex": "ENTm", lec: "ENTl", "lateral entorhinal": "ENTl", "lateral entorhinal cortex": "ENTl",
+    v1: "VISp", "primary visual": "VISp", m1: "MOp", m2: "MOs", s1: "SSp", "barrel cortex": "SSp-bfd", "barrel": "SSp-bfd",
+    "locus coeruleus": "LC", "retrosplenial": "RSP", "retrosplenial cortex": "RSP" };
+  /* the short names people type, offered in the list ahead of the atlas names */
+  const ALIAS_OPTIONS = [["MEC", "ENTm", "medial entorhinal cortex"], ["LEC", "ENTl", "lateral entorhinal cortex"], ["V1", "VISp", "primary visual cortex"],
+    ["M1", "MOp", "primary motor cortex"], ["M2", "MOs", "secondary motor cortex"], ["S1", "SSp", "primary somatosensory cortex"], ["barrel cortex", "SSp-bfd", "barrel field"]];
   function resolveRegion(text) {
     let qs = text.trim().toLowerCase(); if (!qs) return null;
     const keys = Object.keys(ONT);
@@ -1887,6 +1923,7 @@ export async function mountMouse(el) {
     if (isolated) u.set("only", isolated);
     if (holoRaw) u.set("holo", holoRaw);
     if (inside) u.set("cube", inside.id);
+    const hid = CUBES.filter((c) => c.hidden).map((c) => c.id); if (hid.length) u.set("hide", hid.join(","));
     if (mode === "story" && story) { u.set("story", story.id); u.set("stop", String(storyIdx + 1)); u.delete("n"); }
     return u;
   }
@@ -2028,6 +2065,7 @@ export async function mountMouse(el) {
     const cu = CUBES.find((c) => c.id === b.dataset.cube); if (!cu) return;
     if (inside === cu) { leaveCube(); writeUrl(); return; }
     if (!micronsG.visible) { micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true; }
+    if (cu.hidden) setCubeHidden(cu, false);
     const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); writeUrl();
   }));
   const onToggle = (sel, fn) => { const t = q(sel); if (t) t.addEventListener("change", () => { fn(t.checked); writeUrl(); }); return t; };
@@ -2035,6 +2073,24 @@ export async function mountMouse(el) {
   onToggle("[data-t-shell]", (on) => { shellG.visible = on; });
   onToggle("[data-t-cells]", (on) => { cellG.visible = on; if (on) loadCells(); });
   onToggle("[data-t-microns]", (on) => { micronsG.visible = on; });
+  /* one chip per volume: hide or show its box on its own; a hidden cube
+     comes back when you jump to it */
+  function setCubeHidden(cu, hidden) {
+    cu.hidden = hidden;
+    if (cu.box) cu.box.visible = !hidden;
+    if (cu.regionMesh) cu.regionMesh.visible = !hidden;
+    el.querySelectorAll(`[data-cube-toggle="${cu.id}"]`).forEach((t) => { t.checked = !hidden; });
+  }
+  { const host = q("[data-cube-toggles]");
+    if (host) {
+      host.innerHTML = CUBES.map((cu) => `<label class="tog cubetog" style="--c:${cu.colour}"><input type="checkbox" data-cube-toggle="${cu.id}" checked> <s style="background:${cu.colour}"></s>${cu.short}</label>`).join("");
+      host.querySelectorAll("[data-cube-toggle]").forEach((t) => t.addEventListener("change", () => {
+        const cu = CUBES.find((c) => c.id === t.dataset.cubeToggle); if (!cu) return;
+        setCubeHidden(cu, !t.checked);
+        if (!t.checked && inside === cu) leaveCube();
+        writeUrl();
+      }));
+    } }
   const turnBox = onToggle("[data-t-turn]", (on) => { idleTurn = on; syncPause(); });
   /* fullscreen takes the whole stage: the picture fills the screen, the
      controls become a bar along the bottom and the card a panel on the
@@ -2233,6 +2289,8 @@ export async function mountMouse(el) {
   if (new URLSearchParams(location.search).get("holo")) applyLook(new URLSearchParams(location.search).get("holo"));
   const wantRec = view.n && N.find((r) => r.id === view.n);
   if (fr && fr.value) syncSomata();
+  { const hid = (new URLSearchParams(location.search).get("hide") || "").split(",").filter(Boolean);
+    for (const id of hid) { const cu = CUBES.find((c) => c.id === id); if (cu) setCubeHidden(cu, true); } }
   const wantCube = new URLSearchParams(location.search).get("cube");
   if (view.story) { openStory(view.story, Math.max(0, (parseInt(view.stop, 10) || 1) - 1)); }
   else if (wantCube) { const cu = CUBES.find((c) => c.id === wantCube); if (cu) { setMode("pick"); const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); } }
