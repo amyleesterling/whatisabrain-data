@@ -59,6 +59,9 @@ const PACK_V = "?v=" + (new URL(import.meta.url).searchParams.get("v") || "0");
 /* ---- the words. English is the source; the Chinese page sets lang="zh"
    on <html> and every string the script writes comes from here. */
 const ZH = document.documentElement.lang.toLowerCase().startsWith("zh");
+/* ?embed=1: only the brain, for a frame on another page (connectome.quest/symposium,
+   Ames 2026-10-29). The class is set by a script in the page head before paint. */
+const EMBED = document.documentElement.classList.contains("embed");
 const T = ZH ? {
   reading: "读取中…", couldNot: "无法读取这个神经元。", clickAny: "点击任意一个胞体。",
   neurons: " 个神经元", oneAtATime: "逐个随机点亮。", bodiesShown: " 个胞体已显示。点击一个。",
@@ -504,10 +507,12 @@ export async function mountMouse(el) {
       const edges = new THREE.LineSegments(new THREE.EdgesGeometry(cube.geometry), new THREE.LineBasicMaterial({ color: cu.colour, transparent: true, opacity: 0.9 }));
       cube.add(edges); micronsG.add(cube); cubeMeshes.push(cube); cu.box = cube;
       m.material = new THREE.MeshBasicMaterial({ color: cu.colour, transparent: true, opacity: 0.06, blending: THREE.AdditiveBlending, depthWrite: false });
-      /* the region's outline, so the volume is seen against the part of the
-         brain it came from and not only as a box */
-      const wire = new THREE.Mesh(m.geometry, new THREE.MeshBasicMaterial({ color: cu.colour, wireframe: true, transparent: true, opacity: 0.16, blending: THREE.AdditiveBlending, depthWrite: false }));
-      wire.renderOrder = 4; m.add(wire);
+      m.userData.regionOf = cu;
+      /* the region's outline in the volume's colour, so the box is seen
+         against the part of the brain it was cut from and not only as a box;
+         it fades as the camera closes on the volume (see the frame loop) */
+      const wire = new THREE.Mesh(m.geometry, new THREE.MeshBasicMaterial({ color: cu.colour, wireframe: true, transparent: true, opacity: 0.18, blending: THREE.AdditiveBlending, depthWrite: false }));
+      wire.renderOrder = 4; m.add(wire); cu.regionWire = wire;
       micronsG.add(m); cu.regionMesh = m;
       if (cu.hidden) { cube.visible = false; m.visible = false; }
     }
@@ -643,12 +648,45 @@ export async function mountMouse(el) {
     /* up close the box is an outline, not a fill: a fill over the whole
        view is what hid the neighbour cells */
     for (const c of cubeMeshes) c.material.opacity = c.userData.cube === cu ? 0 : 0.22;
+    if (EMBED) highlightCube(cu);
     renderCubeCard(cu, pk);
     if (h1 && cu.population) h1.textContent = ZH ? `${cu.name}：${fmt(pk.cells.length)} / ${fmt(cu.population.n)} ${cu.population.what}` : `${fmt(pk.cells.length)} of ${fmt(cu.population.n)} cells in ${cu.name}`;
     syncCubeBtns();
     status.textContent = pk.synCount
       ? (ZH ? `${cu.name}：${fmt(pk.cells.length)} 个细胞，${fmt(pk.synCount)} 个真实突触。滚轮靠近或拉远到整个脑。` : `${cu.name}: ${fmt(pk.cells.length)} reconstructed cells, ${fmt(pk.synCount)} real synapses as white dots. Scroll in to come closer, out to see it in the whole brain.`)
       : (ZH ? `${cu.name}：${fmt(pk.cells.length)} 个重建的细胞，暂无突触表。滚轮靠近或拉远到整个脑。` : `${cu.name}: ${fmt(pk.cells.length)} reconstructed cells, no synapse table yet. Scroll in to come closer, out to see it in the whole brain.`);
+  }
+  /* the embed is about one volume: its box is drawn lit, filled and breathing,
+     with its region, and the other volumes' boxes are left out */
+  let hlRaf = 0;
+  function highlightCube(cu) {
+    /* it opens on the whole brain with the box lit in it; zooming in fades
+       the fill so the volume's own cells show inside the outline */
+    /* the camera's distance is kept where it is while the zoom factor
+       changes, so the brain never jumps away and flies back in */
+    { const dist = zNow * zoomUserNow; zoomUser = zoomUserNow = 7.5; zNow = dist / 7.5; }
+    micronsG.visible = true;
+    for (const o of micronsG.children) {
+      const own = o.userData.cube === cu || o.userData.regionOf === cu;
+      o.visible = own;
+    }
+    const box = cubeMeshes.find((c) => c.userData.cube === cu);
+    const edges = box && box.children[0];
+    if (!box) return;
+    /* drawn over the cells, so the dots in front never hide where it is */
+    box.material.opacity = 0.45; box.material.depthTest = false; box.renderOrder = 10;
+    if (edges) { edges.material.depthTest = false; edges.material.opacity = 1; edges.renderOrder = 11; }
+    cancelAnimationFrame(hlRaf);
+    if (!edges || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t0 = performance.now();
+    const beat = (t) => {
+      if (inside !== cu) { box.material.opacity = 0; for (const o of micronsG.children) o.visible = true; return; }
+      const k = 0.5 + 0.5 * Math.sin((t - t0) / 700);
+      const far = Math.min(1, Math.max(0, (zoomUserNow - 1.5) / 3));
+      box.material.opacity = (0.3 + 0.35 * k) * far; edges.material.opacity = 0.75 + 0.25 * k;
+      hlRaf = requestAnimationFrame(beat);
+    };
+    hlRaf = requestAnimationFrame(beat);
   }
   function leaveCube() {
     inside = null; packG.clear(); syncStatus(); if (h1) h1.textContent = h1Home; syncCubeBtns();
@@ -1933,7 +1971,6 @@ export async function mountMouse(el) {
     if (holoRaw) u.set("holo", holoRaw);
     if (inside) u.set("cube", inside.id);
     const hid = CUBES.filter((c) => c.hidden).map((c) => c.id); if (hid.length) u.set("hide", hid.join(","));
-    if (document.documentElement.classList.contains("embed")) u.set("embed", "1");
     if (mode === "story" && story) { u.set("story", story.id); u.set("stop", String(storyIdx + 1)); u.delete("n"); }
     return u;
   }
@@ -1941,7 +1978,7 @@ export async function mountMouse(el) {
   function writeUrl() {
     clearTimeout(urlTimer);
     urlTimer = setTimeout(() => {
-      const u = new URL(location.href); u.search = viewParams().toString();
+      const u = new URL(location.href); const vp = viewParams(); if (EMBED) vp.set("embed", "1"); u.search = vp.toString();
       history.replaceState(null, "", u);
     }, 250);
   }
@@ -2023,7 +2060,11 @@ export async function mountMouse(el) {
     }
   });
   cv.addEventListener("pointercancel", () => { dragging = false; cv.style.cursor = "grab"; });
+  /* in a frame the wheel scrolls the page around it until the brain is clicked,
+     so reading past it never zooms by accident */
+  if (EMBED) cv.addEventListener("pointerdown", () => el.classList.add("embed-live"));
   cv.addEventListener("wheel", (ev) => {
+    if (EMBED && !el.classList.contains("embed-live")) return;
     ev.preventDefault();
     zoomUser = Math.min(inside ? 9 : 2.5, Math.max(0.05, zoomUser * Math.exp(ev.deltaY * 0.0012))); writeUrl();
   }, { passive: false });
@@ -2110,6 +2151,11 @@ export async function mountMouse(el) {
      right, and the panels button hides both for a clean picture. Esc brings
      the page back. */
   const viewEl = el.querySelector(".view") || mount;
+  /* the frame's way out: this exact view on the full page, in a new tab */
+  const embedOpen = q("[data-embed-open]");
+  if (embedOpen) embedOpen.addEventListener("click", () => {
+    const u = new URL(location.href); const vp = viewParams(); vp.delete("embed"); u.search = vp.toString(); embedOpen.href = u.toString();
+  });
   const fsBtn = q("[data-fullscreen]");
   const goFull = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (el.requestFullscreen) el.requestFullscreen(); };
   if (fsBtn) fsBtn.addEventListener("click", goFull);
@@ -2268,6 +2314,10 @@ export async function mountMouse(el) {
     /* a portrait phone sees a narrower slice, so the camera backs off in
        proportion to keep the whole brain in frame */
     zoomUserNow += (zoomUser - zoomUserNow) * k;
+    /* the region outlines fade as the camera closes on a volume, the same
+       way the lit box's fill does, so the net never lies over the cells */
+    { const far = inside ? Math.min(1, Math.max(0, (zoomUserNow - 1.5) / 3)) : 1;
+      for (const c of CUBES) if (c.regionWire) c.regionWire.material.opacity = 0.18 * far * far; }
     const back = Math.max(1, 1.4 / camera.aspect) * zoomUserNow;
     camera.position.z = zNow * back; camera.position.y = 3.5 * (zNow / HOME_Z) * back;
     camera.lookAt(0, 0, 0);
@@ -2304,11 +2354,6 @@ export async function mountMouse(el) {
   if (fr && fr.value) syncSomata();
   { const hid = (new URLSearchParams(location.search).get("hide") || "").split(",").filter(Boolean);
     for (const id of hid) { const cu = CUBES.find((c) => c.id === id); if (cu) setCubeHidden(cu, true); } }
-  { const show = (new URLSearchParams(location.search).get("show") || "").split(",").filter(Boolean);
-    if (show.length) {
-      micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true;
-      CUBES.forEach((c) => setCubeHidden(c, !show.includes(c.id)));
-    } }
   const wantCube = new URLSearchParams(location.search).get("cube");
   if (view.story) { openStory(view.story, Math.max(0, (parseInt(view.stop, 10) || 1) - 1)); }
   else if (wantCube) { const cu = CUBES.find((c) => c.id === wantCube); if (cu) { setMode("pick"); if (!micronsG.visible) { micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true; CUBES.forEach((c) => { if (c !== cu) setCubeHidden(c, true); }); } setCubeHidden(cu, false); const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); } }

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <script src="/js/analytics.js"></script>
+<script>if (/[?&]embed=1(&|$)/.test(location.search)) document.documentElement.classList.add("embed");</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>30,000 neurons of 70 million | what is a brain</title>
@@ -20,23 +21,6 @@
 <link rel="alternate" hreflang="en" href="https://whatisabrain.com/mouse/">
 <link rel="alternate" hreflang="zh-Hans" href="https://whatisabrain.com/mouse/zh/">
 <link rel="icon" href="/brain-favicon.png">
-<script>
-  /* ?embed=1: only the 3D brain, filling the frame, for other sites to show
-     inside an iframe (connectome.quest/symposium). Drag turns it, scroll
-     zooms, a click on a box dives in; the header, the controls and the cards
-     stay hidden. show=mec,ca3 turns those volumes on without diving. */
-  if (/[?&]embed=1(&|$)/.test(location.search)) document.documentElement.classList.add("embed");
-</script>
-<style>
-  html.embed, html.embed body { margin: 0; height: 100%; overflow: hidden; background: #07080B; color-scheme: dark; }
-  html.embed body > * { display: none !important; }
-  html.embed body > .wide:has(#mouse) { display: block !important; width: 100%; height: 100%; max-width: none; margin: 0; padding: 0 !important; }
-  html.embed #mouse { display: block; width: 100%; height: 100%; margin: 0; }
-  html.embed #mouse .ctl, html.embed #mouse .side.hud, html.embed #mouse .nameplate, html.embed #mouse .status,
-  html.embed #mouse .fsicon, html.embed #mouse .panels, html.embed #mouse .lbar, html.embed #mouse .rlabels { display: none !important; }
-  html.embed #mouse .box, html.embed #mouse .view { width: 100%; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 0; background: #07080B; box-shadow: none; }
-  html.embed #mouse .canvas { width: 100% !important; height: 100% !important; min-height: 0 !important; max-height: none !important; }
-</style>
 <link rel="stylesheet" href="vendor/scifi-ui/panel-surface.css">
 <script type="importmap">
 {"imports":{"three":"./vendor/three/three.module.min.js","three/addons/":"./vendor/three/addons/"}}
@@ -99,6 +83,20 @@
   .pz { display:inline-block; font-size:12px; line-height:1; letter-spacing:-.05em; }
   .pz-turn { font-size:16px; }
   .box .canvas { height:min(68vh,640px); min-height:360px; width:100%; }
+  /* ?embed=1: only the brain, filling the frame; the words, the controls and
+     the side card stay on the full page, one click away */
+  .embedopen, .embedhint { display:none; }
+  html.embed body { margin:0; overflow:hidden; background:#090B10; }
+  html.embed body > .wide:first-of-type, html.embed main.wrap, html.embed .ctl, html.embed .side.hud, html.embed .panels { display:none !important; }
+  html.embed .wide { max-width:none; padding:0; margin:0; }
+  html.embed .stage { display:block; margin:0; }
+  html.embed .box { border:0; border-radius:0; }
+  html.embed .box .canvas { height:100vh; min-height:0; }
+  html.embed .embedopen { display:inline-flex; align-items:center; gap:6px; position:absolute; right:50px; top:10px; z-index:3; height:32px; padding:0 12px;
+    border-radius:8px; border:1px solid rgb(126 224 255 / .5); background:rgba(9,11,16,.72); color:#eaf6ff; font:600 13px/1 system-ui, sans-serif; text-decoration:none; }
+  html.embed .embedopen:hover, html.embed .embedopen:focus-visible { border-color:#7ee0ff; background:rgba(14,24,44,.9); outline:none; }
+  html.embed .embedhint { display:block; position:absolute; right:12px; top:52px; z-index:3; font:12px/1 system-ui, sans-serif; color:rgba(239,244,251,.6); pointer-events:none; transition:opacity .3s; }
+  html.embed .embed-live .embedhint { opacity:0; }
   /* the reading HUD: a bar per source sized by its bytes, the numbers, and
      the divisions lighting up as their neurons land */
   .loadhud { position:absolute; left:12px; right:12px; bottom:34px; pointer-events:none; font:500 11px/1.5 ui-monospace,Consolas,monospace; letter-spacing:.06em; color:#9fd0ff; text-shadow:0 1px 8px #000; }
@@ -318,6 +316,8 @@
       <button class="fsicon" data-fullscreen-icon title="Fullscreen" aria-label="Fullscreen">&#x26F6;</button>
       <button class="panels" data-panels aria-pressed="true" title="Hide the controls">Panels</button>
       <div class="status" data-status>Loading the brain…</div>
+      <a class="embedopen" data-embed-open href="./" target="_blank" rel="noopener">Open the full view &#x2197;</a>
+      <span class="embedhint">Drag to turn it, then scroll to zoom.</span>
       <div class="loadhud" data-loadhud hidden></div>
       <div class="lbar is-off" data-lbar aria-hidden="true"><div class="lbar-track"><div class="lbar-fill" data-lbar-fill></div><div class="lbar-head" data-lbar-head></div></div><div class="lbar-txt" data-lbar-txt></div></div>
       <div class="nameplate holopanel" data-nameplate data-dock="plate" hidden><span class="grip" title="Drag. Past an edge it docks; double click sends it home.">&#x2807;</span><div data-plate-body></div></div>
@@ -544,7 +544,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "./js/mouse.js?v=68";
+  import { mountMouse } from "./js/mouse.js?v=69";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");
