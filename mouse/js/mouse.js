@@ -2063,9 +2063,12 @@ export async function mountMouse(el) {
   function syncCubeBtns() { cubeBtns.forEach((b) => b.setAttribute("aria-pressed", String(!!inside && inside.id === b.dataset.cube))); }
   cubeBtns.forEach((b) => b.addEventListener("click", () => {
     const cu = CUBES.find((c) => c.id === b.dataset.cube); if (!cu) return;
-    if (inside === cu) { leaveCube(); writeUrl(); return; }
-    if (!micronsG.visible) { micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true; }
-    if (cu.hidden) setCubeHidden(cu, false);
+    /* click: this volume comes on and the camera goes in; click again: it
+       goes off and the camera comes out. With the cube layer still off, the
+       first click shows this volume alone. */
+    if (inside === cu) { leaveCube(); setCubeHidden(cu, true); writeUrl(); return; }
+    if (!micronsG.visible) { micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true; CUBES.forEach((c) => setCubeHidden(c, c !== cu)); }
+    else if (cu.hidden) setCubeHidden(cu, false);
     const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); writeUrl();
   }));
   const onToggle = (sel, fn) => { const t = q(sel); if (t) t.addEventListener("change", () => { fn(t.checked); writeUrl(); }); return t; };
@@ -2293,7 +2296,7 @@ export async function mountMouse(el) {
     for (const id of hid) { const cu = CUBES.find((c) => c.id === id); if (cu) setCubeHidden(cu, true); } }
   const wantCube = new URLSearchParams(location.search).get("cube");
   if (view.story) { openStory(view.story, Math.max(0, (parseInt(view.stop, 10) || 1) - 1)); }
-  else if (wantCube) { const cu = CUBES.find((c) => c.id === wantCube); if (cu) { setMode("pick"); const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); } }
+  else if (wantCube) { const cu = CUBES.find((c) => c.id === wantCube); if (cu) { setMode("pick"); if (!micronsG.visible) { micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true; CUBES.forEach((c) => { if (c !== cu) setCubeHidden(c, true); }); } setCubeHidden(cu, false); const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); } }
   else if (view.mode === "match") { keepIsolated = !!isolated; setMode("match"); if (wantRec) focusOn(wantRec, true); }
   else if (view.mode === "all") { setMode("all"); }
   else if (view.mode === "region") { setMode("region"); }
