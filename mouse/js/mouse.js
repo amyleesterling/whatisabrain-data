@@ -240,7 +240,7 @@ export async function mountMouse(el) {
   }
   holoChrome(plate); holoChrome(el.querySelector("[data-hud]"));
   if (card) new MutationObserver(() => { holoBoot(el.querySelector("[data-hud]")); holoBoot(plate); }).observe(card, { childList: true });
-  if (plate) makeDockable(plate, "left");
+  if (plate) makeDockable(plate, "left", EMBED);
   const hudPanel = el.querySelector("[data-hud]");
   if (hudPanel) makeDockable(hudPanel, "right", true);
   syncPlate();
@@ -663,12 +663,33 @@ export async function mountMouse(el) {
   /* the embed is about one volume: its box is drawn lit, filled and breathing,
      with its region, and the other volumes' boxes are left out */
   let hlRaf = 0;
+  let embedProjOn = false, embedProjBtn = null;
+  const embedQuiet = (cu) => ZH ? `紫色轮廓是${REGION_WORDS[cu.regionAcr] || cu.name}，方框是 MEC 数据集。放大可看到其中的细胞。` : `The outline is ${REGION_WORDS[cu.regionAcr] || cu.name}. The box is the MEC dataset. Zoom in to see its cells.`;
+  function embedProjButton(cu) {
+    if (embedProjBtn) return;
+    const view = el.querySelector(".view"); if (!view) return;
+    const b = embedProjBtn = document.createElement("button");
+    b.type = "button"; b.className = "embedproj";
+    const label = () => { b.textContent = embedProjOn ? (ZH ? "隐藏这些细胞" : "Hide those cells") : (ZH ? "显示投射到 MEC 的细胞" : "Show cells that project to MEC"); b.setAttribute("aria-pressed", String(embedProjOn)); };
+    label();
+    b.addEventListener("click", () => {
+      embedProjOn = !embedProjOn; label();
+      if (embedProjOn) { regionQuery = cu.regionAcr; regionIso = "to"; regionColour = "direction"; setMode("region"); }
+      else { regionQuery = ""; regionIso = null; drawRegion(); setMode("pick"); somaG.visible = false; status.textContent = embedQuiet(cu); }
+    });
+    view.appendChild(b);
+  }
   function highlightCube(cu) {
     /* it opens on the whole brain with the box lit in it; zooming in fades
        the fill so the volume's own cells show inside the outline */
     /* the camera's distance is kept where it is while the zoom factor
        changes, so the brain never jumps away and flies back in */
     { const dist = zNow * zoomUserNow; zoomUser = zoomUserNow = 7.5; zNow = dist / 7.5; }
+    /* the frame opens on the region and the dataset alone (Ames 2026-10-30):
+       the divisions and the cell bodies stay out until the button brings the
+       cells that project to it */
+    regionG.visible = false; somaG.visible = false;
+    embedProjButton(cu);
     micronsG.visible = true;
     for (const o of micronsG.children) {
       const own = o.userData.cube === cu || o.userData.regionOf === cu;
@@ -704,13 +725,6 @@ export async function mountMouse(el) {
      brain but the whole-brain neurons wired to that volume's region: cell
      body inside it (gold), axon ending in it (cyan), both (magenta), the
      region view's own key and threshold. The full page keeps every soma. */
-  function embedWiringText() {
-    if (!embedWired) return "";
-    const { words, counts } = embedWired;
-    return ZH
-      ? `这些点是与${words}相连的全脑神经元：胞体在此的 ${fmt(counts.from)} 个（金色），轴突末梢落入此处的 ${fmt(counts.to)} 个（青色），两者皆是的 ${fmt(counts.both)} 个（品红）。点一个点可跟随它的轴突；滚轮靠近。`
-      : `The dots are the whole-brain neurons wired to ${words}: ${fmt(counts.from)} with their cell body there (gold), ${fmt(counts.to)} whose axons end there (cyan), ${fmt(counts.both)} both (magenta). Click one to follow its axon; scroll in to come closer.`;
-  }
   async function embedSomaFilter(cu) {
     if (embedWired && embedWired.cu === cu) return;
     await ontology();
@@ -738,7 +752,7 @@ export async function mountMouse(el) {
     const pts = new THREE.Points(g, mat); pts.userData.map = map;
     full.visible = false; somaG.add(pts); somaG.userData.points = pts;
     embedWired = { cu, full, points: pts, counts, words: REGION_WORDS[cu.regionAcr] || (ONT[cu.regionAcr] ? ONT[cu.regionAcr].name : cu.regionAcr) };
-    if (inside === cu && !current) status.textContent = embedWiringText();
+    if (inside === cu && !current && !embedProjOn) status.textContent = embedQuiet(cu);
   }
   /* every reconstructed cell of a volume, one Draco mesh coloured by class,
      fetched the first time it is asked for and kept with the pack */
@@ -1514,6 +1528,7 @@ export async function mountMouse(el) {
     const counts = { from: 0, to: 0, both: 0 };
     for (const r of all) counts[dirOf(r)]++;
     status.textContent = T.regionStatus(acr, ONT[acr].name, set.size - 1, counts);
+    if (EMBED && regionIso === "to") status.textContent = ZH ? `${fmt(counts.to)} 个胞体在别处的神经元，把轴突末梢送入${REGION_WORDS[acr] || acr}（至少 2% 的末梢）。` : `${fmt(counts.to)} reconstructed neurons with their cell body elsewhere send at least 2 percent of their axon endings into ${REGION_WORDS[acr] || acr}.`;
     /* the colour key: direction, or the source's subtype, or the division */
     let keyOfR, colours = {}, legend = [];
     if (regionColour === "direction") {
@@ -2146,7 +2161,7 @@ export async function mountMouse(el) {
     syncStatus();
   }
   function syncStatus() {
-    if (embedWired && !current) { status.textContent = embedWiringText(); return; }
+    if (embedWired && !current && !embedProjOn) { status.textContent = embedQuiet(embedWired.cu); return; }
     const filtered = filterSrc !== "all" || filterDiv !== "all" || !!filterRegion;
     if (mode === "wire" && !filtered) status.textContent = `${fmt(N.length)}${T.neurons}: ` +
       Object.entries(meta.sources).map(([k, v]) => `${fmt(v)} ${T.sources[k] || k}`).join(", ") + ". " + T.oneAtATime;
@@ -2204,7 +2219,9 @@ export async function mountMouse(el) {
   /* the frame's way out: this exact view on the full page, in a new tab */
   const embedOpen = q("[data-embed-open]");
   if (embedOpen) embedOpen.addEventListener("click", () => {
-    const u = new URL(location.href); const vp = viewParams(); vp.delete("embed"); u.search = vp.toString(); embedOpen.href = u.toString();
+    /* the full page opens zoomed in on the volume (or on the cell the visitor
+       picked), never pulled back the way the frame is, and with every volume shown */
+    const u = new URL(location.href); const vp = viewParams(); vp.delete("embed"); vp.delete("z"); vp.delete("hide"); u.search = vp.toString(); embedOpen.href = u.toString();
   });
   const fsBtn = q("[data-fullscreen]");
   const goFull = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (el.requestFullscreen) el.requestFullscreen(); };
