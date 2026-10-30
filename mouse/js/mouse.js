@@ -62,6 +62,8 @@ const ZH = document.documentElement.lang.toLowerCase().startsWith("zh");
 /* ?embed=1: only the brain, for a frame on another page (connectome.quest/symposium,
    Ames 2026-10-29). The class is set by a script in the page head before paint. */
 const EMBED = document.documentElement.classList.contains("embed");
+/* the MIT Museum wall edition: an ambient pass from the brain to a synapse */
+const MUSEUM = document.documentElement.classList.contains("museum");
 const T = ZH ? {
   reading: "读取中…", couldNot: "无法读取这个神经元。", clickAny: "点击任意一个胞体。",
   neurons: " 个神经元", oneAtATime: "逐个随机点亮。", bodiesShown: " 个胞体已显示。点击一个。",
@@ -590,7 +592,7 @@ export async function mountMouse(el) {
         const c = fl[i] === 2 ? ca : cw; col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
       }
       const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setAttribute("color", new THREE.BufferAttribute(col, 3));
-      const pts = new THREE.Points(g, new THREE.PointsMaterial({ vertexColors: true, size: 1.4, sizeAttenuation: false, transparent: true, opacity: 0.4, depthWrite: false }));
+      const pts = new THREE.Points(g, new THREE.PointsMaterial({ vertexColors: true, size: MUSEUM ? 3.2 : 1.4, sizeAttenuation: false, transparent: true, opacity: MUSEUM ? 0.6 : 0.4, depthWrite: false }));
       pts.renderOrder = 13; return { pts, n, fl };
     }
     const featuredSlug = pack.featured && pack.featured.slug;
@@ -623,7 +625,7 @@ export async function mountMouse(el) {
           const { n, q, fl } = readSyn(buf);
           const pos = new Float32Array(n * 3); for (let i = 0; i < n * 3; i++) pos[i] = q[i] * unit / 1000;
           const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-          const pts = new THREE.Points(g, new THREE.PointsMaterial({ color: "#ffffff", size: 1.4, sizeAttenuation: false, transparent: true, opacity: 0.4, depthWrite: false }));
+          const pts = new THREE.Points(g, new THREE.PointsMaterial({ color: "#ffffff", size: MUSEUM ? 3.2 : 1.4, sizeAttenuation: false, transparent: true, opacity: MUSEUM ? 0.6 : 0.4, depthWrite: false }));
           pts.renderOrder = 13; group.add(pts); synCount += n; cell.synCount = n; cell.flags = fl; cells[cells.length - 1].dots = pts;
         } catch (e) {}
       }
@@ -970,7 +972,7 @@ export async function mountMouse(el) {
     g.setAttribute("color", new THREE.BufferAttribute(col, 3));
     /* normal blending: ten thousand hippocampal cell bodies stacked
        additively summed to a white flare that swallowed the neuron */
-    const somaPts = new THREE.Points(g, new THREE.PointsMaterial({ size: 2.2, vertexColors: true,
+    const somaPts = new THREE.Points(g, new THREE.PointsMaterial({ size: MUSEUM ? 4.4 : 2.2, vertexColors: true,
       transparent: true, opacity: 0.6, blending: THREE.NormalBlending, depthWrite: false,
       sizeAttenuation: false }));
     somaG.add(somaPts);
@@ -2411,6 +2413,116 @@ export async function mountMouse(el) {
   /* a shared link lands on its view: neuron, mode, camera, sliders, filters */
   /* a handle for a headless check: the page's own clock can be stepped
      where requestAnimationFrame never fires */
+  /* ---- the MIT Museum wall edition (?museum=1) ------------------------ */
+  /* An ambient pass from the whole brain to one synapse and back, with no
+     chrome and no interaction, captioned at wall size. Each pass picks other
+     cells, another region and the other cube, so it never quite repeats.
+     Everything shown is the page's own data; only the order and the pace
+     are chosen here. ?scene=cube starts a pass at that scene, for stills. */
+  const WALL_SRC = { MouseLight: "the MouseLight project at Janelia", "SEU-ALLEN": "Southeast University and the Allen Institute", "ION-PFC": "the Institute of Neuroscience, Shanghai (prefrontal projectome)", "ION-HIPP": "the Institute of Neuroscience, Shanghai (hippocampal projectome)", "ION-CTX": "the Institute of Neuroscience, Shanghai (whole-cortex projectome)", "LC-NE": "the Allen Institute (locus coeruleus)" };
+  const WALL_REGIONS = [["HPF", "the hippocampus"], ["VISp", "primary visual cortex"], ["ENTm", "the medial entorhinal cortex"], ["MOp", "primary motor cortex"], ["TH", "the thalamus"], ["SSp-bfd", "the whisker barrel cortex"]];
+  async function museumLoop() {
+    const view = el.querySelector(".view"); if (!view) return;
+    const hud = document.createElement("div"); hud.className = "wall-hud";
+    hud.innerHTML = `<div class="wall-scrim"></div>` +
+      `<div class="wall-brand"><b>Thirty thousand neurons of seventy million</b><span>One mouse brain: every neuron traced whole, down to a single synapse.</span></div>` +
+      `<div class="wall-foot">Neurons: MouseLight (Janelia), SEU-ALLEN, ION Shanghai projectomes, Allen Institute<br>Atlas: Allen CCFv3 &middot; Cubic millimetre: MICrONS, Nature 2025 &middot; CA3: Zheng et al. 2025</div>` +
+      `<div class="wall-copy out"><p class="wall-eyebrow" data-wall-eyebrow></p><h2 class="wall-title" data-wall-title></h2><p class="wall-body" data-wall-body></p></div>` +
+      `<div class="wall-progress"><i data-wall-progress></i></div>`;
+    view.appendChild(hud);
+    const copy = hud.querySelector(".wall-copy"), bar = hud.querySelector("[data-wall-progress]");
+    const say = (eyebrow, title, body) => {
+      copy.classList.add("out");
+      setTimeout(() => { hud.querySelector("[data-wall-eyebrow]").textContent = eyebrow; hud.querySelector("[data-wall-title]").textContent = title; hud.querySelector("[data-wall-body]").innerHTML = body; copy.classList.remove("out"); }, 520);
+    };
+    const sleep = (sec) => new Promise((r) => setTimeout(r, sec * 1000));
+    const until = async (f, maxS) => { const t0 = performance.now(); while (!f() && performance.now() - t0 < maxS * 1000) await sleep(0.25); return f(); };
+    /* back to a bare brain: no lit cell, no cube, no region, camera home */
+    const quiet = () => {
+      if (current) { retire(current); current = null; }
+      clearTargets(); if (inside) leaveCube();
+      regionQuery = ""; regionIso = null; if (regionIn) regionIn.value = "";
+      zoomUser = 1; pivot.position.set(0, 0, 0);
+    };
+    const rname = (acr) => (RINFO[acr] && RINFO[acr].name) || (ONT && ONT[acr] && ONT[acr].name) || acr;
+    const totalM = N.reduce((a, r) => a + (r.axon_mm || 0), 0) / 1000;
+    await ontology().catch(() => {});
+    const cubes = CUBES.filter((c) => c.id !== "mec");   /* the two with real synapses */
+    const PASS_S = 215; let passT0 = performance.now();
+    setInterval(() => { bar.style.width = Math.min(100, (performance.now() - passT0) / (PASS_S * 10)) + "%"; }, 1000);
+    let pass = 0;
+    const scenes = {
+      async brain() {
+        quiet(); setMode("pick"); micronsG.visible = true; CUBES.forEach((c) => setCubeHidden(c, false));
+        say("A mouse brain", "30,000 neurons of 70 million",
+          `Every dot is the cell body of a real neuron, traced whole through a mouse brain: <b>${fmt(N.length)}</b> of them from six collections, placed in the Allen reference atlas. The brain is about 13 millimetres long. Nothing here is drawn from imagination.`);
+        await sleep(16);
+      },
+      async neurons() {
+        const pool = N.filter((r) => r.cbytes && r.axon_mm >= 25 && r.axon_mm <= 90 && r.tips >= 20);
+        for (let i = 0; i < 3 && pool.length; i++) {
+          const rec = pool[Math.floor(Math.random() * pool.length)];
+          quiet(); setMode("pick"); autoNext = false; focusOn(rec, true);
+          const tf = (rec.tf || []).slice(0, 3).map(([a, sh]) => `${rname(a)} ${Math.round(sh * 100)}%`).join(", ");
+          say("One neuron", `${rname(rec.region)} neuron`,
+            `Watch the signal leave the cell body and run the whole axon: <b>${fmt(rec.axon_mm, 1)} mm</b> of cable, reaching <b>${fmt(rec.reach_mm, 1)} mm</b> from the soma and ending in <b>${fmt(rec.tips)}</b> tips.${tf ? ` Where the tips land: ${tf}.` : ""} Traced by ${WALL_SRC[rec.src] || rec.src}.`);
+          await until(() => current && current.rec === rec && current.done, 28);
+          await sleep(5);
+        }
+      },
+      async every() {
+        quiet(); setMode("all");
+        say("Every axon at once", "The whole wiring at once",
+          `${fmt(N.length)} neurons and about <b>${fmt(totalM, 0)} metres</b> of axon, measured segment by segment, inside a brain the size of a fingernail. Each line is where one axon goes. Where it makes its synapses is not in this data.`);
+        await sleep(28);
+      },
+      async region() {
+        const [racr, rwords] = WALL_REGIONS[pass % WALL_REGIONS.length];
+        quiet(); regionQuery = racr; regionColour = "direction"; if (regionIn) regionIn.value = racr;
+        const before = status.textContent; setMode("region");
+        await until(() => status.textContent !== before && /cell body/.test(status.textContent), 15);
+        say("To and from a region", `Everything wired to ${rwords}`,
+          status.textContent);
+        await sleep(24);
+      },
+      async cube() {
+        const cu = cubes[pass % cubes.length];
+        quiet(); setMode("pick"); somaG.visible = false;
+        if (!(await until(() => !!cu.centre, 20))) return;
+        dive(cu); hud.classList.add("deep");
+        const ready = await until(() => inside === cu && packCache[cu.id], 45);
+        const pk = ready ? packCache[cu.id] : null;
+        const where = cu.id === "ca3" ? "the hippocampus, field CA3" : "primary visual cortex";
+        const dims = (cu.ext || []).map((v) => fmt(v, 1)).join(" by ");
+        say("Closer", `Inside ${cu.id === "ca3" ? "a slab" : "a block"} of ${where}`, pk
+          ? `${dims ? `A block of <b>${dims} mm</b>, imaged` : "Imaged"} with electron microscopes at a few nanometres a pixel and reconstructed cell by cell. It holds <b>${fmt(cu.population.n)}</b> ${cu.population.what}; <b>${fmt(pk.cells.length)}</b> are drawn here at true scale${pk.synCount ? `, with <b>${fmt(pk.synCount)}</b> of their real synapses as white dots` : ""}.`
+          : `Imaged with electron microscopes at a few nanometres a pixel and reconstructed cell by cell.`);
+        await sleep(28);
+      },
+      async synapse() {
+        if (!inside) return;
+        zoomUser = 0.4;
+        say("The synapse", "Where one cell speaks to the next",
+          `Each white dot is a real synapse found in the images, the place where this cell's axon meets another cell. The gap it crosses is about 20 nanometres wide, less than a millionth of the length of the brain you saw a moment ago.`);
+        await sleep(18);
+      },
+      async out() {
+        zoomUser = 1; if (inside) leaveCube(); setMode("pick"); hud.classList.remove("deep");
+        say("Brain to synapse", "And back out",
+          `From the whole brain to one synapse and back. ${fmt(N.length)} neurons traced of 70 million, a few cubic millimetres imaged down to the synapse, and most of the brain still dark. The next pass picks other cells.`);
+        await sleep(12);
+      },
+    };
+    const order = ["brain", "neurons", "every", "region", "cube", "synapse", "out"];
+    let at = Math.max(0, order.indexOf(new URLSearchParams(location.search).get("scene")));
+    while (true) {
+      if (at === 0) passT0 = performance.now();
+      try { await scenes[order[at]](); } catch (e) { console.error("museum scene", order[at], e); await sleep(4); }
+      at = (at + 1) % order.length;
+      if (at === 0) pass++;
+    }
+  }
+
   el.__mouse = { loop, setMode, drawRegion, loadAllAxons, hud, streamCoarse, openStory, get story() { return story; }, get station() { return storyIdx; },
     get all() { return allLive; }, get region() { return regionLive; }, get mode() { return mode; },
     setRegion(q2) { regionQuery = q2; regionIso = null; if (regionIn) regionIn.value = q2; }, N,
@@ -2422,7 +2534,8 @@ export async function mountMouse(el) {
   { const hid = (new URLSearchParams(location.search).get("hide") || "").split(",").filter(Boolean);
     for (const id of hid) { const cu = CUBES.find((c) => c.id === id); if (cu) setCubeHidden(cu, true); } }
   const wantCube = new URLSearchParams(location.search).get("cube");
-  if (view.story) { openStory(view.story, Math.max(0, (parseInt(view.stop, 10) || 1) - 1)); }
+  if (MUSEUM) { museumLoop().catch((e) => console.error("museum", e)); }
+  else if (view.story) { openStory(view.story, Math.max(0, (parseInt(view.stop, 10) || 1) - 1)); }
   else if (wantCube) { const cu = CUBES.find((c) => c.id === wantCube); if (cu) { setMode("pick"); if (!micronsG.visible) { micronsG.visible = true; const t = q("[data-t-microns]"); if (t) t.checked = true; CUBES.forEach((c) => { if (c !== cu) setCubeHidden(c, true); }); } setCubeHidden(cu, false); const go = () => { if (cu.centre) dive(cu); else setTimeout(go, 300); }; go(); } }
   else if (view.mode === "match") { keepIsolated = !!isolated; setMode("match"); if (wantRec) focusOn(wantRec, true); }
   else if (view.mode === "all") { setMode("all"); }

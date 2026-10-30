@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
 <script src="/js/analytics.js"></script>
-<script>if (/[?&]embed=1(&|$)/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<script>
+  if (/[?&]embed=1(&|$)/.test(location.search)) document.documentElement.classList.add("embed");
+  /* ?museum=1: the MIT Museum wall edition, an ambient pass from the whole
+     brain to one synapse, driven by museumLoop in mouse.js */
+  if (/[?&]museum=1(&|$)/.test(location.search)) document.documentElement.classList.add("museum");
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>30,000 neurons of 70 million | what is a brain</title>
@@ -95,6 +100,37 @@
   .embedproj { display:none; }
   html.embed .embedproj { display:inline-flex; align-items:center; position:absolute; left:10px; top:62px; z-index:3; height:34px; padding:0 14px; cursor:pointer; border-radius:8px; border:1px solid rgb(180 140 255 / .7); background:rgba(9,11,16,.78); color:#f1eaff; font:600 13px/1 system-ui, sans-serif; }
   html.embed .embedproj:hover, html.embed .embedproj:focus-visible { border-color:#d3bcff; background:rgba(40,28,70,.9); outline:none; }
+  /* ?museum=1, the MIT Museum wall (3840 x 3024, 80:63): the brain alone,
+     no chrome, no cursor; the captions are a share of the stage width
+     (--u is one percent of it) so the wall and a preview look the same */
+  html.museum body { margin:0; overflow:hidden; background:#07080B; cursor:none; }
+  html.museum body > .wide:first-of-type, html.museum main.wrap, html.museum .ctl, html.museum .side.hud, html.museum .panels,
+  html.museum .nameplate, html.museum .status, html.museum .fsicon, html.museum .lbar, html.museum .rlabels,
+  html.museum .embedopen, html.museum .embedhint, html.museum .embedproj { display:none !important; }
+  html.museum .wide { max-width:none; padding:0; margin:0; }
+  html.museum .stage { display:block; margin:0; }
+  html.museum .box { border:0; border-radius:0; background:#07080B; }
+  html.museum .box .canvas { height:100vh; min-height:0; }
+  html.museum .view { --u:1vw; }
+  .wall-hud { display:none; }
+  html.museum .wall-hud { display:block; position:absolute; inset:0; pointer-events:none; z-index:5; color:#EFF2F7;
+    font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; -webkit-font-smoothing:antialiased; }
+  .wall-hud > * { position:absolute; }
+  .wall-scrim { inset:auto 0 0 0; height:50%;
+    background:radial-gradient(64% 82% at 0% 100%, rgba(7,8,11,.94) 0%, rgba(7,8,11,.58) 45%, rgba(7,8,11,0) 100%); }
+  .wall-hud.deep .wall-scrim { height:64%; background:radial-gradient(72% 92% at 0% 100%, rgba(7,8,11,.97) 0%, rgba(7,8,11,.72) 50%, rgba(7,8,11,0) 100%); }
+  .wall-brand { left:calc(var(--u) * 4); top:calc(var(--u) * 3); max-width:calc(var(--u) * 46); }
+  .wall-brand b { display:block; font:500 calc(var(--u) * .7)/1.5 ui-monospace,Consolas,monospace; letter-spacing:.4em; text-transform:uppercase; color:rgba(239,242,247,.42); }
+  .wall-brand span { display:block; font-size:calc(var(--u) * .9); color:rgba(239,242,247,.42); margin-top:calc(var(--u) * .25); }
+  .wall-foot { right:calc(var(--u) * 4); top:calc(var(--u) * 3); font:400 calc(var(--u) * .62)/1.6 ui-monospace,Consolas,monospace; letter-spacing:.08em; color:rgba(239,242,247,.42); text-align:right; }
+  .wall-copy { left:calc(var(--u) * 4); bottom:calc(var(--u) * 4.6); width:calc(var(--u) * 56); transition:opacity .5s ease, transform .5s ease; }
+  .wall-copy.out { opacity:0; transform:translateY(calc(var(--u) * .3)); }
+  .wall-eyebrow { font:500 calc(var(--u) * .7)/1.5 ui-monospace,Consolas,monospace; letter-spacing:.4em; text-transform:uppercase; color:rgba(239,242,247,.42); margin:0 0 calc(var(--u) * .9); }
+  .wall-title { margin:0; font-size:calc(var(--u) * 2.8); font-weight:300; line-height:1.08; letter-spacing:-.015em; text-wrap:balance; color:#EFF2F7; }
+  .wall-body { margin:calc(var(--u) * 1) 0 0; font-size:calc(var(--u) * 1.15); line-height:1.55; color:rgba(239,242,247,.82); max-width:calc(var(--u) * 52); }
+  .wall-body b { font-weight:500; color:#EFF2F7; }
+  .wall-progress { left:0; right:0; bottom:0; height:calc(var(--u) * .16); background:rgba(142,218,255,.08); }
+  .wall-progress i { display:block; height:100%; width:0; background:#8edaff; opacity:.55; transition:width 1s linear; }
   html.embed .embedopen { display:inline-flex; align-items:center; gap:6px; position:absolute; right:50px; top:10px; z-index:3; height:32px; padding:0 12px;
     border-radius:8px; border:1px solid rgb(126 224 255 / .5); background:rgba(9,11,16,.72); color:#eaf6ff; font:600 13px/1 system-ui, sans-serif; text-decoration:none; }
   html.embed .embedopen:hover, html.embed .embedopen:focus-visible { border-color:#7ee0ff; background:rgba(14,24,44,.9); outline:none; }
@@ -552,7 +588,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "./js/mouse.js?v=72";
+  import { mountMouse } from "./js/mouse.js?v=73";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");
