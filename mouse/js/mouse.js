@@ -114,6 +114,10 @@ const TRAIL_MAX = 80;             /* finished neurons kept as faint traces */
 export async function mountMouse(el) {
   const mount = el.querySelector("[data-mount]");
   const status = el.querySelector("[data-status]");
+  /* a frame opened on a volume shows only the cells wired to that volume's
+     region (set in embedSomaFilter); null on the full page */
+  let embedWired = null;
+  const REGION_WORDS = { ENTm: ZH ? "内侧内嗅皮层" : "the medial entorhinal cortex", VISp: ZH ? "初级视皮层" : "the primary visual cortex", CA3: ZH ? "海马 CA3 区" : "hippocampal CA3" };
   /* ---- the loading bar: fed by the bytes each fetch actually receives */
   const lbar = el.querySelector("[data-lbar]"), lbarFill = el.querySelector("[data-lbar-fill]"), lbarHead = el.querySelector("[data-lbar-head]"), lbarTxt = el.querySelector("[data-lbar-txt]");
   const fmtMB = (b) => b >= 1e6 ? (b / 1e6).toFixed(1) + " MB" : Math.round(b / 1e3) + " kB";
@@ -648,7 +652,7 @@ export async function mountMouse(el) {
     /* up close the box is an outline, not a fill: a fill over the whole
        view is what hid the neighbour cells */
     for (const c of cubeMeshes) c.material.opacity = c.userData.cube === cu ? 0 : 0.22;
-    if (EMBED) highlightCube(cu);
+    if (EMBED) { highlightCube(cu); embedSomaFilter(cu).catch(() => {}); }
     renderCubeCard(cu, pk);
     if (h1 && cu.population) h1.textContent = ZH ? `${cu.name}：${fmt(pk.cells.length)} / ${fmt(cu.population.n)} ${cu.population.what}` : `${fmt(pk.cells.length)} of ${fmt(cu.population.n)} cells in ${cu.name}`;
     syncCubeBtns();
@@ -680,7 +684,7 @@ export async function mountMouse(el) {
     if (!edges || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t0 = performance.now();
     const beat = (t) => {
-      if (inside !== cu) { box.material.opacity = 0; for (const o of micronsG.children) o.visible = true; return; }
+      if (inside !== cu) { box.material.opacity = 0; for (const o of micronsG.children) { const c = o.userData.cube || o.userData.regionOf; o.visible = !(c && c.hidden); } return; }
       const k = 0.5 + 0.5 * Math.sin((t - t0) / 700);
       const far = Math.min(1, Math.max(0, (zoomUserNow - 1.5) / 3));
       box.material.opacity = (0.3 + 0.35 * k) * far; edges.material.opacity = 0.75 + 0.25 * k;
@@ -691,7 +695,50 @@ export async function mountMouse(el) {
   function leaveCube() {
     inside = null; packG.clear(); syncStatus(); if (h1) h1.textContent = h1Home; syncCubeBtns();
     for (const c of cubeMeshes) c.material.opacity = 0.22;
+    /* in a frame the zoom factor was 7.5 on the cube's distance; back on a
+       cell it is 1 on the cell's, and the camera must not jump between */
+    if (EMBED) { const dist = zNow * zoomUserNow; zoomUser = zoomUserNow = 1; zNow = dist; }
     if (mode === "wire") { autoNext = true; const r = pickRandom(); if (r) focusOn(r); }
+  }
+  /* In a frame opened on a volume the dots are not every cell body in the
+     brain but the whole-brain neurons wired to that volume's region: cell
+     body inside it (gold), axon ending in it (cyan), both (magenta), the
+     region view's own key and threshold. The full page keeps every soma. */
+  function embedWiringText() {
+    if (!embedWired) return "";
+    const { words, counts } = embedWired;
+    return ZH
+      ? `这些点是与${words}相连的全脑神经元：胞体在此的 ${fmt(counts.from)} 个（金色），轴突末梢落入此处的 ${fmt(counts.to)} 个（青色），两者皆是的 ${fmt(counts.both)} 个（品红）。点一个点可跟随它的轴突；滚轮靠近。`
+      : `The dots are the whole-brain neurons wired to ${words}: ${fmt(counts.from)} with their cell body there (gold), ${fmt(counts.to)} whose axons end there (cyan), ${fmt(counts.both)} both (magenta). Click one to follow its axon; scroll in to come closer.`;
+  }
+  async function embedSomaFilter(cu) {
+    if (embedWired && embedWired.cu === cu) return;
+    await ontology();
+    const set = descendants(cu.regionAcr);
+    const dirOf = (r) => {
+      const from = set.has(r.region) || set.has(r.rf);
+      const to = (r.tf || []).some((t) => set.has(t[0]) && t[1] >= 0.02);
+      return from && to ? "both" : from ? "from" : to ? "to" : null;
+    };
+    const full = embedWired ? embedWired.full : somaG.userData.points; if (!full) return;
+    const sel = [], counts = { from: 0, to: 0, both: 0 };
+    N.forEach((r, i) => { const d = dirOf(r); if (d) { sel.push([r, i, d]); counts[d]++; } });
+    const pos = new Float32Array(sel.length * 3), col = new Float32Array(sel.length * 3), map = new Int32Array(sel.length);
+    const c = new THREE.Color();
+    sel.forEach(([r, i, d], j) => {
+      pos[j * 3] = r.soma[0]; pos[j * 3 + 1] = r.soma[1]; pos[j * 3 + 2] = r.soma[2];
+      c.set(DIRC[d]); col[j * 3] = c.r; col[j * 3 + 1] = c.g; col[j * 3 + 2] = c.b; map[j] = i;
+    });
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    g.setAttribute("color", new THREE.BufferAttribute(col, 3));
+    if (embedWired && embedWired.points) { somaG.remove(embedWired.points); embedWired.points.geometry.dispose(); embedWired.points.material.dispose(); }
+    /* fewer dots, so each can be a little bigger and surer */
+    const mat = full.material.clone(); mat.size = 3; mat.opacity = 0.85;
+    const pts = new THREE.Points(g, mat); pts.userData.map = map;
+    full.visible = false; somaG.add(pts); somaG.userData.points = pts;
+    embedWired = { cu, full, points: pts, counts, words: REGION_WORDS[cu.regionAcr] || (ONT[cu.regionAcr] ? ONT[cu.regionAcr].name : cu.regionAcr) };
+    if (inside === cu && !current) status.textContent = embedWiringText();
   }
   /* every reconstructed cell of a volume, one Draco mesh coloured by class,
      fetched the first time it is asked for and kept with the pack */
@@ -2018,8 +2065,10 @@ export async function mountMouse(el) {
     const hits = ray.intersectObject(somaG.userData.points, false);
     if (!hits.length) return null;
     hits.sort((a, b) => a.distanceToRay - b.distanceToRay);
-    const ok = hits.find((h) => { const r = N[h.index]; return (filterSrc === "all" || r.src === filterSrc) && (filterDiv === "all" || r.major === filterDiv) && regionOk(r); });
-    return ok ? N[ok.index] : null;
+    const map = somaG.userData.points.userData.map;
+    const at = (h) => N[map ? map[h.index] : h.index];
+    const ok = hits.find((h) => { const r = at(h); return (filterSrc === "all" || r.src === filterSrc) && (filterDiv === "all" || r.major === filterDiv) && regionOk(r); });
+    return ok ? at(ok) : null;
   }
   const cv = renderer.domElement;
   let downX = 0, downY = 0, panning = false;
@@ -2097,6 +2146,7 @@ export async function mountMouse(el) {
     syncStatus();
   }
   function syncStatus() {
+    if (embedWired && !current) { status.textContent = embedWiringText(); return; }
     const filtered = filterSrc !== "all" || filterDiv !== "all" || !!filterRegion;
     if (mode === "wire" && !filtered) status.textContent = `${fmt(N.length)}${T.neurons}: ` +
       Object.entries(meta.sources).map(([k, v]) => `${fmt(v)} ${T.sources[k] || k}`).join(", ") + ". " + T.oneAtATime;
@@ -2265,7 +2315,7 @@ export async function mountMouse(el) {
   /* in pick mode only the matching cell bodies are shown, so a region query
      is something you can click on */
   function syncSomata() {
-    const pts = somaG.userData.points; if (!pts) return;
+    const pts = somaG.userData.points; if (!pts || pts.userData.map) return;
     const col = pts.geometry.attributes.color, c = new THREE.Color();
     N.forEach((r, i) => {
       const ok = (filterSrc === "all" || r.src === filterSrc) && (filterDiv === "all" || r.major === filterDiv) && regionOk(r);
