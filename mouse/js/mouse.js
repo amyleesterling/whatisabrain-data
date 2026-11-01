@@ -701,6 +701,9 @@ export async function mountMouse(el) {
        cells that project to it */
     regionG.visible = false; somaG.visible = false;
     embedProjButton(cu);
+    /* ?proj=1 opens the frame with the cells that project to the region
+       already shown, so that view has an address of its own */
+    if (new URLSearchParams(location.search).get("proj") === "1" && embedProjBtn && !embedProjOn) embedProjBtn.click();
     micronsG.visible = true;
     for (const o of micronsG.children) {
       const own = o.userData.cube === cu || o.userData.regionOf === cu;
@@ -1219,12 +1222,16 @@ export async function mountMouse(el) {
      order made visible: an axon appears the way its bytes arrived. Reduced
      motion: it is simply there. ---- */
   const GROW = 0.9, FRESH = 1.6;
+  /* on the wall a cable grows in over WALL_GROW seconds, the cables of a
+     region are born across WALL_SPREAD seconds rather than all at once, and
+     each path is smoothed in place; see pushRecord and bornMaterial */
+  const WALL_GROW = 2.8, WALL_FRESH = 3.0, WALL_SPREAD = 10;
   let liveT = performance.now() / 1000;
   function bornMaterial(alpha) {
     return new THREE.ShaderMaterial({
       uniforms: { uTime: { value: 0 }, uAlpha: { value: alpha },
-        uGrow: { value: REDUCED ? 0.001 : GROW }, uFresh: { value: REDUCED ? 0.0 : 1.0 },
-        uSolid: { value: 1 }, uCamDist: { value: 20 }, uShade: { value: 0.6 } },
+        uGrow: { value: REDUCED ? 0.001 : (MUSEUM ? WALL_GROW : GROW) }, uFresh: { value: REDUCED ? 0.0 : 1.0 },
+        uSolid: { value: 1 }, uCamDist: { value: 20 }, uShade: { value: 0.6 }, uWall: { value: MUSEUM ? 1 : 0 } },
       vertexShader: `attribute float aBorn; attribute float aAlong;
         varying vec3 vC; varying float vBorn; varying float vAlong; varying float vDepth; varying float vLit;
         void main() { vC = color; vBorn = aBorn; vAlong = aAlong;
@@ -1236,14 +1243,22 @@ export async function mountMouse(el) {
           vLit = 0.45 + 0.55 * max(dot(rV, normalize(vec3(0.35, 0.55, 0.75))), 0.0);
           gl_Position = projectionMatrix * mv; }`,
       fragmentShader: `uniform float uTime; uniform float uAlpha; uniform float uGrow; uniform float uFresh;
-        uniform float uSolid; uniform float uCamDist; uniform float uShade;
+        uniform float uSolid; uniform float uCamDist; uniform float uShade; uniform float uWall;
         varying vec3 vC; varying float vBorn; varying float vAlong; varying float vDepth; varying float vLit;
         void main() {
           float age = uTime - vBorn; if (age < 0.0) discard;
           float front = age / uGrow;
           float reveal = smoothstep(vAlong - 0.04, vAlong, front); if (reveal <= 0.001) discard;
           float head = exp(-abs(front - vAlong) * 18.0) * step(front, 1.05) * uFresh;
-          float fresh = exp(-max(age - uGrow, 0.0) / ${FRESH}) * uFresh;
+          float fresh = exp(-max(age - uGrow, 0.0) / ${(MUSEUM ? WALL_FRESH : FRESH).toFixed(2)}) * uFresh;
+          /* on the wall a cable brightens toward its tips and a slow light
+             runs along it, so the wiring reads as traffic, not wire mesh */
+          float wallGain = 1.0;
+          if (uWall > 0.5) {
+            float ph = fract(vAlong * 1.5 - uTime * 0.08);
+            float pulse = exp(-pow((ph - 0.5) * 6.0, 2.0));
+            wallGain = (0.7 + 0.5 * vAlong) * (1.0 + 0.9 * pulse);
+          }
           if (uSolid > 0.5) {
             /* solid: the nearest line wins the pixel, and depth shades the
                ball so it has a front and a back. The brain is about 13 mm
@@ -1251,10 +1266,10 @@ export async function mountMouse(el) {
                distance to the centre. */
             float t = clamp((vDepth - (uCamDist - 6.5)) / 13.0, 0.0, 1.0);
             float shade = (1.0 - uShade * t) * mix(1.0, vLit, uShade);
-            vec3 c = vC * shade * (1.0 + fresh * 0.8) + vec3(1.0) * head * 1.5;
+            vec3 c = vC * shade * wallGain * (1.0 + fresh * 0.8) + vec3(1.0) * head * 1.5;
             gl_FragColor = vec4(c, reveal);
           } else {
-            vec3 c = vC * (1.0 + fresh * 1.2) + vec3(1.0) * head * 2.0;
+            vec3 c = vC * wallGain * (1.0 + fresh * 1.2) + vec3(1.0) * head * 2.0;
             float a = uAlpha * reveal * (1.0 + fresh * 1.5 + head * 4.0);
             gl_FragColor = vec4(c, a);
           }
@@ -1313,16 +1328,45 @@ export async function mountMouse(el) {
     const xyz = new Int16Array(buf, off + 8 + 2 * P, V * 3);
     let v = 0, o = L.seg * 6, k = L.seg * 2, segs = 0;
     const pos = L.pos, col = L.col, born = L.born, along = L.along;
-    for (let i = 0; i < P; i++) {
+    /* on the wall the cables of one region are born across WALL_SPREAD
+       seconds, each at a moment keyed to its record, so the wiring draws in
+       cell by cell instead of all at once */
+    const tb = MUSEUM ? t + ((((off * 2246822519) >>> 0) % 1000) / 1000) * WALL_SPREAD : t;
+    let full = false;
+    for (let i = 0; i < P && !full; i++) {
       const n = counts[i], den = Math.max(1, n - 1);
+      /* on the wall each path is smoothed in place, two passes over its
+         interior points toward the midpoint of their neighbours, so the
+         corners of the decimated tracing round off without adding
+         segments; the end points stay where they were traced */
+      let px = null;
+      if (MUSEUM && n > 2) {
+        px = new Float32Array(n * 3);
+        for (let q = 0; q < n * 3; q++) px[q] = xyz[v * 3 + q] / 100;
+        for (let pass = 0; pass < 2; pass++) {
+          let ax = px[0], ay = px[1], az = px[2];
+          for (let q = 1; q < n - 1; q++) {
+            const cx = px[q * 3], cy = px[q * 3 + 1], cz = px[q * 3 + 2];
+            px[q * 3] = 0.5 * cx + 0.25 * (ax + px[q * 3 + 3]);
+            px[q * 3 + 1] = 0.5 * cy + 0.25 * (ay + px[q * 3 + 4]);
+            px[q * 3 + 2] = 0.5 * cz + 0.25 * (az + px[q * 3 + 5]);
+            ax = cx; ay = cy; az = cz;
+          }
+        }
+      }
       for (let j = 0; j < n - 1; j++) {
-        if (k + 2 > L.S * 2) { v += n; break; }
-        const a = v + j, b = a + 1;
-        pos[o++] = xyz[a * 3] / 100; pos[o++] = xyz[a * 3 + 1] / 100; pos[o++] = xyz[a * 3 + 2] / 100;
-        pos[o++] = xyz[b * 3] / 100; pos[o++] = xyz[b * 3 + 1] / 100; pos[o++] = xyz[b * 3 + 2] / 100;
+        if (k + 2 > L.S * 2) { full = true; break; }
+        if (px) {
+          pos[o++] = px[j * 3]; pos[o++] = px[j * 3 + 1]; pos[o++] = px[j * 3 + 2];
+          pos[o++] = px[j * 3 + 3]; pos[o++] = px[j * 3 + 4]; pos[o++] = px[j * 3 + 5];
+        } else {
+          const a = v + j, b = a + 1;
+          pos[o++] = xyz[a * 3] / 100; pos[o++] = xyz[a * 3 + 1] / 100; pos[o++] = xyz[a * 3 + 2] / 100;
+          pos[o++] = xyz[b * 3] / 100; pos[o++] = xyz[b * 3 + 1] / 100; pos[o++] = xyz[b * 3 + 2] / 100;
+        }
         col[k * 3] = c.r; col[k * 3 + 1] = c.g; col[k * 3 + 2] = c.b;
         col[k * 3 + 3] = c.r; col[k * 3 + 4] = c.g; col[k * 3 + 5] = c.b;
-        born[k] = t; born[k + 1] = t; along[k] = j / den; along[k + 1] = (j + 1) / den;
+        born[k] = tb; born[k + 1] = tb; along[k] = j / den; along[k + 1] = (j + 1) / den;
         k += 2; segs++;
       }
       v += n;
@@ -2483,6 +2527,7 @@ export async function mountMouse(el) {
       `<div class="wall-brand"><b>Thirty thousand neurons of seventy million</b><span>One mouse brain, one traced neuron at a time.</span></div>` +
       `<div class="wall-foot">Neurons: MouseLight (Janelia), SEU-ALLEN, ION Shanghai projectomes, Allen Institute for Neural Dynamics<br>Atlas: Allen Mouse Brain Common Coordinate Framework v3</div>` +
       `<div class="wall-copy out"><p class="wall-eyebrow" data-wall-eyebrow></p><h2 class="wall-title" data-wall-title></h2><p class="wall-body" data-wall-body></p></div>` +
+      `<button type="button" class="wall-btn wall-step" data-wall-step title="Next cell, or the next stop of the tour (also the right arrow key)">Step</button>` +
       `<button type="button" class="wall-btn" data-wall-regions aria-pressed="false">Brain regions: off</button>` +
       `<div class="wall-draft">DRAFT for MIT Museum by Amy Sterling</div>`;
     view.appendChild(hud);
@@ -2492,10 +2537,13 @@ export async function mountMouse(el) {
       setTimeout(() => { hud.querySelector("[data-wall-eyebrow]").textContent = eyebrow; hud.querySelector("[data-wall-title]").textContent = title; hud.querySelector("[data-wall-body]").innerHTML = body; copy.classList.remove("out"); }, 520);
     };
     const sleep = (sec) => new Promise((r) => setTimeout(r, sec * 1000));
-    /* a program switch ends the current wait early */
-    let gen = 0;
-    const wait = async (sec, g) => { const t0 = performance.now(); while (performance.now() - t0 < sec * 1000 && g === gen) await sleep(0.25); };
-    const until = async (f, maxS, g) => { const t0 = performance.now(); while (!f() && performance.now() - t0 < maxS * 1000 && g === gen) await sleep(0.25); return f(); };
+    /* a program switch, or the team's Step, ends the current wait early */
+    let gen = 0, step = 0;
+    const wait = async (sec, g) => { const t0 = performance.now(), s0 = step; while (performance.now() - t0 < sec * 1000 && g === gen && s0 === step) await sleep(0.25); };
+    const until = async (f, maxS, g) => { const t0 = performance.now(), s0 = step; while (!f() && performance.now() - t0 < maxS * 1000 && g === gen && s0 === step) await sleep(0.25); return f(); };
+    const stepBtn = hud.querySelector("[data-wall-step]");
+    stepBtn.addEventListener("click", () => { step++; });
+    window.addEventListener("keydown", (e) => { if (e.key === "ArrowRight" || e.key === "PageDown") { step++; e.preventDefault(); } });
     const rname = (acr) => (RINFO[acr] && RINFO[acr].name) || (ONT && ONT[acr] && ONT[acr].name) || acr;
     await ontology().catch(() => {});
     /* the shell wears scifi-ui's hologram look (Ames: hologram-3d.html
@@ -2578,8 +2626,9 @@ export async function mountMouse(el) {
         const tf = (rec.tf || []).slice(0, 3).map(([a, sh]) => `${rname(a)} ${Math.round(sh * 100)}%`).join(", ");
         say("One neuron", `${rname(rec.region)} neuron`,
           `A signal leaves the cell body and runs the whole axon: <b>${fmt(rec.axon_mm, 1)} mm</b> of cable, reaching <b>${fmt(rec.reach_mm, 1)} mm</b> from the soma and ending in <b>${fmt(rec.tips)}</b> tips.${tf ? ` Where the tips land: ${tf}.` : ""} Traced by ${WALL_SRC[rec.src] || rec.src}.`);
+        const s0 = step;
         await until(() => current && current.rec === rec && current.done, 34, g);
-        await wait(6, g);
+        if (s0 === step) await wait(6, g);
       }
     }
     /* ?tour=CA1 starts the regions tour at that region, for stills */
@@ -2604,7 +2653,7 @@ export async function mountMouse(el) {
         say(where, name, `${summary} ${status.textContent}`);
         await showTargets(null, [acr]); if (g !== gen) return;
         await glassRegion(acr, 0.6, true);
-        await wait(22, g);
+        await wait(30, g);
       }
       if (tourAt >= WALL_TOUR.length) tourAt = 0;
     }
