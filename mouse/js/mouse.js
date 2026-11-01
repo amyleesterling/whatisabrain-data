@@ -386,7 +386,7 @@ export async function mountMouse(el) {
      volume terms need a thickness prepass this page does not run, so they
      are zeroed. */
   const HOLO_MAKER = "https://amyleesterling.github.io/scifi-ui/hologram-3d.html";
-  let holoMat = null, holoLook = null, holoRaw = null;
+  let holoMat = null, holoLook = null, holoRaw = null, holoLitNow = 1.4;
   const decodeLook = (str) => { try { return JSON.parse(decodeURIComponent(escape(atob(str.replace(/-/g, "+").replace(/_/g, "/"))))); } catch (e) { return null; } };
   async function applyLook(raw) {
     const look = decodeLook(raw); if (!look) return;
@@ -403,10 +403,14 @@ export async function mountMouse(el) {
     }
     const opts = Object.assign({}, HM.HOLO_DEFAULTS, HM.HOLO_ERAS[look.era] || {}, HM.HOLO_STYLES[look.style] || {}, clean);
     opts.density = 0; opts.halo = 0; opts.solid = 0; opts.touch = 0; opts.opaque = 0;
-    opts.opacity = Math.max(0.35, Math.min(3, opts.opacity || 1));
+    opts.opacity = Math.max(MUSEUM ? 0.1 : 0.35, Math.min(3, opts.opacity || 1));
     delete opts.era; delete opts.style;
     if (holoMat) { holoMat.dispose(); }
     holoMat = HM.makeHologramMaterial(opts);
+    /* the atlas shell ships without normals; the hologram's rim normalises
+       them, and a missing attribute made every fragment NaN, which the
+       shader's guard then hid, so the shell simply vanished */
+    shellMesh.traverse((o) => { if (o.isMesh && o.geometry && !o.geometry.attributes.normal) o.geometry.computeVertexNormals(); });
     HM.applyHologram(shellMesh, holoMat);
     holoMat.userData.tick = HM.tickHologram; holoMat.userData.gain = opts.opacity;
     shellSolid = null; holoLook = look; holoRaw = raw;
@@ -677,7 +681,7 @@ export async function mountMouse(el) {
     b.addEventListener("click", () => {
       embedProjOn = !embedProjOn; label();
       if (embedProjOn) { regionQuery = cu.regionAcr; regionIso = "to"; regionColour = "direction"; setMode("region"); }
-      else { regionQuery = ""; regionIso = null; drawRegion(); setMode("pick"); somaG.visible = false; status.textContent = embedQuiet(cu); }
+      else { regionQuery = ""; regionIso = null; drawRegion(); hud.done(); setMode("pick"); somaG.visible = false; status.textContent = embedQuiet(cu); }
     });
     view.appendChild(b);
   }
@@ -2368,7 +2372,14 @@ export async function mountMouse(el) {
     for (const m of regionMats) m.opacity += ((lit ? REGION_A_LIT : REGION_A) * divisionGain - m.opacity) * k;
     if (shellSolid) shellSolid.opacity += ((lit ? SHELL_A_LIT : SHELL_A) * surfaceGain - shellSolid.opacity) * k;
     if (shellWire) shellWire.opacity = 0.012 * Math.min(surfaceGain, 4);
-    if (holoMat) { holoMat.userData.tick(holoMat, performance.now() / 1000); holoMat.uniforms.uOpacity.value = holoMat.userData.gain * surfaceGain * (lit ? 1 : 1.4); }
+    if (holoMat) {
+      holoMat.userData.tick(holoMat, performance.now() / 1000);
+      /* on the wall the glass steps well back while one cell is lit, so a
+         thin axon reads through it, and comes back between cells */
+      const holoWant = lit ? (MUSEUM && current ? 0.28 : 1) : 1.4;
+      holoLitNow += (holoWant - holoLitNow) * k;
+      holoMat.uniforms.uOpacity.value = holoMat.userData.gain * surfaceGain * holoLitNow;
+    }
     bloom.strength += ((inside ? 0.1 : mode === "all" ? 0.12 : mode === "match" ? 0.05 : mode === "region" ? 0.09 : 0.3) - bloom.strength) * k;
     /* the live meshes: the clock the born times are on, and the GPU catches
        up with whatever landed since the last frame, once per frame */
@@ -2459,7 +2470,8 @@ export async function mountMouse(el) {
       `<div class="wall-brand"><b>Thirty thousand neurons of seventy million</b><span>One mouse brain, one traced neuron at a time.</span></div>` +
       `<div class="wall-foot">Neurons: MouseLight (Janelia), SEU-ALLEN, ION Shanghai projectomes, Allen Institute for Neural Dynamics<br>Atlas: Allen Mouse Brain Common Coordinate Framework v3</div>` +
       `<div class="wall-copy out"><p class="wall-eyebrow" data-wall-eyebrow></p><h2 class="wall-title" data-wall-title></h2><p class="wall-body" data-wall-body></p></div>` +
-      `<button type="button" class="wall-btn" data-wall-regions aria-pressed="false">Brain regions: off</button>`;
+      `<button type="button" class="wall-btn" data-wall-regions aria-pressed="false">Brain regions: off</button>` +
+      `<div class="wall-draft">DRAFT for MIT Museum by Amy Sterling</div>`;
     view.appendChild(hud);
     const copy = hud.querySelector(".wall-copy");
     const say = (eyebrow, title, body) => {
@@ -2473,6 +2485,14 @@ export async function mountMouse(el) {
     const until = async (f, maxS, g) => { const t0 = performance.now(); while (!f() && performance.now() - t0 < maxS * 1000 && g === gen) await sleep(0.25); return f(); };
     const rname = (acr) => (RINFO[acr] && RINFO[acr].name) || (ONT && ONT[acr] && ONT[acr].name) || acr;
     await ontology().catch(() => {});
+    /* the shell wears scifi-ui's hologram look (Ames: hologram-3d.html
+       ?style=neonGlass&era=2026&p.opacity=0.4) unless the address carries
+       its own ?holo= look */
+    if (!Q.get("holo")) {
+      const look = { style: "neonGlass", era: "2026", opacity: 0.3 };
+      const raw = btoa(unescape(encodeURIComponent(JSON.stringify(look)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+      try { await applyLook(raw); } catch (e) { console.warn("museum hologram", e); }
+    }
     /* the stage: camera home and never following, the brain turning, no
        cubes, no division tints; a region lights only when it is the subject */
     const bare = () => {
