@@ -2517,8 +2517,8 @@ export async function mountMouse(el) {
       const info = RINFO[acr] || {};
       const col = new THREE.Color(DIVISION[info.major] || "#9aa2b1"), col2 = col.clone().lerp(new THREE.Color("#ffffff"), 0.45);
       const opts = Object.assign({}, HM.HOLO_DEFAULTS, HM.HOLO_ERAS["2026"] || {}, HM.HOLO_STYLES.neonGlass || {}, {
-        color: "#" + col.getHexString(), color2: "#" + col2.getHexString(), coreColor: "#ffffff", ombre: 1,
-        glowIntensity: 2.6, fresnelPower: 2.4, bodyAlpha: 0.7, dotIntensity: 0, chroma: 0.1, iridescence: 0.1,
+        color: "#" + col.getHexString(), color2: "#" + col2.getHexString(), coreColor: "#" + col2.getHexString(), ombre: 1,
+        glowIntensity: 1.7, fresnelPower: 2.6, bodyAlpha: 0.6, dotIntensity: 0, chroma: 0.1, iridescence: 0.1,
         glitchAmount: 0, glitchFreq: 0, sparkle: 0, density: 0, halo: 0, solid: 0, touch: 0, opaque: 0, opacity: 1 });
       delete opts.era; delete opts.style;
       if (wallRegion) { wallRegion.mat.dispose(); wallRegion = null; }
@@ -2593,7 +2593,7 @@ export async function mountMouse(el) {
         bare(); setMode("pick"); autoNext = false; somaG.visible = false;
         say(where, name, summary);
         await showTargets(null, [acr]); if (g !== gen) return;
-        await glassRegion(acr, 1.7);
+        await glassRegion(acr, 1.4);
         await wait(7, g); if (g !== gen) return;
         /* then everything wired to it grows in from the cell bodies, and the
            glass steps back so the cables read */
