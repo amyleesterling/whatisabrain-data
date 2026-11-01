@@ -131,6 +131,14 @@
   .wall-body b { font-weight:500; color:#EFF2F7; }
   .wall-progress { left:0; right:0; bottom:0; height:calc(var(--u) * .16); background:rgba(142,218,255,.08); }
   .wall-progress i { display:block; height:100%; width:0; background:#8edaff; opacity:.55; transition:width 1s linear; }
+  /* the team's one control, faint, bottom right; the cursor comes back while the mouse moves */
+  .wall-hud .wall-btn { pointer-events:auto; right:calc(var(--u) * 4); bottom:calc(var(--u) * 4.6); appearance:none; cursor:pointer;
+    font:500 calc(var(--u) * .62)/1 ui-monospace,Consolas,monospace; letter-spacing:.3em; text-transform:uppercase;
+    color:rgba(239,242,247,.32); background:rgba(7,8,11,.5); border:1px solid rgba(239,242,247,.16); border-radius:calc(var(--u) * .4);
+    padding:calc(var(--u) * .55) calc(var(--u) * .8); transition:color .3s, border-color .3s; }
+  .wall-hud .wall-btn:hover, .wall-hud .wall-btn:focus-visible { color:rgba(239,242,247,.8); border-color:rgba(239,242,247,.4); outline:none; }
+  .wall-hud .wall-btn[aria-pressed="true"] { color:#8edaff; border-color:rgba(142,218,255,.5); }
+  html.museum.pointing body { cursor:default; }
   html.embed .embedopen { display:inline-flex; align-items:center; gap:6px; position:absolute; right:50px; top:10px; z-index:3; height:32px; padding:0 12px;
     border-radius:8px; border:1px solid rgb(126 224 255 / .5); background:rgba(9,11,16,.72); color:#eaf6ff; font:600 13px/1 system-ui, sans-serif; text-decoration:none; }
   html.embed .embedopen:hover, html.embed .embedopen:focus-visible { border-color:#7ee0ff; background:rgba(14,24,44,.9); outline:none; }
@@ -588,7 +596,7 @@
 </main>
 
 <script type="module">
-  import { mountMouse } from "./js/mouse.js?v=73";
+  import { mountMouse } from "./js/mouse.js?v=74";
   const el = document.getElementById("mouse");
   mountMouse(el).then((h) => { window.__mouse = h; }).catch((e) => {
     const s = el.querySelector("[data-status]");

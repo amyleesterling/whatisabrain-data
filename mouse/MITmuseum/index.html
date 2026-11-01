@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Thirty thousand neurons of seventy million | MIT Museum wall</title>
-<meta name="description" content="A museum wall edition of whatisabrain.com/mouse: one mouse brain, every traced neuron in it, from the whole brain down to a single synapse and back, on a loop.">
+<meta name="description" content="A museum wall edition of whatisabrain.com/mouse: one mouse brain turning, every traced cell body, then one real neuron at a time with its signal running the whole axon.">
 <link rel="icon" href="/brain-favicon.png">
 <style>
   /* The wall is 3840 x 3024, 80:63. The frame keeps that aspect inside
@@ -20,9 +20,9 @@
 <body>
 <div id="wall"><iframe id="brain" title="Thirty thousand neurons of seventy million" allow="fullscreen"></iframe></div>
 <script>
-  /* ?scene=cube and the other scene names pass through to the brain, for stills */
-  var q = new URLSearchParams(location.search); var p = new URLSearchParams({ museum: "1" });
-  if (q.get("scene")) p.set("scene", q.get("scene"));
+  /* every parameter passes through to the brain: ?regions=1 for the team,
+     ?scene=cells and ?n=<id> for stills */
+  var p = new URLSearchParams(location.search); p.set("museum", "1");
   document.getElementById("brain").src = "../?" + p.toString();
 </script>
 </body>
