@@ -387,6 +387,8 @@ export async function mountMouse(el) {
      are zeroed. */
   const HOLO_MAKER = "https://amyleesterling.github.io/scifi-ui/hologram-3d.html";
   let holoMat = null, holoLook = null, holoRaw = null, holoLitNow = 1.4;
+  /* the wall's lit region wears its own glass (set in the regions tour) */
+  let holoHM = null, wallRegion = null;
   const decodeLook = (str) => { try { return JSON.parse(decodeURIComponent(escape(atob(str.replace(/-/g, "+").replace(/_/g, "/"))))); } catch (e) { return null; } };
   async function applyLook(raw) {
     const look = decodeLook(raw); if (!look) return;
@@ -404,6 +406,9 @@ export async function mountMouse(el) {
     const opts = Object.assign({}, HM.HOLO_DEFAULTS, HM.HOLO_ERAS[look.era] || {}, HM.HOLO_STYLES[look.style] || {}, clean);
     opts.density = 0; opts.halo = 0; opts.solid = 0; opts.touch = 0; opts.opaque = 0;
     opts.opacity = Math.max(MUSEUM ? 0.1 : 0.35, Math.min(3, opts.opacity || 1));
+    /* on the wall the light holds still: no glitch bursts, no sparkle */
+    if (MUSEUM) { opts.glitchAmount = 0; opts.glitchFreq = 0; opts.sparkle = 0; }
+    holoHM = HM;
     delete opts.era; delete opts.style;
     if (holoMat) { holoMat.dispose(); }
     holoMat = HM.makeHologramMaterial(opts);
@@ -2383,6 +2388,11 @@ export async function mountMouse(el) {
       holoLitNow += (holoWant - holoLitNow) * k;
       holoMat.uniforms.uOpacity.value = holoMat.userData.gain * surfaceGain * holoLitNow;
     }
+    if (wallRegion && holoHM) {
+      const r = wallRegion; r.now += (r.target - r.now) * k;
+      r.mat.uniforms.uOpacity.value = r.now * (0.9 + 0.1 * Math.sin(performance.now() / 900));
+      holoHM.tickHologram(r.mat, performance.now() / 1000);
+    }
     bloom.strength += ((inside ? 0.1 : mode === "all" ? 0.12 : mode === "match" ? 0.05 : mode === "region" ? 0.09 : 0.3) - bloom.strength) * k;
     /* the live meshes: the clock the born times are on, and the GPU catches
        up with whatever landed since the last frame, once per frame */
@@ -2498,7 +2508,30 @@ export async function mountMouse(el) {
     }
     /* the stage: camera home and never following, the brain turning, no
        cubes, no division tints; a region lights only when it is the subject */
+    /* the lit region's own hologram: scifi-ui's glass in the region's
+       division colour, eased in by the frame loop; `settled` starts it at
+       its target, for the second showing under the cables */
+    async function glassRegion(acr, target, settled) {
+      const t = shown.find((x) => x.acr === acr); if (!t) return;
+      const HM = holoHM || (holoHM = await import("../vendor/scifi-ui/holo-material.js?v=4"));
+      const info = RINFO[acr] || {};
+      const col = new THREE.Color(DIVISION[info.major] || "#9aa2b1"), col2 = col.clone().lerp(new THREE.Color("#ffffff"), 0.45);
+      const opts = Object.assign({}, HM.HOLO_DEFAULTS, HM.HOLO_ERAS["2026"] || {}, HM.HOLO_STYLES.neonGlass || {}, {
+        color: "#" + col.getHexString(), color2: "#" + col2.getHexString(), coreColor: "#ffffff", ombre: 1,
+        glowIntensity: 2.6, fresnelPower: 2.4, bodyAlpha: 0.7, dotIntensity: 0, chroma: 0.1, iridescence: 0.1,
+        glitchAmount: 0, glitchFreq: 0, sparkle: 0, density: 0, halo: 0, solid: 0, touch: 0, opaque: 0, opacity: 1 });
+      delete opts.era; delete opts.style;
+      if (wallRegion) { wallRegion.mat.dispose(); wallRegion = null; }
+      const mat = HM.makeHologramMaterial(opts);
+      if (!t.mesh.geometry.attributes.normal) t.mesh.geometry.computeVertexNormals();
+      t.mesh.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(t.mesh); mat.uniforms.uBounds.value.set(box.min.y, box.max.y);
+      mat.uniforms.uOpacity.value = settled ? target : 0;
+      t.mesh.material = mat; t.mesh.renderOrder = 6;
+      wallRegion = { mat, target, now: settled ? target : 0 };
+    }
     const bare = () => {
+      if (wallRegion) { wallRegion.mat.dispose(); wallRegion = null; }
       if (current) { retire(current); current = null; }
       clearTargets(); if (inside) leaveCube(); clearTrails();
       regionQuery = ""; regionIso = null; if (regionIn) regionIn.value = "";
@@ -2531,7 +2564,7 @@ export async function mountMouse(el) {
       if (!skipDots) {
         setMode("pick"); autoNext = false;
         say("A mouse brain", "30,000 neurons of 70 million",
-          `Every dot is the cell body of a real neuron, traced whole through a mouse brain: <b>${fmt(N.length)}</b> of them from six collections, placed in the Allen reference atlas. The brain is about 13 millimeters long. Nothing here is drawn from imagination.`);
+          `Every dot is the cell body of a real neuron, traced whole through a mouse brain: <b>${fmt(N.length)}</b> of them from six collections, placed in the Allen reference atlas. The brain is 13 millimeters long, about the length of your thumbnail.`);
         await wait(18, g); if (g !== gen) return;
       }
       skipDots = false;
@@ -2555,17 +2588,22 @@ export async function mountMouse(el) {
       for (; tourAt < WALL_TOUR.length && g === gen; tourAt++) {
         const [acr, summary] = WALL_TOUR[tourAt];
         const name = rname(acr), where = `Brain regions, ${tourAt + 1} of ${WALL_TOUR.length}`;
-        /* the region alone, lit, for a few seconds */
+        /* the region alone, in glass of its own colour, fading in and
+           breathing, for a few seconds */
         bare(); setMode("pick"); autoNext = false; somaG.visible = false;
         say(where, name, summary);
-        await showTargets(null, [acr]); if (g !== gen) return; liftRegion(acr);
-        await wait(6, g); if (g !== gen) return;
-        /* then everything wired to it, the region still lit under the cables */
+        await showTargets(null, [acr]); if (g !== gen) return;
+        await glassRegion(acr, 1.7);
+        await wait(7, g); if (g !== gen) return;
+        /* then everything wired to it grows in from the cell bodies, and the
+           glass steps back so the cables read */
+        if (wallRegion) wallRegion.target = 0.6;
         regionQuery = acr; regionColour = "direction"; if (regionIn) regionIn.value = acr;
         const before = status.textContent; setMode("region");
         await until(() => status.textContent !== before && /cell body/.test(status.textContent), 15, g); if (g !== gen) return;
         say(where, name, `${summary} ${status.textContent}`);
-        await showTargets(null, [acr]); if (g !== gen) return; liftRegion(acr);
+        await showTargets(null, [acr]); if (g !== gen) return;
+        await glassRegion(acr, 0.6, true);
         await wait(22, g);
       }
       if (tourAt >= WALL_TOUR.length) tourAt = 0;
