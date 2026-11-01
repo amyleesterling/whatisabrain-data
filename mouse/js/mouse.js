@@ -1089,6 +1089,9 @@ export async function mountMouse(el) {
        much line lands on each pixel, so a 400 mm hippocampal cell (0.3) and
        a 30 mm one (1.0) read at about the same brightness. */
     mat.uniforms.uAlpha.value = Math.max(0.22, Math.min(1, 6 / Math.sqrt(Math.max(rec.axon_mm, 1))));
+    /* on the wall a one-pixel line is thin from across a lobby; the lit cell
+       carries more light there, its cell body a larger point */
+    if (MUSEUM) mat.uniforms.uAlpha.value = Math.min(1, mat.uniforms.uAlpha.value * 1.6);
     const mesh = new THREE.LineSegments(geo, mat);
     mesh.renderOrder = 10;
     focusG.add(mesh);
@@ -1096,7 +1099,7 @@ export async function mountMouse(el) {
     const sg = new THREE.BufferGeometry();
     sg.setAttribute("position", new THREE.BufferAttribute(new Float32Array(rec.soma), 3));
     const soma = new THREE.Points(sg, new THREE.PointsMaterial({ color: new THREE.Color(DIVISION[rec.major] || "#9aa2b1"),
-      size: 0.18, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }));
+      size: MUSEUM ? 0.3 : 0.18, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }));
     focusG.add(soma);
     current = { rec, mesh, mat, soma, t: 0, done: false, manual: !!manual };
     holdT = 0; retarget();
